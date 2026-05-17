@@ -1,24 +1,37 @@
 # SKILLS
 
-A collection of [Claude Code](https://claude.ai/code) skills.
+> Plug-and-play skills for [Claude Code](https://claude.ai/code).
+> Drop a skill in, get new superpowers — no config hell.
+
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## Skills
 
-| Skill | Description |
-|-------|-------------|
-| [save-image](skills/save-image/) | Auto-saves images pasted in VS Code Claude Code to disk |
+### 🖼️ save-image
 
-## Installation
+Writing docs or a blog post and need to paste screenshots?
+Paste the image in Claude Code, keep writing — it saves to disk automatically.
+No filenames, no export dialogs, no interruptions.
 
-Each skill lives in its own directory under `skills/`. See the skill's `README.md` for setup instructions.
+→ [README](skills/save-image/README.md) · [Spec](skills/save-image/SKILL.md)
 
-## Structure
+## How to install a skill
+
+1. Copy `skills/<name>/SKILL.md` to `~/.claude/skills/<name>/SKILL.md`
+2. Register any hooks listed in the skill's README
+3. That's it
+
+## Repo structure
 
 ```
-skills/
-  <skill-name>/
-    README.md   — usage & setup
-    SKILL.md    — behavior spec loaded by Claude
-src/
-  hooks/        — hook scripts referenced by skills
+skills/<name>/
+  SKILL.md    — behavior spec (what Claude loads)
+  README.md   — setup & usage
+  scripts/    — hook scripts
+src/hooks/    — shared hook scripts
 ```
+
+## Contributing
+
+Got a skill? Open a PR.
+Each skill needs a `SKILL.md`, a `README.md`, and a MIT license header.
