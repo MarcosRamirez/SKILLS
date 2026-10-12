@@ -49,6 +49,8 @@ claude › Before writing code, 4 quick questions (I'll remember the answers):
 | "Why Postgres?" — nobody knows | `docs/adr/0001-use-postgresql.md` |
 | SQL built with string concat | OWASP checklist before every hand-over |
 | `console.log` when things break | Structured logs from the first commit |
+| One giant commit on `master` | A branch per change, a commit per task |
+| "Which version is in production?" | `0.0.1-alpha.1` → beta → rc → `1.0.0`, numbers computed from commits |
 
 ### 🖼️ save-image
 
