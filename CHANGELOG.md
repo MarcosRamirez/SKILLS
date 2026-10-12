@@ -11,6 +11,10 @@ Generated from the commit history with git-cliff: do not edit by hand.
 - **senior-mindset:** Check for colliding skills on first use (2026-10-12)
 - **senior-mindset:** Date every changelog entry (2026-10-12)
 
+### Fixed
+
+- **senior-mindset:** Retarget stacked prs before deleting the base (2026-10-12)
+
 ### Documentation
 
 - **repo:** Switch repo rules to pull requests and tag per skill (2026-10-12)
