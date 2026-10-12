@@ -41,6 +41,9 @@ When in doubt, ask the user which one it is.
 - **Precedence:** if a git skill is installed (e.g. `git-workflow`) or CLAUDE.md
   defines a git convention, follow that one. Otherwise use
   [references/git.md](references/git.md) (emoji + Conventional Commits, English, imperative).
+- **Commit often: one commit per significant change**, each leaving the repo working
+  (a task done, a decision made, a bug fixed). Never one giant commit at the end of a
+  session, never "wip" commits on the default branch. This applies whatever git skill sets the format.
 - Never commit secrets. Never push, force-push or merge unless the user asks.
 
 ## Step 1 — Load context
@@ -110,7 +113,8 @@ While writing `design.md`, decide and justify each axis (ADR if project-wide):
 - **Official docs first.** For any API, library or error question, check the
   official documentation (WebFetch / WebSearch / docs MCP) before relying on memory
   or blog posts. Cite the URL when the fix is not obvious.
-- Commit per task of `tasks.md` (see Step 0b).
+- Commit as you go: at least one commit per task of `tasks.md`, and a separate one for
+  any other significant change (see Step 0b).
 
 ## Step 5 — Self-review before handing over
 
