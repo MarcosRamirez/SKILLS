@@ -1,6 +1,6 @@
 {
   "name": "save-image",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Paste an image in Claude Code and it lands on disk automatically — no filenames, no export dialogs",
   "author": {
     "name": "Marcos Ramírez",

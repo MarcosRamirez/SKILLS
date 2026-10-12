@@ -30,7 +30,9 @@ a senior would ask: what problem are we solving, what already exists, what will 
 to run, how could it break, and will someone understand it in a year. It writes the
 spec first, records every important decision with its reasons, reuses before building,
 and picks the simplest design that works. It asks about your conventions **once** per
-project and remembers them.
+project and remembers them. Work is split into branches and delivered as pull requests that
+you merge. On first use, it checks your other skills for conflicting rules and lets you
+pick which one wins.
 
 ```text
 you    › build me a booking app
@@ -49,7 +51,7 @@ claude › Before writing code, 4 quick questions (I'll remember the answers):
 | "Why Postgres?" — nobody knows | `docs/adr/0001-use-postgresql.md` |
 | SQL built with string concat | OWASP checklist before every hand-over |
 | `console.log` when things break | Structured logs from the first commit |
-| One giant commit on `master` | A branch per change, a commit per task |
+| One giant commit on `master` | A branch per change, a commit per task, a PR you merge |
 | "Which version is in production?" | `0.0.1-alpha.1` → beta → rc → `1.0.0`, numbers computed from commits |
 
 ### 🖼️ save-image
