@@ -81,8 +81,17 @@ master ← PR #1 (t1) ← PR #2 (t2, base: t1 branch) ← PR #3 (t3, base: t2 br
 ```
 
 - Create the T-2 branch from the T-1 branch, and open its PR with `--base <t1-branch>`.
-- The user merges in order. When a base branch is deleted after merge, GitHub retargets the
-  next PR to the default branch automatically.
+- PRs are merged in order, bottom first, and **each next PR is retargeted before its base
+  branch is deleted**. Do not count on automatic retargeting: deleting a base branch (e.g.
+  `gh pr merge --delete-branch`) **closes** the PRs stacked on it, and a closed PR cannot be
+  reopened while its base is gone. This happened on 2026-10-13.
+- Safe order, for each PR from the bottom up:
+  1. `gh pr edit <next> --base <default>`: retarget the PR stacked on this one.
+  2. `gh pr merge <this> --merge`: merge commit, no squash, **without** `--delete-branch`.
+  3. `git push origin --delete <this-branch>`: delete the branch only now.
+
+  The AI runs this only when the user asks it to merge. When the user merges in the GitHub UI,
+  tell them to retarget the next PR first, or to merge without deleting the branch.
 - Independent tasks branch from the default branch, and their PRs target it directly.
 
 ### No remote

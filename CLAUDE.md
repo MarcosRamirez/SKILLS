@@ -26,7 +26,9 @@ follows senior-mindset's convention, which matches the emoji + Conventional Comm
 - **Commit often:** one commit per significant change, each leaving the repo coherent.
 - **Everything reaches `master` through a pull request that the user merges.** Push the branch,
   `gh pr create`, stop. Dependent tasks are stacked PRs (base = the previous task's branch),
-  merged by the user in order. Never push to `master`, never merge a PR yourself.
+  merged by the user in order. Before deleting a merged base branch, retarget the next PR
+  (`gh pr edit <next> --base master`): deleting the base closes the stacked PRs.
+  Never push to `master`, never merge a PR yourself unless asked.
 - Scopes: one per skill (`senior-mindset`, `save-image`), plus `marketplace` and `repo`.
 
 ## Documentation is updated in the same commit as the change

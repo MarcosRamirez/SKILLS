@@ -12,7 +12,7 @@
 - **PR flow:**
   - Choosing it in the setup grants standing permission to push work branches and open PRs.
   - The AI never merges a PR or pushes to the default branch.
-  - Dependent tasks are stacked: each PR's base is the previous task's branch; GitHub retargets the PR when the base branch is deleted after merge.
+  - Dependent tasks are stacked: each PR's base is the previous task's branch; each next PR is retargeted to the default branch before its base branch is deleted (deleting the base closes stacked PRs; found while merging this very spec).
 - **Dated changelog:**
   - Entries in `[Unreleased]` show their commit date.
   - Released sections are dated by their tag.
