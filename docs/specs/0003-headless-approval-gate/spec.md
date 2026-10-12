@@ -1,6 +1,6 @@
 # SPEC-0003: approval gate that holds in headless runs
 
-Status: Approved
+Status: Implemented
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, "arréglalo".
 
