@@ -56,6 +56,7 @@ Managed by the senior-mindset skill. Details and reasons live in the ADRs.
 - Logging: pino + Sentry → Workers Logs — ADR-0005
 - Naming: TS idiomatic (camelCase / PascalCase / UPPER_SNAKE), kebab-case files
 - Git: default branch `master` · Changelog: git-cliff → CHANGELOG.md
+- Versioning: SemVer, started at 0.0.1-alpha.1 — current stage = latest git tag — ADR-0006
 - Lint/format: Biome · Tests: Vitest + Playwright · Package manager: pnpm
 - API: REST, OpenAPI 3.1 in docs/api/openapi.yaml
 
