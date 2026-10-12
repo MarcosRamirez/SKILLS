@@ -7,5 +7,5 @@ Stacked PRs, merged in order by the user.
 - [x] T-3 PR flow in `SKILL.md`, `git.md`, `versioning.md`, `changelog.md` (AC-3, AC-4, AC-5) — branch `feat/0002-t3-pr-flow`
 - [x] T-4 Repo `CLAUDE.md`: PR flow + tag and changelog per skill (AC-7) — branch `docs/0002-t4-repo-rules`
 - [x] T-5 Release: senior-mindset 1.3.0, save-image 1.0.1, READMEs, inventory (AC-8) — branch `chore/0002-t5-release-1-3-0`
-- [ ] T-6 Setup run in this session + headless check (AC-9)
-- [ ] T-7 After merge: tags `senior-mindset-v1.3.0`, `save-image-v1.0.1`, push, `claude plugin update` (AC-10)
+- [x] T-6 Setup run in this session + headless check (AC-9) — verified: ~/.claude/senior-mindset.md written; headless run without it wrote no config and did no push or PR
+- [x] T-7 After merge: tags `senior-mindset-v1.3.0`, `save-image-v1.0.1`, push, `claude plugin update` (AC-10) — verified: 1.2.0 → 1.3.0 via claude plugin update
