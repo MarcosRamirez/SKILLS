@@ -19,6 +19,7 @@ the final choice is recorded as an ADR. Edit this table to change your defaults.
 | Load tests | **k6** | See [testing.md](testing.md) |
 | Logging (TS/Node) | **pino** | See [observability.md](observability.md) |
 | API contract | **OpenAPI 3.1** | See [api-design.md](api-design.md) |
+| Changelog | **git-cliff** | Generated from commits; see [changelog.md](changelog.md) |
 | ORM / query builder | TODO | |
 | Auth provider | TODO | |
 | Mobile | TODO | |

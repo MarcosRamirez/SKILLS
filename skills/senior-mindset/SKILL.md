@@ -64,14 +64,16 @@ Use AskUserQuestion (max 4 questions per round), marking the default as
 5. Naming convention (idiomatic per language) — see [references/code-style.md](references/code-style.md)
 6. Logging / observability scope and destination — **recommend an existing library, never build one from scratch** — see [references/observability.md](references/observability.md)
 7. Linter + formatter (mandatory), test runner, package manager
-8. Default git branch: `master` (Recommended) or `main` — skip if already asked in Step 0b
+8. `CHANGELOG.md`, generated with git-cliff by default. See [references/changelog.md](references/changelog.md)
+9. Default git branch: `master` (Recommended) or `main` — skip if already asked in Step 0b
 
 Then write:
 
 - One ADR per decision in `docs/adr/` (template: [references/adr.md](references/adr.md)) and the index `docs/adr/README.md`
 - `## Engineering conventions` in CLAUDE.md: short summary + links to the ADRs and to `docs/INVENTORY.md`
 - `docs/INVENTORY.md` from [references/inventory-template.md](references/inventory-template.md)
-- Linter, formatter, logger wrapper and `.gitignore`, configured **before the first feature**
+- Linter, formatter, logger wrapper, `.gitignore` and `CHANGELOG.md` (with `cliff.toml`),
+  configured **before the first feature**
 
 Layout and naming of all these files: [references/project-layout.md](references/project-layout.md).
 
@@ -125,6 +127,7 @@ While writing `design.md`, decide and justify each axis (ADR if project-wide):
 - [ ] Cost: no N+1, no needless O(n²), I/O batched — [references/performance.md](references/performance.md)
 - [ ] Logs at key points and no secrets or personal data in them
 - [ ] `docs/INVENTORY.md`, the OpenAPI contract and the spec status are up to date
+- [ ] `CHANGELOG.md` regenerated (`git cliff -o CHANGELOG.md`) after merging to the default branch
 
 ## Step 6 — Update the inventory
 

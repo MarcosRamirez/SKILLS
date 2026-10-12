@@ -69,6 +69,7 @@ and suggest 2–3 options.
 |---|---|
 | `references/stack.md` | Default stack per use case |
 | `references/platforms.md` | Hosting options (Cloudflare default) |
+| `references/changelog.md` | CHANGELOG.md with git-cliff (tested `cliff.toml`) |
 | `references/git.md` | Fallback commit convention (used only when no git skill is installed) |
 | `references/code-style.md` | Naming conventions per language |
 | `references/architecture.md` | When to use hexagonal, SOLID, DRY, KISS |
@@ -87,6 +88,7 @@ and suggest 2–3 options.
 
 ```
 CLAUDE.md                     ## Engineering conventions
+CHANGELOG.md + cliff.toml     generated from commits, newest first
 docs/INVENTORY.md
 docs/adr/README.md + NNNN-*.md
 docs/specs/NNNN-*/{spec,design,tasks}.md
