@@ -1,6 +1,6 @@
 # SPEC-0001: senior-mindset 1.2.0 — app versioning, branch per change, test findings
 
-Status: Approved
+Status: Implemented
 Date: 2026-10-12
 Approved by: the user, in conversation (plan approved; findings list approved with
 "apply the corrections automatically").
@@ -47,4 +47,4 @@ Approved by: the user, in conversation (plan approved; findings list approved wi
 
 - Automating releases in CI.
 - Changes to save-image.
-- Removing `src/hooks/save-image-hook.py` (needs a separate OK).
+- Removing `src/hooks/save-image-hook.py` (done separately, with its own OK).
