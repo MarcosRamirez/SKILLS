@@ -73,13 +73,19 @@ Use AskUserQuestion (max 4 questions per round), marking the default as
 9. Versioning: SemVer (Recommended) / CalVer / none. The app starts at `0.0.1-alpha.1`. See [references/versioning.md](references/versioning.md)
 10. Default git branch: `master` (Recommended) or `main` — skip if already asked in Step 0b
 
-Then write:
+**Items that do not apply are skipped, not forced.** A docs repo has no database, and a CLI
+has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md instead of asking about them.
 
-- One ADR per decision in `docs/adr/` (template: [references/adr.md](references/adr.md)) and the index `docs/adr/README.md`
-- `## Engineering conventions` in CLAUDE.md: short summary + links to the ADRs and to `docs/INVENTORY.md`
-- `docs/INVENTORY.md` from [references/inventory-template.md](references/inventory-template.md)
-- Linter, formatter, logger wrapper, `.gitignore` and `CHANGELOG.md` (with `cliff.toml`),
-  configured **before the first feature**
+**Kickoff checklist.** Verify every item before the first feature, and do not start the spec until it is complete:
+
+- [ ] One ADR per decision in `docs/adr/` (template: [references/adr.md](references/adr.md)) + index `docs/adr/README.md`
+- [ ] `## Engineering conventions` in CLAUDE.md: summary, N/A items with reasons, links to the ADRs and `docs/INVENTORY.md`
+- [ ] `docs/INVENTORY.md` from [references/inventory-template.md](references/inventory-template.md)
+- [ ] `.gitignore`; linter and formatter configured and passing
+- [ ] Logger wrapper, unless logging is N/A
+- [ ] `cliff.toml` (changelog + `[bump]`) and a generated `CHANGELOG.md`
+- [ ] Version `0.0.1-alpha.1` in the manifest, unless versioning is N/A
+- [ ] **Kickoff committed on its own branch** (`chore/kickoff`) and merged, before any feature work
 
 Layout and naming of all these files: [references/project-layout.md](references/project-layout.md).
 
@@ -133,7 +139,8 @@ While writing `design.md`, decide and justify each axis (ADR if project-wide):
   official documentation (WebFetch / WebSearch / docs MCP) before relying on memory
   or blog posts. Cite the URL when the fix is not obvious.
 - Commit as you go: at least one commit per task of `tasks.md`, and a separate one for
-  any other significant change (see Step 0b).
+  any other significant change (see Step 0b). **A whole feature in a single commit is a
+  failure of this rule**, even when the feature is small.
 
 ## Step 5 — Self-review before handing over
 
