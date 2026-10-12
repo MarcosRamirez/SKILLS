@@ -3,6 +3,14 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v1.3.0] - 2026-10-12
+
+### Added
+
+- **senior-mindset:** Integrate through pull requests the user merges
+- **senior-mindset:** Check for colliding skills on first use
+- **senior-mindset:** Date every changelog entry
+
 ## [senior-mindset-v1.2.0] - 2026-10-12
 
 ### Added

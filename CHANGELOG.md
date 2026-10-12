@@ -5,8 +5,15 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ## [Unreleased]
 
+### Added
+
+- **senior-mindset:** Integrate through pull requests the user merges (2026-10-12)
+- **senior-mindset:** Check for colliding skills on first use (2026-10-12)
+- **senior-mindset:** Date every changelog entry (2026-10-12)
+
 ### Documentation
 
+- **repo:** Switch repo rules to pull requests and tag per skill (2026-10-12)
 - **senior-mindset:** Add spec 0002 for release 1.3.0 (2026-10-12)
 - **senior-mindset:** Close spec 0001 as implemented (2026-10-12)
 
