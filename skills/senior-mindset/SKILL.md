@@ -85,7 +85,8 @@ Layout and naming of all these files: [references/project-layout.md](references/
 
 ## Step 3 — Spec first (SDD)
 
-No code before an approved spec. Create `docs/specs/NNNN-<slug>/`:
+No code before an approved spec. Create `docs/specs/NNNN-<slug>/` with **all three files**
+(a spec without `design.md` and `tasks.md` is not ready for approval):
 
 - `spec.md` — WHAT and WHY: problem, requirements, numbered acceptance criteria
   (`AC-1`…, including measurable non-functional ones), out of scope. Status: Draft.
@@ -94,6 +95,16 @@ No code before an approved spec. Create `docs/specs/NNNN-<slug>/`:
 
 Gaps in the spec → ask, do not assume. User approves → status Approved → implement
 → Implemented when done. Templates and lifecycle: [references/sdd.md](references/sdd.md).
+
+**Approval gate, no exceptions.** Implementation starts only after the user explicitly
+approves the spec ("ok", "go", "approved"). The approval is recorded in `spec.md`. Silence,
+a vague reply or your own judgment is not approval.
+
+**If you cannot ask the user** (headless run, no AskUserQuestion, unanswered questions):
+do not decide on their behalf and do not implement. Instead:
+1. Write the spec as Draft, with all three files.
+2. Write the kickoff decisions as **Proposed** ADRs, each stating its recommended option.
+3. Stop, and end with the list of open questions and what you would do after approval.
 
 **ADR rules:** a design decision that reaches beyond the feature (library, pattern,
 platform, language) becomes its own ADR. ADRs are never edited: a change is a new

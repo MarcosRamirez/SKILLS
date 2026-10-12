@@ -15,6 +15,13 @@ English kebab-case slug. Referenced as `SPEC-0007`. Fixed file names inside.
 Edit freely while Draft. After Approved, scope changes go back to the user and are
 noted in a `## Changelog` section at the bottom of the spec.
 
+- A spec is ready for approval only when `spec.md`, `design.md` and `tasks.md` all exist.
+- Moving to `Approved` requires the user's explicit approval, recorded as
+  `Approved by: <user>, <date>, "<their words>"`. The AI never sets it on its own.
+- A spec never jumps from `Draft` to `Implemented`.
+- `tasks.md` drives the work: each task (or group of small coupled tasks) gets its own branch,
+  and at least one commit (see [git.md](git.md)).
+
 ## spec.md
 
 ```markdown
@@ -22,6 +29,7 @@ noted in a `## Changelog` section at the bottom of the spec.
 
 Status: Draft
 Date: YYYY-MM-DD
+Approved by: (empty until the user explicitly approves)
 
 ## Problem
 Who has the problem, what it is, why it matters now.
