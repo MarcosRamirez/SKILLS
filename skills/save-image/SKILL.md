@@ -10,6 +10,9 @@ license: MIT
 compatibility: Requires Python 3. Auto-save hook designed for Claude Code (VS Code).
 metadata:
   author: Marcos Ramírez
+  homepage: https://marcosramirez.info
+  blog: https://blog.marcosramirez.info
+  dev: https://marcosramirez.dev
   version: "1.0"
 allowed-tools: Bash Read
 ---
@@ -66,7 +69,11 @@ When user says `/save-image`, "save this image", or "guardar imagen":
 
 ## Hook registration
 
-Add to `~/.claude/settings.json`:
+**Installed as a plugin?** Nothing to do: `hooks/hooks.json` registers the hook
+automatically. Do not also add it to `settings.json`, or it runs twice.
+
+**Manual install only.** Add to `~/.claude/settings.json`, replacing `<path-to>` with the
+folder where you copied the skill:
 
 ```json
 "hooks": {
@@ -75,7 +82,7 @@ Add to `~/.claude/settings.json`:
       "hooks": [
         {
           "type": "command",
-          "command": "python \"D:\\Code\\Projects\\SKILLS\\skills\\save-image\\scripts\\save-image-hook.py\"",
+          "command": "python \"<path-to>/save-image/scripts/save-image-hook.py\"",
           "timeout": 10
         }
       ]

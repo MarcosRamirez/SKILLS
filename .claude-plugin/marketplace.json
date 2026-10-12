@@ -1,0 +1,20 @@
+{
+  "name": "marcosramirez-skills",
+  "owner": {
+    "name": "Marcos Ramírez",
+    "url": "https://github.com/MarcosRamirez"
+  },
+  "description": "Plug-and-play Claude Code skills by Marcos Ramírez",
+  "plugins": [
+    {
+      "name": "save-image",
+      "source": "./skills/save-image",
+      "description": "Paste an image in Claude Code and it lands on disk automatically — no filenames, no export dialogs"
+    },
+    {
+      "name": "senior-mindset",
+      "source": "./skills/senior-mindset",
+      "description": "Claude builds software like a pragmatic senior engineer: spec first, ADRs, reuse, readable, secure, tested code"
+    }
+  ]
+}

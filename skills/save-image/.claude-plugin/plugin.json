@@ -1,0 +1,12 @@
+{
+  "name": "save-image",
+  "version": "1.0.0",
+  "description": "Paste an image in Claude Code and it lands on disk automatically — no filenames, no export dialogs",
+  "author": {
+    "name": "Marcos Ramírez",
+    "url": "https://marcosramirez.info"
+  },
+  "homepage": "https://github.com/MarcosRamirez/SKILLS/tree/master/skills/save-image",
+  "repository": "https://github.com/MarcosRamirez/SKILLS",
+  "license": "MIT"
+}
