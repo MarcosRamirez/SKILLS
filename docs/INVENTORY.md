@@ -38,7 +38,6 @@ Loaded on demand from `SKILL.md`. One topic per file:
 ## Hooks and scripts
 
 - `save-image-hook.py` — skills/save-image/scripts/save-image-hook.py — UserPromptSubmit hook that saves pasted images — registered by `skills/save-image/hooks/hooks.json` (plugin) or manually in settings.json
-- `save-image-hook.py` (duplicate) — src/hooks/save-image-hook.py — identical copy, referenced by nothing — candidate for removal
 
 ## Repo docs
 
