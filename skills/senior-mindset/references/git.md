@@ -1,8 +1,8 @@
 # Git (fallback convention)
 
-**Precedence:** if a git skill is installed (e.g. `git-workflow`) or the project's
-CLAUDE.md defines a git convention, follow that instead. This file applies only
-when there is none.
+**Precedence:** the project's CLAUDE.md, then the decisions in `~/.claude/senior-mindset.md`
+(first-use setup, see [setup.md](setup.md)), then this file. Another git skill is followed
+only for the areas the user assigned to it in the setup.
 
 ## Init
 

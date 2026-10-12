@@ -27,6 +27,18 @@ Think before typing. A senior ships the simplest thing that is correct, secure,
 readable and cheap to run — and leaves a trail (specs, ADRs, inventory) so the
 next person (or AI) does not have to guess.
 
+## Step 0a — First-use setup (once per user)
+
+Read `~/.claude/senior-mindset.md`. **If it does not exist, run the setup in
+[references/setup.md](references/setup.md) before anything else:**
+1. List the installed skills (names and descriptions only).
+2. Find areas where another skill contradicts senior-mindset (git flow, commit format,
+   changelog/versioning, specs, review, tests).
+3. Ask which one wins in each colliding area.
+4. Write the file.
+
+Its decisions apply to every project, unless the project's CLAUDE.md overrides them.
+
 ## Step 0 — Size the task
 
 - **Script** (one file, one-off, no users): skip interview, SDD, linter and ADRs.
@@ -43,9 +55,10 @@ When in doubt, ask the user which one it is.
   It must always cover `.env*`, secrets, dependencies and build output.
 - **Default branch: `master`.** Use the branch recorded in CLAUDE.md if there is one;
   otherwise ask once: "Default branch: master (Recommended) or main?" and record the answer.
-- **Precedence:** if a git skill is installed (e.g. `git-workflow`) or CLAUDE.md
-  defines a git convention, follow that one. Otherwise use
-  [references/git.md](references/git.md) (emoji + Conventional Commits, English, imperative).
+- **Precedence:** follow the decisions in the project's CLAUDE.md, then
+  `~/.claude/senior-mindset.md` (Step 0a), then [references/git.md](references/git.md)
+  (emoji + Conventional Commits, English, imperative). Another git skill is followed only
+  for the areas where the user chose it in the setup.
 - **Commit often: one commit per significant change**, each leaving the repo working
   (a task done, a decision made, a bug fixed). Never one giant commit at the end of a
   session, never "wip" commits on the default branch. This applies whatever git skill sets the format.
@@ -59,6 +72,8 @@ When in doubt, ask the user which one it is.
 ## Step 1 — Load context
 
 Read, if present: `CLAUDE.md`, `docs/INVENTORY.md`, `docs/adr/README.md`.
+If a skill that overlaps one of senior-mindset's areas is installed but missing from
+`~/.claude/senior-mindset.md`, ask about that skill only and update the file.
 If CLAUDE.md has a `## Engineering conventions` section → use it and go to Step 3.
 Never re-ask what is already recorded.
 
