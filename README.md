@@ -18,28 +18,19 @@ Drop a skill in, and Claude learns a new trick. No config hell.
 
 ## ✨ The skills
 
-| | Skill | What it fixes | |
+| | Skill | What it does | |
 |---|---|---|---|
-| 🖼️ | **save-image** | Pasting screenshots into Claude and then having to save them by hand | [Docs](skills/save-image/README.md) |
-| 🧠 | **senior-mindset** | AI code that works today and nobody understands tomorrow | [Docs](skills/senior-mindset/README.md) |
-
-### 🖼️ save-image
-
-Writing docs or a blog post with screenshots? Paste the image in Claude Code and keep
-writing. It lands on disk by itself: no filenames, no export dialogs, no interruptions.
-
-```text
-you    › [pastes screenshot] here's the error I'm getting
-you    › any idea what's wrong?
-claude › Image saved to ~/Pictures/claude-images/2026-10-12_10-41-07_3_0.png
-         The stack trace shows a null `userId` in…
-```
+| 🧠 | **senior-mindset** | Claude thinks like a human senior engineer before writing a single line | [Docs](skills/senior-mindset/README.md) |
+| 🖼️ | **save-image** | Images you paste into Claude Code are saved to disk automatically | [Docs](skills/save-image/README.md) |
 
 ### 🧠 senior-mindset
 
-Claude stops typing the first thing that compiles and starts working like a pragmatic senior engineer:
-spec first, decisions recorded as ADRs, reuse of what already exists, readable, secure and tested code,
-logging from day zero. It asks about your conventions **once** per project and remembers them.
+**Claude thinks like a human senior engineer.** Before writing code, it asks the questions
+a senior would ask: what problem are we solving, what already exists, what will this cost
+to run, how could it break, and will someone understand it in a year. It writes the
+spec first, records every important decision with its reasons, reuses before building,
+and picks the simplest design that works. It asks about your conventions **once** per
+project and remembers them.
 
 ```text
 you    › build me a booking app
@@ -58,6 +49,19 @@ claude › Before writing code, 4 quick questions (I'll remember the answers):
 | "Why Postgres?" — nobody knows | `docs/adr/0001-use-postgresql.md` |
 | SQL built with string concat | OWASP checklist before every hand-over |
 | `console.log` when things break | Structured logs from the first commit |
+
+### 🖼️ save-image
+
+**Images you paste into Claude Code are saved to disk automatically.** Writing docs or a
+blog post with screenshots? Paste the image and keep writing: no filenames, no export
+dialogs, no interruptions.
+
+```text
+you    › [pastes screenshot] here's the error I'm getting
+you    › any idea what's wrong?
+claude › Image saved to ~/Pictures/claude-images/2026-10-12_10-41-07_3_0.png
+         The stack trace shows a null `userId` in…
+```
 
 ## 🚀 Install in 30 seconds
 
