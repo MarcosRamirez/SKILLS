@@ -41,6 +41,9 @@ When in doubt, ask the user which one it is.
 - **Precedence:** if a git skill is installed (e.g. `git-workflow`) or CLAUDE.md
   defines a git convention, follow that one. Otherwise use
   [references/git.md](references/git.md) (emoji + Conventional Commits, English, imperative).
+- **Commit often: one commit per significant change**, each leaving the repo working
+  (a task done, a decision made, a bug fixed). Never one giant commit at the end of a
+  session, never "wip" commits on the default branch. This applies whatever git skill sets the format.
 - Never commit secrets. Never push, force-push or merge unless the user asks.
 
 ## Step 1 — Load context
@@ -61,14 +64,16 @@ Use AskUserQuestion (max 4 questions per round), marking the default as
 5. Naming convention (idiomatic per language) — see [references/code-style.md](references/code-style.md)
 6. Logging / observability scope and destination — **recommend an existing library, never build one from scratch** — see [references/observability.md](references/observability.md)
 7. Linter + formatter (mandatory), test runner, package manager
-8. Default git branch: `master` (Recommended) or `main` — skip if already asked in Step 0b
+8. `CHANGELOG.md`, generated with git-cliff by default. See [references/changelog.md](references/changelog.md)
+9. Default git branch: `master` (Recommended) or `main` — skip if already asked in Step 0b
 
 Then write:
 
 - One ADR per decision in `docs/adr/` (template: [references/adr.md](references/adr.md)) and the index `docs/adr/README.md`
 - `## Engineering conventions` in CLAUDE.md: short summary + links to the ADRs and to `docs/INVENTORY.md`
 - `docs/INVENTORY.md` from [references/inventory-template.md](references/inventory-template.md)
-- Linter, formatter, logger wrapper and `.gitignore`, configured **before the first feature**
+- Linter, formatter, logger wrapper, `.gitignore` and `CHANGELOG.md` (with `cliff.toml`),
+  configured **before the first feature**
 
 Layout and naming of all these files: [references/project-layout.md](references/project-layout.md).
 
@@ -110,7 +115,8 @@ While writing `design.md`, decide and justify each axis (ADR if project-wide):
 - **Official docs first.** For any API, library or error question, check the
   official documentation (WebFetch / WebSearch / docs MCP) before relying on memory
   or blog posts. Cite the URL when the fix is not obvious.
-- Commit per task of `tasks.md` (see Step 0b).
+- Commit as you go: at least one commit per task of `tasks.md`, and a separate one for
+  any other significant change (see Step 0b).
 
 ## Step 5 — Self-review before handing over
 
@@ -121,6 +127,7 @@ While writing `design.md`, decide and justify each axis (ADR if project-wide):
 - [ ] Cost: no N+1, no needless O(n²), I/O batched — [references/performance.md](references/performance.md)
 - [ ] Logs at key points and no secrets or personal data in them
 - [ ] `docs/INVENTORY.md`, the OpenAPI contract and the spec status are up to date
+- [ ] `CHANGELOG.md` regenerated (`git cliff -o CHANGELOG.md`) after merging to the default branch
 
 ## Step 6 — Update the inventory
 

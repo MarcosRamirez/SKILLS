@@ -33,7 +33,13 @@ when there is none.
 
 ## Commits
 
-One commit per task of `tasks.md`.
+**Commit often.** One commit per significant change: a task of `tasks.md`, a decision,
+a fix, a refactor. Each commit leaves the repo working and coherent.
+
+- Small commits are easy to review, revert and bisect; a day of work in one commit is none of these.
+- If the subject needs an "and", it is probably two commits.
+- Do not wait for the end of the session: commit when the change is done and the checks pass.
+- No "wip" commits on the default branch.
 
 Format — Conventional Commits with an emoji in front:
 
