@@ -44,7 +44,12 @@ When in doubt, ask the user which one it is.
 - **Commit often: one commit per significant change**, each leaving the repo working
   (a task done, a decision made, a bug fixed). Never one giant commit at the end of a
   session, never "wip" commits on the default branch. This applies whatever git skill sets the format.
-- Never commit secrets. Never push, force-push or merge unless the user asks.
+- **One branch per change. Never commit on the default branch**, not even a one-line or
+  docs-only change. Every feature, task, fix, docs or config change starts on a new branch
+  from the up-to-date default branch: `<type>/<slug>`, e.g. `feat/0001-t3-invoices-endpoint`.
+  It is merged with `--no-ff` when checks pass, then deleted. If you find yourself on the
+  default branch with uncommitted changes, create the branch first (`git switch -c …`), then commit.
+- Never commit secrets. Never push, force-push or merge to a remote unless the user asks.
 
 ## Step 1 — Load context
 
