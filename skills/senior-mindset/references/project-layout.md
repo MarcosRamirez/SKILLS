@@ -1,0 +1,62 @@
+# Project layout
+
+## Standard tree
+
+```
+CLAUDE.md                     conventions summary + links (read every session)
+.gitignore
+.env.example
+docs/
+  INVENTORY.md                map of what already exists — check before creating
+  api/
+    openapi.yaml              API contract (if there is an API)
+  adr/
+    README.md                 index: # | title | status
+    0001-use-postgresql.md
+    0002-deploy-on-cloudflare.md
+  specs/
+    0001-user-auth/
+      spec.md                 WHAT and WHY
+      design.md               HOW
+      tasks.md                checklist → commits
+src/                          hexagonal only when there is a domain (see architecture.md):
+  domain/
+  application/
+  adapters/
+    inbound/
+    outbound/
+tests/
+  unit/                       (or co-located *.test.ts, per stack convention)
+  integration/
+  e2e/
+  load/                       k6 scripts
+```
+
+Projects without a domain (landing pages, content sites) use the framework's native
+structure for `src/` — keep `docs/` the same.
+
+## Naming
+
+- Specs and ADRs: 4-digit sequential prefix + English kebab-case slug: `0007-rate-limiting`.
+- Next number: highest existing + 1 (per folder).
+- References in text and commits: `SPEC-0007`, `ADR-0007`.
+- Fixed file names inside a spec folder: `spec.md`, `design.md`, `tasks.md`.
+
+## CLAUDE.md section (written after the kickoff interview)
+
+```markdown
+## Engineering conventions
+
+Managed by the senior-mindset skill. Details and reasons live in the ADRs.
+
+- Stack: Next.js + PostgreSQL on Cloudflare — ADR-0001, ADR-0002, ADR-0003
+- Architecture: hexagonal — ADR-0004
+- Logging: pino + Sentry → Workers Logs — ADR-0005
+- Naming: TS idiomatic (camelCase / PascalCase / UPPER_SNAKE), kebab-case files
+- Git: default branch `master`
+- Lint/format: Biome · Tests: Vitest + Playwright · Package manager: pnpm
+- API: REST, OpenAPI 3.1 in docs/api/openapi.yaml
+
+Before creating anything, check [docs/INVENTORY.md](docs/INVENTORY.md).
+Specs: docs/specs/ · ADRs: [docs/adr/README.md](docs/adr/README.md)
+```

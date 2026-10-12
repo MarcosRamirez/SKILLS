@@ -1,37 +1,133 @@
-# SKILLS
+<div align="center">
 
-> Plug-and-play skills for [Claude Code](https://claude.ai/code).
-> Drop a skill in, get new superpowers — no config hell.
+# 🧰 SKILLS
 
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+**Plug-and-play superpowers for [Claude Code](https://claude.ai/code).**
+Drop a skill in, and Claude learns a new trick. No config hell.
 
-## Skills
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-skills-D97757?logo=anthropic&logoColor=white)](https://claude.ai/code)
+[![Skills](https://img.shields.io/badge/skills-2-brightgreen)](#-the-skills)
+[![Last commit](https://img.shields.io/github/last-commit/MarcosRamirez/SKILLS/master)](https://github.com/MarcosRamirez/SKILLS/commits/master)
+
+[The skills](#-the-skills) · [Install](#-install-in-30-seconds) · [How skills work](#-how-skills-work) · [Contributing](#-contributing)
+
+</div>
+
+---
+
+## ✨ The skills
+
+| | Skill | What it fixes | |
+|---|---|---|---|
+| 🖼️ | **save-image** | Pasting screenshots into Claude and then having to save them by hand | [Docs](skills/save-image/README.md) |
+| 🧠 | **senior-mindset** | AI code that works today and nobody understands tomorrow | [Docs](skills/senior-mindset/README.md) |
 
 ### 🖼️ save-image
 
-Writing docs or a blog post and need to paste screenshots?
-Paste the image in Claude Code, keep writing — it saves to disk automatically.
-No filenames, no export dialogs, no interruptions.
+Writing docs or a blog post with screenshots? Paste the image in Claude Code and keep
+writing. It lands on disk by itself: no filenames, no export dialogs, no interruptions.
 
-→ [README](skills/save-image/README.md) · [Spec](skills/save-image/SKILL.md)
-
-## How to install a skill
-
-1. Copy `skills/<name>/SKILL.md` to `~/.claude/skills/<name>/SKILL.md`
-2. Register any hooks listed in the skill's README
-3. That's it
-
-## Repo structure
-
+```text
+you    › [pastes screenshot] here's the error I'm getting
+you    › any idea what's wrong?
+claude › Image saved to ~/Pictures/claude-images/2026-10-12_10-41-07_3_0.png
+         The stack trace shows a null `userId` in…
 ```
+
+### 🧠 senior-mindset
+
+Claude stops typing the first thing that compiles and starts working like a pragmatic senior engineer:
+spec first, decisions recorded as ADRs, reuse of what already exists, readable, secure and tested code,
+logging from day zero. It asks about your conventions **once** per project and remembers them.
+
+```text
+you    › build me a booking app
+claude › Before writing code, 4 quick questions (I'll remember the answers):
+         stack · database · where you deploy · default branch…
+         ✔ ADR-0001..0004 written · CLAUDE.md updated · docs/INVENTORY.md created
+         Here's docs/specs/0001-bookings/spec.md: 6 acceptance criteria.
+         Approve it and I'll start with the tests.
+```
+
+| Without | With senior-mindset |
+|---|---|
+| Code first, questions never | Spec → design → tasks, approved by you |
+| `data2`, `handleStuff()` | Names that explain themselves, in English |
+| A new DB helper every session | Checks `docs/INVENTORY.md` and reuses it |
+| "Why Postgres?" — nobody knows | `docs/adr/0001-use-postgresql.md` |
+| SQL built with string concat | OWASP checklist before every hand-over |
+| `console.log` when things break | Structured logs from the first commit |
+
+## 🚀 Install in 30 seconds
+
+Pick whichever you like. All three work for every skill.
+
+### 1. Ask your agent (easiest)
+
+Paste this into Claude Code, swapping in the skill you want:
+
+> Install the **senior-mindset** skill from https://github.com/MarcosRamirez/SKILLS/tree/master/skills/senior-mindset
+> into `~/.claude/skills/senior-mindset`. Copy the whole folder.
+
+### 2. Plugin marketplace (one-click updates)
+
+```text
+/plugin marketplace add MarcosRamirez/SKILLS
+/plugin install senior-mindset@marcosramirez-skills
+/plugin install save-image@marcosramirez-skills
+```
+
+Update later with `claude plugin marketplace update marcosramirez-skills`, then
+`claude plugin update <skill>@marcosramirez-skills`. Plugins also register their hooks for you.
+
+### 3. Manual
+
+**macOS / Linux**
+
+```bash
+git clone --depth 1 https://github.com/MarcosRamirez/SKILLS.git /tmp/skills
+cp -r /tmp/skills/skills/senior-mindset ~/.claude/skills/
+```
+
+**Windows (PowerShell)**
+
+```powershell
+git clone --depth 1 https://github.com/MarcosRamirez/SKILLS.git $env:TEMP\skills
+Copy-Item -Recurse $env:TEMP\skills\skills\senior-mindset $HOME\.claude\skills\
+```
+
+Skills with hooks (like save-image) need one extra step when installed by hand; it's in their README.
+
+## 🧩 How skills work
+
+A skill is a folder with a `SKILL.md`. Claude reads its short description all the time,
+and loads the full instructions only when your request matches. Heavy details live in
+`references/` and are read on demand, so skills cost almost nothing until you need them.
+
+```text
+.claude-plugin/
+  marketplace.json      — makes this repo a plugin marketplace
 skills/<name>/
-  SKILL.md    — behavior spec (what Claude loads)
-  README.md   — setup & usage
-  scripts/    — hook scripts
-src/hooks/    — shared hook scripts
+  SKILL.md              — what Claude loads (the behavior)
+  README.md             — for humans: setup and usage
+  .claude-plugin/       — plugin manifest
+  references/           — detail docs, loaded on demand
+  scripts/ · hooks/     — hook scripts and their auto-registration
 ```
 
-## Contributing
+## 🤝 Contributing
 
-Got a skill? Open a PR.
-Each skill needs a `SKILL.md`, a `README.md`, and a MIT license header.
+Got a skill that makes Claude better at something? Open a PR.
+
+- One folder per skill under `skills/<name>/` with a `SKILL.md` and a `README.md`
+- Add a `.claude-plugin/plugin.json` and an entry in `.claude-plugin/marketplace.json`
+- Run `claude plugin validate .` and `claude plugin validate ./skills/<name> --strict`
+- MIT license
+
+## 👋 Author
+
+Made by **Marcos Ramírez**: [marcosramirez.info](https://marcosramirez.info) ·
+[blog](https://blog.marcosramirez.info) · [marcosramirez.dev](https://marcosramirez.dev)
+
+If a skill saved you time, a ⭐ helps others find it.
