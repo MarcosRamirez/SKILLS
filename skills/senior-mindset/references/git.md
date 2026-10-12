@@ -28,8 +28,18 @@ when there is none.
 
 ## Branches
 
-- `master` (or the user's chosen default branch) is always deployable.
-- One branch per spec: `feat/0001-user-auth`, `fix/0007-cursor-pagination`.
+- `master` (or the user's chosen default branch) is always deployable. **Nobody commits on it
+  directly**, not even for a one-line or docs-only change.
+- **One branch per change**, created from the up-to-date default branch
+  (`git switch master && git pull` when there is a remote, then `git switch -c <type>/<slug>`).
+- Naming: `<type>/<slug>`, with the spec and task number when there is one:
+  - `feat/0001-user-auth` — a whole feature (spec 0001)
+  - `feat/0001-t3-invoices-endpoint` — task T-3 of spec 0001
+  - `fix/cursor-pagination`, `docs/api-readme`, `chore/upgrade-deps`
+- One branch = one unit of work, short-lived. A large task in `tasks.md` gets its own branch;
+  small, tightly coupled tasks may share the feature branch.
+- Integrate with `git merge --no-ff`, then delete the branch. No squash, no rebase of published branches.
+- Already on the default branch with uncommitted changes? `git switch -c <type>/<slug>` first, then commit.
 
 ## Commits
 
