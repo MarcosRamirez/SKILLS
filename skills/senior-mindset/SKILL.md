@@ -6,9 +6,12 @@ description: >
   sensible default stack, OWASP security, computational cost awareness, hexagonal
   architecture when there is a domain, tests, logging from day zero, contract-first
   APIs, and reuse of what already exists (docs/INVENTORY.md). Interviews the user
-  once per project and stores conventions in the project's CLAUDE.md. Use when the
-  user asks to build an app, start a new project, add a feature, design an API or
-  worker, or says "crea una aplicación", "programa X", "nuevo proyecto", "nueva feature".
+  once per project and stores conventions in the project's CLAUDE.md. Use whenever
+  Claude is about to write or change code of any size: an app, a feature, an API,
+  a worker, a fix, or a one-off script (scripts take a fast path: no interview, but
+  English names and clean code). Also for releases and versioning. Triggers include
+  "build", "create", "write a script", "fix", "release", "crea una aplicación",
+  "programa X", "hazme un script", "nuevo proyecto", "nueva feature", "saca la versión".
 license: MIT
 metadata:
   author: Marcos Ramírez
@@ -27,7 +30,9 @@ next person (or AI) does not have to guess.
 ## Step 0 — Size the task
 
 - **Script** (one file, one-off, no users): skip interview, SDD, linter and ADRs.
-  Still apply the *Always-on rules* below. Ask before creating a git repo.
+  Still apply the *Always-on rules* below. In particular, file name, identifiers, CLI
+  flags and comments are in English, even when the user writes in another language
+  (only user-facing messages follow the user's language). Ask before creating a git repo.
 - **Project** (anything else): follow every step.
 
 When in doubt, ask the user which one it is.
