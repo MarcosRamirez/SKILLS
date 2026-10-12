@@ -69,6 +69,7 @@ and suggest 2–3 options.
 |---|---|
 | `references/stack.md` | Default stack per use case |
 | `references/platforms.md` | Hosting options (Cloudflare default) |
+| `references/versioning.md` | App versioning: `0.0.1-alpha.1` → beta → rc → stable, git-cliff bump, release steps |
 | `references/changelog.md` | CHANGELOG.md with git-cliff (tested `cliff.toml`) |
 | `references/git.md` | Fallback commit convention (used only when no git skill is installed) |
 | `references/code-style.md` | Naming conventions per language |

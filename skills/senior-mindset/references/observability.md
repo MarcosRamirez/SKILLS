@@ -36,6 +36,8 @@ so the code does not depend on the library. Register the wrapper in `docs/INVENT
 - **Structured JSON**, one event per line: `{ "level": "info", "msg": "invoice created", "invoiceId": "...", "traceId": "..." }`.
 - **Levels:** `debug` (dev only), `info` (business events), `warn` (recoverable anomaly), `error` (needs attention).
 - Level configurable per environment (`LOG_LEVEL`).
+- **Version in every event:** add a `version` field (the app's release, see
+  [versioning.md](versioning.md)) to every log line and set `release` in Sentry.
 - **Correlation:** generate or accept a `requestId` / `traceId` at the edge and propagate it
   through services, queues and events (W3C `traceparent` header).
 - **What to log:** request start/end with status and latency, auth events (login,

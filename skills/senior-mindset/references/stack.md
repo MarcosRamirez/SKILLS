@@ -20,6 +20,7 @@ the final choice is recorded as an ADR. Edit this table to change your defaults.
 | Logging (TS/Node) | **pino** | See [observability.md](observability.md) |
 | API contract | **OpenAPI 3.1** | See [api-design.md](api-design.md) |
 | Changelog | **git-cliff** | Generated from commits; see [changelog.md](changelog.md) |
+| Versioning | **SemVer 2.0** from `0.0.1-alpha.1` | Next version via `git cliff --bumped-version`; see [versioning.md](versioning.md) |
 | ORM / query builder | TODO | |
 | Auth provider | TODO | |
 | Mobile | TODO | |

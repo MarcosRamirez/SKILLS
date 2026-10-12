@@ -33,6 +33,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `stack.md` — default stack per use case
 - `system-design.md` — monolith vs microservices, event-driven
 - `testing.md` — test pyramid, TDD, k6
+- `versioning.md` — app versioning from `0.0.1-alpha.1`, stages, git-cliff bump, release process
 
 ## Hooks and scripts
 

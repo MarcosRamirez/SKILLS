@@ -65,7 +65,8 @@ Use AskUserQuestion (max 4 questions per round), marking the default as
 6. Logging / observability scope and destination — **recommend an existing library, never build one from scratch** — see [references/observability.md](references/observability.md)
 7. Linter + formatter (mandatory), test runner, package manager
 8. `CHANGELOG.md`, generated with git-cliff by default. See [references/changelog.md](references/changelog.md)
-9. Default git branch: `master` (Recommended) or `main` — skip if already asked in Step 0b
+9. Versioning: SemVer (Recommended) / CalVer / none. The app starts at `0.0.1-alpha.1`. See [references/versioning.md](references/versioning.md)
+10. Default git branch: `master` (Recommended) or `main` — skip if already asked in Step 0b
 
 Then write:
 
@@ -128,12 +129,22 @@ While writing `design.md`, decide and justify each axis (ADR if project-wide):
 - [ ] Logs at key points and no secrets or personal data in them
 - [ ] `docs/INVENTORY.md`, the OpenAPI contract and the spec status are up to date
 - [ ] `CHANGELOG.md` regenerated (`git cliff -o CHANGELOG.md`) after merging to the default branch
+- [ ] The running app exposes its version (`/version` or `/health`, logs)
 
 ## Step 6 — Update the inventory
 
 Every new module, tool, script, endpoint or table → one line in `docs/INVENTORY.md`
 (`name — path — purpose — usage`). Removed code → remove its line. The inventory is
 what stops the next session from reinventing something that already exists.
+
+## Step 7 — Release (when the user asks)
+
+"Release the beta", "release 2.1"… → follow [references/versioning.md](references/versioning.md):
+1. `git cliff --bumped-version` proposes the next version.
+2. The user confirms the version or the stage (alpha → beta → rc → stable is always their call).
+3. Release branch, manifest + `CHANGELOG.md` updated, annotated tag.
+
+Push and GitHub release happen only if the user asks.
 
 ## Always-on rules (scripts too)
 

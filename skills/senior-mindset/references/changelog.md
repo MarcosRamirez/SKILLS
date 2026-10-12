@@ -30,8 +30,8 @@ generated changelog reads well without extra work.
 - **After each merge to the default branch:** `git cliff -o CHANGELOG.md` and commit it
   (`🔧 chore: update changelog`, or the type the git convention uses for chores).
   Full regeneration is idempotent, so running it twice changes nothing.
-- **On release:** `git cliff --tag vX.Y.Z -o CHANGELOG.md`, commit, then `git tag vX.Y.Z`.
-  `git cliff --bumped-version` suggests the next version from the commit types.
+- **On release:** `git cliff --tag vX.Y.Z -o CHANGELOG.md` as part of the release process in
+  [versioning.md](versioning.md), which also covers stages, the next version and tagging.
 - Do **not** use `--unreleased --prepend` repeatedly: it duplicates entries. Regenerate instead.
 - The file is generated: do not hand-edit it, because the next run overwrites the edit. To
   change an entry, fix it at the source (write better commit subjects from now on).
