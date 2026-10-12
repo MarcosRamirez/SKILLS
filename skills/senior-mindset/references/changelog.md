@@ -27,8 +27,9 @@ generated changelog reads well without extra work.
 
 ## Keeping it up to date
 
-- **After each merge to the default branch:** `git cliff -o CHANGELOG.md` and commit it
-  (`🔧 chore: update changelog`, or the type the git convention uses for chores).
+- **After the user merges a PR:** regenerate with `git cliff -o CHANGELOG.md` on the next
+  work branch (or in the release PR) and commit it there (`🔧 chore: update changelog`, or
+  the type the git convention uses for chores). Never commit it on the default branch.
   Full regeneration is idempotent, so running it twice changes nothing.
 - **On release:** `git cliff --tag vX.Y.Z -o CHANGELOG.md` as part of the release process in
   [versioning.md](versioning.md), which also covers stages, the next version and tagging.

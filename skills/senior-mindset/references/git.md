@@ -38,8 +38,62 @@ only for the areas the user assigned to it in the setup.
   - `fix/cursor-pagination`, `docs/api-readme`, `chore/upgrade-deps`
 - One branch = one unit of work, short-lived. A large task in `tasks.md` gets its own branch;
   small, tightly coupled tasks may share the feature branch.
-- Integrate with `git merge --no-ff`, then delete the branch. No squash, no rebase of published branches.
+- No squash, no rebase of published branches.
 - Already on the default branch with uncommitted changes? `git switch -c <type>/<slug>` first, then commit.
+
+## Pull requests: the only way into the default branch
+
+Nothing is merged or pushed into the default branch directly. Every branch becomes a PR,
+and **the user reviews and merges it**.
+
+1. Task done, checks green → `git push -u origin <branch>`.
+2. Open the PR:
+   - GitHub: `gh pr create --base <base> --title "<main commit subject>" --body-file <tmp>`
+   - GitLab: `glab mr create --target-branch <base>`
+   - other hosts: push and give the user the compare URL.
+
+   Body:
+
+   ```markdown
+   ## What and why
+   <one paragraph>
+
+   ## Scope
+   SPEC-0001 · T-3 · covers AC-2, AC-4
+
+   ## Checks
+   lint ✔ · tests ✔ (42) · build ✔
+
+   ## Merge order
+   Stacked on #12; merge #12 first.   ← only for stacked PRs
+   ```
+
+3. **Stop.** Do not merge the PR yourself, unless the user explicitly asks for that specific PR.
+   Merges use a merge commit (no squash).
+4. After the user merges: `git switch <default> && git pull`, delete the local branch, continue.
+
+### Stacked PRs for dependent tasks
+
+When T-2 builds on T-1, do not wait for T-1 to be merged:
+
+```text
+master ← PR #1 (t1) ← PR #2 (t2, base: t1 branch) ← PR #3 (t3, base: t2 branch)
+```
+
+- Create the T-2 branch from the T-1 branch, and open its PR with `--base <t1-branch>`.
+- The user merges in order. When a base branch is deleted after merge, GitHub retargets the
+  next PR to the default branch automatically.
+- Independent tasks branch from the default branch, and their PRs target it directly.
+
+### No remote
+
+If the repo has no remote, there is nowhere to open a PR. Offer to create one:
+- GitHub: `gh repo create <name> --private --source . --push`
+- GitLab: `glab repo create`
+- any other host: ask for the URL and run `git remote add origin <url>`
+
+If the user declines, integrate locally with `git merge --no-ff <branch>` and delete the
+branch, and record `Integration: local merge, no remote` in CLAUDE.md so you do not ask again.
 
 ## Commits
 
@@ -94,5 +148,8 @@ Examples:
 
 ## Never without explicit user request
 
-- Push, force-push, merge, rebase of shared branches, deleting branches or tags.
+Choosing the PR flow (setup) is standing permission to push **work branches** and open PRs.
+Everything else needs an explicit request:
+
+- Pushing to the default branch, force-push, merging a PR, rebasing shared branches, deleting remote branches or tags.
 - Committing secrets — if one slips in, stop and tell the user (rotate it; history rewrite alone is not enough).

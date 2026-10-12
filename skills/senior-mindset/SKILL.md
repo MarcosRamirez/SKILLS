@@ -65,9 +65,20 @@ When in doubt, ask the user which one it is.
 - **One branch per change. Never commit on the default branch**, not even a one-line or
   docs-only change. Every feature, task, fix, docs or config change starts on a new branch
   from the up-to-date default branch: `<type>/<slug>`, e.g. `feat/0001-t3-invoices-endpoint`.
-  It is merged with `--no-ff` when checks pass, then deleted. If you find yourself on the
-  default branch with uncommitted changes, create the branch first (`git switch -c …`), then commit.
-- Never commit secrets. Never push, force-push or merge to a remote unless the user asks.
+  If you find yourself on the default branch with uncommitted changes, create the branch
+  first (`git switch -c …`), then commit.
+- **Everything reaches the default branch through a pull request; the user merges it.**
+  When a task is done and checks pass:
+  1. `git push -u origin <branch>`.
+  2. `gh pr create --base <base>`, with what and why, `SPEC-NNNN`/`T-n`, the ACs covered and the check results.
+  3. Stop. Never merge the PR yourself, unless the user explicitly asks for that PR.
+
+  Dependent tasks are **stacked PRs**: the next branch starts from the previous one, and its
+  PR targets that branch, so the work moves on step by step while the user merges in order.
+  No remote → offer to create one; if declined, merge locally with `--no-ff`.
+  Details: [references/git.md](references/git.md).
+- Choosing this flow in the setup is standing permission to push work branches and open PRs.
+  Never push to the default branch, never force-push, never commit secrets.
 
 ## Step 1 — Load context
 
@@ -105,7 +116,8 @@ has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md inst
 - [ ] Logger wrapper, unless logging is N/A
 - [ ] `cliff.toml` (changelog + `[bump]`) and a generated `CHANGELOG.md`
 - [ ] Version `0.0.1-alpha.1` in the manifest, unless versioning is N/A
-- [ ] **Kickoff committed on its own branch** (`chore/kickoff`) and merged, before any feature work
+- [ ] **Kickoff committed on its own branch** (`chore/kickoff`) and its PR opened before any
+  feature work. Feature branches stack on it until the user merges it.
 
 Layout and naming of all these files: [references/project-layout.md](references/project-layout.md).
 
@@ -171,7 +183,8 @@ While writing `design.md`, decide and justify each axis (ADR if project-wide):
 - [ ] Cost: no N+1, no needless O(n²), I/O batched — [references/performance.md](references/performance.md)
 - [ ] Logs at key points and no secrets or personal data in them
 - [ ] `docs/INVENTORY.md`, the OpenAPI contract and the spec status are up to date
-- [ ] `CHANGELOG.md` regenerated (`git cliff -o CHANGELOG.md`) after merging to the default branch
+- [ ] `CHANGELOG.md` regenerated (`git cliff -o CHANGELOG.md`) on the work branch
+- [ ] Branch pushed and PR opened (or merged locally if there is no remote); not merged by you
 - [ ] The running app exposes its version (`/version` or `/health`, logs)
 
 ## Step 6 — Update the inventory
@@ -185,9 +198,9 @@ what stops the next session from reinventing something that already exists.
 "Release the beta", "release 2.1"… → follow [references/versioning.md](references/versioning.md):
 1. `git cliff --bumped-version` proposes the next version.
 2. The user confirms the version or the stage (alpha → beta → rc → stable is always their call).
-3. Release branch, manifest + `CHANGELOG.md` updated, annotated tag.
+3. Release branch with manifest + `CHANGELOG.md` → release PR → the user merges → annotated tag on the merge commit.
 
-Push and GitHub release happen only if the user asks.
+Pushing the tag and creating the GitHub release happen only if the user asks.
 
 ## Always-on rules (scripts too)
 
