@@ -27,8 +27,9 @@ generated changelog reads well without extra work.
 
 ## Keeping it up to date
 
-- **After each merge to the default branch:** `git cliff -o CHANGELOG.md` and commit it
-  (`🔧 chore: update changelog`, or the type the git convention uses for chores).
+- **After the user merges a PR:** regenerate with `git cliff -o CHANGELOG.md` on the next
+  work branch (or in the release PR) and commit it there (`🔧 chore: update changelog`, or
+  the type the git convention uses for chores). Never commit it on the default branch.
   Full regeneration is idempotent, so running it twice changes nothing.
 - **On release:** `git cliff --tag vX.Y.Z -o CHANGELOG.md` as part of the release process in
   [versioning.md](versioning.md), which also covers stages, the next version and tagging.
@@ -41,6 +42,17 @@ generated changelog reads well without extra work.
 Tested with git-cliff 2.x. It strips the leading emoji (`✨ feat(auth): …` →
 `feat(auth): …`), groups by Keep a Changelog sections, skips internal chores and merge
 commits, and sorts newest first.
+
+**Every entry has a date.** Released versions get a dated heading from their tag
+(`## [1.2.0] - 2026-10-12`). Entries still in `[Unreleased]` show their own commit date
+(`- **auth:** Add password reset (2026-10-12)`). Dated sections exist only once releases are
+tagged, so tag every release ([versioning.md](versioning.md)).
+
+**Monorepo or several packages in one repo:** generate one changelog per package with
+`git cliff --include-path "packages/<name>/**" --tag-pattern "<name>-v.*" -o packages/<name>/CHANGELOG.md`
+and tags like `<name>-v1.2.0`. Put each tag on the release merge commit (the one that bumps
+that package's version). A tag on a commit that touches no file in the include path is
+filtered out, and that release disappears from the changelog.
 
 ```toml
 [changelog]
@@ -55,7 +67,7 @@ body = """
 {% for group, commits in commits | group_by(attribute="group") %}
 ### {{ group | striptags | trim | upper_first }}
 
-{% for commit in commits %}- {% if commit.scope %}**{{ commit.scope }}:** {% endif %}{{ commit.message | upper_first }}
+{% for commit in commits %}- {% if commit.scope %}**{{ commit.scope }}:** {% endif %}{{ commit.message | upper_first }}{% if not version %} ({{ commit.committer.timestamp | date(format="%Y-%m-%d") }}){% endif %}
 {% endfor %}{% endfor %}
 """
 trim = false

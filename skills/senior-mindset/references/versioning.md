@@ -73,9 +73,12 @@ With no tags, git-cliff prints `0.0.1-alpha.1` without the `v`: add it when tagg
 2. Branch `chore/release-vX.Y.Z` (never on the default branch).
 3. Update the version in the manifest.
 4. `git cliff --tag vX.Y.Z -o CHANGELOG.md`.
-5. Commit following the active git convention (fallback: `🔧 chore(release): vX.Y.Z`), then merge `--no-ff`.
-6. Annotated tag on the merge commit: `git tag -a vX.Y.Z -m "vX.Y.Z"`.
-7. **Only if the user asks:** `git push --follow-tags`, then
+5. Commit following the active git convention (fallback: `🔧 chore(release): vX.Y.Z`).
+6. Push the branch and open the release PR ([git.md](git.md)). **The user merges it.**
+   Without a remote, merge locally with `--no-ff`.
+7. After the merge: `git switch <default> && git pull`, then put an annotated tag on the
+   merge commit: `git tag -a vX.Y.Z -m "vX.Y.Z"`.
+8. **Only if the user asks:** `git push origin vX.Y.Z`, then
    `gh release create vX.Y.Z --notes-file <section from CHANGELOG>`, adding `--prerelease` for alpha, beta and rc.
 
 ## Source of truth and visibility

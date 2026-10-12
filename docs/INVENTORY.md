@@ -30,6 +30,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `project-layout.md` — project tree and CLAUDE.md section
 - `sdd.md` — spec / design / tasks templates
 - `security.md` — OWASP Top 10 checklist
+- `setup.md` — first-use collision check with other skills, `~/.claude/senior-mindset.md`
 - `stack.md` — default stack per use case
 - `system-design.md` — monolith vs microservices, event-driven
 - `testing.md` — test pyramid, TDD, k6
@@ -44,4 +45,5 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `CLAUDE.md` — repo conventions and rules (docs, versioning, git)
 - `docs/adr/` — architecture decision records (index in README.md)
 - `docs/specs/` — specs for changes to the skills
-- `CHANGELOG.md` + `cliff.toml` — changelog generated with git-cliff
+- `CHANGELOG.md` + `cliff.toml` — repo changelog generated with git-cliff, dated entries
+- `skills/<name>/CHANGELOG.md` — per-skill changelog shipped inside each plugin, one dated section per `<name>-vX.Y.Z` tag
