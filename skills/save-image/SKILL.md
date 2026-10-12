@@ -13,7 +13,7 @@ metadata:
   homepage: https://marcosramirez.info
   blog: https://blog.marcosramirez.info
   dev: https://marcosramirez.dev
-  version: "1.0"
+  version: "1.0.0"
 allowed-tools: Bash Read
 ---
 
