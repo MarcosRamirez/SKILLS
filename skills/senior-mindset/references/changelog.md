@@ -42,6 +42,17 @@ Tested with git-cliff 2.x. It strips the leading emoji (`✨ feat(auth): …` �
 `feat(auth): …`), groups by Keep a Changelog sections, skips internal chores and merge
 commits, and sorts newest first.
 
+**Every entry has a date.** Released versions get a dated heading from their tag
+(`## [1.2.0] - 2026-10-12`). Entries still in `[Unreleased]` show their own commit date
+(`- **auth:** Add password reset (2026-10-12)`). Dated sections exist only once releases are
+tagged, so tag every release ([versioning.md](versioning.md)).
+
+**Monorepo or several packages in one repo:** generate one changelog per package with
+`git cliff --include-path "packages/<name>/**" --tag-pattern "<name>-v.*" -o packages/<name>/CHANGELOG.md`
+and tags like `<name>-v1.2.0`. Put each tag on the release merge commit (the one that bumps
+that package's version). A tag on a commit that touches no file in the include path is
+filtered out, and that release disappears from the changelog.
+
 ```toml
 [changelog]
 header = """
@@ -55,7 +66,7 @@ body = """
 {% for group, commits in commits | group_by(attribute="group") %}
 ### {{ group | striptags | trim | upper_first }}
 
-{% for commit in commits %}- {% if commit.scope %}**{{ commit.scope }}:** {% endif %}{{ commit.message | upper_first }}
+{% for commit in commits %}- {% if commit.scope %}**{{ commit.scope }}:** {% endif %}{{ commit.message | upper_first }}{% if not version %} ({{ commit.committer.timestamp | date(format="%Y-%m-%d") }}){% endif %}
 {% endfor %}{% endfor %}
 """
 trim = false
