@@ -3,6 +3,12 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v1.3.1] - 2026-10-12
+
+### Fixed
+
+- **senior-mindset:** Hold the approval gate when questions fail
+
 ## [senior-mindset-v1.3.0] - 2026-10-12
 
 ### Added
