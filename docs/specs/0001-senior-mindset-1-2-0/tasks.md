@@ -8,4 +8,4 @@ One branch per task, merged with `--no-ff`.
 - [x] T-4 Kickoff checklist + N/A items + kickoff commit (AC-7, AC-8, AC-10) — branch `fix/0001-t4-kickoff-checklist`
 - [x] T-5 Trigger on any code, scripts included (AC-9) — branch `fix/0001-t5-trigger-scripts`
 - [x] T-6 Release 1.2.0: bump, READMEs, inventory, changelog, spec → Implemented (AC-11) — test: `claude plugin validate`, link check — branch `chore/0001-t6-release-1-2-0`
-- [ ] T-7 Push (with user OK) and verify the update from GitHub (AC-12)
+- [x] T-7 Push (with user OK) and verify the update from GitHub (AC-12) — verified: 1.1.0 → 1.2.0 via `claude plugin update`
