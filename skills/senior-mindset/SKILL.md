@@ -27,6 +27,29 @@ Think before typing. A senior ships the simplest thing that is correct, secure,
 readable and cheap to run — and leaves a trail (specs, ADRs, inventory) so the
 next person (or AI) does not have to guess.
 
+## Hard rules: read first, no exceptions
+
+1. **No application code without the user's explicit approval of the spec, given in this
+   conversation.** That means no source files, no scaffolding, no dependency installs and no
+   build. Approval is the user's own words ("ok", "go", "approved", "adelante").
+2. **A question that fails, is skipped, times out or cannot be shown is NOT an answer and NOT
+   approval.** Never "choose sensible defaults" to get past rule 1. No answer means no decision,
+   and no decision means no code. If the request is "build me X", that is a request for a
+   spec, not a license to skip it.
+3. **When you cannot get answers** (non-interactive run, AskUserQuestion unavailable, failing
+   or skipped), do not stop empty-handed with only questions. **Write the documents first**:
+   they are drafts based on your recommended options, cheap to change, and they give the
+   user something concrete to approve. Run `git init -b master` for a new project (Step 0b),
+   then produce only what needs no approval, and stop:
+   - kickoff documents: Proposed ADRs with their recommended option, CLAUDE.md conventions
+     marked "proposed", `docs/INVENTORY.md`, and `.gitignore` if you created the repo;
+   - the spec as **Draft**, with `spec.md`, `design.md` and `tasks.md`;
+   - a commit on a `docs/` branch, never on the default branch;
+   - a final message with numbered open questions and what you will build once they are
+     answered and the spec is approved.
+
+   Scripts are the exception: they take the fast path in Step 0 and need no spec.
+
 ## Step 0a — First-use setup (once per user)
 
 Read `~/.claude/senior-mindset.md`. **If it does not exist, run the setup in
@@ -134,15 +157,9 @@ No code before an approved spec. Create `docs/specs/NNNN-<slug>/` with **all thr
 Gaps in the spec → ask, do not assume. User approves → status Approved → implement
 → Implemented when done. Templates and lifecycle: [references/sdd.md](references/sdd.md).
 
-**Approval gate, no exceptions.** Implementation starts only after the user explicitly
-approves the spec ("ok", "go", "approved"). The approval is recorded in `spec.md`. Silence,
-a vague reply or your own judgment is not approval.
-
-**If you cannot ask the user** (headless run, no AskUserQuestion, unanswered questions):
-do not decide on their behalf and do not implement. Instead:
-1. Write the spec as Draft, with all three files.
-2. Write the kickoff decisions as **Proposed** ADRs, each stating its recommended option.
-3. Stop, and end with the list of open questions and what you would do after approval.
+**Approval gate:** see the Hard rules at the top. Implementation starts only after explicit
+approval, recorded in `spec.md` (`Approved by:`). Silence, a vague reply, a failed or skipped
+question, or your own judgment is not approval.
 
 **ADR rules:** a design decision that reaches beyond the feature (library, pattern,
 platform, language) becomes its own ADR. ADRs are never edited: a change is a new
