@@ -7,12 +7,25 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Greet once on install and on each update (2026-10-13)
+- **senior-mindset:** Add a Draft state for plans whose spec is not approved (2026-10-13)
+- **senior-mindset:** Write a plan per spec with the recommended model (2026-10-13)
 
 ### Documentation
 
-- **senior-mindset:** Add spec 0006 for the welcome message (2026-10-13)
-- **repo:** Mark SPEC-0005 implemented (#21) (2026-10-13)
+- **senior-mindset:** Write draft specs and plans for the roadmap (2026-10-13)
+- **senior-mindset:** Add spec 0007 for a plan per spec (2026-10-13)
+- **repo:** Mark SPEC-0006 implemented (#22) (2026-10-13)
+
+## [senior-mindset-v1.7.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Greet once on install and on each update
+
+### Documentation
+
+- **senior-mindset:** Add spec 0006 for the welcome message
+- **repo:** Mark SPEC-0005 implemented (#21)
 
 ## [senior-mindset-v1.6.0] - 2026-10-13
 
