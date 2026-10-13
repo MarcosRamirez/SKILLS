@@ -50,6 +50,7 @@ claude › Before writing code, 4 quick questions (I'll remember the answers):
 | A new DB helper every session | Checks `spec/INVENTORY.md` and reuses it |
 | "Why Postgres?" — nobody knows | `spec/adr/0001-use-postgresql.md` |
 | SQL built with string concat | OWASP checklist before every hand-over |
+| No mission, the roadmap lives in the chat | `spec/constitution/`: mission, tech stack and a roadmap the bot keeps current |
 | Specs closed by hand, release tags forgotten | Specs close themselves on merge, releases tag themselves |
 | Code that trusts every input and fills the disk | Guard clauses, resource checks, timeouts and limits by default |
 | `console.log` when things break | Structured logs from the first commit |
