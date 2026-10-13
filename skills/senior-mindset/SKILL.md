@@ -49,7 +49,8 @@ next person (or AI) does not have to guess.
    - a final message with numbered open questions and what you will build once they are
      answered and the spec is approved.
 
-   Scripts are the exception: they take the fast path in Step 0 and need no spec.
+   Scripts are the exception: they take the fast path in Step 0 and need no spec. So does a
+   trivial fix (Step 3).
 
 ## Step 0a — First-use setup (once per user)
 
@@ -173,7 +174,18 @@ Layout and naming of all these files: [references/project-layout.md](references/
 
 ## Step 3 — Spec first (SDD)
 
-No code before an approved spec. Create `spec/features/NNNN-<slug>/` with **all three files**
+No code before an approved spec. First choose the **type**. Features and fixes share one
+`SPEC-NNNN` numbering, and every spec header carries `Type: feature` or `Type: fix`:
+
+- **feature** → `spec/features/`: new or changed behaviour. Refactors, performance work and
+  upgrades too, with a criterion that behaviour does not change.
+- **fix** → `spec/fixes/`: behaviour that is wrong. A **trivial fix** (obvious cause, one place,
+  nothing changes beyond the bug) gets no spec: a regression test that fails first, then a `fix:`
+  commit. A fix needs a spec when the root cause is unknown, several modules are involved,
+  behaviour changes beyond the bug, or there is data loss or a security impact (a vulnerability's
+  details stay private until the fix is released). In doubt, write the spec.
+
+A feature gets `spec/features/NNNN-<slug>/` with **all three files**
 (a feature without its plan and tasks is not ready for approval):
 
 - `spec.md` — WHAT and WHY: problem, requirements, numbered acceptance criteria
@@ -183,7 +195,15 @@ No code before an approved spec. Create `spec/features/NNNN-<slug>/` with **all 
 - `tasks.md` — checklist; every task references an `AC-n` and includes its tests.
 
 A small feature that fits on one screen can be a single file `spec/features/NNNN-<slug>.md`
-with `## Spec`, `## Plan` and `## Tasks`. Add every new feature to `spec/constitution/roadmap.md`.
+with `## Spec`, `## Plan` and `## Tasks`.
+
+A fix is a single file `spec/fixes/NNNN-<slug>.md` with the same three sections (a folder only
+when it is large). Its Spec states the current, expected and **unchanged** behaviour, the
+reproduction, the root cause and the fix. Its acceptance criteria always include a test that fails
+before the fix and passes after it, plus unchanged-behaviour tests that stay green. Flow:
+reproduce with a failing test → root cause → fix, on a `fix/NNNN-<slug>` branch.
+
+Add every new spec to `spec/constitution/roadmap.md`.
 
 Gaps in the spec → ask, do not assume. User approves → status Approved → implement.
 **Implemented is set when the user merges the spec's last PR**, never inside the PR: that PR
@@ -217,7 +237,9 @@ While writing the plan's `## Design`, decide and justify each axis (ADR if proje
 
 With the spec approved, write its plan before implementing:
 `spec/features/NNNN-<slug>/plan.<tier>.md`, inside the feature folder, with the overall tier
-(`high`/`medium`/`low`) as a suffix. Its `## Design` section holds the technical how. The plan has context, one step per task with its
+(`high`/`medium`/`low`) as a suffix; a single-file spec (small feature or fix) keeps it in its
+`## Plan` section. Its `## Design` section holds the technical how (in a fix, the root cause and
+the fix). The plan has context, one step per task with its
 recommended tier and agent/model ([references/models.md](references/models.md)), verification,
 risks and out of scope. It is part of what the user approves. Template, lifecycle and naming:
 [references/plans.md](references/plans.md).
