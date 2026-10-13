@@ -1,6 +1,7 @@
 # SPEC-0006: welcome message on install and update
 
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-13, PR #22
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, "haz que cuando la skill se instale diga que está instalada y haga un poco de spam sobre mí con esta URL".
 
