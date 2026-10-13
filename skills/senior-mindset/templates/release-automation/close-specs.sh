@@ -1,27 +1,41 @@
 #!/usr/bin/env bash
-# Marks the features named in a merged PR body ("Closes-Spec: SPEC-NNNN") as Implemented.
+# Marks the specs named in a merged PR body ("Closes-Spec: SPEC-NNNN") as Implemented.
+# A spec is a feature (spec/features/) or a fix (spec/fixes/); both share one SPEC-NNNN numbering,
+# so a number must match exactly one spec across all the spec folders.
 #
-# For each feature it:
+# For each spec it:
 #   - sets the spec to "Status: Implemented" + "Implemented: <date>, PR #<n>"
-#       folder feature:  spec/features/NNNN-<slug>/spec.md
-#       single file:     spec/features/NNNN-<slug>.md
-#   - sets the plan (folder feature: plan*.md inside it) to "Status: Done" + "Done: <date>, PR #<n>"
-#   - sets the feature's row in the roadmap to Implemented
-# Everything is validated before anything is written, so a failure leaves no half-closed feature.
+#       folder spec:  <spec folder>/NNNN-<slug>/spec.md
+#       single file:  <spec folder>/NNNN-<slug>.md
+#   - sets the plan (folder spec: plan*.md inside it) to "Status: Done" + "Done: <date>, PR #<n>"
+#   - sets the spec's row in the roadmap to Implemented
+# Everything is validated before anything is written, so a failure leaves no half-closed spec.
 #
 # Inputs (env):
 #   PR_BODY       body of the merged PR — untrusted, only ever read from this variable
 #   PR_NUMBER     number of the merged PR
-#   FEATURES_DIR  default: spec/features
+#   SPEC_DIRS     spec folders to look in, space-separated. Default: "spec/features spec/fixes".
+#                 A folder that does not exist is skipped (no spec/fixes yet is fine).
+#   FEATURES_DIR  legacy: when set, it is the only folder looked in and SPEC_DIRS is ignored
 #   ROADMAP       default: spec/constitution/roadmap.md (missing roadmap is fine)
 # Output: prints every file it changed, one per line. Changes nothing else.
 set -euo pipefail
 
 : "${PR_BODY:?PR_BODY is required}"
 : "${PR_NUMBER:?PR_NUMBER is required}"
-FEATURES_DIR="${FEATURES_DIR:-spec/features}"
 ROADMAP="${ROADMAP:-spec/constitution/roadmap.md}"
 STATUS_RE='^[[:space:]]*(- )?Status:'
+
+# FEATURES_DIR is one folder, kept whole even if its path has spaces; SPEC_DIRS is a list.
+if [ -n "${FEATURES_DIR:-}" ]; then
+  spec_dirs=("$FEATURES_DIR")
+else
+  read -r -a spec_dirs <<<"${SPEC_DIRS:-spec/features spec/fixes}"
+fi
+if [ "${#spec_dirs[@]}" -eq 0 ]; then
+  echo "error: SPEC_DIRS lists no folder" >&2
+  exit 1
+fi
 
 if ! [[ "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
   echo "error: PR_NUMBER '$PR_NUMBER' is not a number" >&2
@@ -60,19 +74,28 @@ for spec_id in "${spec_ids[@]}"; do
   number="${BASH_REMATCH[1]}"
 
   # ---- locate and validate everything first ----
+  # Look in every spec folder, as a folder spec (NNNN-*/spec.md) and as a single file (NNNN-*.md).
+  # A folder that does not exist has no match, so a project without spec/fixes is not an error.
   shopt -s nullglob
-  folders=("$FEATURES_DIR"/"$number"-*/spec.md)
-  singles=("$FEATURES_DIR"/"$number"-*.md)
+  matches=()
+  for dir in "${spec_dirs[@]}"; do
+    matches+=("$dir"/"$number"-*/spec.md "$dir"/"$number"-*.md)
+  done
   shopt -u nullglob
-  total=$(( ${#folders[@]} + ${#singles[@]} ))
-  if [ "$total" -ne 1 ]; then
-    echo "error: expected exactly one feature for $spec_id in $FEATURES_DIR, found $total — nothing changed" >&2
+  if [ "${#matches[@]}" -eq 0 ]; then
+    echo "error: no spec found for $spec_id in ${spec_dirs[*]} — nothing changed" >&2
     exit 1
   fi
+  if [ "${#matches[@]}" -gt 1 ]; then
+    echo "error: $spec_id matches more than one spec (a number is used once) — nothing changed" >&2
+    printf '  %s\n' "${matches[@]}" >&2
+    exit 1
+  fi
+  spec_file="${matches[0]}"
 
   plan_file=""
-  if [ "${#folders[@]}" -eq 1 ]; then
-    spec_file="${folders[0]}"
+  if [[ "$spec_file" == */spec.md ]]; then
+    # folder spec: its plan is inside the same folder
     shopt -s nullglob
     plans=("$(dirname "$spec_file")"/plan*.md)
     shopt -u nullglob
@@ -81,8 +104,6 @@ for spec_id in "${spec_ids[@]}"; do
       exit 1
     fi
     [ "${#plans[@]}" -eq 1 ] && plan_file="${plans[0]}"
-  else
-    spec_file="${singles[0]}"
   fi
 
   status_line="$(grep -m1 -E "$STATUS_RE" "$spec_file" || true)"
