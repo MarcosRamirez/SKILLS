@@ -1,6 +1,6 @@
 # SPEC-0004: defensive programming by default
 
-Status: Approved
+Status: Implemented
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, "quiero que por defecto aplique programación defensiva … ponlo tú como sea correcto".
 
