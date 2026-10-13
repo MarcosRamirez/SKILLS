@@ -89,6 +89,8 @@ and suggest 2–3 options.
 | `references/architecture.md` | When to use hexagonal, SOLID, DRY, KISS |
 | `references/defensive-programming.md` | Trust boundaries, guard clauses, resource checks (disk space…), timeouts, limits |
 | `references/automations.md` | Catalog of automations offered at kickoff (multi-select question) |
+| `references/plans.md` | A plan per spec (`docs/plans/NNNN-slug.<tier>.md`), "run plan X" |
+| `references/models.md` | Tier (high/medium/low) → Claude and open models |
 | `references/release-automation.md` | Specs close on merge, releases tag themselves (`on-merge.yml`); templates in `templates/release-automation/` |
 | `references/security.md` | OWASP Top 10 checklist |
 | `references/performance.md` | Computational cost rules |

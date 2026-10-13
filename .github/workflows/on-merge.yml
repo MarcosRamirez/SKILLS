@@ -62,6 +62,9 @@ jobs:
             exit 0
           fi
           git add $changed
-          ids="$(printf '%s\n' "$changed" | sed -E 's#.*/([0-9]{4})-[^/]*/spec.md#SPEC-\1#' | paste -sd, -)"
-          git commit -m "📖 docs(repo): mark ${ids} implemented (#${PR_NUMBER})"
+          # Commit message lists only the specs; their plans (docs/plans/NNNN-*.md) ride along.
+          ids="$(printf '%s\n' "$changed" | grep 'spec\.md$' | sed -E 's#.*/([0-9]{4})-[^/]*/spec.md#SPEC-\1#' | paste -sd, -)"
+          if [ -z "$ids" ]; then ids="plans"; fi
+          git commit -m "📖 docs(repo): mark ${ids} implemented (#${PR_NUMBER})" \
+            -m "Specs set to Implemented and their plans to Done by on-merge."
           git push origin HEAD:master

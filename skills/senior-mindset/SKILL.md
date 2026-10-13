@@ -11,7 +11,8 @@ description: >
   a worker, a fix, or a one-off script (scripts take a fast path: no interview, but
   English names and clean code). Also for releases and versioning. Triggers include
   "build", "create", "write a script", "fix", "release", "crea una aplicación",
-  "programa X", "hazme un script", "nuevo proyecto", "nueva feature", "saca la versión".
+  "programa X", "hazme un script", "nuevo proyecto", "nueva feature", "saca la versión",
+  "run plan 0008", "ejecuta el plan 0008".
 license: MIT
 metadata:
   author: Marcos Ramírez
@@ -195,7 +196,24 @@ While writing `design.md`, decide and justify each axis (ADR if project-wide):
 - **Language per component:** present a short pros/cons table of 2–3 candidates,
   give a reasoned recommendation, and **let the user decide**. → [references/languages.md](references/languages.md)
 
+## Step 3c — Plan
+
+With the spec approved, write its plan before implementing:
+`docs/plans/NNNN-<slug>.<tier>.md`, with the same number and slug as the spec and the overall
+tier (`high`/`medium`/`low`) as a suffix. The plan has context, one step per task with its
+recommended tier and agent/model ([references/models.md](references/models.md)), verification,
+risks and out of scope. It is part of what the user approves. Template, lifecycle and naming:
+[references/plans.md](references/plans.md).
+
+**"Run plan X" / "ejecuta el plan X":** read the plan and its spec, check approval (ask if the
+spec is still Draft), set the plan to `In progress`, and execute the steps with branches and PRs.
+The last PR carries `Closes-Spec: SPEC-X`, and the bot marks the spec Implemented and the plan Done.
+
 ## Step 4 — Implement
+
+Follow the plan step by step. If reality diverges from the plan, update the plan in the same
+branch and tell the user, instead of silently doing something else.
+
 
 - **Reuse before creating.** Before writing a function, helper, DB client, script
   or tool, check `docs/INVENTORY.md` and grep the code. If something already does

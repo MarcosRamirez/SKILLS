@@ -46,5 +46,5 @@ jobs:
           changed="$(bash .github/scripts/close-specs.sh)"
           [ -n "$changed" ] || exit 0
           git add $changed
-          git commit -m "docs: mark specs implemented (#${PR_NUMBER})"
+          git commit -m "docs: mark specs implemented and plans done (#${PR_NUMBER})"
           git push origin HEAD:${GITHUB_REF_NAME}
