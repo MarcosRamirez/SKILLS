@@ -17,6 +17,7 @@ Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), mainta
   "id": "web-design",
   "name": "Web design",
   "purpose": "Layout, typography and accessible UI for web pages",
+  "recommended": false,
   "proposeWhen": { "tasks": ["landing page", "ui", "web design"], "stack": ["astro", "next"] },
   "source": { "marketplace": "marcosramirez-skills", "plugin": "web-design", "upstream": "<repo>" },
   "install": "claude plugin install web-design@marcosramirez-skills",

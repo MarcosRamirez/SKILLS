@@ -14,8 +14,9 @@ because there is no curated source to choose from, and nothing manages what gets
 - R-1 **Curated lists inside the skill**: `skills/senior-mindset/catalog/skills.json` and
   `catalog/mcps.json`, maintained by the user in this repository and shipped with every install
   and `plugin update`. One list for every project; the skill picks what fits each project.
-- R-2 Each entry: id, name, purpose, when to propose it (task types / stack signals), source and
-  install command, permissions it needs, pinned version, why it is in the list, date added.
+- R-2 Each entry: id, name, purpose, `recommended` (listed first and marked "(Recommended)" in the
+  install question), when to propose it (task types / stack signals), source and install command,
+  permissions it needs, pinned version, why it is in the list, date added.
 - R-3 Written **inclusion criteria** in `references/catalog.md`: official or vendor-maintained,
   actively maintained, open licence, minimal permissions, reviewed before inclusion.
 - R-4 A JSON Schema for both lists and a CI check that rejects malformed entries.
@@ -45,6 +46,8 @@ because there is no curated source to choose from, and nothing manages what gets
 - AC-1b The initial set comes from a review session with the user: their lists plus proposed
   candidates, every entry approved explicitly. Rejected candidates are recorded with the reason
   (so they are not proposed again).
+- AC-1c `catalog/mcps.json` starts with **Context7** as a recommended entry (the user's own pick, see
+  SPEC-0012 R-6).
 - AC-2 CI validation step; a malformed entry fails the check (tested locally).
 - AC-3 Headless test: "design a landing page" in a test project → proposes the web-design entry, installs nothing without consent.
 - AC-4 At least one vetted third-party skill installable from the user's marketplace.
