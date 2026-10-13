@@ -1,0 +1,64 @@
+name: on-merge
+
+# After every merge to master:
+# 1. specs named in the merged PR ("Closes-Spec: SPEC-NNNN") become Implemented (bot commit);
+# 2. skills whose version has no tag yet get "<name>-vX.Y.Z" plus a GitHub Release.
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: on-merge
+  cancel-in-progress: false
+
+jobs:
+  on-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find the merged pull request
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          number="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/pulls" \
+            --jq '[.[] | select(.merged_at != null)][0].number // empty')"
+          echo "number=${number}" >> "$GITHUB_OUTPUT"
+          if [ -z "$number" ]; then echo "no merged PR for ${GITHUB_SHA}"; fi
+
+      - name: Tag new skill versions
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_SHA: ${{ github.sha }}
+        run: bash .github/scripts/tag-releases.sh
+
+      - name: Mark closed specs as Implemented
+        if: steps.pr.outputs.number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+        run: |
+          set -euo pipefail
+          # The PR body is untrusted: fetch it into a variable, never interpolate it into the script.
+          PR_BODY="$(gh pr view "$PR_NUMBER" --json body --jq '.body')"
+          export PR_BODY
+          changed="$(bash .github/scripts/close-specs.sh)"
+          if [ -z "$changed" ]; then
+            echo "no spec to close"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add $changed
+          ids="$(printf '%s\n' "$changed" | sed -E 's#.*/([0-9]{4})-[^/]*/spec.md#SPEC-\1#' | paste -sd, -)"
+          git commit -m "📖 docs(repo): mark ${ids} implemented (#${PR_NUMBER})"
+          git push origin HEAD:master

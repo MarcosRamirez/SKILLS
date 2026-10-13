@@ -29,7 +29,18 @@ follows senior-mindset's convention, which matches the emoji + Conventional Comm
   merged by the user in order. Before deleting a merged base branch, retarget the next PR
   (`gh pr edit <next> --base master`): deleting the base closes the stacked PRs.
   Never push to `master`, never merge a PR yourself unless asked.
+- **The only exception to "never commit on master":** `github-actions[bot]`, through
+  `.github/workflows/on-merge.yml`, and only to mark specs Implemented after a merge.
 - Scopes: one per skill (`senior-mindset`, `save-image`), plus `marketplace` and `repo`.
+
+## Specs close themselves on merge
+
+- The last PR of a spec carries `Closes-Spec: SPEC-NNNN` in its body (one line per spec).
+- **Never mark a spec Implemented by hand or inside the PR.** When the PR is merged,
+  `on-merge.yml` sets `Status: Implemented` + `Implemented: <date>, PR #<n>` and commits it as the bot.
+- Checks that can only run after the merge (plugin update, etc.) go in the PR body under
+  "Post-merge checks", not in `tasks.md`. Their result is posted with `gh pr comment <n>`.
+- If the workflow fails, set the status by hand in the next PR and fix the workflow.
 
 ## Documentation is updated in the same commit as the change
 
@@ -66,12 +77,14 @@ users who installed it with `/plugin` never receive the update.
 1. In the release PR, regenerate the changelogs:
    - repo: `npx git-cliff -o CHANGELOG.md`
    - per skill: `npx git-cliff --include-path "skills/<name>/**" --tag-pattern "<name>-v.*" --tag <name>-vX.Y.Z -o skills/<name>/CHANGELOG.md`
-2. After the user merges it: `git switch master && git pull`, then tag the merge commit:
-   `git tag -a <name>-vX.Y.Z -m "<name> X.Y.Z"` and `git push origin <name>-vX.Y.Z`.
-   The tag must sit on the merge commit that bumped that skill's version; a commit that touches
-   no file in the skill is filtered out by `--include-path`, and the release vanishes from its changelog.
-3. Check the update: `claude plugin marketplace update marcosramirez-skills` +
-   `claude plugin update <name>@marcosramirez-skills`.
+2. When the user merges it, `on-merge.yml` tags the merge commit `<name>-vX.Y.Z` and creates
+   the GitHub Release with that version's changelog section (`--prerelease` for alpha/beta/rc).
+   The tag must sit on the merge commit that bumped the version, which is why the workflow tags
+   `$GITHUB_SHA`. Manual fallback if the workflow fails:
+   `git tag -a <name>-vX.Y.Z <merge-sha> -m "<name> X.Y.Z" && git push origin <name>-vX.Y.Z`.
+3. Post-merge checks: `gh run list --workflow on-merge.yml` is green, the tag and Release exist,
+   then `claude plugin marketplace update marcosramirez-skills` +
+   `claude plugin update <name>@marcosramirez-skills`. Post the result as a PR comment.
 
 ## Structure
 
@@ -84,4 +97,6 @@ skills/<name>/
   references/ scripts/ hooks/     optional
 docs/adr/  docs/specs/  docs/INVENTORY.md
 CHANGELOG.md  cliff.toml
+.github/workflows/on-merge.yml    closes specs + tags releases after each merge
+.github/scripts/                  close-specs.sh, tag-releases.sh (testable locally, DRY_RUN=1)
 ```
