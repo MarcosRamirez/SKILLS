@@ -4,10 +4,16 @@ Two manual steps used to follow every merge: tagging the release, and opening a 
 mark the spec Implemented. A spec cannot be marked Implemented *inside* its PR, because that
 claims what has not happened yet. This workflow does both at merge time.
 
-## When to propose it
+## Default in every project with GitHub
 
-At kickoff, if the project has a GitHub remote: propose `on-merge.yml`, and record the choice
-as an ADR. Without GitHub, or if the user declines, use the manual fallback at the end.
+This is the standard way specs close and releases are tagged, in **every** project the skill
+builds. Do not ask about it: at kickoff, if the project has a GitHub remote, copy the templates,
+list them in `docs/INVENTORY.md` and mention them in the kickoff PR. The same applies when a
+GitHub remote is added later.
+
+Skip it only when there is no GitHub remote (other hosts use the manual fallback at the end),
+or when the user explicitly says they do not want it. In that case, record the opt-out in
+CLAUDE.md so you do not install it again.
 
 ## How it works
 

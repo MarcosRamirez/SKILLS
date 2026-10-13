@@ -139,8 +139,9 @@ has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md inst
 - [ ] Logger wrapper, unless logging is N/A
 - [ ] `cliff.toml` (changelog + `[bump]`) and a generated `CHANGELOG.md`
 - [ ] Version `0.0.1-alpha.1` in the manifest, unless versioning is N/A
-- [ ] GitHub remote → `on-merge.yml` proposed (specs close on merge, releases tag themselves)
-  and recorded as an ADR — [references/release-automation.md](references/release-automation.md)
+- [ ] GitHub remote → `on-merge.yml` + its scripts **installed by default, without asking**
+  (specs close on merge, releases tag themselves). Skip only if there is no GitHub remote or
+  the user explicitly opts out — [references/release-automation.md](references/release-automation.md)
 - [ ] **Kickoff committed on its own branch** (`chore/kickoff`) and its PR opened before any
   feature work. Feature branches stack on it until the user merges it.
 
