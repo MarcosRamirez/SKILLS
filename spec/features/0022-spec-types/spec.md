@@ -1,9 +1,9 @@
 # SPEC-0022: spec types: features and fixes
 
 Type: feature
-Status: Draft
+Status: Approved
 Date: 2026-10-13
-Approved by: (empty until the user explicitly approves)
+Approved by: the user, 2026-10-13, "implementa todas las fases, una a una, con subagentes"
 
 ## Problem
 

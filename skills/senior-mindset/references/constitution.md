@@ -7,7 +7,7 @@ as three files, or in a single `spec/constitution.md` in small projects.
 |---|---|---|
 | `mission.md` | What we build, for whom, why | The user, helped by the AI; the user approves it |
 | `tech-stack.md` | Which technologies and conventions | Derived from the ADRs; never edited by hand |
-| `roadmap.md` | In which order the features come, and where each one stands | The AI adds rows; the bot updates states on merge |
+| `roadmap.md` | In which order the specs (features and fixes) come, and where each one stands | The AI adds rows; the bot updates states on merge |
 
 ## mission.md
 
@@ -61,7 +61,7 @@ Naming, linter, formatter, tests, package manager — each linked to its ADR or 
 
 ## roadmap.md
 
-The order of the features and their state. It replaces keeping the "what's next" list in chat.
+The order of the specs (features and fixes) and their state. It replaces keeping the "what's next" list in chat.
 
 ```markdown
 # Roadmap
@@ -73,9 +73,9 @@ The order of the features and their state. It replaces keeping the "what's next"
 | SPEC-0003 | Email reminders | medium | Draft | SPEC-0002 |
 ```
 
-- **Order = row order**: the next feature to run is the first row that is not Implemented and whose
+- **Order = row order**: the next spec to run is the first row that is not Implemented and whose
   dependencies are Implemented.
-- A new feature gets its row when its spec is created (state `Draft`).
+- A new spec, feature or fix, gets its row when it is created (state `Draft`).
 - States: `Draft` → `Approved` → `In progress` → `Implemented`. The AI updates `Approved` and
   `In progress` in the work branch. **The bot sets `Implemented`** when the `Closes-Spec:` PR is merged
   ([release-automation.md](release-automation.md)). Keep the table format: the bot edits the Status column.

@@ -35,7 +35,10 @@ only for the areas the user assigned to it in the setup.
 - Naming: `<type>/<slug>`, with the spec and task number when there is one:
   - `feat/0001-user-auth` — a whole feature (spec 0001)
   - `feat/0001-t3-invoices-endpoint` — task T-3 of spec 0001
-  - `fix/cursor-pagination`, `docs/api-readme`, `chore/upgrade-deps`
+  - `fix/0003-cursor-skips-rows` — a whole fix spec (spec 0003, in `spec/fixes/`);
+    `fix/0003-t3-reset-cursor` — its task T-3
+  - `fix/cursor-pagination`, `docs/api-readme`, `chore/upgrade-deps` — no spec, so no number
+    (a trivial fix has no spec: a regression test and a `fix:` commit)
 - One branch = one unit of work, short-lived. A large task in `tasks.md` gets its own branch;
   small, tightly coupled tasks may share the feature branch.
 - No squash, no rebase of published branches.

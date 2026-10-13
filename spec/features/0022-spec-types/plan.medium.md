@@ -1,7 +1,7 @@
 # PLAN-0022: spec types: features and fixes
 
 Spec: [SPEC-0022](spec.md)
-Status: Draft
+Status: In progress
 Recommended overall: medium — Claude Sonnet 5.5 (template and wording, plus a small change to the bot script)
 
 ## Context

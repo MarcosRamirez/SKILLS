@@ -23,9 +23,13 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
    It stores the answers as ADRs plus an `## Engineering conventions` section in the
    project's `CLAUDE.md`, and never asks again. A kickoff checklist is verified and committed
    before the first feature.
-5. **Writes the spec first (SDD).** `spec/features/NNNN-slug/` with `spec.md` → `plan.<tier>.md` →
-   `tasks.md`, and **never writes code without your explicit approval**. If it can't ask
-   you (e.g. a headless run), it stops with a Draft spec and a list of questions.
+5. **Writes the spec first (SDD).** A feature goes in `spec/features/NNNN-slug/` with `spec.md` →
+   `plan.<tier>.md` → `tasks.md`. A bug that needs a spec goes in `spec/fixes/NNNN-slug.md`: the
+   current, expected and unchanged behaviour, the reproduction, the root cause, and a test that
+   fails before the fix and passes after it. A trivial fix needs no spec: a regression test that
+   fails first and a `fix:` commit. For everything else it **never writes code without your
+   explicit approval**. If it can't ask you (e.g. a headless run), it stops with a Draft spec and
+   a list of questions.
 6. **Evaluates the design.** Monolith or microservices, event-driven or not, test strategy
    (unit, TDD, k6 load tests), contract-first OpenAPI, and the language per component
    (it shows pros and cons, you decide).
@@ -90,12 +94,12 @@ and suggest 2–3 options.
 | `references/defensive-programming.md` | Trust boundaries, guard clauses, resource checks (disk space…), timeouts, limits |
 | `references/automations.md` | Catalog of automations offered at kickoff (multi-select question) |
 | `references/constitution.md` | Mission, tech stack (from ADRs) and roadmap (updated by the bot) |
-| `references/plans.md` | The plan of each feature (`spec/features/NNNN-slug/plan.<tier>.md`), "run plan X" |
+| `references/plans.md` | The plan of each spec (`plan.<tier>.md`, or the `## Plan` section of a single-file spec or fix), "run plan X" |
 | `references/models.md` | Tier (high/medium/low) → Claude and open models |
 | `references/release-automation.md` | Specs close on merge, releases tag themselves (`on-merge.yml`); templates in `templates/release-automation/` |
 | `references/security.md` | OWASP Top 10 checklist |
 | `references/performance.md` | Computational cost rules |
-| `references/sdd.md` · `adr.md` | Spec and ADR templates |
+| `references/sdd.md` · `adr.md` | Spec templates (feature and fix, and when a fix needs a spec) and the ADR template |
 | `references/system-design.md` | Monolith vs microservices, event-driven |
 | `references/testing.md` | Test pyramid, TDD, k6 / JMeter |
 | `references/api-design.md` | OpenAPI contract-first, REST standards |
@@ -112,6 +116,8 @@ spec/
   features/
     NNNN-slug/                spec.md · plan.<tier>.md · tasks.md
     NNNN-slug.md              small feature in a single file
+  fixes/
+    NNNN-slug.md              a fix in a single file; shares the numbering with features
   adr/                        README.md + NNNN-*.md
   api/openapi.yaml            (if there is an API)
   INVENTORY.md
