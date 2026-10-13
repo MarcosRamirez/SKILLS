@@ -3,6 +3,13 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v1.8.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Add a Draft state for plans whose spec is not approved
+- **senior-mindset:** Write a plan per spec with the recommended model
+
 ## [senior-mindset-v1.7.0] - 2026-10-13
 
 ### Added
