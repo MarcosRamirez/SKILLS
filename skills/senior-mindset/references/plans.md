@@ -25,7 +25,8 @@ For small specs the plan can be short, but it always exists: it is what "run pla
 
 ## Lifecycle
 
-`Ready` (spec approved, plan written) → `In progress` (execution started) → `Done`.
+`Draft` (spec still Draft, plan proposed) → `Ready` (spec approved, plan approved with it) →
+`In progress` (execution started) → `Done`.
 
 **`Done` is set by the bot**, never by hand. When the PR carrying `Closes-Spec: SPEC-NNNN` is
 merged, `close-specs.sh` marks the spec Implemented and its plan `Done`
@@ -34,7 +35,8 @@ merged, `close-specs.sh` marks the spec Implemented and its plan `Done`
 ## "Run plan X" / "ejecuta el plan X"
 
 1. Read `docs/plans/X-*.md` and its spec.
-2. **Approval gate:** if the spec is still `Draft`, show it and ask for explicit approval first (Hard rules).
+2. **Approval gate:** if the spec is still `Draft`, show spec and plan and ask for explicit approval first
+   (Hard rules). On approval, set the spec to `Approved` (with `Approved by:`) and the plan to `Ready`.
 3. Set the plan to `In progress` on the first work branch.
 4. Execute the steps in order: one branch per task, a commit per significant change, PRs (stacked when dependent).
 5. The last PR carries `Closes-Spec: SPEC-X`. The user merges, and the bot closes spec and plan.
@@ -47,7 +49,7 @@ merged, `close-specs.sh` marks the spec Implemented and its plan `Done`
 # PLAN-NNNN: <title>
 
 Spec: [SPEC-NNNN](../specs/NNNN-<slug>/spec.md)
-Status: Ready
+Status: Draft
 Recommended overall: <tier> — <agent / model from models.md> (why)
 
 ## Context
