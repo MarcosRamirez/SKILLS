@@ -7,12 +7,44 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Ask at kickoff where the code goes (2026-10-13)
+- **senior-mindset:** Close fix specs with SPEC_DIRS (2026-10-13)
+
+### Fixed
+
+- **repo:** Keep the on-merge commit when no spec path changed (2026-10-13)
 
 ### Documentation
 
-- **senior-mindset:** Add single-file feature 0018 for the code folder choice (2026-10-13)
-- **repo:** Mark SPEC-0017 implemented (#34) (2026-10-13)
+- **senior-mindset:** Tick task T-3 of spec 0022 (2026-10-13)
+- **senior-mindset:** Tick task T-2 of spec 0022 (2026-10-13)
+- **repo:** Say the bot closes fixes like features (2026-10-13)
+- **senior-mindset:** Keep the approval gate for trivial fixes (2026-10-13)
+- **senior-mindset:** Tick task T-1 of spec 0022 (2026-10-13)
+- **senior-mindset:** Choose the spec type in step 3 (2026-10-13)
+- **senior-mindset:** Add fix specs next to feature specs (2026-10-13)
+- **senior-mindset:** Approve spec 0022 and start its plan (2026-10-13)
+- **repo:** Order the roadmap for implementation (2026-10-13)
+- **senior-mindset:** Add spec and plan 0021 for standard installs (2026-10-13)
+- **repo:** Version skills in SKILL.md, keep Claude files out (2026-10-13)
+- **senior-mindset:** Put standard locations first for installs (2026-10-13)
+- **senior-mindset:** Add fix spec 0023 for version bumps (2026-10-13)
+- **senior-mindset:** Add spec and plan 0022 for fix specs (2026-10-13)
+- **senior-mindset:** Add Context7 and MCP directories to spec 0012 (2026-10-13)
+- **senior-mindset:** Install skills and MCPs at project scope (2026-10-13)
+- **senior-mindset:** Add spec and plan 0020 for toggling MCPs (2026-10-13)
+- **senior-mindset:** Add spec and plan 0019 for AGENTS.md first (2026-10-13)
+- **repo:** Mark SPEC-0018 implemented (#35) (2026-10-13)
+
+## [senior-mindset-v2.1.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Ask at kickoff where the code goes
+
+### Documentation
+
+- **senior-mindset:** Add single-file feature 0018 for the code folder choice
+- **repo:** Mark SPEC-0017 implemented (#34)
 
 ## [senior-mindset-v2.0.0] - 2026-10-13
 

@@ -3,6 +3,18 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.2.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Close fix specs with SPEC_DIRS
+
+### Documentation
+
+- **senior-mindset:** Keep the approval gate for trivial fixes
+- **senior-mindset:** Choose the spec type in step 3
+- **senior-mindset:** Add fix specs next to feature specs
+
 ## [senior-mindset-v2.1.0] - 2026-10-13
 
 ### Added
