@@ -21,13 +21,20 @@ because there is no curated source to choose from, and nothing manages what gets
 - R-4 A JSON Schema for both lists and a CI check that rejects malformed entries.
 - R-5 Third-party skills that pass the criteria are also added to the user's marketplace
   (`.claude-plugin/marketplace.json`, pinned source), so they install with `/plugin install`.
-- R-6 Skill management: propose (by task type) → install only if the user accepts → record in the
+- R-6 **The initial lists are built with the user**, not by the AI alone. When this step is reached,
+  the AI asks the user for the skills and MCPs they already use or want, and proposes researched
+  candidates (by task type and stack), each with why and how it meets the criteria. Nothing enters
+  the catalog without the user's approval, entry by entry.
+- R-7 Skill management: propose (by task type) → install only if the user accepts → record in the
   project → update with releases → propose removing unused ones. New skills go through the
   collision check of the first-use setup.
 
 ## Acceptance criteria
 
-- AC-1 Both catalog files with an initial curated set, the schema, and `references/catalog.md`.
+- AC-1 Both catalog files, the schema, and `references/catalog.md`.
+- AC-1b The initial set comes from a review session with the user: their lists plus proposed
+  candidates, every entry approved explicitly. Rejected candidates are recorded with the reason
+  (so they are not proposed again).
 - AC-2 CI validation step; a malformed entry fails the check (tested locally).
 - AC-3 Headless test: "design a landing page" in a test project → proposes the web-design entry, installs nothing without consent.
 - AC-4 At least one vetted third-party skill installable from the user's marketplace.
