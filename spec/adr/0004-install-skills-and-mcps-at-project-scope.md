@@ -1,6 +1,6 @@
 # ADR-0004: Install skills and MCPs at project scope by default
 
-Status: Accepted
+Status: Superseded by ADR-0005
 Date: 2026-10-13
 
 ## Context

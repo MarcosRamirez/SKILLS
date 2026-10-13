@@ -6,8 +6,8 @@ Derived from the ADRs — do not edit by hand; change the ADR and regenerate.
 |---|---|---|
 | Versioning | SemVer 2.0 per skill, in each `plugin.json` | [ADR-0001](../adr/0001-version-each-skill-with-semver.md) |
 | Changelog | git-cliff from Conventional Commits; per-skill changelogs with dated sections | [ADR-0002](../adr/0002-generate-changelog-with-git-cliff.md) |
-| Distribution | Claude Code plugin marketplace, one plugin per skill | [ADR-0003](../adr/0003-distribute-skills-as-plugin-marketplace.md) |
-| Installs in projects | Skills and MCPs at project scope by default; global only on request | [ADR-0004](../adr/0004-install-skills-and-mcps-at-project-scope.md) |
+| Distribution | `npx skills` into `.agents/skills/` (standard), with a `.claude/skills/` copy for Claude Code; the Claude Code plugin marketplace is optional | [ADR-0005](../adr/0005-standard-locations-first.md) |
+| Installs in projects | Project by default, global only on request; standard locations first (AGENTS.md, `.agents/skills/`); agent folders only for agent-specific files; MCPs in each agent's own file | [ADR-0005](../adr/0005-standard-locations-first.md) |
 
 ## Conventions
 

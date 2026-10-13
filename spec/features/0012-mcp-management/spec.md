@@ -12,7 +12,8 @@ and keeping them safe is manual and easy to get wrong (secrets in config, over-b
 ## Requirements
 
 - R-1 Proposals come from `catalog/mcps.json` (SPEC-0011), matched to the project's stack and tasks.
-- R-2 Install only with consent, **in the project by default**: `claude mcp add --scope project` →
+- R-2 Install only with consent, **in the project by default**, in the agent's own project file:
+  there is no shared MCP configuration standard (ADR-0005). In Claude Code, `claude mcp add --scope project` →
   `.mcp.json` committed **without secrets** (environment variables), recorded in INVENTORY. The flag
   is always explicit, because Claude Code's default scope is `local` (only this user, not shared).
   Global (`--scope user`) only when the user asks for it (SPEC-0011 R-8).
@@ -28,7 +29,8 @@ and keeping them safe is manual and easy to get wrong (secrets in config, over-b
     answer, even "none", is recorded in the project's conventions so it is not asked again.
 - R-6 **Context7 is a recommended entry from the start** (the user's pick; more will be added):
   - up-to-date documentation for libraries and frameworks, by Upstash, MIT licence, read-only;
-  - project install: the remote server `https://mcp.context7.com/mcp` in `.mcp.json`;
+  - project install: the remote server `https://mcp.context7.com/mcp` in the agent's project MCP file
+    (Claude Code: `.mcp.json`);
   - optional free API key for higher rate limits, as `${CONTEXT7_API_KEY}` in the authorization
     header; the value lives in the user's environment and is never committed;
   - the guided `npx ctx7 setup --claude` only for the "Global" option, after checking which scope

@@ -16,7 +16,9 @@ senior-mindset is written for Claude Code. The user wants it to work in other ag
 - R-2 AGENTS.md is already the single source of project instructions (SPEC-0019). This spec covers the
   other agents' own config files (`.cursorrules`, `.github/copilot-instructions.md`, `GEMINI.md`…):
   point them to AGENTS.md or merge them into it, never overwrite.
-- R-3 Install instructions for each supported agent, based on its official documentation.
+- R-3 Install instructions for each supported agent, based on its official documentation. Skills
+  install the same way everywhere, with `npx skills` into `.agents/skills/` (ADR-0005).
+  The per-agent part covers bridges, MCP files and agent-specific settings.
 - R-4 Model recommendations already work per tier (SPEC-0007); verify the open-model rows on real tasks.
 
 ## Acceptance criteria
