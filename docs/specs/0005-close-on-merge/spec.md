@@ -1,6 +1,7 @@
 # SPEC-0005: specs become Implemented on merge, releases tag themselves
 
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-13, PR #21
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, approving the plan in conversation.
 
