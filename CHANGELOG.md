@@ -7,18 +7,28 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Install release automation by default with github (2026-10-13)
-- **senior-mindset:** Ship release automation templates for apps (2026-10-13)
-- **repo:** Close specs and tag releases automatically on merge (2026-10-13)
+- **senior-mindset:** Ask which automations to install at kickoff (2026-10-13)
+
+### Fixed
+
+- **senior-mindset:** Set the git identity before tagging in on-merge (2026-10-13)
+
+## [senior-mindset-v1.5.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Install release automation by default with github
+- **senior-mindset:** Ship release automation templates for apps
+- **repo:** Close specs and tag releases automatically on merge
 
 ### Changed
 
-- **repo:** Rename tag-releases.sh to tag-skill-releases.sh (2026-10-13)
+- **repo:** Rename tag-releases.sh to tag-skill-releases.sh
 
 ### Documentation
 
-- **senior-mindset:** Add spec 0005 for closing specs on merge (2026-10-13)
-- **senior-mindset:** Close spec 0004 as implemented (2026-10-13)
+- **senior-mindset:** Add spec 0005 for closing specs on merge
+- **senior-mindset:** Close spec 0004 as implemented
 
 ## [senior-mindset-v1.4.0] - 2026-10-13
 
