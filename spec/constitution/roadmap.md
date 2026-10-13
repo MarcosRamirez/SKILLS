@@ -23,5 +23,6 @@ table format.
 | SPEC-0010 | Environments: local, preview, staging, production | medium | Draft | — |
 | SPEC-0011 | Curated catalog of skills and MCPs, skill management | high | Draft | — |
 | SPEC-0012 | MCP management from the curated catalog | medium | Draft | SPEC-0011 |
+| SPEC-0020 | Enable and disable MCPs as the work needs them | medium | Draft | SPEC-0012 |
 | SPEC-0015 | Optional sync of specs and tasks to GitHub issues | high | Draft | SPEC-0005 |
 | SPEC-0013 | Portable to other agents and open models | high | Draft | SPEC-0016 |
