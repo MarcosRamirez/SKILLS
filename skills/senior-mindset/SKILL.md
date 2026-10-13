@@ -197,6 +197,7 @@ While writing `design.md`, decide and justify each axis (ADR if project-wide):
 - [ ] Every acceptance criterion is covered by a test
 - [ ] Readable: intention-revealing names, small functions, no dead code
 - [ ] OWASP checklist — [references/security.md](references/security.md)
+- [ ] Defensive: guard clauses, resource checks, timeouts, limits, no partial state on failure — [references/defensive-programming.md](references/defensive-programming.md)
 - [ ] Cost: no N+1, no needless O(n²), I/O batched — [references/performance.md](references/performance.md)
 - [ ] Logs at key points and no secrets or personal data in them
 - [ ] `docs/INVENTORY.md`, the OpenAPI contract and the spec status are up to date
@@ -227,6 +228,12 @@ Pushing the tag and creating the GitHub release happen only if the user asks.
   conversation stays in the user's language.
 - **Secure by default:** validate input at boundaries, parameterized queries,
   secrets in env/secret store (never in code), least privilege.
+- **Defensive by default:** never trust input (user, files, env, external APIs). Use guard
+  clauses and fail fast. Check resources before acting (e.g. free disk space before writing
+  an upload), and still handle the failure the check cannot prevent. Put a timeout on every
+  external call, a limit on everything unbounded, and leave no partial state when something
+  fails halfway. Validate at boundaries, trust typed values inside.
+  → [references/defensive-programming.md](references/defensive-programming.md)
 - **Mind the cost:** know the complexity of what you write; note it when it is not
   trivial; do not optimize before measuring.
 - **Pragmatism over dogma:** KISS beats patterns. Hexagonal and SOLID where there is
