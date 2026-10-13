@@ -62,8 +62,8 @@ jobs:
             exit 0
           fi
           git add $changed
-          # Commit message lists the closed features; plans and roadmap rows ride along.
-          ids="$(printf '%s\n' "$changed" | grep -oE 'features/[0-9]{4}-' | grep -oE '[0-9]{4}' | sort -u | sed 's/^/SPEC-/' | paste -sd, -)"
+          # Commit message lists the closed specs, features and fixes; plans and roadmap rows ride along.
+          ids="$(printf '%s\n' "$changed" | grep -oE '(features|fixes)/[0-9]{4}-' | grep -oE '[0-9]{4}' | sort -u | sed 's/^/SPEC-/' | paste -sd, -)"
           if [ -z "$ids" ]; then ids="specs"; fi
           git commit -m "📖 docs(repo): mark ${ids} implemented (#${PR_NUMBER})" \
             -m "Specs set to Implemented, plans to Done and roadmap rows updated by on-merge."
