@@ -32,7 +32,8 @@ generated changelog reads well without extra work.
   the type the git convention uses for chores). Never commit it on the default branch.
   Full regeneration is idempotent, so running it twice changes nothing.
 - **On release:** `git cliff --tag vX.Y.Z -o CHANGELOG.md` as part of the release process in
-  [versioning.md](versioning.md), which also covers stages, the next version and tagging.
+  [versioning.md](versioning.md), which also covers stages, the check that something was
+  implemented ("nothing to release" otherwise), the next version and tagging.
 - Do **not** use `--unreleased --prepend` repeatedly: it duplicates entries. Regenerate instead.
 - The file is generated: do not hand-edit it, because the next run overwrites the edit. To
   change an entry, fix it at the source (write better commit subjects from now on).

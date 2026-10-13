@@ -288,10 +288,13 @@ what stops the next session from reinventing something that already exists.
 ## Step 7 — Release (when the user asks)
 
 "Release the beta", "release 2.1"… → follow [references/versioning.md](references/versioning.md):
-1. `git cliff --bumped-version` proposes the next version.
-2. The user confirms the version or the stage (alpha → beta → rc → stable is always their call).
-3. Release branch with manifest + `CHANGELOG.md` → release PR → the user merges.
-4. With `on-merge.yml`, the tag and the GitHub Release are created at merge time
+1. Before proposing a version, check that the commits since the last tag include an implementation
+   commit (`feat`, `fix`, `perf`, `refactor` or breaking, touching code). With none, answer
+   "nothing to release" and stop: specs, plans and ADRs never move a version.
+2. `git cliff --bumped-version` proposes the next version.
+3. The user confirms the version or the stage (alpha → beta → rc → stable is always their call).
+4. Release branch with manifest + `CHANGELOG.md` → release PR → the user merges.
+5. With `on-merge.yml`, the tag and the GitHub Release are created at merge time
    ([references/release-automation.md](references/release-automation.md)). Without it,
    tag the merge commit by hand; push it and create the release only if the user asks.
 

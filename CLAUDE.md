@@ -79,6 +79,9 @@ users who installed it with `/plugin` never receive the update.
 - **MAJOR** (`1.x → 2.0.0`): a skill or command is removed or renamed, installation or required
   setup changes (e.g. a hook that needs a manual step), or behavior is reversed.
 - Only the skill whose files changed is bumped. Changes to the root README or this file bump nothing.
+- **Specs, plans and ADRs never move a version.** They live in `spec/`, outside any skill, and ship
+  nothing a user runs. A skill's version moves only in the release that ships implemented changes
+  inside `skills/<name>/`.
 - Unpublished changes are grouped: one bump per push, using the highest level that applies.
 - The bump goes in the same commit as the change, or in the last commit of the branch before merging.
 - **New skills start at `0.0.1-alpha.1`** and reach `1.0.0` when tested and stable.

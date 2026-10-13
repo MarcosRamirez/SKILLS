@@ -36,6 +36,10 @@ Write the exit criteria of each stage in the spec (or an ADR) of that version.
 
 ## Next version: computed by git-cliff, not by the AI
 
+**A version moves only when something implemented ships.** Writing, editing or approving a spec,
+a plan, an ADR or the roadmap never changes a version, because nothing that runs has changed.
+Only a release that ships implemented changes moves it (see the release process below).
+
 The commits decide the bump: `fix` → PATCH, `feat` → MINOR, `!` / `BREAKING CHANGE:` → MAJOR.
 In `0.x`, features bump PATCH and breaking changes bump MINOR. From `1.0.0` on, standard SemVer applies.
 
@@ -69,17 +73,37 @@ With no tags, git-cliff prints `0.0.1-alpha.1` without the `v`: add it when tagg
 
 ## Release process (when the user says "release the beta", "release 2.1"…)
 
-1. `git cliff --bumped-version` → propose the version. The user confirms it or picks another stage.
-2. Branch `chore/release-vX.Y.Z` (never on the default branch).
-3. Update the version in the manifest.
-4. `git cliff --tag vX.Y.Z -o CHANGELOG.md`.
-5. Commit following the active git convention (fallback: `🔧 chore(release): vX.Y.Z`).
-6. Push the branch and open the release PR ([git.md](git.md)). **The user merges it.**
+1. **Check that something was implemented since the last tag.** From the repository root:
+
+   ```bash
+   last=$(git describe --tags --abbrev=0 2>/dev/null)   # empty if nothing is tagged yet
+   git log --format='%h %s' ${last:+$last..HEAD} -- . ':!spec' ':!docs' ':!*.md' ':!.github'
+   ```
+
+   It lists the commits since the last tag (all of them if there is none) that touch at least one
+   file outside `spec/`, `docs/`, Markdown and `.github/`. Something was implemented when one of
+   them is a `feat`, `fix`, `perf` or `refactor`, or is breaking (`!` after the type, or a
+   `BREAKING CHANGE:` footer). A `docs`, `test`, `ci`, `build`, `style` or `chore` commit does not
+   count, unless it is breaking. Adjust the excluded paths to the project's layout.
+
+   **If none qualifies, answer "nothing to release" (in the user's language), say why in one line
+   and stop: propose no version.** Decide this from the commit list, never from git-cliff: it
+   prints a version even then (the current one for an empty range, a PATCH for docs-only
+   commits). The one exception is a stage change the user asks for by name (`1.0.0-rc.2` →
+   `1.0.0`): the version is theirs, and the same code can be promoted as it is.
+2. `git cliff --bumped-version` → propose the version. The user confirms it or picks another stage.
+   If it prints the last tag again (for example a breaking `chore!` that `cliff.toml` skips),
+   say so and ask the user for the version instead of proposing the unchanged one.
+3. Branch `chore/release-vX.Y.Z` (never on the default branch).
+4. Update the version in the manifest.
+5. `git cliff --tag vX.Y.Z -o CHANGELOG.md`.
+6. Commit following the active git convention (fallback: `🔧 chore(release): vX.Y.Z`).
+7. Push the branch and open the release PR ([git.md](git.md)). **The user merges it.**
    Without a remote, merge locally with `--no-ff`.
-7. **With `on-merge.yml`** ([release-automation.md](release-automation.md)): when the user
+8. **With `on-merge.yml`** ([release-automation.md](release-automation.md)): when the user
    merges, the workflow tags the merge commit `vX.Y.Z` and creates the GitHub Release with
    the changelog section (`--prerelease` for alpha, beta and rc). Nothing else to do.
-8. **Without it** (manual fallback): `git switch <default> && git pull`, then
+9. **Without it** (manual fallback): `git switch <default> && git pull`, then
    `git tag -a vX.Y.Z <merge-sha> -m "vX.Y.Z"`. Only if the user asks: `git push origin vX.Y.Z`
    and `gh release create vX.Y.Z --notes-file <section from CHANGELOG>`.
 
