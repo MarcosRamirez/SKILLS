@@ -6,7 +6,7 @@ Recommended overall: high — Claude Opus 5.5 (inclusion criteria and curation a
 
 ## Context
 
-Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), maintained by the user, shipped with every install and update. **Open question in the spec** (how installed skills are declared per project) must be decided with the user before execution.
+Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), maintained by the user, shipped with every install and update. The spec's open question (how installed skills are declared per project) was decided with the user on 2026-10-13: project scope by default, in `.claude/settings.json` (R-8, ADR-0004).
 
 ## Design
 
@@ -17,9 +17,10 @@ Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), mainta
   "id": "web-design",
   "name": "Web design",
   "purpose": "Layout, typography and accessible UI for web pages",
+  "recommended": false,
   "proposeWhen": { "tasks": ["landing page", "ui", "web design"], "stack": ["astro", "next"] },
   "source": { "marketplace": "marcosramirez-skills", "plugin": "web-design", "upstream": "<repo>" },
-  "install": "/plugin install web-design@marcosramirez-skills",
+  "install": "claude plugin install web-design@marcosramirez-skills",
   "permissions": "none",
   "version": "1.2.0",
   "why": "…",
@@ -27,12 +28,13 @@ Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), mainta
 }
 ```
 
+- `install` carries no scope: the skill adds `--scope project`, or `--scope user` when the user picks Global (R-8).
 - Validation script in Python (stdlib + a minimal schema check) so it runs in CI and locally.
 - Proposal logic lives in `references/catalog.md`: match task words and stack signals, propose at most three.
 
 ## Steps
 
-### T-0 Decide the open question — high
+### T-0 Decide the open question — high (done 2026-10-13)
 - Recommended: high — Claude Opus 5.5 (design decision with the user)
 - Branch: `—`
 - Do: discuss options with the user; record the decision in the spec (Changelog) and an ADR
