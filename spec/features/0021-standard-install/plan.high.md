@@ -7,7 +7,9 @@ Recommended overall: high — Claude Opus 5.5 (release automation, install behav
 ## Context
 
 Decided in ADR-0005 (standard locations first) and ADR-0006 (version in SKILL.md, no Claude Code
-files in skill folders). It depends on SPEC-0019, because the note for this repository goes in AGENTS.md.
+files in skill folders). It runs after SPEC-0019 (the note for this repository goes in AGENTS.md),
+SPEC-0008 (the change notice for existing projects), SPEC-0014 (the update command goes in the commands
+list) and SPEC-0023 (the version check that T-1 must keep).
 
 Sources to re-read before implementing:
 - github.com/vercel-labs/skills (flags, where the canonical copy goes, `update`);
@@ -44,6 +46,8 @@ Sources to re-read before implementing:
   - move both skills' `plugin.json` data into their marketplace entries;
   - add `metadata.version` to save-image;
   - the tag script reads SKILL.md, plus the version check;
+  - keep SPEC-0023's check (no tag without a change in the skill since its last tag): it now ignores
+    the `metadata.version` line instead of `plugin.json`;
   - update the CLAUDE.md versioning rules and the validate commands;
   - check `/plugin` install and update from a local marketplace copy.
 - Files: ~ .claude-plugin/marketplace.json, − skills/*/.claude-plugin/, ~ skills/save-image/SKILL.md, ~ .github/scripts/tag-skill-releases.sh, + version check script, ~ CLAUDE.md
