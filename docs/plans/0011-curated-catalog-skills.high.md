@@ -24,12 +24,17 @@ Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), mainta
 - Files: + references/catalog.md, + catalog/*.schema.json, + validator script, ~ workflow
 - Done when: AC-1, AC-2 (a malformed entry fails locally)
 
-### T-2 Initial curated lists — high
+### T-2 Build the initial lists with the user — high
 - Recommended: high — Claude Opus 5.5 (each entry is reviewed)
 - Branch: `feat/0011-t2-initial-catalog`
-- Do: research candidates (official docs, maintenance, licence, permissions); write entries with 'why'
+- Do:
+  1. ask the user for the skills and MCPs they already use or want in the catalog;
+  2. research candidates per task type and stack (official docs, maintenance, licence, permissions)
+     and propose them in short batches, each with why and how it meets the criteria;
+  3. the user approves, rejects or edits each entry; only approved entries are written;
+  4. record rejected candidates with the reason, so they are not proposed again
 - Files: + catalog/skills.json, + catalog/mcps.json
-- Done when: AC-1
+- Done when: AC-1, AC-1b — every entry in both lists was explicitly approved by the user
 
 ### T-3 Third-party skills in the marketplace — medium
 - Recommended: medium — Claude Sonnet 5.5 (manifest edits after vetting)
