@@ -7,8 +7,13 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
+- **senior-mindset:** Install release automation by default with github (2026-10-13)
 - **senior-mindset:** Ship release automation templates for apps (2026-10-13)
 - **repo:** Close specs and tag releases automatically on merge (2026-10-13)
+
+### Changed
+
+- **repo:** Rename tag-releases.sh to tag-skill-releases.sh (2026-10-13)
 
 ### Documentation
 
