@@ -22,7 +22,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `changelog.md` — CHANGELOG with git-cliff, tested `cliff.toml`
 - `code-style.md` — naming per language, readability
 - `defensive-programming.md` — trust boundaries, guard clauses, resource checks, timeouts, limits, cleanup
-- `git.md` — fallback git convention when no git skill is installed
+- `git.md` — branch per change, pull-request flow, stacked PRs, commit format
 - `inventory-template.md` — template for a project's `docs/INVENTORY.md`
 - `languages.md` — choosing a language per component
 - `observability.md` — logging, tracing, error tracking
