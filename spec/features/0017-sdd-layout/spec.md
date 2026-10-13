@@ -1,6 +1,7 @@
 # SPEC-0017: SDD layout under spec/ with a constitution, colocated plans and separate code
 
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-13, PR #34
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, approving the plan in conversation (from a photo of an SDD layout).
 

@@ -1,7 +1,8 @@
 # PLAN-0017: SDD layout under spec/
 
 Spec: [SPEC-0017](spec.md)
-Status: In progress
+Status: Done
+Done: 2026-10-13, PR #34
 Recommended overall: high — Claude Opus 5.5 (structural change plus a migration that must keep history and links)
 
 ## Context
