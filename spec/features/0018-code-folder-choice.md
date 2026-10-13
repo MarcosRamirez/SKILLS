@@ -16,7 +16,9 @@ goes is the user's call.
   - `src/` (Recommended for a single app): manifests and configs at the root, code in `src/`, tests in `tests/`;
   - `app/`: the whole project inside `app/`, so the root keeps only `spec/`, `CLAUDE.md` and repo files;
   - `apps/<name>/`: one folder per deployable, with a workspace tool;
-  - or a folder the user types.
+  - or any other folder the user types in the free-text field (e.g. `backend/`, `packages/core/`),
+    validated before use: a relative path inside the repo, no `..`, not absolute, not `spec/`,
+    `.github/` or `.git/`, only letters, digits, `-`, `_`, `.` and `/`. If invalid, explain why and ask again.
 - R-2 The answer is recorded in CLAUDE.md (`Code: <folder>`); layout, CI (`working-directory`) and paths follow it.
 - R-3 Existing projects are not asked: their current code folder is recorded.
 
