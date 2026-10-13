@@ -7,11 +7,22 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Ask which automations to install at kickoff (2026-10-13)
+- **senior-mindset:** Greet once on install and on each update (2026-10-13)
+
+### Documentation
+
+- **senior-mindset:** Add spec 0006 for the welcome message (2026-10-13)
+- **repo:** Mark SPEC-0005 implemented (#21) (2026-10-13)
+
+## [senior-mindset-v1.6.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Ask which automations to install at kickoff
 
 ### Fixed
 
-- **senior-mindset:** Set the git identity before tagging in on-merge (2026-10-13)
+- **senior-mindset:** Set the git identity before tagging in on-merge
 
 ## [senior-mindset-v1.5.0] - 2026-10-13
 
