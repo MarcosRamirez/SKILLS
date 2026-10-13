@@ -1,7 +1,8 @@
 # PLAN-0007: a plan per spec, with the recommended agent and model
 
 Spec: [SPEC-0007](../specs/0007-plans-per-spec/spec.md)
-Status: In progress
+Status: Done
+Done: 2026-10-13, PR #25
 Recommended overall: medium — Claude Sonnet 5.5 (well-specified documentation and a small script change)
 
 ## Context

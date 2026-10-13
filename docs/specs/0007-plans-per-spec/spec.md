@@ -1,6 +1,7 @@
 # SPEC-0007: a written plan per spec, with the recommended agent and model
 
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-13, PR #25
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, approving the plan in conversation ("implementa lo primero lo de los planes").
 
