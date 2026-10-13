@@ -15,16 +15,23 @@ whether plugins can expose slash aliases.
 ### T-1 commands.md and links — medium
 - Recommended: medium — Claude Sonnet 5.5 (collecting and documenting what exists)
 - Branch: `feat/0014-t1-commands-reference`
-- Do: write the commands table (phrases EN/ES, effect, example, source); add a short "Commands" section to `SKILL.md`; list commands in the skill README
+- Do: write the commands table (intent, example phrases, effect, source; examples are not a closed list); add a short "Commands" section to `SKILL.md`; list commands in the skill README
 - Files: + references/commands.md, ~ SKILL.md, ~ skills/senior-mindset/README.md, ~ docs/INVENTORY.md
 - Done when: AC-1
 
 ### T-2 help, status, list plans — medium
 - Recommended: medium — Claude Sonnet 5.5 (read-only behaviours, clear spec)
 - Branch: `feat/0014-t2-help-status`
-- Do: define each behaviour in commands.md (read-only, no kickoff); headless tests with `--plugin-dir`: "¿qué puedes hacer?" in an empty folder, "status" in this repo
+- Do: define each behaviour in commands.md (read-only, no kickoff); headless tests with `--plugin-dir`: "¿qué puedes hacer?", "what can you do?" and a French equivalent in an empty folder (answers in each language), "status" in this repo
 - Files: ~ references/commands.md, ~ SKILL.md
-- Done when: AC-2, AC-3 (status output matches the spec and plan files)
+- Done when: AC-2, AC-2b, AC-3 (status output matches the spec and plan files)
+
+### T-2b Welcome message with help — low
+- Recommended: low — Claude Haiku 5.5 (small wording change)
+- Branch: `feat/0014-t2b-welcome-help`
+- Do: add the "what I can do" summary and help hint to the install welcome in SKILL.md Step 0a and setup.md, in the user's language, keeping the credit
+- Files: ~ SKILL.md, ~ references/setup.md
+- Done when: AC-2c
 
 ### T-3 Slash aliases — medium
 - Recommended: medium — Claude Sonnet 5.5 (docs check + small manifest change)
