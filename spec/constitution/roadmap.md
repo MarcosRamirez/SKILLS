@@ -16,6 +16,7 @@ table format.
 | SPEC-0017 | SDD layout under spec/ with a constitution | high | Implemented | — |
 | SPEC-0018 | Ask where the code goes | low | Implemented | SPEC-0017 |
 | SPEC-0022 | Spec types: features and fixes | medium | Draft | — |
+| SPEC-0023 | Versions go up only when something is implemented | low | Draft | SPEC-0022 |
 | SPEC-0019 | AGENTS.md as the single source of project instructions | medium | Draft | SPEC-0017 |
 | SPEC-0008 | Work safely on existing projects | high | Draft | SPEC-0019 |
 | SPEC-0009 | Analyse existing projects and normalise them | high | Draft | SPEC-0008 |
