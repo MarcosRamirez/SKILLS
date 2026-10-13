@@ -8,7 +8,7 @@ claims what has not happened yet. This workflow does both at merge time.
 
 At kickoff, the automations question ([automations.md](automations.md)) offers it as
 recommended when the project has a GitHub remote. If the user picks it, copy the templates,
-list them in `docs/INVENTORY.md`, and install them through the kickoff PR. If not, use the
+list them in `spec/INVENTORY.md`, and install them through the kickoff PR. If not, use the
 manual fallback at the end.
 
 ## How it works
@@ -17,8 +17,9 @@ On every push to the default branch (that is, every merged PR):
 
 1. Find the merged PR for the pushed commit.
 2. **Close specs:** every `Closes-Spec: SPEC-NNNN` line in the PR body turns
-   `docs/specs/NNNN-*/spec.md` from `Approved` into `Status: Implemented` +
-   `Implemented: <date>, PR #<n>`, and its plan `docs/plans/NNNN-*.md` becomes `Status: Done`,
+   `spec/features/NNNN-*/spec.md` from `Approved` into `Status: Implemented` +
+   `Implemented: <date>, PR #<n>`, its plan `spec/features/NNNN-*/plan*.md` becomes `Status: Done` and its row in
+   `spec/constitution/roadmap.md` becomes Implemented,
    both committed by `github-actions[bot]`. This is the **only**
    commit allowed on the default branch outside a PR.
 3. **Tag the release:** if the manifest version has no `v<version>` tag yet, tag the merge
@@ -42,7 +43,7 @@ Copy them from the skill's own folder, `templates/release-automation/` next to t
 After copying:
 - set the default branch in `on-merge.yml` (`branches: [master]`);
 - adapt the bot's commit message to the project's git convention;
-- add the files to `docs/INVENTORY.md`;
+- add the files to `spec/INVENTORY.md`;
 - record the decision as an ADR.
 
 What `close-specs.sh` guarantees:

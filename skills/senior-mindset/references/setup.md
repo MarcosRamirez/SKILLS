@@ -31,7 +31,7 @@ Never read whole skill bodies for this: it wastes context.
 | Git flow | Branch per change, PR to the default branch, the user merges, stacked PRs | git workflow skills, "commit and push" skills |
 | Commit format | Emoji + Conventional Commits, English, imperative | commit message skills |
 | Changelog / versioning | git-cliff, SemVer from `0.0.1-alpha.1`, tags | release skills, changelog generators |
-| Specs / planning | `docs/specs/NNNN/` spec → design → tasks, approval gate | spec-kit style skills, planning skills |
+| Specs / planning | `spec/features/NNNN/` spec → design → tasks, approval gate | spec-kit style skills, planning skills |
 | Code review | Self-review checklist (OWASP, cost, readability) | review skills |
 | Tests | Unit always, TDD for critical logic, k6 for load | testing skills |
 

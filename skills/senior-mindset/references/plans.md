@@ -2,16 +2,22 @@
 
 - **spec** = what and why;
 - **tasks** = the list of work;
-- **plan** = how to execute it, step by step, written for whoever runs it (a person or an
-  agent), with the agent and model each step needs.
+- **plan** = how: the technical design and the execution steps, written for whoever runs it
+  (a person or an agent), with the agent and model each step needs.
 
 ## Naming
 
-`docs/plans/NNNN-<slug>.<tier>.md`, with the **same number and slug as its spec**:
+The plan lives **inside its feature folder** as `plan.<tier>.md`:
 
 ```text
-docs/specs/0008-existing-project-safety/   ←→   docs/plans/0008-existing-project-safety.high.md
+spec/features/0008-existing-project-safety/
+  spec.md
+  plan.high.md      ← PLAN-0008
+  tasks.md
 ```
+
+In a small single-file feature (`spec/features/NNNN-<slug>.md`), the plan is its `## Plan`
+section, and the tier goes in a `Plan:` line under the status.
 
 - `<tier>` is the plan's overall tier: `high`, `medium` or `low` (see [models.md](models.md)).
   It is repeated inside the file. Individual steps may carry their own tier.
@@ -34,7 +40,7 @@ merged, `close-specs.sh` marks the spec Implemented and its plan `Done`
 
 ## "Run plan X" / "ejecuta el plan X"
 
-1. Read `docs/plans/X-*.md` and its spec.
+1. Read the feature `spec/features/X-*` (folder: `spec.md` + `plan.*.md`; or the single file).
 2. **Approval gate:** if the spec is still `Draft`, show spec and plan and ask for explicit approval first
    (Hard rules). On approval, set the spec to `Approved` (with `Approved by:`) and the plan to `Ready`.
 3. Set the plan to `In progress` on the first work branch.
@@ -48,12 +54,17 @@ merged, `close-specs.sh` marks the spec Implemented and its plan `Done`
 ```markdown
 # PLAN-NNNN: <title>
 
-Spec: [SPEC-NNNN](../specs/NNNN-<slug>/spec.md)
+Spec: [SPEC-NNNN](spec.md)
 Status: Draft
 Recommended overall: <tier> — <agent / model from models.md> (why)
 
 ## Context
 What exists today, what the spec needs, decisions already taken, what to read first.
+
+## Design
+The technical how: decisions (project-wide ones link to their ADR), components (reuse what
+spec/INVENTORY.md lists first), data, API (spec/api/openapi.yaml), security, observability,
+edge cases, templates.
 
 ## Steps
 

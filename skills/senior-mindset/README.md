@@ -23,13 +23,13 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
    It stores the answers as ADRs plus an `## Engineering conventions` section in the
    project's `CLAUDE.md`, and never asks again. A kickoff checklist is verified and committed
    before the first feature.
-5. **Writes the spec first (SDD).** `docs/specs/NNNN-slug/` with `spec.md` → `design.md` →
+5. **Writes the spec first (SDD).** `spec/features/NNNN-slug/` with `spec.md` → `plan.<tier>.md` →
    `tasks.md`, and **never writes code without your explicit approval**. If it can't ask
    you (e.g. a headless run), it stops with a Draft spec and a list of questions.
 6. **Evaluates the design.** Monolith or microservices, event-driven or not, test strategy
    (unit, TDD, k6 load tests), contract-first OpenAPI, and the language per component
    (it shows pros and cons, you decide).
-7. **Implements.** Reuses what already exists (`docs/INVENTORY.md`), checks official docs first,
+7. **Implements.** Reuses what already exists (`spec/INVENTORY.md`), checks official docs first,
    and writes code meant to be read by humans.
 8. **Reviews itself.** Lint, tests, OWASP, defensive checks (guard clauses, resource checks, timeouts, limits), computational cost, logs without secrets.
 9. **Updates the inventory**, so the next session does not reinvent existing tools.
@@ -89,7 +89,7 @@ and suggest 2–3 options.
 | `references/architecture.md` | When to use hexagonal, SOLID, DRY, KISS |
 | `references/defensive-programming.md` | Trust boundaries, guard clauses, resource checks (disk space…), timeouts, limits |
 | `references/automations.md` | Catalog of automations offered at kickoff (multi-select question) |
-| `references/plans.md` | A plan per spec (`docs/plans/NNNN-slug.<tier>.md`), "run plan X" |
+| `references/plans.md` | The plan of each feature (`spec/features/NNNN-slug/plan.<tier>.md`), "run plan X" |
 | `references/models.md` | Tier (high/medium/low) → Claude and open models |
 | `references/release-automation.md` | Specs close on merge, releases tag themselves (`on-merge.yml`); templates in `templates/release-automation/` |
 | `references/security.md` | OWASP Top 10 checklist |
@@ -101,16 +101,20 @@ and suggest 2–3 options.
 | `references/observability.md` | Logging and tracing libraries and rules |
 | `references/languages.md` | Choosing a language per component |
 | `references/project-layout.md` | Folder tree and CLAUDE.md section |
-| `references/inventory-template.md` | `docs/INVENTORY.md` template |
+| `references/inventory-template.md` | `spec/INVENTORY.md` template |
 
 ## What it creates in your project
 
-```
+```text
+spec/
+  constitution/               mission.md · tech-stack.md · roadmap.md
+  features/
+    NNNN-slug/                spec.md · plan.<tier>.md · tasks.md
+    NNNN-slug.md              small feature in a single file
+  adr/                        README.md + NNNN-*.md
+  api/openapi.yaml            (if there is an API)
+  INVENTORY.md
+app/                          the code, separate from spec/
 CLAUDE.md                     ## Engineering conventions
 CHANGELOG.md + cliff.toml     generated from commits, newest first
-docs/INVENTORY.md
-docs/adr/README.md + NNNN-*.md
-docs/specs/NNNN-*/{spec,design,tasks}.md
-docs/api/openapi.yaml         (if there is an API)
-tests/load/                   (if load targets exist)
 ```

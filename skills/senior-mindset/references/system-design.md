@@ -37,7 +37,7 @@ Requirements whenever you use it:
 Platform options: Cloudflare Queues, AWS SQS/SNS/EventBridge, RabbitMQ, NATS,
 Kafka (only for high-throughput streaming).
 
-## Other questions to answer in design.md when relevant
+## Other questions to answer in the plan's `## Design` when relevant
 
 - Sync vs async for each interaction.
 - Consistency: strong vs eventual, and what the user sees meanwhile.

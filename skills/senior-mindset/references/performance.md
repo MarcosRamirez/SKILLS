@@ -21,7 +21,7 @@ the obviously expensive version by default.
 ## Caching
 
 - Cache only what is expensive and read far more than written.
-- Every cache needs an invalidation strategy and a TTL — write it in `design.md`.
+- Every cache needs an invalidation strategy and a TTL — write it in the plan's `## Design`.
 - HTTP caching (Cache-Control, ETag, CDN) is the cheapest cache there is.
 
 ## Cost in the cloud

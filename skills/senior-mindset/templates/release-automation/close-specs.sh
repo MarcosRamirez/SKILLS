@@ -1,26 +1,33 @@
 #!/usr/bin/env bash
-# Marks the specs named in a merged PR body ("Closes-Spec: SPEC-NNNN") as Implemented.
+# Marks the features named in a merged PR body ("Closes-Spec: SPEC-NNNN") as Implemented.
+#
+# For each feature it:
+#   - sets the spec to "Status: Implemented" + "Implemented: <date>, PR #<n>"
+#       folder feature:  spec/features/NNNN-<slug>/spec.md
+#       single file:     spec/features/NNNN-<slug>.md
+#   - sets the plan (folder feature: plan*.md inside it) to "Status: Done" + "Done: <date>, PR #<n>"
+#   - sets the feature's row in the roadmap to Implemented
+# Everything is validated before anything is written, so a failure leaves no half-closed feature.
 #
 # Inputs (env):
-#   PR_BODY    body of the merged PR — untrusted, only ever read from this variable
-#   PR_NUMBER  number of the merged PR
-#   SPECS_DIR  specs folder (default: docs/specs)
-#   PLANS_DIR  plans folder (default: docs/plans); the plan docs/plans/NNNN-*.md of each
-#              closed spec is marked Done. A spec without a plan is fine.
-# Output: prints the spec and plan files it changed, one per line. Changes nothing else.
+#   PR_BODY       body of the merged PR — untrusted, only ever read from this variable
+#   PR_NUMBER     number of the merged PR
+#   FEATURES_DIR  default: spec/features
+#   ROADMAP       default: spec/constitution/roadmap.md (missing roadmap is fine)
+# Output: prints every file it changed, one per line. Changes nothing else.
 set -euo pipefail
 
 : "${PR_BODY:?PR_BODY is required}"
 : "${PR_NUMBER:?PR_NUMBER is required}"
-SPECS_DIR="${SPECS_DIR:-docs/specs}"
-PLANS_DIR="${PLANS_DIR:-docs/plans}"
+FEATURES_DIR="${FEATURES_DIR:-spec/features}"
+ROADMAP="${ROADMAP:-spec/constitution/roadmap.md}"
+STATUS_RE='^[[:space:]]*(- )?Status:'
 
 if ! [[ "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
   echo "error: PR_NUMBER '$PR_NUMBER' is not a number" >&2
   exit 1
 fi
 
-# Collect ids from lines like "Closes-Spec: SPEC-0005" (several lines or comma-separated).
 mapfile -t spec_ids < <(
   printf '%s\n' "$PR_BODY" | tr -d '\r' |
     grep -iE '^[[:space:]]*Closes-Spec:' |
@@ -35,39 +42,14 @@ fi
 
 today="$(date -u +%Y-%m-%d)"
 
-# Marks docs/plans/<number>-*.md as Done (idempotent; no plan is not an error).
-mark_plan_done() {
-  local number="$1" plan_file plan_status
-  shopt -s nullglob
-  local plans=("$PLANS_DIR"/"$number"-*.md)
-  shopt -u nullglob
-  if [ "${#plans[@]}" -eq 0 ]; then
-    return 0
-  fi
-  if [ "${#plans[@]}" -gt 1 ]; then
-    echo "error: more than one plan for $number in $PLANS_DIR" >&2
-    exit 1
-  fi
-  plan_file="${plans[0]}"
-  plan_status="$(grep -m1 -E '^[[:space:]]*(- )?Status:' "$plan_file" || true)"
-  if [ -z "$plan_status" ]; then
-    echo "error: no 'Status:' line in $plan_file" >&2
-    exit 1
-  fi
-  if grep -qi 'Done' <<<"$plan_status"; then
-    return 0
-  fi
-  awk -v date="$today" -v pr="$PR_NUMBER" '
-    !done && /^[[:space:]]*(- )?Status:/ {
-      print "Status: Done"
-      print "Done: " date ", PR #" pr
-      done = 1
-      next
-    }
+# set_status <file> <new status> <extra line>: replace the first Status line, add the extra line after it.
+set_status() {
+  local file="$1" status="$2" extra="$3"
+  awk -v status="$status" -v extra="$extra" -v re="$STATUS_RE" '
+    !done && $0 ~ re { print "Status: " status; print extra; done = 1; next }
     { print }
-  ' "$plan_file" >"$plan_file.tmp"
-  mv "$plan_file.tmp" "$plan_file"
-  echo "$plan_file"
+  ' "$file" >"$file.tmp"
+  mv "$file.tmp" "$file"
 }
 
 for spec_id in "${spec_ids[@]}"; do
@@ -75,52 +57,74 @@ for spec_id in "${spec_ids[@]}"; do
     echo "error: invalid spec id '$spec_id' (expected SPEC-NNNN)" >&2
     exit 1
   fi
-  spec_number="${BASH_REMATCH[1]}"
+  number="${BASH_REMATCH[1]}"
 
+  # ---- locate and validate everything first ----
   shopt -s nullglob
-  matches=("$SPECS_DIR"/"$spec_number"-*/spec.md)
+  folders=("$FEATURES_DIR"/"$number"-*/spec.md)
+  singles=("$FEATURES_DIR"/"$number"-*.md)
   shopt -u nullglob
-  if [ "${#matches[@]}" -ne 1 ]; then
-    echo "error: expected exactly one $SPECS_DIR/$spec_number-*/spec.md for $spec_id, found ${#matches[@]}" >&2
+  total=$(( ${#folders[@]} + ${#singles[@]} ))
+  if [ "$total" -ne 1 ]; then
+    echo "error: expected exactly one feature for $spec_id in $FEATURES_DIR, found $total — nothing changed" >&2
     exit 1
   fi
-  spec_file="${matches[0]}"
 
-  status_line="$(grep -m1 -E '^[[:space:]]*(- )?Status:' "$spec_file" || true)"
+  plan_file=""
+  if [ "${#folders[@]}" -eq 1 ]; then
+    spec_file="${folders[0]}"
+    shopt -s nullglob
+    plans=("$(dirname "$spec_file")"/plan*.md)
+    shopt -u nullglob
+    if [ "${#plans[@]}" -gt 1 ]; then
+      echo "error: more than one plan for $spec_id — nothing changed" >&2
+      exit 1
+    fi
+    [ "${#plans[@]}" -eq 1 ] && plan_file="${plans[0]}"
+  else
+    spec_file="${singles[0]}"
+  fi
+
+  status_line="$(grep -m1 -E "$STATUS_RE" "$spec_file" || true)"
   if [ -z "$status_line" ]; then
-    echo "error: no 'Status:' line in $spec_file" >&2
+    echo "error: no 'Status:' line in $spec_file — nothing changed" >&2
     exit 1
   fi
-  if grep -qi 'Implemented' <<<"$status_line"; then
-    echo "$spec_id already Implemented — skipping" >&2
-    mark_plan_done "$spec_number"
-    continue
+  if [ -n "$plan_file" ] && ! grep -qE "$STATUS_RE" "$plan_file"; then
+    echo "error: no 'Status:' line in $plan_file — nothing changed" >&2
+    exit 1
   fi
-  if ! grep -qi 'Approved' <<<"$status_line"; then
+
+  spec_done=0
+  if grep -qi 'Implemented' <<<"$status_line"; then
+    spec_done=1
+    echo "$spec_id already Implemented — checking plan and roadmap" >&2
+  elif ! grep -qi 'Approved' <<<"$status_line"; then
     echo "error: $spec_id is not Approved ($status_line); a merged PR cannot close an unapproved spec" >&2
     exit 1
   fi
 
-  # Validate the plan before touching anything, so a failure leaves no half-closed spec.
-  shopt -s nullglob
-  plan_matches=("$PLANS_DIR"/"$spec_number"-*.md)
-  shopt -u nullglob
-  if [ "${#plan_matches[@]}" -gt 1 ]; then
-    echo "error: more than one plan for $spec_id in $PLANS_DIR — nothing changed" >&2
-    exit 1
+  # ---- write ----
+  if [ "$spec_done" -eq 0 ]; then
+    set_status "$spec_file" "Implemented" "Implemented: $today, PR #$PR_NUMBER"
+    echo "$spec_file"
   fi
 
-  # Replace the first Status line, then add the Implemented line right after it.
-  awk -v date="$today" -v pr="$PR_NUMBER" '
-    !done && /^[[:space:]]*(- )?Status:/ {
-      print "Status: Implemented"
-      print "Implemented: " date ", PR #" pr
-      done = 1
-      next
-    }
-    { print }
-  ' "$spec_file" >"$spec_file.tmp"
-  mv "$spec_file.tmp" "$spec_file"
-  echo "$spec_file"
-  mark_plan_done "$spec_number"
+  if [ -n "$plan_file" ] && ! grep -m1 -E "$STATUS_RE" "$plan_file" | grep -qi 'Done'; then
+    set_status "$plan_file" "Done" "Done: $today, PR #$PR_NUMBER"
+    echo "$plan_file"
+  fi
+
+  # Roadmap row: "| SPEC-NNNN | title | tier | <status> | depends |" → status column = Implemented.
+  if [ -f "$ROADMAP" ] && grep -qE "^\|[[:space:]]*\[?$spec_id\]?" "$ROADMAP"; then
+    before="$(cat "$ROADMAP")"
+    awk -v id="$spec_id" -F'|' -v OFS='|' '
+      $2 ~ id && $5 !~ /Implemented/ { $5 = " Implemented " }
+      { print }
+    ' "$ROADMAP" >"$ROADMAP.tmp"
+    mv "$ROADMAP.tmp" "$ROADMAP"
+    if [ "$before" != "$(cat "$ROADMAP")" ]; then
+      echo "$ROADMAP"
+    fi
+  fi
 done

@@ -1,6 +1,6 @@
 # Inventory template
 
-Copy to `docs/INVENTORY.md` at kickoff. Link it from CLAUDE.md so every session reads it.
+Copy to `spec/INVENTORY.md` at kickoff. Link it from CLAUDE.md so every session reads it.
 
 **Purpose:** before writing any function, helper, client, script or tool, check here
 (and grep). If it exists, use or extend it. After creating or removing something,
@@ -28,7 +28,7 @@ What already exists in this project. Check before creating; update after changin
 - `seed` — scripts/seed.ts — seed dev database — `pnpm seed`
 
 ## API endpoints
-- `POST /v1/invoices` — src/adapters/inbound/http/invoices.ts — create invoice — contract: docs/api/openapi.yaml#/paths/~1v1~1invoices
+- `POST /v1/invoices` — src/adapters/inbound/http/invoices.ts — create invoice — contract: spec/api/openapi.yaml#/paths/~1v1~1invoices
 
 ## Events / queues
 - `InvoiceCreated` — producer: CreateInvoice — consumers: send-invoice-email worker

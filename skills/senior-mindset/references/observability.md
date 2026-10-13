@@ -6,7 +6,7 @@ Set it up **before the first feature**. Debugging production without logs is gue
 
 Recommend an existing library (pros/cons, user chooses, record as ADR). Then write
 only a **thin wrapper** — in hexagonal projects a `Logger` port with one adapter —
-so the code does not depend on the library. Register the wrapper in `docs/INVENTORY.md`.
+so the code does not depend on the library. Register the wrapper in `spec/INVENTORY.md`.
 
 ## Scope (ask in the kickoff interview)
 

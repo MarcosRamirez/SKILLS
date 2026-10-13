@@ -108,7 +108,7 @@ gives a fast, friendly error; **the operation must still handle failure** (`ENOS
   and a maximum number of attempts. Retry only idempotent operations, or use an `Idempotency-Key`.
 - **Circuit breaker** for dependencies that fail repeatedly: stop calling, fail fast, probe later.
 - **Validate responses** like any other input: a third-party API can change shape without notice.
-- Decide the behavior when a dependency is down (degrade, queue for later, or fail clearly), and write it in `design.md`.
+- Decide the behavior when a dependency is down (degrade, queue for later, or fail clearly), and write it in the plan's `## Design`.
 
 ## 5. Limits everywhere
 
