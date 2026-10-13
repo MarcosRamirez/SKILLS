@@ -64,9 +64,17 @@ and **the user reviews and merges it**.
    ## Checks
    lint ✔ · tests ✔ (42) · build ✔
 
+   ## Post-merge checks
+   tag v1.4.0 created · Release published · spec Implemented by the bot
+
    ## Merge order
    Stacked on #12; merge #12 first.   ← only for stacked PRs
+
+   Closes-Spec: SPEC-0001             ← only in the last PR of a spec
    ```
+
+   The `Closes-Spec:` line makes the spec Implemented when the PR is merged
+   ([release-automation.md](release-automation.md)). Never mark it Implemented yourself.
 
 3. **Stop.** Do not merge the PR yourself, unless the user explicitly asks for that specific PR.
    Merges use a merge commit (no squash).

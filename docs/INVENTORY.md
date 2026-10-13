@@ -30,12 +30,21 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `platforms.md` — hosting options (Cloudflare default)
 - `project-layout.md` — project tree and CLAUDE.md section
 - `sdd.md` — spec / design / tasks templates
+- `release-automation.md` — specs close on merge, releases tag themselves; uses the templates below
 - `security.md` — OWASP Top 10 checklist
 - `setup.md` — first-use collision check with other skills, `~/.claude/senior-mindset.md`
 - `stack.md` — default stack per use case
 - `system-design.md` — monolith vs microservices, event-driven
 - `testing.md` — test pyramid, TDD, k6
 - `versioning.md` — app versioning from `0.0.1-alpha.1`, stages, git-cliff bump, release process
+
+## senior-mindset templates
+
+Copied into app projects by the skill (`skills/senior-mindset/templates/release-automation/`):
+
+- `on-merge.yml` — workflow: tag the release, close specs named in `Closes-Spec:`
+- `close-specs.sh` — marks specs Implemented from a PR body (also used by this repo's workflow)
+- `tag-release.sh` — tags `v<version>` from package.json / pyproject.toml / Cargo.toml and creates the GitHub Release
 
 ## Hooks and scripts
 
@@ -44,7 +53,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 ## Automation
 
 - `on-merge.yml` — .github/workflows/on-merge.yml — after each merge to master: closes specs named in `Closes-Spec:`, tags new skill versions — runs automatically
-- `close-specs.sh` — .github/scripts/close-specs.sh — marks specs Implemented from a PR body — `PR_NUMBER=1 PR_BODY='Closes-Spec: SPEC-0005' bash .github/scripts/close-specs.sh`
+- `close-specs.sh` — skills/senior-mindset/templates/release-automation/close-specs.sh — marks specs Implemented from a PR body; shipped with the skill for apps and reused by this repo's workflow (single copy)
 - `tag-releases.sh` — .github/scripts/tag-releases.sh — tags `<name>-vX.Y.Z` and creates GitHub Releases — `DRY_RUN=1 bash .github/scripts/tag-releases.sh`
 
 ## Repo docs

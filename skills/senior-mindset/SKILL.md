@@ -139,6 +139,8 @@ has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md inst
 - [ ] Logger wrapper, unless logging is N/A
 - [ ] `cliff.toml` (changelog + `[bump]`) and a generated `CHANGELOG.md`
 - [ ] Version `0.0.1-alpha.1` in the manifest, unless versioning is N/A
+- [ ] GitHub remote → `on-merge.yml` proposed (specs close on merge, releases tag themselves)
+  and recorded as an ADR — [references/release-automation.md](references/release-automation.md)
 - [ ] **Kickoff committed on its own branch** (`chore/kickoff`) and its PR opened before any
   feature work. Feature branches stack on it until the user merges it.
 
@@ -154,8 +156,11 @@ No code before an approved spec. Create `docs/specs/NNNN-<slug>/` with **all thr
 - `design.md` — HOW: modules, data, endpoints, risks, links to ADRs.
 - `tasks.md` — checklist; every task references an `AC-n` and includes its tests.
 
-Gaps in the spec → ask, do not assume. User approves → status Approved → implement
-→ Implemented when done. Templates and lifecycle: [references/sdd.md](references/sdd.md).
+Gaps in the spec → ask, do not assume. User approves → status Approved → implement.
+**Implemented is set when the user merges the spec's last PR**, never inside the PR: that PR
+carries `Closes-Spec: SPEC-NNNN` and `on-merge.yml` flips the status
+([references/release-automation.md](references/release-automation.md)).
+Templates and lifecycle: [references/sdd.md](references/sdd.md).
 
 **Approval gate:** see the Hard rules at the top. Implementation starts only after explicit
 approval, recorded in `spec.md` (`Approved by:`). Silence, a vague reply, a failed or skipped
@@ -216,9 +221,10 @@ what stops the next session from reinventing something that already exists.
 "Release the beta", "release 2.1"… → follow [references/versioning.md](references/versioning.md):
 1. `git cliff --bumped-version` proposes the next version.
 2. The user confirms the version or the stage (alpha → beta → rc → stable is always their call).
-3. Release branch with manifest + `CHANGELOG.md` → release PR → the user merges → annotated tag on the merge commit.
-
-Pushing the tag and creating the GitHub release happen only if the user asks.
+3. Release branch with manifest + `CHANGELOG.md` → release PR → the user merges.
+4. With `on-merge.yml`, the tag and the GitHub Release are created at merge time
+   ([references/release-automation.md](references/release-automation.md)). Without it,
+   tag the merge commit by hand; push it and create the release only if the user asks.
 
 ## Always-on rules (scripts too)
 

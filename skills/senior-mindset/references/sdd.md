@@ -10,7 +10,14 @@ English kebab-case slug. Referenced as `SPEC-0007`. Fixed file names inside.
 
 ## Lifecycle
 
-`Draft` → (user approves) → `Approved` → (all tasks done, tests green) → `Implemented`
+`Draft` → (user approves) → `Approved` → (the user merges the spec's last PR) → `Implemented`
+
+**`Implemented` is set at merge time, never inside the PR and never by hand.** The last PR
+of a spec carries `Closes-Spec: SPEC-NNNN` in its body; when the user merges it, the
+`on-merge.yml` workflow marks the spec Implemented with the date and PR number
+([release-automation.md](release-automation.md)). Checks that only make sense after the
+merge go in the PR body under "Post-merge checks", not in `tasks.md`. Without GitHub
+Actions, the status is set in the next PR (manual fallback).
 
 Edit freely while Draft. After Approved, scope changes go back to the user and are
 noted in a `## Changelog` section at the bottom of the spec.

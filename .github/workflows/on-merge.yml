@@ -51,7 +51,7 @@ jobs:
           # The PR body is untrusted: fetch it into a variable, never interpolate it into the script.
           PR_BODY="$(gh pr view "$PR_NUMBER" --json body --jq '.body')"
           export PR_BODY
-          changed="$(bash .github/scripts/close-specs.sh)"
+          changed="$(bash skills/senior-mindset/templates/release-automation/close-specs.sh)"
           if [ -z "$changed" ]; then
             echo "no spec to close"
             exit 0
