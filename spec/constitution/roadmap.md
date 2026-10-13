@@ -14,6 +14,7 @@ table format.
 | SPEC-0006 | Welcome message on install and update | — | Implemented | — |
 | SPEC-0007 | A plan per spec with the recommended agent and model | medium | Implemented | — |
 | SPEC-0017 | SDD layout under spec/ with a constitution | high | Implemented | — |
+| SPEC-0018 | Ask where the code goes | low | Approved | SPEC-0017 |
 | SPEC-0008 | Work safely on existing projects | high | Draft | SPEC-0017 |
 | SPEC-0009 | Analyse existing projects and normalise them | high | Draft | SPEC-0008 |
 | SPEC-0014 | Documented commands, help and status | medium | Draft | SPEC-0017 |

@@ -19,7 +19,7 @@ metadata:
   homepage: https://marcosramirez.info
   blog: https://blog.marcosramirez.info
   dev: https://marcosramirez.dev
-  version: "2.0.0"
+  version: "2.1.0"
 ---
 
 # Senior mindset
@@ -142,6 +142,10 @@ Use AskUserQuestion (max 4 questions per round), marking the default as
 11. **Automations to install** — one multi-select question built from
     [references/automations.md](references/automations.md) (e.g. specs that close on merge and
     releases that tag themselves). Recommended ones are marked; ones whose requirements are missing are left out.
+12. **Where the code goes** (new projects only): `src/` (Recommended for one app), `app/`,
+    `apps/<name>/` (several deployables), or any folder the user types in the free-text field
+    (validated: relative, inside the repo, no `..`, not `spec/` or `.github/`). See
+    [references/project-layout.md](references/project-layout.md).
 
 **Items that do not apply are skipped, not forced.** A docs repo has no database, and a CLI
 has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md instead of asking about them.
@@ -151,8 +155,8 @@ has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md inst
 - [ ] **Constitution** in `spec/constitution/` ([references/constitution.md](references/constitution.md)):
   `mission.md` asked of and **approved by the user**, `tech-stack.md` derived from the ADRs,
   `roadmap.md` with its table (empty until the first feature)
-- [ ] **Code folder:** `app/` in new projects (framework configs inside it); existing projects keep
-  theirs, recorded in CLAUDE.md (`Code: …`)
+- [ ] **Code folder** chosen in question 12 and recorded in CLAUDE.md (`Code: …`); existing projects
+  keep theirs, recorded the same way
 - [ ] One ADR per decision in `spec/adr/` (template: [references/adr.md](references/adr.md)) + index `spec/adr/README.md`
 - [ ] `## Engineering conventions` in CLAUDE.md: summary, N/A items with reasons, links to the ADRs and `spec/INVENTORY.md`
 - [ ] `spec/INVENTORY.md` from [references/inventory-template.md](references/inventory-template.md)

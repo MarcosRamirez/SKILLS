@@ -20,25 +20,37 @@ spec/                           everything Spec-Driven Development: the "why" an
   api/
     openapi.yaml                API contract (if there is an API)
   INVENTORY.md                  map of what already exists — check before creating
-app/                            the application code, separate from spec/ (see below)
-  src/                          hexagonal only when there is a domain (see architecture.md):
-    domain/  application/  adapters/inbound/  adapters/outbound/
-  tests/   unit/  integration/  e2e/  load/
-  package.json · pyproject.toml · …   framework and tooling configs live with the code
+<code>/                         the application code, separate from spec/ — the user chooses
+                                where at kickoff: src/ (recommended), app/, apps/<name>/ or any
+                                folder they type (see below)
 CLAUDE.md                       conventions summary + links (read every session)
 CHANGELOG.md · cliff.toml       generated changelog (see changelog.md)
 .github/                        workflows (see release-automation.md)
 .gitignore · .env.example
 ```
 
-## Code is separate from the spec
+## Where the code goes (asked at kickoff)
 
-- **New projects:** the code goes in `app/`, with its framework and tooling configs inside it.
-  `spec/`, `CLAUDE.md`, `.github/` and repo-level files stay at the root.
-- **Existing projects:** do not move the code. Record in CLAUDE.md where it lives
-  (`Code: src/` or `Code: packages/*`).
-- CI and scripts run from the code folder (`working-directory: app`).
-- Projects without a domain (landing pages, content sites) use the framework's native structure inside `app/`.
+The code never mixes with `spec/`, but **the user decides where it lives**. Kickoff question
+(question tool, recommended option first, plus the free-text field):
+
+| Option | Layout | Good for |
+|---|---|---|
+| **`src/`** (Recommended for one app) | Manifests and configs at the root (`package.json`, `pyproject.toml`…), code in `src/`, tests in `tests/` | What most frameworks expect; a single app |
+| **`app/`** | The whole project (configs, `src/`, tests) inside `app/`; the root keeps only `spec/`, `CLAUDE.md`, `.github/` | A clean root with one deployable |
+| **`apps/<name>/`** | One folder per deployable (`apps/web`, `apps/api`) with a workspace tool (pnpm/npm workspaces, uv workspace, Cargo workspace) | Several deployables (monorepo) |
+| **Another folder** | Whatever the user types, e.g. `backend/` + `frontend/`, `packages/core/` | The user's own conventions |
+
+- **A typed folder is validated before use:** a relative path inside the repo, no `..`, not absolute,
+  not `spec/`, `.github/` or `.git/`, only letters, digits, `-`, `_`, `.` and `/`. If it is invalid,
+  say why and ask again.
+- Record the answer in CLAUDE.md (`Code: src/`). Paths in specs, plans, CI and scripts follow it.
+- Hexagonal layers, when there is a domain, go in the language's source folder: `src/domain/…`
+  with `src/`, `app/src/domain/…` with `app/` (see architecture.md).
+- CI runs from the code folder when it is not the root (`working-directory: app`, or a matrix over `apps/*`).
+- Projects without a domain (landing pages, content sites) use the framework's native structure inside the code folder.
+- **Existing projects are not asked:** do not move the code; record where it already lives
+  (`Code: src/`, `Code: packages/*`).
 
 ## Naming
 
@@ -70,7 +82,7 @@ Managed by the senior-mindset skill. Details and reasons live in the ADRs.
 - Mission: [spec/constitution/mission.md](spec/constitution/mission.md)
 - Stack: [spec/constitution/tech-stack.md](spec/constitution/tech-stack.md) (ADR-0001…0005)
 - Roadmap: [spec/constitution/roadmap.md](spec/constitution/roadmap.md)
-- Code: app/
+- Code: src/
 - Naming: TS idiomatic (camelCase / PascalCase / UPPER_SNAKE), kebab-case files
 - Git: default branch `master` · Changelog: git-cliff → CHANGELOG.md
 - Versioning: SemVer, started at 0.0.1-alpha.1 — current stage = latest git tag

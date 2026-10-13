@@ -86,7 +86,7 @@ The how, technical and operational, in one place. The full template and its life
 - [ ] T-1 Add `invoices` table migration (AC-1) — test: migration up/down
 - [ ] T-2 `CreateInvoice` use case (AC-1, AC-2) — test: unit
 - [ ] T-3 `POST /v1/invoices` adapter (AC-2) — test: integration + contract
-- [ ] T-4 k6 load script `app/tests/load/invoices.js` (AC-3)
+- [ ] T-4 k6 load script `tests/load/invoices.js` (AC-3)
 - [ ] T-5 Update spec/INVENTORY.md
 ```
 

@@ -115,7 +115,8 @@ spec/
   adr/                        README.md + NNNN-*.md
   api/openapi.yaml            (if there is an API)
   INVENTORY.md
-app/                          the code, separate from spec/
+src/ · app/ · apps/<name>/    the code, separate from spec/: you choose where at kickoff
+                              (or type any other folder)
 CLAUDE.md                     ## Engineering conventions
 CHANGELOG.md + cliff.toml     generated from commits, newest first
 ```
