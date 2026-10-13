@@ -16,6 +16,8 @@ docs/
     README.md                 index: # | title | status
     0001-use-postgresql.md
     0002-deploy-on-cloudflare.md
+  plans/
+    0001-user-auth.medium.md  how to execute SPEC-0001, tier as suffix
   specs/
     0001-user-auth/
       spec.md                 WHAT and WHY

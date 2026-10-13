@@ -27,6 +27,8 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `inventory-template.md` — template for a project's `docs/INVENTORY.md`
 - `languages.md` — choosing a language per component
 - `observability.md` — logging, tracing, error tracking
+- `plans.md` — a plan per spec, naming with tier suffix, lifecycle, "run plan X"
+- `models.md` — tier → Claude and open models (dated table)
 - `performance.md` — computational cost rules
 - `platforms.md` — hosting options (Cloudflare default)
 - `project-layout.md` — project tree and CLAUDE.md section
@@ -62,5 +64,6 @@ Copied into app projects by the skill (`skills/senior-mindset/templates/release-
 - `CLAUDE.md` — repo conventions and rules (docs, versioning, git)
 - `docs/adr/` — architecture decision records (index in README.md)
 - `docs/specs/` — specs for changes to the skills
+- `docs/plans/` — one plan per spec (`NNNN-slug.<tier>.md`); "run plan NNNN" executes it
 - `CHANGELOG.md` + `cliff.toml` — repo changelog generated with git-cliff, dated entries
 - `skills/<name>/CHANGELOG.md` — per-skill changelog shipped inside each plugin, one dated section per `<name>-vX.Y.Z` tag

@@ -29,6 +29,13 @@ noted in a `## Changelog` section at the bottom of the spec.
 - `tasks.md` drives the work: each task (or group of small coupled tasks) gets its own branch,
   and at least one commit (see [git.md](git.md)).
 
+## Spec and plan
+
+Each spec has a plan, `docs/plans/NNNN-<slug>.<tier>.md`, written after approval and before
+implementation: how to execute each task, with the recommended agent and model
+([plans.md](plans.md), [models.md](models.md)). When the spec closes on merge, its plan
+becomes `Done` too.
+
 ## spec.md
 
 ```markdown

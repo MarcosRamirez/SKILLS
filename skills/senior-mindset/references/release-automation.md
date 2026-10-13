@@ -18,7 +18,8 @@ On every push to the default branch (that is, every merged PR):
 1. Find the merged PR for the pushed commit.
 2. **Close specs:** every `Closes-Spec: SPEC-NNNN` line in the PR body turns
    `docs/specs/NNNN-*/spec.md` from `Approved` into `Status: Implemented` +
-   `Implemented: <date>, PR #<n>`, committed by `github-actions[bot]`. This is the **only**
+   `Implemented: <date>, PR #<n>`, and its plan `docs/plans/NNNN-*.md` becomes `Status: Done`,
+   both committed by `github-actions[bot]`. This is the **only**
    commit allowed on the default branch outside a PR.
 3. **Tag the release:** if the manifest version has no `v<version>` tag yet, tag the merge
    commit and create a GitHub Release with that version's changelog section

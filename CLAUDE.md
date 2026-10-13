@@ -33,6 +33,12 @@ follows senior-mindset's convention, which matches the emoji + Conventional Comm
   `.github/workflows/on-merge.yml`, and only to mark specs Implemented after a merge.
 - Scopes: one per skill (`senior-mindset`, `save-image`), plus `marketplace` and `repo`.
 
+## Plans
+
+- Every spec has a plan in `docs/plans/NNNN-<slug>.<tier>.md` (same number and slug, overall
+  tier as suffix), written before implementation. "Run plan NNNN" executes it.
+- The plan becomes `Done` together with its spec when the `Closes-Spec:` PR is merged.
+
 ## Specs close themselves on merge
 
 - The last PR of a spec carries `Closes-Spec: SPEC-NNNN` in its body (one line per spec).
@@ -95,7 +101,7 @@ skills/<name>/
   README.md                       for humans
   .claude-plugin/plugin.json      plugin manifest (version lives here)
   references/ scripts/ hooks/     optional
-docs/adr/  docs/specs/  docs/INVENTORY.md
+docs/adr/  docs/specs/  docs/plans/  docs/INVENTORY.md
 CHANGELOG.md  cliff.toml
 .github/workflows/on-merge.yml    closes specs + tags releases after each merge
 .github/scripts/tag-skill-releases.sh   tags every skill version (repo-only, DRY_RUN=1 to test)
