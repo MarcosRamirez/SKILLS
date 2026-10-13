@@ -13,14 +13,16 @@ senior-mindset is written for Claude Code. The user wants it to work in other ag
 
 - R-1 Follow the open Agent Skills format; remove hard dependencies on Claude Code-only tools,
   using wording with an equivalence table (e.g. "ask the user — AskUserQuestion in Claude Code").
-- R-2 Generate `AGENTS.md` next to CLAUDE.md (or have one import the other), so non-Claude agents get the project conventions.
+- R-2 AGENTS.md is already the single source of project instructions (SPEC-0019). This spec covers the
+  other agents' own config files (`.cursorrules`, `.github/copilot-instructions.md`, `GEMINI.md`…):
+  point them to AGENTS.md or merge them into it, never overwrite.
 - R-3 Install instructions for each supported agent, based on its official documentation.
 - R-4 Model recommendations already work per tier (SPEC-0007); verify the open-model rows on real tasks.
 
 ## Acceptance criteria
 
 - AC-1 Equivalence table and portable wording across `SKILL.md` and references.
-- AC-2 AGENTS.md handling in the kickoff and in existing projects (no overwrite).
+- AC-2 Other agents' config files are detected and pointed to or merged into AGENTS.md (no overwrite); AGENTS.md itself follows SPEC-0019.
 - AC-3 Install docs for OpenCode, Codex, Gemini CLI and Cursor, each verified against official docs.
 - AC-4 Real run with OpenCode + a local Ollama model on a small task in a test project; findings fixed.
 

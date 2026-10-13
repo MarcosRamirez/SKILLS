@@ -30,10 +30,10 @@ Agent Skills is an open format; each agent loads skills/rules differently. Ollam
 - Files: ~ SKILL.md, ~ references/*
 - Done when: AC-1
 
-### T-3 AGENTS.md handling — medium
+### T-3 Other agents' config files — medium
 - Recommended: medium — Claude Sonnet 5.5 (settled design)
 - Branch: `feat/0013-t3-agents-md`
-- Do: generate or merge AGENTS.md in kickoff and existing projects; never overwrite
+- Do: detect `.cursorrules`, `.github/copilot-instructions.md`, `GEMINI.md` and similar; point them to AGENTS.md or merge them into it; never overwrite (AGENTS.md itself: SPEC-0019)
 - Files: ~ SKILL.md, ~ references/project-layout.md
 - Done when: AC-2
 
