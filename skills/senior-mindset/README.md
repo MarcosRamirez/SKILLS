@@ -9,7 +9,8 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
 
 1. **Checks for collisions on first use.** It lists your installed skills, finds the ones
    that contradict its rules (e.g. a git skill that merges locally), asks which one wins in
-   each area, and remembers your answer in `~/.claude/senior-mindset.md`.
+   each area, and remembers your answer in `~/.claude/senior-mindset.md`. It greets you once
+   when installed and once per update, never more.
 2. **Sizes the task.** A one-off script skips the ceremony but still gets English names
    and clean code. A project follows the full flow.
 3. **Sets up git.** Runs `git init` if needed (default branch `master`, or `main` if you

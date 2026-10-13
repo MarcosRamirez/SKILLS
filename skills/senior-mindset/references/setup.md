@@ -10,6 +10,8 @@ at install time, so this check runs **the first time the skill is used**, once p
 - The user says "reconfigure senior-mindset" → run it again.
 - In Step 1, an installed skill overlaps an area and is not listed in the file → ask only
   about that skill and area, then update the file.
+- The file's `senior-mindset version` is older than the skill's `metadata.version` → show the
+  update message once (step 5) and record the new version. No questions.
 
 ## 1. Inventory (cheap: names and descriptions only)
 
@@ -78,9 +80,31 @@ Precedence when working in a project:
 When a decision names another skill, follow that skill for that area, and senior-mindset
 for everything else.
 
-## 5. When you cannot ask (headless, no AskUserQuestion)
+## 5. Welcome and update messages (once each, never more)
+
+Right after writing the file for the first time, greet the user in their language:
+
+```text
+✅ senior-mindset vX.Y.Z installed and configured.
+Made by Marcos Ramírez — https://blog.marcosramirez.info/sobre-mi/
+```
+
+When the skill finds a newer version than the one recorded in the file:
+
+```text
+🔄 senior-mindset updated to vX.Y.Z — see what's new in its CHANGELOG.md.
+By Marcos Ramírez — https://blog.marcosramirez.info/sobre-mi/
+```
+
+Then update `senior-mindset version` in the file, so the message does not repeat.
+
+These are the only two moments: not on every use, not at the end of tasks. A credit that shows
+up every time is noise.
+
+## 6. When you cannot ask (headless, no AskUserQuestion)
 
 - Use senior-mindset defaults, but **no push and no pull requests**: integrate with a local
   `git merge --no-ff`. Remote actions need a decision the user never gave.
 - Do not write `~/.claude/senior-mindset.md`, so the setup runs at the next interactive use.
-- Mention in your final message that the setup is pending.
+- Mention in your final message that the setup is pending. Do not show the welcome message:
+  it belongs to the moment the file is written.
