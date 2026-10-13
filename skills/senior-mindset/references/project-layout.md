@@ -7,13 +7,15 @@ spec/                           everything Spec-Driven Development: the "why" an
   constitution/                 (or a single spec/constitution.md in small projects)
     mission.md                  what we build and for whom — written and approved by the user
     tech-stack.md               stack and conventions, derived from the ADRs (not edited by hand)
-    roadmap.md                  order of the features and their state (the bot updates the state)
-  features/
+    roadmap.md                  order of the specs and their state (the bot updates the state)
+  features/                     new or changed behaviour (refactors and upgrades too)
     0001-user-auth/             a normal feature: three files
       spec.md                   WHAT and WHY
       plan.medium.md            HOW: design + steps with the recommended tier (tier as suffix)
       tasks.md                  checklist → branches and commits
-    0002-fix-login-copy.md      a small feature: one file with Spec / Plan / Tasks
+    0002-csv-export.md          a small feature: one file with Spec / Plan / Tasks
+  fixes/                        behaviour that is wrong; same SPEC-NNNN numbering as features
+    0003-cursor-skips-rows.md   a fix: one file with Spec / Plan / Tasks (a folder only when large)
   adr/
     README.md                   index: # | title | status
     0001-use-postgresql.md
@@ -54,10 +56,19 @@ The code never mixes with `spec/`, but **the user decides where it lives**. Kick
 
 ## Naming
 
-- Features and ADRs: 4-digit sequential prefix + English kebab-case slug: `0007-rate-limiting`.
-- Next number: highest existing + 1 across `spec/features/`, folders and single files alike.
+- Specs and ADRs: 4-digit sequential prefix + English kebab-case slug: `0007-rate-limiting`.
+- **Features and fixes share one numbering.** Next number: highest existing + 1 across
+  `spec/features/` and `spec/fixes/`, folders and single files alike. A number is used once, in one folder.
+- **The folder tells the type, and the header repeats it** (`Type: feature` or `Type: fix`; specs
+  written before this rule have no `Type:` line, and the folder still tells):
+  - `spec/features/`: new or changed behaviour. Refactors and upgrades go here too, with acceptance
+    criteria stating that behaviour does not change.
+  - `spec/fixes/`: behaviour that is wrong (a bug). Create it with the first fix spec; a project
+    that only has `spec/features/` is fine as it is.
 - References in text and commits: `SPEC-0007`, `PLAN-0007`, `ADR-0007`.
-- Inside a feature folder, fixed names: `spec.md`, `plan.<tier>.md` (`high` / `medium` / `low`), `tasks.md`.
+- Inside a spec folder, fixed names: `spec.md`, `plan.<tier>.md` (`high` / `medium` / `low`), `tasks.md`.
+- A fix is one file by default, `spec/fixes/NNNN-<slug>.md`, with `## Spec`, `## Plan` and `## Tasks`.
+  Only a large fix becomes a folder with the fixed names above. Templates: [sdd.md](sdd.md).
 
 ## Old layout (`docs/specs`, `docs/plans`, `docs/adr`)
 
@@ -90,5 +101,5 @@ Managed by the senior-mindset skill. Details and reasons live in the ADRs.
 - API: REST, OpenAPI 3.1 in spec/api/openapi.yaml
 
 Before creating anything, check [spec/INVENTORY.md](spec/INVENTORY.md).
-Features: spec/features/ · ADRs: [spec/adr/README.md](spec/adr/README.md)
+Features: spec/features/ · Fixes: spec/fixes/ · ADRs: [spec/adr/README.md](spec/adr/README.md)
 ```

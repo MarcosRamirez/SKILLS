@@ -7,7 +7,7 @@
 
 ## Naming
 
-The plan lives **inside its feature folder** as `plan.<tier>.md`:
+The plan lives **inside its spec folder** as `plan.<tier>.md`:
 
 ```text
 spec/features/0008-existing-project-safety/
@@ -16,8 +16,9 @@ spec/features/0008-existing-project-safety/
   tasks.md
 ```
 
-In a small single-file feature (`spec/features/NNNN-<slug>.md`), the plan is its `## Plan`
-section, and the tier goes in a `Plan:` line under the status.
+In a single-file spec (a small feature, `spec/features/NNNN-<slug>.md`, or a fix,
+`spec/fixes/NNNN-<slug>.md`), the plan is its `## Plan` section, and the tier goes in a `Plan:`
+line under the status.
 
 - `<tier>` is the plan's overall tier: `high`, `medium` or `low` (see [models.md](models.md)).
   It is repeated inside the file. Individual steps may carry their own tier.
@@ -40,7 +41,7 @@ merged, `close-specs.sh` marks the spec Implemented and its plan `Done`
 
 ## "Run plan X" / "ejecuta el plan X"
 
-1. Read the feature `spec/features/X-*` (folder: `spec.md` + `plan.*.md`; or the single file).
+1. Read the spec, `spec/features/X-*` or `spec/fixes/X-*` (folder: `spec.md` + `plan.*.md`; or the single file).
 2. **Approval gate:** if the spec is still `Draft`, show spec and plan and ask for explicit approval first
    (Hard rules). On approval, set the spec to `Approved` (with `Approved by:`) and the plan to `Ready`.
 3. Set the plan to `In progress` on the first work branch.
@@ -86,3 +87,19 @@ What can go wrong, how we would notice, how to roll back.
 
 ## Out of scope
 ```
+
+## Plans for fixes
+
+A fix is a single file, so its plan is the `## Plan` section of `spec/fixes/NNNN-<slug>.md`. Only a
+large fix, in a folder, has a `plan.<tier>.md`. The lifecycle and "run plan X" work as for
+features. The fix template is in [sdd.md](sdd.md); what changes is the content:
+
+- **`### Design` is the root cause and the fix:** where and why it breaks, the smallest change that
+  fixes it, the components touched (reuse what `spec/INVENTORY.md` lists first) and what must not
+  move (the unchanged behaviour).
+- **Steps follow the fix flow:** reproduce with a failing test → root cause → fix. Branches are
+  `fix/NNNN-tN-<slug>`.
+- **Tiers:** the root cause of a hard failure is high-tier work (debugging, see
+  [models.md](models.md)); reproducing the bug and writing the fix are usually medium.
+- **`### Verification`:** the reproducing test fails before the fix and passes after it, and the
+  unchanged-behaviour tests stay green.
