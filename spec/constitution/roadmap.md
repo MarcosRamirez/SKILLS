@@ -16,12 +16,13 @@ table format.
 | SPEC-0017 | SDD layout under spec/ with a constitution | high | Implemented | — |
 | SPEC-0018 | Ask where the code goes | low | Implemented | SPEC-0017 |
 | SPEC-0019 | AGENTS.md as the single source of project instructions | medium | Draft | SPEC-0017 |
+| SPEC-0021 | Install in the project, standard locations first | high | Draft | SPEC-0019 |
 | SPEC-0008 | Work safely on existing projects | high | Draft | SPEC-0019 |
 | SPEC-0009 | Analyse existing projects and normalise them | high | Draft | SPEC-0008 |
 | SPEC-0014 | Documented commands, help and status | medium | Draft | SPEC-0017 |
 | SPEC-0016 | Closed questions with clickable answers | low | Draft | — |
 | SPEC-0010 | Environments: local, preview, staging, production | medium | Draft | — |
-| SPEC-0011 | Curated catalog of skills and MCPs, skill management | high | Draft | — |
+| SPEC-0011 | Curated catalog of skills and MCPs, skill management | high | Draft | SPEC-0021 |
 | SPEC-0012 | MCP management from the curated catalog | medium | Draft | SPEC-0011 |
 | SPEC-0020 | Enable and disable MCPs as the work needs them | medium | Draft | SPEC-0012 |
 | SPEC-0015 | Optional sync of specs and tasks to GitHub issues | high | Draft | SPEC-0005 |
