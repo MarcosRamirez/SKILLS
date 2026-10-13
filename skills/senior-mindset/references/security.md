@@ -21,3 +21,5 @@ Run through this before handing over any code that touches users, data or the ne
 - Secrets in environment variables or a secret store; `.env*` in `.gitignore`.
 - Least privilege for DB users, API keys and cloud roles.
 - File uploads: check type and size, store outside the web root, random names.
+- Beyond security: guard clauses, resource checks, timeouts and limits are covered in
+  [defensive-programming.md](defensive-programming.md).

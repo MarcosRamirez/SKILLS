@@ -21,6 +21,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `architecture.md` — hexagonal, SOLID, DRY, KISS, YAGNI and when not to apply them
 - `changelog.md` — CHANGELOG with git-cliff, tested `cliff.toml`
 - `code-style.md` — naming per language, readability
+- `defensive-programming.md` — trust boundaries, guard clauses, resource checks, timeouts, limits, cleanup
 - `git.md` — fallback git convention when no git skill is installed
 - `inventory-template.md` — template for a project's `docs/INVENTORY.md`
 - `languages.md` — choosing a language per component
