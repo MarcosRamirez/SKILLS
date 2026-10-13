@@ -3,6 +3,16 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v1.6.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Ask which automations to install at kickoff
+
+### Fixed
+
+- **senior-mindset:** Set the git identity before tagging in on-merge
+
 ## [senior-mindset-v1.5.0] - 2026-10-13
 
 ### Added

@@ -19,6 +19,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `adr.md` — ADR template and rules
 - `api-design.md` — OpenAPI contract-first, REST standards
 - `architecture.md` — hexagonal, SOLID, DRY, KISS, YAGNI and when not to apply them
+- `automations.md` — catalog of automations offered at kickoff
 - `changelog.md` — CHANGELOG with git-cliff, tested `cliff.toml`
 - `code-style.md` — naming per language, readability
 - `defensive-programming.md` — trust boundaries, guard clauses, resource checks, timeouts, limits, cleanup

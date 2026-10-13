@@ -18,7 +18,7 @@ metadata:
   homepage: https://marcosramirez.info
   blog: https://blog.marcosramirez.info
   dev: https://marcosramirez.dev
-  version: "1.5.0"
+  version: "1.6.0"
 ---
 
 # Senior mindset
@@ -126,6 +126,9 @@ Use AskUserQuestion (max 4 questions per round), marking the default as
 8. `CHANGELOG.md`, generated with git-cliff by default. See [references/changelog.md](references/changelog.md)
 9. Versioning: SemVer (Recommended) / CalVer / none. The app starts at `0.0.1-alpha.1`. See [references/versioning.md](references/versioning.md)
 10. Default git branch: `master` (Recommended) or `main` — skip if already asked in Step 0b
+11. **Automations to install** — one multi-select question built from
+    [references/automations.md](references/automations.md) (e.g. specs that close on merge and
+    releases that tag themselves). Recommended ones are marked; ones whose requirements are missing are left out.
 
 **Items that do not apply are skipped, not forced.** A docs repo has no database, and a CLI
 has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md instead of asking about them.
@@ -139,9 +142,8 @@ has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md inst
 - [ ] Logger wrapper, unless logging is N/A
 - [ ] `cliff.toml` (changelog + `[bump]`) and a generated `CHANGELOG.md`
 - [ ] Version `0.0.1-alpha.1` in the manifest, unless versioning is N/A
-- [ ] GitHub remote → `on-merge.yml` + its scripts **installed by default, without asking**
-  (specs close on merge, releases tag themselves). Skip only if there is no GitHub remote or
-  the user explicitly opts out — [references/release-automation.md](references/release-automation.md)
+- [ ] Automations chosen in question 11 installed from the skill's templates and tested
+  — [references/automations.md](references/automations.md)
 - [ ] **Kickoff committed on its own branch** (`chore/kickoff`) and its PR opened before any
   feature work. Feature branches stack on it until the user merges it.
 

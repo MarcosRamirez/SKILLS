@@ -16,7 +16,7 @@ claims something that has not happened yet), and marking it afterwards by hand c
   Implemented automatically, with the date and the PR number.
 - R-2 When a merge bumps a skill version, the tag `<name>-vX.Y.Z` and its GitHub Release are created automatically.
 - R-3 The automation treats the PR body as untrusted input and is idempotent.
-- R-4 senior-mindset installs the same automation by default in every app with a GitHub remote, without asking.
+- R-4 senior-mindset offers the same automation to every app with a GitHub remote, through a kickoff question that lists all available automations (catalog).
 
 ## Acceptance criteria
 
@@ -35,3 +35,7 @@ claims something that has not happened yet), and marking it afterwards by hand c
 
 - 2026-10-13: R-4 changed from "offers" to "installs by default, without asking", at the user's
   request: the automation must be the same in every project, without having to ask for it again.
+- 2026-10-13: R-4 changed again: the user prefers a kickoff question ("which automations to
+  install?") because more automations will follow. Added `references/automations.md` as the catalog.
+- 2026-10-13: AC-5 failed on the first real run (no git identity before tagging). Fixed;
+  1.5.0 was tagged by hand with the documented fallback, and this spec closes on the fix release.
