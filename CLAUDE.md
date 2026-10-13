@@ -98,6 +98,6 @@ skills/<name>/
 docs/adr/  docs/specs/  docs/INVENTORY.md
 CHANGELOG.md  cliff.toml
 .github/workflows/on-merge.yml    closes specs + tags releases after each merge
-.github/scripts/tag-releases.sh   tags every skill version (repo-only, DRY_RUN=1 to test)
+.github/scripts/tag-skill-releases.sh   tags every skill version (repo-only, DRY_RUN=1 to test)
 skills/senior-mindset/templates/  files the skill copies into apps; this repo reuses close-specs.sh
 ```

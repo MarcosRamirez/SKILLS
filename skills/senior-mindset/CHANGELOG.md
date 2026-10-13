@@ -3,6 +3,17 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v1.5.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Install release automation by default with github
+- **senior-mindset:** Ship release automation templates for apps
+
+### Changed
+
+- **repo:** Rename tag-releases.sh to tag-skill-releases.sh
+
 ## [senior-mindset-v1.4.0] - 2026-10-13
 
 ### Added

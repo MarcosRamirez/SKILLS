@@ -50,6 +50,7 @@ claude › Before writing code, 4 quick questions (I'll remember the answers):
 | A new DB helper every session | Checks `docs/INVENTORY.md` and reuses it |
 | "Why Postgres?" — nobody knows | `docs/adr/0001-use-postgresql.md` |
 | SQL built with string concat | OWASP checklist before every hand-over |
+| Specs closed by hand, release tags forgotten | Specs close themselves on merge, releases tag themselves |
 | Code that trusts every input and fills the disk | Guard clauses, resource checks, timeouts and limits by default |
 | `console.log` when things break | Structured logs from the first commit |
 | One giant commit on `master` | A branch per change, a commit per task, a PR you merge |

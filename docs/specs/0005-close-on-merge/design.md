@@ -5,7 +5,7 @@
   PR is found via `GET /repos/{owner}/{repo}/commits/{sha}/pulls`. With no PR (direct push),
   nothing happens.
 - **Logic in scripts, not inline YAML:** `.github/scripts/close-specs.sh` and
-  `.github/scripts/tag-releases.sh`, so they can be tested locally with a sample PR body and
+  `.github/scripts/tag-skill-releases.sh`, so they can be tested locally with a sample PR body and
   a dry run. JSON is parsed with Python (present on runners and locally), not jq.
 - **Untrusted input:** the PR body only ever travels in an env var (`PR_BODY`), never via
   `${{ }}` interpolation into the script. Ids are matched against a strict regex before they

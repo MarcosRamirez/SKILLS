@@ -16,7 +16,7 @@ claims something that has not happened yet), and marking it afterwards by hand c
   Implemented automatically, with the date and the PR number.
 - R-2 When a merge bumps a skill version, the tag `<name>-vX.Y.Z` and its GitHub Release are created automatically.
 - R-3 The automation treats the PR body as untrusted input and is idempotent.
-- R-4 senior-mindset offers the same automation to the apps it builds.
+- R-4 senior-mindset installs the same automation by default in every app with a GitHub remote, without asking.
 
 ## Acceptance criteria
 
@@ -30,3 +30,8 @@ claims something that has not happened yet), and marking it afterwards by hand c
 
 - Branch protection setup.
 - Running `claude plugin validate` in CI.
+
+## Changelog
+
+- 2026-10-13: R-4 changed from "offers" to "installs by default, without asking", at the user's
+  request: the automation must be the same in every project, without having to ask for it again.
