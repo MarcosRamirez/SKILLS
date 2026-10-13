@@ -3,6 +3,13 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.0.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Add a constitution with mission, tech stack and roadmap
+- **senior-mindset:** Move the SDD layout under spec/ with colocated plans
+
 ## [senior-mindset-v1.8.0] - 2026-10-13
 
 ### Added
