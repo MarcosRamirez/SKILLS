@@ -92,6 +92,8 @@ With no tags, git-cliff prints `0.0.1-alpha.1` without the `v`: add it when tagg
    commits). The one exception is a stage change the user asks for by name (`1.0.0-rc.2` →
    `1.0.0`): the version is theirs, and the same code can be promoted as it is.
 2. `git cliff --bumped-version` → propose the version. The user confirms it or picks another stage.
+   If it prints the last tag again (for example a breaking `chore!` that `cliff.toml` skips),
+   say so and ask the user for the version instead of proposing the unchanged one.
 3. Branch `chore/release-vX.Y.Z` (never on the default branch).
 4. Update the version in the manifest.
 5. `git cliff --tag vX.Y.Z -o CHANGELOG.md`.
