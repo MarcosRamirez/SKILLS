@@ -7,14 +7,32 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Add a Draft state for plans whose spec is not approved (2026-10-13)
-- **senior-mindset:** Write a plan per spec with the recommended model (2026-10-13)
+- **senior-mindset:** Add a constitution with mission, tech stack and roadmap (2026-10-13)
+- **senior-mindset:** Move the SDD layout under spec/ with colocated plans (2026-10-13)
 
 ### Documentation
 
-- **senior-mindset:** Write draft specs and plans for the roadmap (2026-10-13)
-- **senior-mindset:** Add spec 0007 for a plan per spec (2026-10-13)
-- **repo:** Mark SPEC-0006 implemented (#22) (2026-10-13)
+- **repo:** Migrate the repo to the spec/ layout (2026-10-13)
+- **senior-mindset:** Add spec 0017 for the spec/ layout (2026-10-13)
+- **senior-mindset:** Add spec and plan 0016 for clickable answers (2026-10-13)
+- **senior-mindset:** Help on install and commands in any language (2026-10-13)
+- **senior-mindset:** Add spec and plan 0015 for optional issue sync (2026-10-13)
+- **senior-mindset:** Add spec and plan 0014 for commands and help (2026-10-13)
+- **senior-mindset:** Build the curated catalogs with the user (2026-10-13)
+- **repo:** Mark SPEC-0007 implemented (#25) (2026-10-13)
+
+## [senior-mindset-v1.8.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Add a Draft state for plans whose spec is not approved
+- **senior-mindset:** Write a plan per spec with the recommended model
+
+### Documentation
+
+- **senior-mindset:** Write draft specs and plans for the roadmap
+- **senior-mindset:** Add spec 0007 for a plan per spec
+- **repo:** Mark SPEC-0006 implemented (#22)
 
 ## [senior-mindset-v1.7.0] - 2026-10-13
 
