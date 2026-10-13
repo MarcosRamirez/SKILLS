@@ -41,6 +41,12 @@ Loaded on demand from `SKILL.md`. One topic per file:
 
 - `save-image-hook.py` — skills/save-image/scripts/save-image-hook.py — UserPromptSubmit hook that saves pasted images — registered by `skills/save-image/hooks/hooks.json` (plugin) or manually in settings.json
 
+## Automation
+
+- `on-merge.yml` — .github/workflows/on-merge.yml — after each merge to master: closes specs named in `Closes-Spec:`, tags new skill versions — runs automatically
+- `close-specs.sh` — .github/scripts/close-specs.sh — marks specs Implemented from a PR body — `PR_NUMBER=1 PR_BODY='Closes-Spec: SPEC-0005' bash .github/scripts/close-specs.sh`
+- `tag-releases.sh` — .github/scripts/tag-releases.sh — tags `<name>-vX.Y.Z` and creates GitHub Releases — `DRY_RUN=1 bash .github/scripts/tag-releases.sh`
+
 ## Repo docs
 
 - `CLAUDE.md` — repo conventions and rules (docs, versioning, git)
