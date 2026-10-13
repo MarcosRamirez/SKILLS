@@ -49,8 +49,9 @@ next person (or AI) does not have to guess.
    - a final message with numbered open questions and what you will build once they are
      answered and the spec is approved.
 
-   Scripts are the exception: they take the fast path in Step 0 and need no spec. So does a
-   trivial fix (Step 3).
+   Scripts are the exception: they take the fast path in Step 0 and need no spec. A trivial fix
+   (Step 3) needs no spec either, but it still needs the user's explicit go-ahead for that fix;
+   without it, describe the fix and its regression test, and stop.
 
 ## Step 0a — First-use setup (once per user)
 
