@@ -1,6 +1,6 @@
 # ADR-0001: Version each skill with SemVer in its plugin.json
 
-Status: Accepted
+Status: Superseded by ADR-0006
 Date: 2026-10-12
 
 ## Context

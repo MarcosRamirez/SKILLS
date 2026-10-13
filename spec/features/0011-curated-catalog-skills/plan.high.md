@@ -6,7 +6,7 @@ Recommended overall: high — Claude Opus 5.5 (inclusion criteria and curation a
 
 ## Context
 
-Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), maintained by the user, shipped with every install and update. The spec's open question (how installed skills are declared per project) was decided with the user on 2026-10-13: project scope by default, in `.claude/settings.json` (R-8, ADR-0004).
+Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), maintained by the user, shipped with every install and update. The spec's open question (how installed skills are declared per project) was decided with the user on 2026-10-13: project scope by default, standard locations first: `.agents/skills/` through `npx skills`, with a `.claude/skills/` copy for Claude Code (R-8, ADR-0005).
 
 ## Design
 
@@ -20,7 +20,7 @@ Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), mainta
   "recommended": false,
   "proposeWhen": { "tasks": ["landing page", "ui", "web design"], "stack": ["astro", "next"] },
   "source": { "marketplace": "marcosramirez-skills", "plugin": "web-design", "upstream": "<repo>" },
-  "install": "claude plugin install web-design@marcosramirez-skills",
+  "install": "npx skills add MarcosRamirez/SKILLS --skill web-design",
   "permissions": "none",
   "version": "1.2.0",
   "why": "…",
@@ -28,7 +28,7 @@ Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), mainta
 }
 ```
 
-- `install` carries no scope: the skill adds `--scope project`, or `--scope user` when the user picks Global (R-8).
+- `install` carries no scope flags: the skill adds `--copy` for a project install, or `-g` when the user picks Global (R-8).
 - Validation script in Python (stdlib + a minimal schema check) so it runs in CI and locally.
 - Proposal logic lives in `references/catalog.md`: match task words and stack signals, propose at most three.
 
@@ -60,10 +60,10 @@ Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), mainta
 - Files: + catalog/skills.json, + catalog/mcps.json
 - Done when: AC-1, AC-1b — every entry in both lists was explicitly approved by the user
 
-### T-3 Third-party skills in the marketplace — medium
-- Recommended: medium — Claude Sonnet 5.5 (manifest edits after vetting)
-- Branch: `feat/0011-t3-marketplace-entries`
-- Do: add vetted skills to marketplace.json with pinned sources; validate
+### T-3 Third-party skills installable with npx skills — medium
+- Recommended: medium — Claude Sonnet 5.5 (install checks after vetting)
+- Branch: `feat/0011-t3-third-party-skills`
+- Do: check each vetted skill installs with `npx skills add` from a pinned source; optionally list it in marketplace.json for `/plugin` users; validate
 - Files: ~ .claude-plugin/marketplace.json
 - Done when: AC-4
 
@@ -83,7 +83,7 @@ Lists live inside the skill (`catalog/skills.json`, `catalog/mcps.json`), mainta
 
 ## Verification
 
-Validator rejects a malformed entry; headless 'design a landing page' proposes without installing; `/plugin install` of a vetted entry works.
+Validator rejects a malformed entry; headless 'design a landing page' proposes without installing; `npx skills add` of a vetted entry works.
 
 ## Risks
 

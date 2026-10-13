@@ -1,6 +1,6 @@
 # ADR-0003: Distribute skills as a plugin marketplace
 
-Status: Accepted
+Status: Superseded by ADR-0005
 Date: 2026-10-12
 
 ## Context
