@@ -15,7 +15,7 @@ table format.
 | SPEC-0007 | A plan per spec with the recommended agent and model | medium | Implemented | — |
 | SPEC-0017 | SDD layout under spec/ with a constitution | high | Implemented | — |
 | SPEC-0018 | Ask where the code goes | low | Implemented | SPEC-0017 |
-| SPEC-0022 | Spec types: features and fixes | medium | Approved | — |
+| SPEC-0022 | Spec types: features and fixes | medium | Implemented | — |
 | SPEC-0023 | Versions go up only when something is implemented | low | Draft | SPEC-0022 |
 | SPEC-0016 | Closed questions with clickable answers | low | Draft | — |
 | SPEC-0019 | AGENTS.md as the single source of project instructions | medium | Draft | SPEC-0016 |

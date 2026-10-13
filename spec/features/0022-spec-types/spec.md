@@ -1,7 +1,8 @@
 # SPEC-0022: spec types: features and fixes
 
 Type: feature
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-13, PR #44
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, "implementa todas las fases, una a una, con subagentes"
 
