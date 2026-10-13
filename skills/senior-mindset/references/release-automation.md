@@ -57,7 +57,7 @@ DRY_RUN=1 bash .github/scripts/tag-release.sh
 ```
 
 For monorepos (several packages, tags `<name>-v<version>`), loop over the manifests as
-senior-mindset's own repository does in its `.github/scripts/tag-releases.sh`.
+senior-mindset's own repository does in its `.github/scripts/tag-skill-releases.sh`.
 
 ## Security and safety
 

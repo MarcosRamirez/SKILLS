@@ -39,7 +39,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           TARGET_SHA: ${{ github.sha }}
-        run: bash .github/scripts/tag-releases.sh
+        run: bash .github/scripts/tag-skill-releases.sh
 
       - name: Mark closed specs as Implemented
         if: steps.pr.outputs.number != ''
