@@ -1,6 +1,7 @@
 # SPEC-0018: ask where the code goes
 
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-13, PR #35
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, "src/ recomendada" (choosing the option approved this feature)
 Plan: low — Claude Haiku 5.5 (one kickoff question and wording in the references)
