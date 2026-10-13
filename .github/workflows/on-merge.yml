@@ -62,9 +62,9 @@ jobs:
             exit 0
           fi
           git add $changed
-          # Commit message lists only the specs; their plans (docs/plans/NNNN-*.md) ride along.
-          ids="$(printf '%s\n' "$changed" | grep 'spec\.md$' | sed -E 's#.*/([0-9]{4})-[^/]*/spec.md#SPEC-\1#' | paste -sd, -)"
-          if [ -z "$ids" ]; then ids="plans"; fi
+          # Commit message lists the closed features; plans and roadmap rows ride along.
+          ids="$(printf '%s\n' "$changed" | grep -oE 'features/[0-9]{4}-' | grep -oE '[0-9]{4}' | sort -u | sed 's/^/SPEC-/' | paste -sd, -)"
+          if [ -z "$ids" ]; then ids="specs"; fi
           git commit -m "📖 docs(repo): mark ${ids} implemented (#${PR_NUMBER})" \
-            -m "Specs set to Implemented and their plans to Done by on-merge."
+            -m "Specs set to Implemented, plans to Done and roadmap rows updated by on-merge."
           git push origin HEAD:master

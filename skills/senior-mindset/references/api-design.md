@@ -2,13 +2,13 @@
 
 ## Contract-first
 
-1. Write or update `docs/api/openapi.yaml` (**OpenAPI 3.1**) before any code.
+1. Write or update `spec/api/openapi.yaml` (**OpenAPI 3.1**) before any code.
 2. Lint the contract with **Spectral**.
 3. Generate types / clients / validators from it when the stack allows
    (openapi-typescript, orval, oapi-codegen, openapi-generator).
 4. Serve browsable docs with **Swagger UI** or **Scalar**.
 5. Contract tests verify the implementation matches the spec (see [testing.md](testing.md)).
-6. Every endpoint gets a line in `docs/INVENTORY.md` linking to the contract.
+6. Every endpoint gets a line in `spec/INVENTORY.md` linking to the contract.
 
 ## Ask and propose (pros/cons, then ADR)
 

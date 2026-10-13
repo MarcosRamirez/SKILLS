@@ -5,7 +5,7 @@ description: >
   (Spec-Driven Development + ADRs), code written for humans, English identifiers,
   sensible default stack, OWASP security, computational cost awareness, hexagonal
   architecture when there is a domain, tests, logging from day zero, contract-first
-  APIs, and reuse of what already exists (docs/INVENTORY.md). Interviews the user
+  APIs, and reuse of what already exists (spec/INVENTORY.md). Interviews the user
   once per project and stores conventions in the project's CLAUDE.md. Use whenever
   Claude is about to write or change code of any size: an app, a feature, an API,
   a worker, a fix, or a one-off script (scripts take a fast path: no interview, but
@@ -43,8 +43,8 @@ next person (or AI) does not have to guess.
    user something concrete to approve. Run `git init -b master` for a new project (Step 0b),
    then produce only what needs no approval, and stop:
    - kickoff documents: Proposed ADRs with their recommended option, CLAUDE.md conventions
-     marked "proposed", `docs/INVENTORY.md`, and `.gitignore` if you created the repo;
-   - the spec as **Draft**, with `spec.md`, `design.md` and `tasks.md`;
+     marked "proposed", `spec/INVENTORY.md`, and `.gitignore` if you created the repo;
+   - the feature as **Draft**, with `spec.md`, `plan.<tier>.md` and `tasks.md` (or a single small-feature file);
    - a commit on a `docs/` branch, never on the default branch;
    - a final message with numbered open questions and what you will build once they are
      answered and the spec is approved.
@@ -114,7 +114,7 @@ When in doubt, ask the user which one it is.
 
 ## Step 1 — Load context
 
-Read, if present: `CLAUDE.md`, `docs/INVENTORY.md`, `docs/adr/README.md`.
+Read, if present: `CLAUDE.md`, `spec/INVENTORY.md`, `spec/adr/README.md`.
 If a skill that overlaps one of senior-mindset's areas is installed but missing from
 `~/.claude/senior-mindset.md`, ask about that skill only and update the file.
 If CLAUDE.md has a `## Engineering conventions` section → use it and go to Step 3.
@@ -144,9 +144,9 @@ has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md inst
 
 **Kickoff checklist.** Verify every item before the first feature, and do not start the spec until it is complete:
 
-- [ ] One ADR per decision in `docs/adr/` (template: [references/adr.md](references/adr.md)) + index `docs/adr/README.md`
-- [ ] `## Engineering conventions` in CLAUDE.md: summary, N/A items with reasons, links to the ADRs and `docs/INVENTORY.md`
-- [ ] `docs/INVENTORY.md` from [references/inventory-template.md](references/inventory-template.md)
+- [ ] One ADR per decision in `spec/adr/` (template: [references/adr.md](references/adr.md)) + index `spec/adr/README.md`
+- [ ] `## Engineering conventions` in CLAUDE.md: summary, N/A items with reasons, links to the ADRs and `spec/INVENTORY.md`
+- [ ] `spec/INVENTORY.md` from [references/inventory-template.md](references/inventory-template.md)
 - [ ] `.gitignore`; linter and formatter configured and passing
 - [ ] Logger wrapper, unless logging is N/A
 - [ ] `cliff.toml` (changelog + `[bump]`) and a generated `CHANGELOG.md`
@@ -160,13 +160,17 @@ Layout and naming of all these files: [references/project-layout.md](references/
 
 ## Step 3 — Spec first (SDD)
 
-No code before an approved spec. Create `docs/specs/NNNN-<slug>/` with **all three files**
-(a spec without `design.md` and `tasks.md` is not ready for approval):
+No code before an approved spec. Create `spec/features/NNNN-<slug>/` with **all three files**
+(a feature without its plan and tasks is not ready for approval):
 
 - `spec.md` — WHAT and WHY: problem, requirements, numbered acceptance criteria
   (`AC-1`…, including measurable non-functional ones), out of scope. Status: Draft.
-- `design.md` — HOW: modules, data, endpoints, risks, links to ADRs.
+- `plan.<tier>.md` — HOW: `## Design` (decisions, components, data, endpoints, links to ADRs)
+  and `## Steps` with the recommended tier per step (Step 3c).
 - `tasks.md` — checklist; every task references an `AC-n` and includes its tests.
+
+A small feature that fits on one screen can be a single file `spec/features/NNNN-<slug>.md`
+with `## Spec`, `## Plan` and `## Tasks`. Add every new feature to `spec/constitution/roadmap.md`.
 
 Gaps in the spec → ask, do not assume. User approves → status Approved → implement.
 **Implemented is set when the user merges the spec's last PR**, never inside the PR: that PR
@@ -184,14 +188,14 @@ ADR, and the old one becomes `Superseded by ADR-00XX`.
 
 ## Step 3b — Design evaluation
 
-While writing `design.md`, decide and justify each axis (ADR if project-wide):
+While writing the plan's `## Design`, decide and justify each axis (ADR if project-wide):
 
 - **System shape:** modular monolith by default; microservices only with clear
   signals; event-driven for async work. → [references/system-design.md](references/system-design.md)
 - **Tests:** unit tests for domain and use cases, integration tests for adapters,
   TDD for large projects or critical logic, load tests (k6) for web/APIs with
   expected traffic. → [references/testing.md](references/testing.md)
-- **API:** contract-first with OpenAPI 3.1 in `docs/api/openapi.yaml`; propose the
+- **API:** contract-first with OpenAPI 3.1 in `spec/api/openapi.yaml`; propose the
   style and standards and ask. → [references/api-design.md](references/api-design.md)
 - **Language per component:** present a short pros/cons table of 2–3 candidates,
   give a reasoned recommendation, and **let the user decide**. → [references/languages.md](references/languages.md)
@@ -199,8 +203,8 @@ While writing `design.md`, decide and justify each axis (ADR if project-wide):
 ## Step 3c — Plan
 
 With the spec approved, write its plan before implementing:
-`docs/plans/NNNN-<slug>.<tier>.md`, with the same number and slug as the spec and the overall
-tier (`high`/`medium`/`low`) as a suffix. The plan has context, one step per task with its
+`spec/features/NNNN-<slug>/plan.<tier>.md`, inside the feature folder, with the overall tier
+(`high`/`medium`/`low`) as a suffix. Its `## Design` section holds the technical how. The plan has context, one step per task with its
 recommended tier and agent/model ([references/models.md](references/models.md)), verification,
 risks and out of scope. It is part of what the user approves. Template, lifecycle and naming:
 [references/plans.md](references/plans.md).
@@ -216,7 +220,7 @@ branch and tell the user, instead of silently doing something else.
 
 
 - **Reuse before creating.** Before writing a function, helper, DB client, script
-  or tool, check `docs/INVENTORY.md` and grep the code. If something already does
+  or tool, check `spec/INVENTORY.md` and grep the code. If something already does
   the job, use or extend it — never duplicate it.
 - **Official docs first.** For any API, library or error question, check the
   official documentation (WebFetch / WebSearch / docs MCP) before relying on memory
@@ -234,14 +238,14 @@ branch and tell the user, instead of silently doing something else.
 - [ ] Defensive: guard clauses, resource checks, timeouts, limits, no partial state on failure — [references/defensive-programming.md](references/defensive-programming.md)
 - [ ] Cost: no N+1, no needless O(n²), I/O batched — [references/performance.md](references/performance.md)
 - [ ] Logs at key points and no secrets or personal data in them
-- [ ] `docs/INVENTORY.md`, the OpenAPI contract and the spec status are up to date
+- [ ] `spec/INVENTORY.md`, the OpenAPI contract and the spec status are up to date
 - [ ] `CHANGELOG.md` regenerated (`git cliff -o CHANGELOG.md`) on the work branch
 - [ ] Branch pushed and PR opened (or merged locally if there is no remote); not merged by you
 - [ ] The running app exposes its version (`/version` or `/health`, logs)
 
 ## Step 6 — Update the inventory
 
-Every new module, tool, script, endpoint or table → one line in `docs/INVENTORY.md`
+Every new module, tool, script, endpoint or table → one line in `spec/INVENTORY.md`
 (`name — path — purpose — usage`). Removed code → remove its line. The inventory is
 what stops the next session from reinventing something that already exists.
 

@@ -16,7 +16,7 @@ Adding a new automation = adding a row here, a section below, and its templates 
 
 - Templates: `templates/release-automation/` — `on-merge.yml`, `close-specs.sh`, `tag-release.sh`.
 - Install: copy them into `.github/workflows/` and `.github/scripts/`, set the default branch,
-  list them in `docs/INVENTORY.md`, and test the scripts locally (`DRY_RUN=1`).
+  list them in `spec/INVENTORY.md`, and test the scripts locally (`DRY_RUN=1`).
 - Without it: tag releases by hand, and mark specs Implemented in the next PR (manual fallback
   in [release-automation.md](release-automation.md)).
 

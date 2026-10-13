@@ -23,7 +23,7 @@ generated changelog reads well without extra work.
 2. Add `cliff.toml` at the root (template below).
 3. Generate: `git cliff -o CHANGELOG.md`.
 4. JS projects: add `"changelog": "git-cliff -o CHANGELOG.md"` to `package.json` scripts.
-5. Record it in CLAUDE.md `## Engineering conventions` (`Changelog: git-cliff`) and in `docs/INVENTORY.md`.
+5. Record it in CLAUDE.md `## Engineering conventions` (`Changelog: git-cliff`) and in `spec/INVENTORY.md`.
 
 ## Keeping it up to date
 
