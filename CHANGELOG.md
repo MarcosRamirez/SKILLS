@@ -7,13 +7,26 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Apply defensive programming by default (2026-10-13)
+- **senior-mindset:** Ship release automation templates for apps (2026-10-13)
+- **repo:** Close specs and tag releases automatically on merge (2026-10-13)
 
 ### Documentation
 
-- **senior-mindset:** Add spec 0004 for defensive programming (2026-10-13)
-- **senior-mindset:** Close spec 0003 as implemented (2026-10-12)
-- **senior-mindset:** Close spec 0002 as implemented (2026-10-12)
+- **senior-mindset:** Add spec 0005 for closing specs on merge (2026-10-13)
+- **senior-mindset:** Close spec 0004 as implemented (2026-10-13)
+
+## [senior-mindset-v1.4.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Apply defensive programming by default
+
+### Documentation
+
+- **repo:** Fix stale git.md line in the inventory
+- **senior-mindset:** Add spec 0004 for defensive programming
+- **senior-mindset:** Close spec 0003 as implemented
+- **senior-mindset:** Close spec 0002 as implemented
 
 ## [senior-mindset-v1.3.1] - 2026-10-12
 
