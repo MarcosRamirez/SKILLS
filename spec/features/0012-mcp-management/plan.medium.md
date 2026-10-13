@@ -12,6 +12,8 @@ Depends on PLAN-0011 (`catalog/mcps.json`). Official docs first for `claude mcp 
 
 - Official docs first: verify `claude mcp add` flags and the `.mcp.json` format before writing the reference.
 - Secrets: `${ENV_VAR}` references in `.mcp.json`; values in the user's environment or secret store.
+- Scope: `--scope project` always explicit (Claude Code's default is `local`: only this user, not
+  shared); `--scope user` only when the user picks Global (ADR-0004).
 - Review routine: at release time or on request, list MCPs not used in the last N sessions and propose removal.
 
 ## Steps
