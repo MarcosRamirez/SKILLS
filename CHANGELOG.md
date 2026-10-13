@@ -7,19 +7,30 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Add a constitution with mission, tech stack and roadmap (2026-10-13)
-- **senior-mindset:** Move the SDD layout under spec/ with colocated plans (2026-10-13)
+- **senior-mindset:** Ask at kickoff where the code goes (2026-10-13)
 
 ### Documentation
 
-- **repo:** Migrate the repo to the spec/ layout (2026-10-13)
-- **senior-mindset:** Add spec 0017 for the spec/ layout (2026-10-13)
-- **senior-mindset:** Add spec and plan 0016 for clickable answers (2026-10-13)
-- **senior-mindset:** Help on install and commands in any language (2026-10-13)
-- **senior-mindset:** Add spec and plan 0015 for optional issue sync (2026-10-13)
-- **senior-mindset:** Add spec and plan 0014 for commands and help (2026-10-13)
-- **senior-mindset:** Build the curated catalogs with the user (2026-10-13)
-- **repo:** Mark SPEC-0007 implemented (#25) (2026-10-13)
+- **senior-mindset:** Add single-file feature 0018 for the code folder choice (2026-10-13)
+- **repo:** Mark SPEC-0017 implemented (#34) (2026-10-13)
+
+## [senior-mindset-v2.0.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Add a constitution with mission, tech stack and roadmap
+- **senior-mindset:** Move the SDD layout under spec/ with colocated plans
+
+### Documentation
+
+- **repo:** Migrate the repo to the spec/ layout
+- **senior-mindset:** Add spec 0017 for the spec/ layout
+- **senior-mindset:** Add spec and plan 0016 for clickable answers
+- **senior-mindset:** Help on install and commands in any language
+- **senior-mindset:** Add spec and plan 0015 for optional issue sync
+- **senior-mindset:** Add spec and plan 0014 for commands and help
+- **senior-mindset:** Build the curated catalogs with the user
+- **repo:** Mark SPEC-0007 implemented (#25)
 
 ## [senior-mindset-v1.8.0] - 2026-10-13
 
