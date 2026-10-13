@@ -11,6 +11,20 @@
 | reconfigure | "reconfigure senior-mindset", "reconfigura senior-mindset" | Re-run the collision setup | setup.md |
 | release | "release the beta", "release 2.1", "saca la versión 2.1" | Release process | versioning.md |
 
+Phrases above are examples in two languages; the skill matches the intent in any language and
+answers in the user's language.
+
+## Welcome message with help (extends SPEC-0006)
+
+```text
+✅ senior-mindset vX.Y.Z installed and configured.
+I can: write specs and plans before code, run a plan ("run plan 0008"), show project status,
+release versions, and keep your conventions. Ask "what can you do?" for the full list.
+Made by Marcos Ramírez — https://blog.marcosramirez.info/sobre-mi/
+```
+
+Rendered in the user's language. At most four lines.
+
 ## Decisions
 
 - `commands.md` is the single source; help renders it, README links it.
