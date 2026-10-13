@@ -16,12 +16,11 @@ manual fallback at the end.
 On every push to the default branch (that is, every merged PR):
 
 1. Find the merged PR for the pushed commit.
-2. **Close specs:** every `Closes-Spec: SPEC-NNNN` line in the PR body turns
-   `spec/features/NNNN-*/spec.md` from `Approved` into `Status: Implemented` +
-   `Implemented: <date>, PR #<n>`, its plan `spec/features/NNNN-*/plan*.md` becomes `Status: Done` and its row in
-   `spec/constitution/roadmap.md` becomes Implemented,
-   both committed by `github-actions[bot]`. This is the **only**
-   commit allowed on the default branch outside a PR.
+2. **Close specs:** every `Closes-Spec: SPEC-NNNN` line in the PR body turns that spec, a feature in
+   `spec/features/` or a fix in `spec/fixes/`, from `Approved` into `Status: Implemented` +
+   `Implemented: <date>, PR #<n>`. Its plan (`plan*.md` in the spec's folder) becomes `Status: Done`
+   and its row in `spec/constitution/roadmap.md` becomes Implemented, all committed by
+   `github-actions[bot]`. This is the **only** commit allowed on the default branch outside a PR.
 3. **Tag the release:** if the manifest version has no `v<version>` tag yet, tag the merge
    commit and create a GitHub Release with that version's changelog section
    (`--prerelease` for alpha, beta and rc).
@@ -37,21 +36,32 @@ Copy them from the skill's own folder, `templates/release-automation/` next to t
 | Template | Copy to | What it does |
 |---|---|---|
 | `on-merge.yml` | `.github/workflows/on-merge.yml` | Runs on push to the default branch: finds the merged PR, tags the release, closes specs |
-| `close-specs.sh` | `.github/scripts/close-specs.sh` | Marks the specs named in `Closes-Spec:` as Implemented |
+| `close-specs.sh` | `.github/scripts/close-specs.sh` | Marks the specs (features and fixes) named in `Closes-Spec:` as Implemented |
 | `tag-release.sh` | `.github/scripts/tag-release.sh` | Reads the version from `package.json` / `pyproject.toml` / `Cargo.toml`, tags `v<version>` once, creates the GitHub Release |
 
 After copying:
 - set the default branch in `on-merge.yml` (`branches: [master]`);
 - adapt the bot's commit message to the project's git convention;
+- if the specs are not in `spec/features/` and `spec/fixes/`, set `SPEC_DIRS` in the `env:` of the
+  step that closes specs;
 - add the files to `spec/INVENTORY.md`;
 - record the decision as an ADR.
 
 What `close-specs.sh` guarantees:
 - reads the PR body only from `PR_BODY`;
 - accepts only ids matching `^SPEC-[0-9]{4}$`;
+- looks for the spec in `spec/features/` and `spec/fixes/`, as a folder (`NNNN-*/spec.md`) or a
+  single file (`NNNN-*.md`), and requires exactly one match across both: a number used in two
+  places fails and changes nothing;
 - fails if the spec is missing or not `Approved`;
 - skips specs that are already `Implemented`;
 - prints the files it changed.
+
+Where it looks is set by two optional environment variables:
+- `SPEC_DIRS`: the spec folders, space-separated. Default: `spec/features spec/fixes`. A folder that
+  does not exist is skipped, so a project with no `spec/fixes/` yet needs no change.
+- `FEATURES_DIR`: the old name, kept so that existing workflows keep working. When set, it is the
+  only folder looked in and `SPEC_DIRS` is ignored.
 
 Test both scripts locally before the first merge:
 
