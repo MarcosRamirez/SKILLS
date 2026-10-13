@@ -114,7 +114,11 @@ When in doubt, ask the user which one it is.
 
 ## Step 1 — Load context
 
-Read, if present: `CLAUDE.md`, `spec/INVENTORY.md`, `spec/adr/README.md`.
+Read, if present: `CLAUDE.md`, `spec/constitution/` (mission, tech-stack, roadmap),
+`spec/INVENTORY.md`, `spec/adr/README.md`.
+**Old layout** (`docs/specs/`, `docs/plans/`, `docs/adr/` from senior-mindset 1.x): propose the
+migration to `spec/` through a change notice, on its own branch, keeping history with `git mv`
+([references/project-layout.md](references/project-layout.md)). Do not mix it with other work.
 If a skill that overlaps one of senior-mindset's areas is installed but missing from
 `~/.claude/senior-mindset.md`, ask about that skill only and update the file.
 If CLAUDE.md has a `## Engineering conventions` section → use it and go to Step 3.
@@ -144,6 +148,11 @@ has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md inst
 
 **Kickoff checklist.** Verify every item before the first feature, and do not start the spec until it is complete:
 
+- [ ] **Constitution** in `spec/constitution/` ([references/constitution.md](references/constitution.md)):
+  `mission.md` asked of and **approved by the user**, `tech-stack.md` derived from the ADRs,
+  `roadmap.md` with its table (empty until the first feature)
+- [ ] **Code folder:** `app/` in new projects (framework configs inside it); existing projects keep
+  theirs, recorded in CLAUDE.md (`Code: …`)
 - [ ] One ADR per decision in `spec/adr/` (template: [references/adr.md](references/adr.md)) + index `spec/adr/README.md`
 - [ ] `## Engineering conventions` in CLAUDE.md: summary, N/A items with reasons, links to the ADRs and `spec/INVENTORY.md`
 - [ ] `spec/INVENTORY.md` from [references/inventory-template.md](references/inventory-template.md)
