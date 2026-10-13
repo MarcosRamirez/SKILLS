@@ -38,8 +38,8 @@ pick which one wins.
 you    › build me a booking app
 claude › Before writing code, 4 quick questions (I'll remember the answers):
          stack · database · where you deploy · default branch…
-         ✔ ADR-0001..0004 written · CLAUDE.md updated · docs/INVENTORY.md created
-         Here's docs/specs/0001-bookings/spec.md: 6 acceptance criteria.
+         ✔ ADR-0001..0004 written · CLAUDE.md updated · spec/INVENTORY.md created
+         Here's spec/features/0001-bookings/spec.md: 6 acceptance criteria.
          Approve it and I'll start with the tests.
 ```
 
@@ -47,8 +47,8 @@ claude › Before writing code, 4 quick questions (I'll remember the answers):
 |---|---|
 | Code first, questions never | Spec → design → tasks, approved by you |
 | `data2`, `handleStuff()` | Names that explain themselves, in English |
-| A new DB helper every session | Checks `docs/INVENTORY.md` and reuses it |
-| "Why Postgres?" — nobody knows | `docs/adr/0001-use-postgresql.md` |
+| A new DB helper every session | Checks `spec/INVENTORY.md` and reuses it |
+| "Why Postgres?" — nobody knows | `spec/adr/0001-use-postgresql.md` |
 | SQL built with string concat | OWASP checklist before every hand-over |
 | Specs closed by hand, release tags forgotten | Specs close themselves on merge, releases tag themselves |
 | Code that trusts every input and fills the disk | Guard clauses, resource checks, timeouts and limits by default |

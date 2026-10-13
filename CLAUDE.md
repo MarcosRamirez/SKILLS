@@ -9,12 +9,12 @@ Managed with the senior-mindset skill. Details and reasons live in the ADRs.
 
 - **Project type:** documentation-first repo: Markdown skills, JSON manifests, one Python hook.
   Not applicable here: database, deployment platform, API, logging, load tests (no runtime).
-- **Distribution:** plugin marketplace in `.claude-plugin/marketplace.json`, one plugin per skill. See [ADR-0003](docs/adr/0003-distribute-skills-as-plugin-marketplace.md).
-- **Versioning:** SemVer 2.0 per skill in its `plugin.json`. See [ADR-0001](docs/adr/0001-version-each-skill-with-semver.md) and the rules below.
-- **Changelog:** `CHANGELOG.md` generated with git-cliff from the commit history. See [ADR-0002](docs/adr/0002-generate-changelog-with-git-cliff.md).
+- **Distribution:** plugin marketplace in `.claude-plugin/marketplace.json`, one plugin per skill. See [ADR-0003](spec/adr/0003-distribute-skills-as-plugin-marketplace.md).
+- **Versioning:** SemVer 2.0 per skill in its `plugin.json`. See [ADR-0001](spec/adr/0001-version-each-skill-with-semver.md) and the rules below.
+- **Changelog:** `CHANGELOG.md` generated with git-cliff from the commit history. See [ADR-0002](spec/adr/0002-generate-changelog-with-git-cliff.md).
 - **Checks (instead of a linter):** `claude plugin validate .` and `claude plugin validate ./skills/<name> --strict`, plus relative links in READMEs must resolve.
 - **Language:** skill files, READMEs and docs in English.
-- **Git:** default branch `master`, PR flow from senior-mindset (see Git below). Before creating anything, check [docs/INVENTORY.md](docs/INVENTORY.md).
+- **Git:** default branch `master`, PR flow from senior-mindset (see Git below). Before creating anything, check [spec/INVENTORY.md](spec/INVENTORY.md).
 
 ## Git
 
@@ -35,8 +35,9 @@ follows senior-mindset's convention, which matches the emoji + Conventional Comm
 
 ## Plans
 
-- Every spec has a plan in `docs/plans/NNNN-<slug>.<tier>.md` (same number and slug, overall
-  tier as suffix), written before implementation. "Run plan NNNN" executes it.
+- Every feature lives in `spec/features/NNNN-<slug>/` with `spec.md`, `plan.<tier>.md` (overall tier
+  as suffix; its `## Design` holds the technical how) and `tasks.md`, or in a single
+  `spec/features/NNNN-<slug>.md` when small. The plan is written before implementation. "Run plan NNNN" executes it.
 - The plan becomes `Done` together with its spec when the `Closes-Spec:` PR is merged.
 
 ## Specs close themselves on merge
@@ -58,7 +59,9 @@ does or how it is installed, update in the same commit:
 - The skill's `README.md`: what it does and its `references/` table.
 - `.claude-plugin/marketplace.json` and the skill's `plugin.json`: description if it changes,
   version per the rules below.
-- `docs/INVENTORY.md` when files are added, moved or removed.
+- `spec/INVENTORY.md` when files are added, moved or removed.
+- `spec/constitution/roadmap.md` when a feature is added (the bot sets Implemented on merge).
+- `spec/constitution/tech-stack.md` when an ADR is added or superseded.
 
 Before committing, check that every relative link in the READMEs resolves.
 
@@ -101,7 +104,9 @@ skills/<name>/
   README.md                       for humans
   .claude-plugin/plugin.json      plugin manifest (version lives here)
   references/ scripts/ hooks/     optional
-docs/adr/  docs/specs/  docs/plans/  docs/INVENTORY.md
+spec/constitution/  mission.md · tech-stack.md · roadmap.md
+spec/features/     NNNN-slug/{spec.md, plan.<tier>.md, tasks.md} or NNNN-slug.md
+spec/adr/  spec/INVENTORY.md
 CHANGELOG.md  cliff.toml
 .github/workflows/on-merge.yml    closes specs + tags releases after each merge
 .github/scripts/tag-skill-releases.sh   tags every skill version (repo-only, DRY_RUN=1 to test)
