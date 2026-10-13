@@ -76,10 +76,12 @@ With no tags, git-cliff prints `0.0.1-alpha.1` without the `v`: add it when tagg
 5. Commit following the active git convention (fallback: `🔧 chore(release): vX.Y.Z`).
 6. Push the branch and open the release PR ([git.md](git.md)). **The user merges it.**
    Without a remote, merge locally with `--no-ff`.
-7. After the merge: `git switch <default> && git pull`, then put an annotated tag on the
-   merge commit: `git tag -a vX.Y.Z -m "vX.Y.Z"`.
-8. **Only if the user asks:** `git push origin vX.Y.Z`, then
-   `gh release create vX.Y.Z --notes-file <section from CHANGELOG>`, adding `--prerelease` for alpha, beta and rc.
+7. **With `on-merge.yml`** ([release-automation.md](release-automation.md)): when the user
+   merges, the workflow tags the merge commit `vX.Y.Z` and creates the GitHub Release with
+   the changelog section (`--prerelease` for alpha, beta and rc). Nothing else to do.
+8. **Without it** (manual fallback): `git switch <default> && git pull`, then
+   `git tag -a vX.Y.Z <merge-sha> -m "vX.Y.Z"`. Only if the user asks: `git push origin vX.Y.Z`
+   and `gh release create vX.Y.Z --notes-file <section from CHANGELOG>`.
 
 ## Source of truth and visibility
 
