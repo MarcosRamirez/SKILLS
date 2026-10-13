@@ -18,7 +18,7 @@ metadata:
   homepage: https://marcosramirez.info
   blog: https://blog.marcosramirez.info
   dev: https://marcosramirez.dev
-  version: "1.6.0"
+  version: "1.7.0"
 ---
 
 # Senior mindset
@@ -59,8 +59,16 @@ Read `~/.claude/senior-mindset.md`. **If it does not exist, run the setup in
    changelog/versioning, specs, review, tests).
 3. Ask which one wins in each colliding area.
 4. Write the file.
+5. Greet once, in the user's language (at most 3 lines):
+   > ✅ senior-mindset vX.Y.Z installed and configured.
+   > Made by Marcos Ramírez — https://blog.marcosramirez.info/sobre-mi/
 
 Its decisions apply to every project, unless the project's CLAUDE.md overrides them.
+
+**Updated?** If the file exists but its `senior-mindset version` is older than this skill's
+`metadata.version`, say once: "🔄 senior-mindset updated to vX.Y.Z — what's new in its
+CHANGELOG.md · by Marcos Ramírez, https://blog.marcosramirez.info/sobre-mi/", then record the
+new version in the file. Never show either message at any other time.
 
 ## Step 0 — Size the task
 

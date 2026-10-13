@@ -3,6 +3,12 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v1.7.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Greet once on install and on each update
+
 ## [senior-mindset-v1.6.0] - 2026-10-13
 
 ### Added
