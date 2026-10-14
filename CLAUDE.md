@@ -72,6 +72,12 @@ does or how it is installed, update in the same commit:
 - `spec/constitution/roadmap.md` when a feature is added (the bot sets Implemented on merge).
 - `spec/constitution/tech-stack.md` when an ADR is added or superseded.
 
+**Impact sweep:** when an ADR is accepted or superseded, or a spec changes a convention or a layout
+that documents describe, search for the ADR id, the replaced terms and the files of the area
+(`git grep -n`), update the living documents and Draft/Approved specs in the same PR, and keep
+Implemented specs, ADR files and changelogs as written. Procedure and Impact template:
+`skills/senior-mindset/references/adr.md`.
+
 Before committing, check that every relative link in the READMEs resolves.
 
 ## Versioning skills (SemVer 2.0)
