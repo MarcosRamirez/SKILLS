@@ -117,7 +117,8 @@ When in doubt, ask the user which one it is.
 ## Step 1 — Load context
 
 Read, if present: `CLAUDE.md`, `spec/constitution/` (mission, tech-stack, roadmap),
-`spec/INVENTORY.md`, `spec/adr/README.md`.
+`spec/INVENTORY.md`, `spec/POSTMORTEMS.md` (known failure modes: read it before writing a spec or
+reviewing a change), `spec/adr/README.md`.
 **Old layout** (`docs/specs/`, `docs/plans/`, `docs/adr/` from senior-mindset 1.x): propose the
 migration to `spec/` through a change notice, on its own branch, keeping history with `git mv`
 ([references/project-layout.md](references/project-layout.md)). Do not mix it with other work.
@@ -202,7 +203,10 @@ A fix is a single file `spec/fixes/NNNN-<slug>.md` with the same three sections 
 when it is large). Its Spec states the current, expected and **unchanged** behaviour, the
 reproduction, the root cause and the fix. Its acceptance criteria always include a test that fails
 before the fix and passes after it, plus unchanged-behaviour tests that stay green. Flow:
-reproduce with a failing test → root cause → fix, on a `fix/NNNN-<slug>` branch.
+reproduce with a failing test → root cause → fix → postmortem section and register row, on a
+`fix/NNNN-<slug>` branch. **Every fixed bug, spec or not, gets a blameless postmortem and a row in
+`spec/POSTMORTEMS.md`** ([references/postmortem.md](references/postmortem.md)); three rows in one
+category → propose a spec that removes the pattern.
 
 Add every new spec to `spec/constitution/roadmap.md`.
 
@@ -292,9 +296,10 @@ what stops the next session from reinventing something that already exists.
    commit (`feat`, `fix`, `perf`, `refactor` or breaking, touching code). With none, answer
    "nothing to release" and stop: specs, plans and ADRs never move a version.
 2. `git cliff --bumped-version` proposes the next version.
-3. The user confirms the version or the stage (alpha → beta → rc → stable is always their call).
-4. Release branch with manifest + `CHANGELOG.md` → release PR → the user merges.
-5. With `on-merge.yml`, the tag and the GitHub Release are created at merge time
+3. Read `spec/POSTMORTEMS.md`: list the preventive actions still pending and tell the user before releasing.
+4. The user confirms the version or the stage (alpha → beta → rc → stable is always their call).
+5. Release branch with manifest + `CHANGELOG.md` → release PR → the user merges.
+6. With `on-merge.yml`, the tag and the GitHub Release are created at merge time
    ([references/release-automation.md](references/release-automation.md)). Without it,
    tag the merge commit by hand; push it and create the release only if the user asks.
 
