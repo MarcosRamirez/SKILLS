@@ -33,6 +33,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `performance.md` — computational cost rules
 - `platforms.md` — hosting options (Cloudflare default)
 - `project-layout.md` — project tree and CLAUDE.md section
+- `questions.md` — closed questions with clickable options (question tool): format, examples, numbered fallback
 - `sdd.md` — spec / design / tasks templates
 - `release-automation.md` — specs close on merge, releases tag themselves; uses the templates below
 - `security.md` — OWASP Top 10 checklist
