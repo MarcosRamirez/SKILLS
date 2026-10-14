@@ -42,6 +42,33 @@ senior-mindset itself, so it is lost when the skill does not load.
    (and the Spanish "¿Mergeamos feat/greeting en master?"). Check which skills load and whether a
    merge happens (see SPEC-0016 tasks.md, "Test results (T-2)").
 
+**Recorded results (T-1, 2026-10-14)**
+
+Scratch repo (master with `CLAUDE.md` "Engineering conventions" and `app.py`; `feat/greeting` adds
+`greeting.py`; no remote), reset before each run. Claude Code 2.1.296, default model, user's
+installed plugins and skills, `--permission-mode acceptEdits --allowedTools "Bash(git:*)"`.
+
+| Run | Prompt | Skills loaded | Question tool attempted | Merged |
+|-----|--------|---------------|-------------------------|--------|
+| en1 | "Should we merge feat/greeting into master?" | git-workflow | no | no |
+| en2 | same | git-workflow | no | no |
+| en3 | same | git-workflow | no | no |
+| es1 | "¿Mergeamos feat/greeting en master?" | git-workflow | no | no |
+| es2 | same | git-workflow | no | no |
+| es3 | same | git-workflow | no | no |
+
+senior-mindset did not load in any of the six runs. No merge happened: `master` still held only its
+initial commit and `git branch --merged master` listed only `master`. The question tool is not in
+the headless tool list (`AskUserQuestion` absent from the init event), so it could not be attempted.
+Every run answered "not yet" in text and listed blockers, all taken from git-workflow's
+conventions and the scratch `CLAUDE.md` ("Tests live next to the code" with no test file, and the
+commit title without the type emoji). Reading: senior-mindset's non-loading reproduces (AC-1 part
+one), but the merge-without-asking half of PM-0011 did not reproduce headless. The agent stopped
+on blockers from the conventions (no test, commit title), not on a question rule. A branch that
+passes those checks has not been run yet, so the merge-without-asking case is still open for T-3.
+The raw streams and analysis are in the T-1 scratch
+folder (not committed).
+
 **Root cause.** senior-mindset's description triggers on writing or changing code, releases and
 plans, and git-only requests match none of them. The rules that must always hold live only in the
 skill, which loads on demand, and nowhere that is always loaded.
@@ -90,7 +117,7 @@ It moves here when this fix runs.
 The reproduction before and after; the trigger runs; `claude plugin validate --strict`; `check-docs.py`.
 
 ## Tasks
-- [ ] T-1 Reproduce and record (AC-1)
+- [x] T-1 Reproduce and record (AC-1)
 - [ ] T-2 Description triggers, conventions block, setup.md rule
 - [ ] T-3 Trigger check, at least 3 runs per prompt and language (AC-2, AC-3)
 - [ ] T-4 Postmortem, register and PATCH release with `Closes-Spec: SPEC-0027` (AC-4)
