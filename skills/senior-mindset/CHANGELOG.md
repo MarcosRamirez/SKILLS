@@ -3,6 +3,13 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.2.1] - 2026-10-14
+
+### Fixed
+
+- **senior-mindset:** Never propose the unchanged version
+- **senior-mindset:** Check for implementation before a release
+
 ## [senior-mindset-v2.2.0] - 2026-10-13
 
 ### Added

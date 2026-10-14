@@ -5,35 +5,53 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ## [Unreleased]
 
-### Added
-
-- **senior-mindset:** Close fix specs with SPEC_DIRS (2026-10-13)
-
 ### Fixed
 
-- **repo:** Keep the on-merge commit when no spec path changed (2026-10-13)
+- **repo:** Refuse to tag a version with nothing new in the skill (2026-10-14)
+- **repo:** Close specs even when the tag step fails (2026-10-14)
+- **senior-mindset:** Never propose the unchanged version (2026-10-13)
+- **senior-mindset:** Check for implementation before a release (2026-10-13)
 
 ### Documentation
 
-- **senior-mindset:** Tick task T-3 of spec 0022 (2026-10-13)
-- **senior-mindset:** Tick task T-2 of spec 0022 (2026-10-13)
-- **repo:** Say the bot closes fixes like features (2026-10-13)
-- **senior-mindset:** Keep the approval gate for trivial fixes (2026-10-13)
-- **senior-mindset:** Tick task T-1 of spec 0022 (2026-10-13)
-- **senior-mindset:** Choose the spec type in step 3 (2026-10-13)
-- **senior-mindset:** Add fix specs next to feature specs (2026-10-13)
-- **senior-mindset:** Approve spec 0022 and start its plan (2026-10-13)
-- **repo:** Order the roadmap for implementation (2026-10-13)
-- **senior-mindset:** Add spec and plan 0021 for standard installs (2026-10-13)
-- **repo:** Version skills in SKILL.md, keep Claude files out (2026-10-13)
-- **senior-mindset:** Put standard locations first for installs (2026-10-13)
-- **senior-mindset:** Add fix spec 0023 for version bumps (2026-10-13)
-- **senior-mindset:** Add spec and plan 0022 for fix specs (2026-10-13)
-- **senior-mindset:** Add Context7 and MCP directories to spec 0012 (2026-10-13)
-- **senior-mindset:** Install skills and MCPs at project scope (2026-10-13)
-- **senior-mindset:** Add spec and plan 0020 for toggling MCPs (2026-10-13)
-- **senior-mindset:** Add spec and plan 0019 for AGENTS.md first (2026-10-13)
-- **repo:** Mark SPEC-0018 implemented (#35) (2026-10-13)
+- **senior-mindset:** Tick task T-4 of fix 0023 (2026-10-14)
+- **repo:** Tick task T-3 of fix 0023 (2026-10-14)
+- **senior-mindset:** Tick task T-2 of fix 0023 (2026-10-13)
+- **repo:** State that specs never move a version (2026-10-13)
+- **senior-mindset:** Record the reproduction of fix 0023 (2026-10-13)
+- **repo:** Mark SPEC-0022 implemented (#44) (2026-10-13)
+
+## [senior-mindset-v2.2.0] - 2026-10-13
+
+### Added
+
+- **senior-mindset:** Close fix specs with SPEC_DIRS
+
+### Fixed
+
+- **repo:** Keep the on-merge commit when no spec path changed
+
+### Documentation
+
+- **senior-mindset:** Tick task T-3 of spec 0022
+- **senior-mindset:** Tick task T-2 of spec 0022
+- **repo:** Say the bot closes fixes like features
+- **senior-mindset:** Keep the approval gate for trivial fixes
+- **senior-mindset:** Tick task T-1 of spec 0022
+- **senior-mindset:** Choose the spec type in step 3
+- **senior-mindset:** Add fix specs next to feature specs
+- **senior-mindset:** Approve spec 0022 and start its plan
+- **repo:** Order the roadmap for implementation
+- **senior-mindset:** Add spec and plan 0021 for standard installs
+- **repo:** Version skills in SKILL.md, keep Claude files out
+- **senior-mindset:** Put standard locations first for installs
+- **senior-mindset:** Add fix spec 0023 for version bumps
+- **senior-mindset:** Add spec and plan 0022 for fix specs
+- **senior-mindset:** Add Context7 and MCP directories to spec 0012
+- **senior-mindset:** Install skills and MCPs at project scope
+- **senior-mindset:** Add spec and plan 0020 for toggling MCPs
+- **senior-mindset:** Add spec and plan 0019 for AGENTS.md first
+- **repo:** Mark SPEC-0018 implemented (#35)
 
 ## [senior-mindset-v2.1.0] - 2026-10-13
 
