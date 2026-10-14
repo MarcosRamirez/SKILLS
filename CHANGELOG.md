@@ -5,19 +5,34 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ## [Unreleased]
 
-### Fixed
+### Added
 
-- **repo:** Check docs for broken and superseded links on PRs (2026-10-14)
+- **senior-mindset:** Allow superseded-ADR links inside adr folders (2026-10-14)
+- **senior-mindset:** Add docs-check automation template (2026-10-14)
+- **senior-mindset:** Add ADR impact section and sweep (2026-10-14)
 
 ### Documentation
 
-- **senior-mindset:** Tick task T-4 of fix 0024 (2026-10-14)
-- **repo:** Write the postmortem of fix 0024 (2026-10-14)
-- **repo:** Align Draft specs 0009, 0012, 0015 with ADRs (2026-10-14)
-- **repo:** State the standard-first identity and ADRs (2026-10-14)
-- **senior-mindset:** Install with npx skills first (2026-10-14)
-- **senior-mindset:** Record the npx skills checks for fix 0024 (2026-10-14)
-- **repo:** Mark SPEC-0026 implemented (#56) (2026-10-14)
+- **senior-mindset:** Tick task T-4 of spec 0025 (2026-10-14)
+- **repo:** Add impact sweep rule to CLAUDE.md (2026-10-14)
+- **repo:** Start plan 0025 and tick task T-1 (2026-10-14)
+- **repo:** Mark SPEC-0024 implemented (#60) (2026-10-14)
+
+## [senior-mindset-v2.4.1] - 2026-10-14
+
+### Fixed
+
+- **repo:** Check docs for broken and superseded links on PRs
+
+### Documentation
+
+- **senior-mindset:** Tick task T-4 of fix 0024
+- **repo:** Write the postmortem of fix 0024
+- **repo:** Align Draft specs 0009, 0012, 0015 with ADRs
+- **repo:** State the standard-first identity and ADRs
+- **senior-mindset:** Install with npx skills first
+- **senior-mindset:** Record the npx skills checks for fix 0024
+- **repo:** Mark SPEC-0026 implemented (#56)
 
 ## [senior-mindset-v2.4.0] - 2026-10-14
 

@@ -3,6 +3,14 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.5.0] - 2026-10-14
+
+### Added
+
+- **senior-mindset:** Allow superseded-ADR links inside adr folders
+- **senior-mindset:** Add docs-check automation template
+- **senior-mindset:** Add ADR impact section and sweep
+
 ## [senior-mindset-v2.4.1] - 2026-10-14
 
 ### Documentation
