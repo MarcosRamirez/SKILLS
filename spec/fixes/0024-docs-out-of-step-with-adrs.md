@@ -63,6 +63,71 @@ decision it changes. Nothing detects a living document that links a superseded A
    - whether it can install from a tag.
 
    Record the results here.
+
+   **Recorded results (T-1, 2026-10-14)**
+
+   Run in a scratch git repository (the "user project"), with `skills@1.7.2` (`npx --yes skills --help`
+   ran 1.7.2, also `npm view skills version`), nothing global (`-g` never used). Checked before and
+   after: `~/.claude/skills`, `~/.agents/skills` and `~/.claude/senior-mindset.md` (sha256 unchanged).
+   Commands below use `npx --yes skills@1.7.2` (shortened to `skills@1.7.2`). Source: this repository
+   at `master` (SKILL.md `metadata.version` 2.4.0).
+
+   1. **List.** `skills@1.7.2 add MarcosRamirez/SKILLS --list` found 2 skills: `save-image` and
+      `senior-mindset`. It detected Claude Code as the running agent and installed non-interactively.
+   2. **Claude Code, copy.** `add MarcosRamirez/SKILLS --skill senior-mindset -a claude-code --copy -y`
+      wrote only `.claude/skills/senior-mindset/` (whole folder: SKILL.md, README.md, CHANGELOG.md,
+      `references/`, `templates/` and `.claude-plugin/plugin.json`) and `skills-lock.json` at the project
+      root (source, `skillPath`, `computedHash`; a `ref` field when installed from a ref). The summary
+      lists a canonical `.agents/skills/` path, but with `--copy` no `.agents/` folder was created.
+   3. **Agents that read `.agents/skills/`.** `-a codex` and, separately, `-a opencode` (both with
+      `--copy`) wrote only `.agents/skills/senior-mindset/` (with `.claude-plugin/plugin.json`) plus
+      `skills-lock.json`.
+   4. **Both in one command.** `-a claude-code codex --copy -y` worked: it wrote both
+      `.agents/skills/senior-mindset/` and `.claude/skills/senior-mindset/`, so one command gives the
+      ADR-0005 layout (standard location plus the Claude Code bridge copy).
+   5. **From a tag.** Both of these installed the tagged version, `skills-lock.json` recorded
+      `"ref": "senior-mindset-v2.4.0"` and the installed `metadata.version` was `"2.4.0"`:
+      - `add https://github.com/MarcosRamirez/SKILLS/tree/senior-mindset-v2.4.0/skills/senior-mindset -a codex --copy -y`
+      - `add MarcosRamirez/SKILLS#senior-mindset-v2.4.0 --skill senior-mindset -a codex --copy -y`
+
+      The tree URL with `senior-mindset-v2.3.0` installed `2.3.0` (`SKILL.md` and `plugin.json`), so
+      the tag really selects the version.
+   6. **Claude Code loads the copy.** `claude -p "Which skills are available? Answer with their names
+      only."` from the project (no `--plugin-dir`) listed the project copy as plain `senior-mindset`
+      next to the globally installed plugin `senior-mindset:senior-mindset`. It did not appear as a
+      skills-directory plugin: `claude plugin list --json` showed `(suppressed)@skills-dir`, scope
+      `project`, with the note that the project directory under `.claude/skills/` was skipped because
+      the workspace was not trusted when plugins were scanned (`-p` has no trust dialog). So in
+      practice the copy loads as a plain skill; whether it loads as `/senior-mindset:senior-mindset`
+      after the trust dialog was not tested (it needs an interactive session).
+   7. **Updates.** `update [skills...]` with `-g`, `-p` and `-y`; there is no flag to choose a ref.
+      `skills@1.7.2 update -p -y` on a project installed from the tag `senior-mindset-v2.3.0` reported
+      "All project skills are up to date" and kept version 2.3.0 with `ref` unchanged in
+      `skills-lock.json`: a skill installed from a ref stays pinned, and one installed without a ref
+      follows the default branch. To move to a new tag, run `add` again with the new ref.
+
+   **Recommended commands for the READMEs** (all verified above, except where noted)
+   - Project, all agents that read `.agents/skills/` plus Claude Code:
+     `npx skills add MarcosRamirez/SKILLS --skill senior-mindset -a claude-code codex --copy`
+     (drop `--copy` to symlink and update with `npx skills update`; `-a '*'` for all agents, documented in `--help` but not run here).
+   - Project, Claude Code only: `npx skills add MarcosRamirez/SKILLS --skill senior-mindset -a claude-code`.
+   - Global: add `-g` (not run here, to protect the user's machine; the flag is in `--help`).
+   - Committed copy (team and cloud sessions get it): `--copy`, then commit `.agents/skills/`,
+     `.claude/skills/` and `skills-lock.json`.
+   - From a release tag: `npx skills add https://github.com/MarcosRamirez/SKILLS/tree/senior-mindset-vX.Y.Z/skills/senior-mindset`
+     or `npx skills add MarcosRamirez/SKILLS#senior-mindset-vX.Y.Z --skill senior-mindset`.
+
+   **Surprises**
+   - Name collision: with the global plugin installed, Claude Code lists `senior-mindset` (project copy)
+     and `senior-mindset:senior-mindset` (plugin) together. Not a conflict, but two entries for one skill.
+   - The copy carries `.claude-plugin/plugin.json` into `.agents/skills/` too, so agents other than
+     Claude Code receive a Claude Code file until SPEC-0021 T-1 moves it out.
+   - `--copy` with `-a claude-code` does not create `.agents/skills/`: ask for both agents to get both.
+   - `skills-lock.json` is created in the project root; it should be committed with the copies.
+   - On Windows the CLI ends some runs with `Assertion failed: !(handle->flags & UV_HANDLE_CLOSING)`
+     after finishing the work; the installs were complete.
+   - Opening the scratch checks changed only the modification time of `~/.claude` itself (from running
+     `claude -p`); the contents of the two skills folders did not change.
 2. READMEs, root and skill, in this order:
    1. `npx skills add MarcosRamirez/SKILLS --skill senior-mindset` (into the project; `-g` for
       global; `--copy` when the copy is committed);
@@ -127,7 +192,7 @@ Written when this fix runs, with the template of SPEC-0026.
 The reproduction greps before and after; the planted failures for the check; `claude plugin validate`.
 
 ## Tasks
-- [ ] T-1 Verify `npx skills` and record (AC-2)
+- [x] T-1 Verify `npx skills` and record (AC-2)
 - [ ] T-2 Align READMEs, identity, CLAUDE.md, mission and Draft specs (AC-1, AC-2)
 - [ ] T-3 `check-docs.py` and `checks.yml` with planted-failure tests (AC-3)
 - [ ] T-4 Postmortem and PATCH release with `Closes-Spec: SPEC-0024` (AC-4)
