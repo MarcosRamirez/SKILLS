@@ -132,6 +132,48 @@ script only checks that a tag for the version does not exist yet. The results co
 
 **Out of scope.** Changing versions that were already released.
 
+## Postmortem
+
+Register row: PM-0010 in [spec/POSTMORTEMS.md](../POSTMORTEMS.md). Category: spec gap.
+
+**Impact.** No wrong version was released: every bump from 1.1.0 to 2.1.0 shipped implemented
+changes (checked on 2026-10-13). The gap was open in two places. Since 1.2.0, the release step for
+apps could propose a PATCH for docs-only commits (`v0.1.0` to `v0.1.1`, reproduced in T-1). Since
+SPEC-0005, `tag-skill-releases.sh` would tag a version-only bump and create its GitHub Release
+(reproduced with `DRY_RUN`). Before the rule was written, the doubt about past versions took a check
+of the whole release history.
+
+**5 Whys.**
+
+1. Why could a version move with nothing implemented? → The release step took the version from
+   `git cliff --bumped-version`, and the tag script tagged any manifest version that had no tag.
+2. Why did neither check for implementation? → No rule asked them to. `references/versioning.md`,
+   `SKILL.md` and `CLAUDE.md` said what bumps a version, never what must not.
+3. Why did git-cliff propose a PATCH for a spec? → It bumps for every commit that `commit_parsers`
+   does not skip, `cliff.toml` does not skip `docs`, and it never looks at which files changed.
+4. Why was the rule never written? → It held by habit, since every past bump shipped real changes,
+   so the gap stayed out of sight until someone asked about it.
+
+**Why it was not caught.** No test ran a release over a docs-only range or tagged a version-only
+bump. The T-1 reproduction was the first run of either case. The tag script was tested for new and
+existing tags (SPEC-0005 AC-2), not for what changed inside the skill.
+
+**Corrective action.** This spec, released in 2.2.1 (PR #48):
+
+- the rule and the implementation check in `references/versioning.md`, `SKILL.md` Step 7 and
+  `CLAUDE.md` (T-2);
+- the release step never proposes the unchanged version, a case the T-2 tests found;
+- the path check in `tag-skill-releases.sh` (T-3);
+- the spec-closing step of `on-merge.yml` still runs when the tag step refuses, so a refusal cannot
+  leave a merged spec open.
+
+**Preventive actions.**
+
+- [x] The rule "specs, plans and ADRs never move a version" (where: rule, `references/versioning.md`, `SKILL.md` Step 7, `CLAUDE.md` "Versioning skills")
+- [x] The release check reads the commit list, not the version git-cliff prints (where: check, `references/versioning.md`)
+- [x] `tag-skill-releases.sh` refuses a version with nothing new in the skill and names it (where: check, `.github/scripts/tag-skill-releases.sh`, `.github/workflows/on-merge.yml`)
+- [ ] The `DRY_RUN` cases of T-3 (PR #47) committed and run in CI, so the guard cannot regress unnoticed (proposed: new spec, CI tests in [spec/POSTMORTEMS.md](../POSTMORTEMS.md))
+
 ## Plan
 
 ### Design
@@ -154,3 +196,7 @@ The reproduction before and after the fix; the `DRY_RUN` cases; `claude plugin v
 - [x] T-2 Rule and implementation check in the skill, CLAUDE.md (AC-1, AC-4)
 - [x] T-3 Tag-script check with DRY_RUN tests (AC-2, AC-3)
 - [x] T-4 PATCH release with `Closes-Spec: SPEC-0023`
+
+## Changelog
+
+- 2026-10-14: postmortem added (SPEC-0026).
