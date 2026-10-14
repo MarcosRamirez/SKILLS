@@ -1,7 +1,8 @@
 # PLAN-0026: a postmortem for every bug, and a register of lessons
 
 Spec: [SPEC-0026](spec.md)
-Status: In progress
+Status: Done
+Done: 2026-10-14, PR #56
 Recommended overall: medium — Claude Sonnet 5.5 (method and templates are settled; the backfill needs judgment)
 
 ## Context

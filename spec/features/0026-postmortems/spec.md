@@ -1,7 +1,8 @@
 # SPEC-0026: a postmortem for every bug, and a register of lessons
 
 Type: feature
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-14, PR #56
 Date: 2026-10-14
 Approved by: the user, 2026-10-14, approved the plan that defines this spec
 
