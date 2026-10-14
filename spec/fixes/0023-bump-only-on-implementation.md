@@ -152,4 +152,4 @@ The reproduction before and after the fix; the `DRY_RUN` cases; `claude plugin v
 - [x] T-1 Reproduce and record (AC-1)
 - [x] T-2 Rule and implementation check in the skill, CLAUDE.md (AC-1, AC-4)
 - [x] T-3 Tag-script check with DRY_RUN tests (AC-2, AC-3)
-- [ ] T-4 PATCH release with `Closes-Spec: SPEC-0023`
+- [x] T-4 PATCH release with `Closes-Spec: SPEC-0023`
