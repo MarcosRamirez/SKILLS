@@ -18,6 +18,7 @@ table format.
 | SPEC-0022 | Spec types: features and fixes | medium | Implemented | — |
 | SPEC-0023 | Versions go up only when something is implemented | low | Implemented | SPEC-0022 |
 | SPEC-0016 | Closed questions with clickable answers | low | Implemented | — |
+| SPEC-0026 | Postmortem for every bug and a register of lessons | medium | Approved | SPEC-0022 |
 | SPEC-0019 | AGENTS.md as the single source of project instructions | medium | Draft | SPEC-0016 |
 | SPEC-0008 | Work safely on existing projects | high | Draft | SPEC-0019 |
 | SPEC-0014 | Documented commands, help and status | medium | Draft | SPEC-0022 |
