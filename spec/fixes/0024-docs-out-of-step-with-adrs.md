@@ -172,7 +172,44 @@ manifest move (SPEC-0021).
 
 ## Postmortem
 
-Written when this fix runs, with the template of SPEC-0026.
+Register row: PM-0013 in [spec/POSTMORTEMS.md](../POSTMORTEMS.md). Category: docs drift.
+
+**Impact.** The living documents of the repository, which new users read first, described decisions
+that ADR-0005 and ADR-0006 had replaced. `CLAUDE.md` cited the superseded ADR-0001 and ADR-0003 as
+current, and both READMEs installed the skill Claude-first and globally. Three Draft specs used
+replaced terms. No release and no installed skill was wrong: the skill's behaviour did not change,
+only the documents around it. The gap was found by the user, not by a check.
+
+**5 Whys.**
+
+1. Why did the documents describe superseded decisions? → PR #40 accepted ADR-0005 and ADR-0006 and
+   updated `tech-stack.md` and three Draft specs, but none of the living documents that describe
+   the same decisions.
+2. Why did that PR not update them? → Accepting an ADR does not require a check of the documents
+   that cite the decisions it changes. The rule in `CLAUDE.md` ("documentation is updated in the same
+   commit") lists skill changes, installs and file moves, not decisions.
+3. Why did the rule not list decisions? → It was written for the skill-by-skill workflow of 1.x,
+   before the repository had ADRs that superseded each other.
+4. Why did nothing else catch the stale links? → A link to a superseded ADR is valid Markdown and
+   resolves to an existing file. No check read the `Status:` line of the ADR it points to.
+
+**Why it was not caught.** No check flagged a link to a superseded ADR, and the reviewer of PR #40
+had no list of the living documents to compare against. PR #40 also deferred the `CLAUDE.md`
+conventions to plan 0021 without marking them as pending in the document, so the stale text read as
+current.
+
+**Corrective action.** This spec. T-2 (PR #58) aligned the READMEs, the identity (title, marketplace
+description, mission), the `CLAUDE.md` conventions (ADR-0005 and ADR-0006, with "until SPEC-0021 T-1"
+where the move is pending) and the three Draft specs, after the `npx skills` check of T-1 recorded
+the standard-first install. T-3 (PR #59) added `.github/scripts/check-docs.py` and
+`.github/workflows/checks.yml`, which run on every pull request. The script fails on a broken
+relative link and on a link to an ADR whose `Status:` is `Superseded`, and its tests planted both
+failures.
+
+**Preventive actions.**
+
+- [x] `check-docs.py` on every pull request: relative links resolve and no living document links a superseded ADR (where: check, `.github/scripts/check-docs.py`, `.github/workflows/checks.yml`; done, T-3)
+- [ ] Impact sweep for every accepted decision: list the living documents that cite what it changes, before the ADR is merged (pending: SPEC-0025)
 
 ## Plan
 
@@ -195,4 +232,4 @@ The reproduction greps before and after; the planted failures for the check; `cl
 - [x] T-1 Verify `npx skills` and record (AC-2)
 - [x] T-2 Align READMEs, identity, CLAUDE.md, mission and Draft specs (AC-1, AC-2)
 - [x] T-3 `check-docs.py` and `checks.yml` with planted-failure tests (AC-3)
-- [ ] T-4 Postmortem and PATCH release with `Closes-Spec: SPEC-0024` (AC-4)
+- [x] T-4 Postmortem and PATCH release with `Closes-Spec: SPEC-0024` (AC-4)
