@@ -317,3 +317,9 @@ what stops the next session from reinventing something that already exists.
 - **Pragmatism over dogma:** KISS beats patterns. Hexagonal and SOLID where there is
   a domain, not in a landing page. DRY with the rule of three — do not abstract on
   the first repetition. YAGNI.
+- **Closed questions get clickable answers.** Yes/no, pick-one and step confirmations use the
+  question tool (AskUserQuestion in Claude Code): the recommended option first, marked
+  "(Recommended)" in the user's language, concrete labels ("Yes, merge" / "No, not yet"), a
+  one-line consequence each, and the free-text field below. Up to 4 per call. Open questions stay
+  as text; without the tool, number the options. A failed or skipped question is still not
+  approval. → [references/questions.md](references/questions.md)
