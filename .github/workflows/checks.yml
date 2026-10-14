@@ -1,0 +1,19 @@
+name: checks
+
+# On every pull request: the living documents have no broken relative links and
+# link no superseded ADR (SPEC-0024).
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check living documents
+        run: python3 .github/scripts/check-docs.py

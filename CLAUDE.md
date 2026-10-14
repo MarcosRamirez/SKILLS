@@ -14,7 +14,9 @@ Managed with the senior-mindset skill. Details and reasons live in the ADRs.
 - **Distribution:** `npx skills` into the project's `.agents/skills/` plus the `.claude/skills/` bridge for Claude Code; the Claude Code plugin marketplace in `.claude-plugin/marketplace.json` (one plugin per skill) is an optional channel. See [ADR-0005](spec/adr/0005-standard-locations-first.md).
 - **Versioning:** SemVer 2.0 per skill, kept in its `SKILL.md` ([ADR-0006](spec/adr/0006-version-in-skill-md.md)). Until SPEC-0021 T-1 moves it, the source of truth is still `plugin.json` (rules below).
 - **Changelog:** `CHANGELOG.md` generated with git-cliff from the commit history. See [ADR-0002](spec/adr/0002-generate-changelog-with-git-cliff.md).
-- **Checks (instead of a linter):** `claude plugin validate .` and `claude plugin validate ./skills/<name> --strict`, plus relative links in READMEs must resolve.
+- **Checks (instead of a linter):** `claude plugin validate .` and `claude plugin validate ./skills/<name> --strict`, plus
+  `python3 .github/scripts/check-docs.py` (relative links resolve, no link to a superseded ADR in the living documents).
+  The docs check runs on every pull request through `.github/workflows/checks.yml`.
 - **Language:** skill files, READMEs and docs in English.
 - **Git:** default branch `master`, PR flow from senior-mindset (see Git below). Before creating anything, check [spec/INVENTORY.md](spec/INVENTORY.md).
   Before writing a spec, reviewing a change or preparing a release, read [spec/POSTMORTEMS.md](spec/POSTMORTEMS.md).
@@ -124,5 +126,7 @@ spec/POSTMORTEMS.md               one row per bug: category, root cause, prevent
 CHANGELOG.md  cliff.toml
 .github/workflows/on-merge.yml    closes specs + tags releases after each merge
 .github/scripts/tag-skill-releases.sh   tags new skill versions, refuses version-only bumps (repo-only, DRY_RUN=1 to test)
+.github/workflows/checks.yml        runs check-docs.py on every pull request
+.github/scripts/check-docs.py       living documents: broken relative links, links to superseded ADRs
 skills/senior-mindset/templates/  files the skill copies into apps; this repo reuses close-specs.sh
 ```
