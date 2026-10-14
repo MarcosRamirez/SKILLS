@@ -1,7 +1,8 @@
 # SPEC-0025: propagate every decision to what it touches
 
 Type: feature
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-14, PR #65
 Date: 2026-10-14
 Approved by: the user, 2026-10-14, approved the plan that defines this spec
 

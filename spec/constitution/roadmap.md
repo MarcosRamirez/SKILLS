@@ -20,7 +20,7 @@ table format.
 | SPEC-0016 | Closed questions with clickable answers | low | Implemented | — |
 | SPEC-0026 | Postmortem for every bug and a register of lessons | medium | Implemented | SPEC-0022 |
 | SPEC-0024 | Docs follow the current ADRs | medium | Implemented | SPEC-0026 |
-| SPEC-0025 | Propagate every decision to what it touches | medium | Approved | SPEC-0024 |
+| SPEC-0025 | Propagate every decision to what it touches | medium | Implemented | SPEC-0024 |
 | SPEC-0019 | AGENTS.md as the single source of project instructions | medium | Draft | SPEC-0016, SPEC-0025 |
 | SPEC-0008 | Work safely on existing projects | high | Draft | SPEC-0019 |
 | SPEC-0014 | Documented commands, help and status | medium | Draft | SPEC-0022 |
