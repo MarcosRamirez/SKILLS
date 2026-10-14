@@ -26,6 +26,10 @@ that speed turns into unmaintainable projects.
 
 ## Success looks like
 
-- Install and update in one command (`/plugin`).
+- Install and update in one command (`npx skills`, or `/plugin` in Claude Code).
 - Marcos's projects share one Spec-Driven Development pattern.
 - Others install the skills and they hold up.
+
+## Changelog
+
+- 2026-10-14: install criterion updated to the standard install (ADR-0005), approved by the user with the SPEC-0024 plan.

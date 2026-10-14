@@ -4,7 +4,7 @@
     "name": "Marcos Ramírez",
     "url": "https://github.com/MarcosRamirez"
   },
-  "description": "Plug-and-play Claude Code skills by Marcos Ramírez",
+  "description": "Agent skills by Marcos Ramírez (Agent Skills standard), also installable as Claude Code plugins",
   "plugins": [
     {
       "name": "save-image",
