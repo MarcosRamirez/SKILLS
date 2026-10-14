@@ -19,6 +19,11 @@ Managed with the senior-mindset skill. Details and reasons live in the ADRs.
   The docs check runs on every pull request through `.github/workflows/checks.yml`.
 - **Language:** skill files, READMEs and docs in English.
 - **Git:** default branch `master`, PR flow from senior-mindset (see Git below). Before creating anything, check [spec/INVENTORY.md](spec/INVENTORY.md).
+
+**Git rules that always hold** (full rules in [Git](#git) below):
+- Changes reach `master` through pull requests that the user merges.
+- Never merge, push or force-push unless the user asks.
+- Confirm with a closed question (options to pick), never by assuming.
   Before writing a spec, reviewing a change or preparing a release, read [spec/POSTMORTEMS.md](spec/POSTMORTEMS.md).
 
 ## Git

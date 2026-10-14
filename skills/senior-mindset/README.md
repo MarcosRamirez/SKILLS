@@ -18,6 +18,8 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
    (never commits on `master`), commits after every significant change, and delivers
    everything as **pull requests that you merge**. Dependent tasks go in stacked PRs. With
    no remote, it offers to create one. Commit format: `✨ feat(scope): add …`, English, imperative.
+   It also loads for git-only requests ("merge", "push", "haz commit"), and writes a short
+   "Git rules that always hold" block into the project's conventions so the rules apply even when it does not load.
 4. **Interviews you once per project.** It asks about stack, database, deployment platform,
    architecture, naming, logging, linter, changelog and versioning, skipping what doesn't apply.
    It stores the answers as ADRs plus an `## Engineering conventions` section in the

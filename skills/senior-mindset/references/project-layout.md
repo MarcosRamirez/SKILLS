@@ -102,6 +102,11 @@ Managed by the senior-mindset skill. Details and reasons live in the ADRs.
 - Lint/format: Biome · Tests: Vitest + Playwright · Package manager: pnpm
 - API: REST, OpenAPI 3.1 in spec/api/openapi.yaml
 
+**Git rules that always hold** (kept here so they apply even when senior-mindset does not load):
+- Changes reach `master` through pull requests that the user merges.
+- Never merge, push or force-push unless the user asks.
+- Confirm with a closed question (options to pick), never by assuming.
+
 Before creating anything, check [spec/INVENTORY.md](spec/INVENTORY.md); before a spec or a release, read [spec/POSTMORTEMS.md](spec/POSTMORTEMS.md) once it exists.
 Features: spec/features/ · Fixes: spec/fixes/ · ADRs: [spec/adr/README.md](spec/adr/README.md)
 ```

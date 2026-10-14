@@ -80,6 +80,12 @@ Precedence when working in a project:
 When a decision names another skill, follow that skill for that area, and senior-mindset
 for everything else.
 
+**Git flow won by senior-mindset while another git skill is installed:** the other skill may load
+alone for a git-only request and senior-mindset never sees it. So also write the choice into the
+project's `## Engineering conventions` as the "Git rules that always hold" block (text in
+[project-layout.md](project-layout.md)). In a project that already has conventions, add it once
+as a change notice on its own branch. The other skill is not edited or uninstalled.
+
 ## 5. Welcome and update messages (once each, never more)
 
 Right after writing the file for the first time, greet the user in their language:
