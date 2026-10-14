@@ -1,7 +1,8 @@
 # SPEC-0023: versions go up only when something is implemented
 
 Type: fix
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-14, PR #48
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, "implementa todas las fases, una a una, con subagentes"
 Plan: low — Claude Haiku 5.5 (a written rule and two small checks)
