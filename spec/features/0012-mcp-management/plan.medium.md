@@ -12,8 +12,9 @@ Depends on PLAN-0011 (`catalog/mcps.json`). Official docs first for `claude mcp 
 
 - Official docs first: verify `claude mcp add` flags and the `.mcp.json` format before writing the reference.
 - Secrets: `${ENV_VAR}` references in `.mcp.json`; values in the user's environment or secret store.
-- Scope: `--scope project` always explicit (Claude Code's default is `local`: only this user, not
-  shared); `--scope user` only when the user picks Global (ADR-0004).
+- Scope: project by default, global only when the user picks it (ADR-0005). In Claude Code,
+  `--scope project` always explicit (its default is `local`: only this user, not shared);
+  `--scope user` only for Global.
 - Review routine: at release time or on request, list MCPs not used in the last N sessions and propose removal.
 - MCP question at kickoff: multi-select from `catalog/mcps.json`, recommended first; per pick, this
   project (default) or global; servers already available are shown as installed.
@@ -73,3 +74,7 @@ Context7 when it is installed, the official site otherwise.
 ## Out of scope
 
 Custom MCP servers.
+
+## Changelog
+
+- 2026-10-14: aligned with ADR-0005/0006 (SPEC-0024)

@@ -15,7 +15,7 @@ follow or comment. Some projects want that visibility; others do not want the no
 - R-1 **Optional, off by default.** A new `github-issues` entry in `references/automations.md`
   (requires a GitHub remote and an authenticated `gh`). Turned on in the kickoff automations
   question or with "enable/disable issue sync" ("activa/desactiva la sincronización de issues");
-  the choice is recorded in CLAUDE.md.
+  the choice is recorded in the project instructions (AGENTS.md per SPEC-0019).
 - R-2 **The repository is the source of truth; GitHub is a mirror.** One-way sync, repo → GitHub.
   A manual edit to a synced issue is overwritten on the next sync.
 - R-3 **Spec = issue, task (T-n) = native sub-issue** of the spec's issue. Labels: `spec`, `task`,
@@ -50,3 +50,7 @@ follow or comment. Some projects want that visibility; others do not want the no
 
 - Two-way sync (GitHub → repo) beyond the explicit issue → spec command.
 - Other trackers (GitLab, Jira, Linear).
+
+## Changelog
+
+- 2026-10-14: aligned with ADR-0005/0006 (SPEC-0024)
