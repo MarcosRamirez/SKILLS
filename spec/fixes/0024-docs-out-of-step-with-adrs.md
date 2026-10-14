@@ -1,7 +1,8 @@
 # SPEC-0024: docs follow the current ADRs
 
 Type: fix
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-14, PR #60
 Date: 2026-10-14
 Approved by: the user, 2026-10-14, approved the plan that defines this spec
 Plan: medium — Claude Sonnet 5.5 (a verification, wording across many files, and a small check script)
