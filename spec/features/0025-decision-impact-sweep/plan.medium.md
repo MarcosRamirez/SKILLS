@@ -1,7 +1,7 @@
 # PLAN-0025: propagate every decision to what it touches
 
 Spec: [SPEC-0025](spec.md)
-Status: Ready
+Status: In progress
 Recommended overall: medium — Claude Sonnet 5.5 (a procedure and a template; one judgment-heavy headless test)
 
 ## Context
