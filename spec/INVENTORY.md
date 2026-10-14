@@ -58,7 +58,7 @@ Copied into app projects by the skill (`skills/senior-mindset/templates/release-
 
 - `on-merge.yml` — .github/workflows/on-merge.yml — after each merge to master: closes specs named in `Closes-Spec:`, tags new skill versions — runs automatically
 - `close-specs.sh` — skills/senior-mindset/templates/release-automation/close-specs.sh — marks specs Implemented from a PR body; shipped with the skill for apps and reused by this repo's workflow (single copy)
-- `tag-skill-releases.sh` — .github/scripts/tag-skill-releases.sh — tags `<name>-vX.Y.Z` and creates GitHub Releases — `DRY_RUN=1 bash .github/scripts/tag-skill-releases.sh`
+- `tag-skill-releases.sh` — .github/scripts/tag-skill-releases.sh — tags `<name>-vX.Y.Z` and creates GitHub Releases; refuses a version with nothing but the version and changelog changed since the skill's last tag — `DRY_RUN=1 bash .github/scripts/tag-skill-releases.sh`
 
 ## Repo docs
 
