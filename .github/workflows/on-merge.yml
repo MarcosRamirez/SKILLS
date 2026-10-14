@@ -2,7 +2,9 @@ name: on-merge
 
 # After every merge to master:
 # 1. specs named in the merged PR ("Closes-Spec: SPEC-NNNN") become Implemented (bot commit);
-# 2. skills whose version has no tag yet get "<name>-vX.Y.Z" plus a GitHub Release.
+# 2. skills whose version has no tag yet get "<name>-vX.Y.Z" plus a GitHub Release. A version
+#    with nothing new in its skill folder is refused: the tag step fails and names the skill,
+#    and step 1 still runs.
 
 on:
   push:
@@ -47,7 +49,9 @@ jobs:
         run: bash .github/scripts/tag-skill-releases.sh
 
       - name: Mark closed specs as Implemented
-        if: steps.pr.outputs.number != ''
+        # Not skipped when the tag step failed: a refused tag must not leave a merged spec open.
+        # !cancelled() instead of always(), so a cancelled run still stops here.
+        if: ${{ !cancelled() && steps.pr.outputs.number != '' }}
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
