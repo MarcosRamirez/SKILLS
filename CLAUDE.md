@@ -15,6 +15,7 @@ Managed with the senior-mindset skill. Details and reasons live in the ADRs.
 - **Checks (instead of a linter):** `claude plugin validate .` and `claude plugin validate ./skills/<name> --strict`, plus relative links in READMEs must resolve.
 - **Language:** skill files, READMEs and docs in English.
 - **Git:** default branch `master`, PR flow from senior-mindset (see Git below). Before creating anything, check [spec/INVENTORY.md](spec/INVENTORY.md).
+  Before writing a spec, reviewing a change or preparing a release, read [spec/POSTMORTEMS.md](spec/POSTMORTEMS.md).
 
 ## Git
 
@@ -40,6 +41,8 @@ follows senior-mindset's convention, which matches the emoji + Conventional Comm
   `spec/features/NNNN-<slug>.md` when small. The plan is written before implementation. "Run plan NNNN" executes it.
 - Fixes live in `spec/fixes/NNNN-<slug>.md` (one file with Spec / Plan / Tasks; a folder when large),
   sharing the SPEC-NNNN numbering (SPEC-0022). The bot closes them like features.
+- Every fixed bug gets a row in `spec/POSTMORTEMS.md` and, when it has a fix spec, a blameless
+  `## Postmortem` in it, written in the same branch as the fix (SPEC-0026).
 - The plan becomes `Done` together with its spec when the `Closes-Spec:` PR is merged.
 
 ## Specs close themselves on merge
@@ -113,8 +116,9 @@ skills/<name>/
   references/ scripts/ hooks/     optional
 spec/constitution/  mission.md · tech-stack.md · roadmap.md
 spec/features/     NNNN-slug/{spec.md, plan.<tier>.md, tasks.md} or NNNN-slug.md
-spec/fixes/        NNNN-slug.md (bug specs: current / expected / unchanged behaviour)
+spec/fixes/        NNNN-slug.md (bug specs: current / expected / unchanged behaviour, postmortem)
 spec/adr/  spec/INVENTORY.md
+spec/POSTMORTEMS.md               one row per bug: category, root cause, prevention and its status
 CHANGELOG.md  cliff.toml
 .github/workflows/on-merge.yml    closes specs + tags releases after each merge
 .github/scripts/tag-skill-releases.sh   tags new skill versions, refuses version-only bumps (repo-only, DRY_RUN=1 to test)

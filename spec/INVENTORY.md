@@ -67,7 +67,8 @@ Copied into app projects by the skill (`skills/senior-mindset/templates/release-
 - `CLAUDE.md` — repo conventions and rules (docs, versioning, git)
 - `spec/constitution/` — mission, tech stack (derived from the ADRs) and roadmap (states updated by the bot)
 - `spec/features/` — one folder per feature (`spec.md`, `plan.<tier>.md`, `tasks.md`); "run plan NNNN" executes it
-- `spec/fixes/` — one file per bug fix (current, expected and unchanged behaviour, root cause, plan, tasks); same SPEC-NNNN numbering
+- `spec/fixes/` — one file per bug fix (current, expected and unchanged behaviour, root cause, postmortem, plan, tasks); same SPEC-NNNN numbering
+- `spec/POSTMORTEMS.md` — register of bugs: one row each (category, root cause, why not caught, prevention and its status), the pattern count, proposed specs, and the postmortems of bugs without a fix spec — read before a spec, a review or a release
 - `spec/adr/` — architecture decision records (index in README.md)
 - `CHANGELOG.md` + `cliff.toml` — repo changelog generated with git-cliff, dated entries
 - `skills/<name>/CHANGELOG.md` — per-skill changelog shipped inside each plugin, one dated section per `<name>-vX.Y.Z` tag
