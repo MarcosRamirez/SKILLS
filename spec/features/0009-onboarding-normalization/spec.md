@@ -17,8 +17,8 @@ follow the same pattern, built from what actually exists, not from assumptions.
 - R-2 Write `spec/ASSESSMENT.md`: what exists, which pattern it follows, gaps against the
   standard, risks and health.
 - R-3 Documentation projects: map existing docs onto the standard layout
-  (`spec/features/NNNN-slug/{spec,design,tasks}.md`, `spec/adr/`, `spec/features/`, INVENTORY,
-  CLAUDE.md), recognising common patterns (spec-kit, loose documents, markdown wikis).
+  (`spec/features/NNNN-slug/{spec.md,plan.<tier>.md,tasks.md}`, `spec/fixes/`, `spec/adr/`, INVENTORY,
+  and the project instructions per SPEC-0019 instead of CLAUDE.md), recognising common patterns (spec-kit, loose documents, markdown wikis).
 - R-4 Code projects: **deterministic analysis of the real code** feeds INVENTORY, conventions,
   retroactive ADRs with evidence, and health. Every inventory entry is verified.
 - R-5 The adoption is proposed as a spec ("adopt senior-mindset"), goes through the change notice
@@ -35,3 +35,7 @@ follow the same pattern, built from what actually exists, not from assumptions.
 ## Out of scope
 
 - Fixing the health problems found (they become their own specs).
+
+## Changelog
+
+- 2026-10-14: aligned with ADR-0005/0006 (SPEC-0024)

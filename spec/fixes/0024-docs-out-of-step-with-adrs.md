@@ -193,6 +193,6 @@ The reproduction greps before and after; the planted failures for the check; `cl
 
 ## Tasks
 - [x] T-1 Verify `npx skills` and record (AC-2)
-- [ ] T-2 Align READMEs, identity, CLAUDE.md, mission and Draft specs (AC-1, AC-2)
+- [x] T-2 Align READMEs, identity, CLAUDE.md, mission and Draft specs (AC-1, AC-2)
 - [ ] T-3 `check-docs.py` and `checks.yml` with planted-failure tests (AC-3)
 - [ ] T-4 Postmortem and PATCH release with `Closes-Spec: SPEC-0024` (AC-4)

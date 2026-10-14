@@ -1,6 +1,8 @@
 # CLAUDE.md
 
-Plug-and-play skills for Claude Code, distributed as a plugin marketplace
+Plug-and-play skills for AI coding agents, following the Agent Skills standard (standard first,
+[ADR-0005](spec/adr/0005-standard-locations-first.md)). Built and tested on Claude Code; other agents
+are planned (SPEC-0013). The Claude Code plugin marketplace is one distribution channel
 (`/plugin marketplace add MarcosRamirez/SKILLS`).
 
 ## Engineering conventions
@@ -9,8 +11,8 @@ Managed with the senior-mindset skill. Details and reasons live in the ADRs.
 
 - **Project type:** documentation-first repo: Markdown skills, JSON manifests, one Python hook.
   Not applicable here: database, deployment platform, API, logging, load tests (no runtime).
-- **Distribution:** plugin marketplace in `.claude-plugin/marketplace.json`, one plugin per skill. See [ADR-0003](spec/adr/0003-distribute-skills-as-plugin-marketplace.md).
-- **Versioning:** SemVer 2.0 per skill in its `plugin.json`. See [ADR-0001](spec/adr/0001-version-each-skill-with-semver.md) and the rules below.
+- **Distribution:** `npx skills` into the project's `.agents/skills/` plus the `.claude/skills/` bridge for Claude Code; the Claude Code plugin marketplace in `.claude-plugin/marketplace.json` (one plugin per skill) is an optional channel. See [ADR-0005](spec/adr/0005-standard-locations-first.md).
+- **Versioning:** SemVer 2.0 per skill, kept in its `SKILL.md` ([ADR-0006](spec/adr/0006-version-in-skill-md.md)). Until SPEC-0021 T-1 moves it, the source of truth is still `plugin.json` (rules below).
 - **Changelog:** `CHANGELOG.md` generated with git-cliff from the commit history. See [ADR-0002](spec/adr/0002-generate-changelog-with-git-cliff.md).
 - **Checks (instead of a linter):** `claude plugin validate .` and `claude plugin validate ./skills/<name> --strict`, plus relative links in READMEs must resolve.
 - **Language:** skill files, READMEs and docs in English.

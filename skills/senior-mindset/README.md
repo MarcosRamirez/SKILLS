@@ -50,26 +50,48 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
 
 ## Install
 
-**Plugin (recommended)**: install and update with one command:
+Follows the [Agent Skills](https://agentskills.io) standard. Built and tested on Claude Code; other
+agents are planned (SPEC-0013).
+
+**`npx skills` (recommended)**: into your project, for Claude Code plus agents that read `.agents/skills/`:
+
+```bash
+npx skills add MarcosRamirez/SKILLS --skill senior-mindset -a claude-code codex --copy
+```
+
+- Claude Code only: drop `codex` and `--copy`. For all your projects: add `-g`.
+- With `--copy`, commit `.agents/skills/`, `.claude/skills/` and `skills-lock.json` so your team gets it.
+- Pin a release tag, because the default branch can hold unreleased changes:
+  `npx skills add MarcosRamirez/SKILLS#senior-mindset-vX.Y.Z --skill senior-mindset -a claude-code codex --copy`
+  (versions on the [Releases page](https://github.com/MarcosRamirez/SKILLS/releases)).
+  `npx skills update` keeps it on that tag; run `add` with the new tag to move.
+
+**Ask your agent**: paste this:
+
+> Install the senior-mindset skill from https://github.com/MarcosRamirez/SKILLS/tree/master/skills/senior-mindset
+> into this project's `.agents/skills/senior-mindset/`. Copy the whole folder, including references/.
+> If your agent does not read `.agents/skills/` (Claude Code does not yet), also copy it to
+> `.claude/skills/senior-mindset/`. Ask me before installing it globally.
+
+**Manual**: copy the folder into `.agents/skills/` (and `.claude/skills/` for Claude Code):
+
+```bash
+git clone --depth 1 https://github.com/MarcosRamirez/SKILLS.git /tmp/skills
+mkdir -p .agents/skills .claude/skills
+cp -r /tmp/skills/skills/senior-mindset .agents/skills/
+cp -r /tmp/skills/skills/senior-mindset .claude/skills/
+```
+
+**Claude Code plugin marketplace (Claude Code only)**: updates through `/plugin`:
 
 ```
 /plugin marketplace add MarcosRamirez/SKILLS
 /plugin install senior-mindset@marcosramirez-skills
 ```
 
-**Ask your agent**: paste this into Claude Code:
-
-> Install the senior-mindset skill from https://github.com/MarcosRamirez/SKILLS/tree/master/skills/senior-mindset
-> into ~/.claude/skills/senior-mindset. Copy the whole folder, including references/.
-
-**Manual**:
-
-```bash
-git clone --depth 1 https://github.com/MarcosRamirez/SKILLS.git /tmp/skills
-cp -r /tmp/skills/skills/senior-mindset ~/.claude/skills/senior-mindset
-```
-
 The `references/` folder must come along: `SKILL.md` loads those files only when needed.
+If senior-mindset is also installed globally as a plugin, Claude Code lists both `senior-mindset`
+and `senior-mindset:senior-mindset`; keep one (detection comes in SPEC-0021).
 
 ## Usage
 
