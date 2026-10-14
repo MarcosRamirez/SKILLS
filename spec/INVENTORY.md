@@ -46,10 +46,12 @@ Loaded on demand from `SKILL.md`. One topic per file:
 
 ## senior-mindset templates
 
-Copied into app projects by the skill (`skills/senior-mindset/templates/release-automation/`):
+Copied into app projects by the skill (`skills/senior-mindset/templates/release-automation/` and `docs-check/`):
 
 - `on-merge.yml` — workflow: tag the release, close specs named in `Closes-Spec:`
 - `close-specs.sh` — marks specs Implemented from a PR body (also used by this repo's workflow)
+- `docs-check/check-docs.py` — skills/senior-mindset/templates/docs-check/check-docs.py — generalised `check-docs.py` copied to `.github/scripts/` in app projects (default documents, `DOCS_CHECK_FILES` override)
+- `docs-check/checks.yml` — skills/senior-mindset/templates/docs-check/checks.yml — pull-request workflow that runs it, copied to `.github/workflows/checks.yml`
 - `tag-release.sh` — tags `v<version>` from package.json / pyproject.toml / Cargo.toml and creates the GitHub Release
 
 ## Hooks and scripts

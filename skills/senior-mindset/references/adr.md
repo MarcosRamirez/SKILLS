@@ -84,7 +84,8 @@ behaviour that documents describe.
    list the migration in Impact and propose it through the change notice (SPEC-0008), on a branch.
    Never apply it silently.
 
-The Impact table is the record of the sweep.
+The Impact table is the record of the sweep. The `docs-check` automation ([automations.md](automations.md))
+enforces its mechanical part: no broken links and no links to a superseded ADR.
 
 **Example:** ADR-0009 (SQLite) supersedes ADR-0005 (PostgreSQL).
 
