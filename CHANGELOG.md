@@ -7,13 +7,30 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Ask closed questions with clickable options (2026-10-14)
+- **senior-mindset:** Add postmortem method and templates (2026-10-14)
 
 ### Documentation
 
-- **senior-mindset:** Tick task T-3 of spec 0016 (2026-10-14)
-- **repo:** Approve spec 0016 and start its plan (2026-10-14)
-- **repo:** Mark SPEC-0023 implemented (#48) (2026-10-14)
+- **senior-mindset:** Tick task T-4 of spec 0026 (2026-10-14)
+- **repo:** Add the postmortem of fix 0023 and tick T-2 (2026-10-14)
+- **repo:** Start the postmortem register with past bugs (2026-10-14)
+- **senior-mindset:** Start plan 0026 and tick T-1 (2026-10-14)
+- **senior-mindset:** Add spec and plan 0025 for the impact sweep (2026-10-14)
+- **senior-mindset:** Add fix spec 0024 for docs behind the ADRs (2026-10-14)
+- **senior-mindset:** Add spec and plan 0026 for postmortems (2026-10-14)
+- **repo:** Mark SPEC-0016 implemented (#51) (2026-10-14)
+
+## [senior-mindset-v2.3.0] - 2026-10-14
+
+### Added
+
+- **senior-mindset:** Ask closed questions with clickable options
+
+### Documentation
+
+- **senior-mindset:** Tick task T-3 of spec 0016
+- **repo:** Approve spec 0016 and start its plan
+- **repo:** Mark SPEC-0023 implemented (#48)
 
 ## [senior-mindset-v2.2.1] - 2026-10-14
 
