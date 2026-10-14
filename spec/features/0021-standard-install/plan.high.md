@@ -53,15 +53,14 @@ Sources to re-read before implementing:
 - Files: ~ .claude-plugin/marketplace.json, − skills/*/.claude-plugin/, ~ skills/save-image/SKILL.md, ~ .github/scripts/tag-skill-releases.sh, + version check script, ~ CLAUDE.md
 - Done when: AC-6
 
-### T-2 Verify npx skills, then the READMEs — medium
-- Recommended: medium — Claude Sonnet 5.5 (verification, then documentation)
-- Branch: `feat/0021-t2-standard-install-docs`
+### T-2 Verify npx skills updates and other agents — medium
+- Recommended: medium — Claude Sonnet 5.5 (verification)
+- Branch: `feat/0021-t2-standard-install-checks`
 - Do:
-  - in a scratch repository, check where the canonical copy goes, `--copy`, installing from a tag,
-    and how `npx skills update` resolves versions;
-  - write both READMEs (R-3);
-  - check that Claude Code and Codex or OpenCode load the skill.
-- Files: ~ README.md, ~ skills/senior-mindset/README.md
+  - in a scratch repository, check how `npx skills update` resolves versions and whether installs pin to a tag;
+  - check that Claude Code and Codex or OpenCode load the skill;
+  - the READMEs moved to SPEC-0024 (see the spec's Changelog): adjust them only if these checks change something.
+- Files: ~ README.md, ~ skills/senior-mindset/README.md (only if needed)
 - Done when: AC-1, AC-2
 
 ### T-3 First-use detection — high
