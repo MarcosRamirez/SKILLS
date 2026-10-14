@@ -210,7 +210,7 @@ failures.
 **Preventive actions.**
 
 - [x] `check-docs.py` on every pull request: relative links resolve and no living document links a superseded ADR (where: check, `.github/scripts/check-docs.py`, `.github/workflows/checks.yml`; done, T-3)
-- [ ] Impact sweep for every accepted decision: list the living documents that cite what it changes, before the ADR is merged (pending: SPEC-0025)
+- [x] Impact sweep for every accepted decision: list the living documents that cite what it changes, before the ADR is merged (done: SPEC-0025, senior-mindset 2.5.0)
 
 ## Plan
 
