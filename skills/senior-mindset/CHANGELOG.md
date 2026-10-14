@@ -3,6 +3,12 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.3.0] - 2026-10-14
+
+### Added
+
+- **senior-mindset:** Ask closed questions with clickable options
+
 ## [senior-mindset-v2.2.1] - 2026-10-14
 
 ### Fixed
