@@ -96,6 +96,8 @@ users who installed it with `/plugin` never receive the update.
    The tag must sit on the merge commit that bumped the version, which is why the workflow tags
    `$GITHUB_SHA`. Manual fallback if the workflow fails:
    `git tag -a <name>-vX.Y.Z <merge-sha> -m "<name> X.Y.Z" && git push origin <name>-vX.Y.Z`.
+   The script refuses a version when nothing but the version and the changelog changed in the skill
+   since its previous tag (the job fails and names it): drop the bump, do not use the fallback.
 3. Post-merge checks: `gh run list --workflow on-merge.yml` is green, the tag and Release exist,
    then `claude plugin marketplace update marcosramirez-skills` +
    `claude plugin update <name>@marcosramirez-skills`. Post the result as a PR comment.
@@ -115,6 +117,6 @@ spec/fixes/        NNNN-slug.md (bug specs: current / expected / unchanged behav
 spec/adr/  spec/INVENTORY.md
 CHANGELOG.md  cliff.toml
 .github/workflows/on-merge.yml    closes specs + tags releases after each merge
-.github/scripts/tag-skill-releases.sh   tags every skill version (repo-only, DRY_RUN=1 to test)
+.github/scripts/tag-skill-releases.sh   tags new skill versions, refuses version-only bumps (repo-only, DRY_RUN=1 to test)
 skills/senior-mindset/templates/  files the skill copies into apps; this repo reuses close-specs.sh
 ```
