@@ -83,3 +83,8 @@ Facts checked on 2026-10-13:
 - Install docs for each agent, and portable wording of `SKILL.md` (SPEC-0013).
 - AGENTS.md handling (SPEC-0019).
 - Where agents other than Claude Code keep the setup record (SPEC-0013).
+
+## Changelog
+
+- 2026-10-14: R-3 and AC-1 (the READMEs) move to SPEC-0024, which ships the standard install docs
+  now, after verifying `npx skills`. T-2 keeps the checks on updates, tags and other agents.
