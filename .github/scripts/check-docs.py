@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check the living documents: relative links resolve and no link points to a superseded ADR.
+Links from files inside an `adr/` folder are history (the index, Supersedes lines) and are allowed.
 
 Usage: python3 .github/scripts/check-docs.py [file ...]
 Exit 0 when clean, 1 with one `path:line: message` per finding.
@@ -81,7 +82,7 @@ def main(args):
             target = (doc.parent / rel).resolve()
             if not target.exists():
                 findings.append(f"{shown}:{n}: broken link: {raw}")
-            elif is_adr(target) and superseded(target):
+            elif is_adr(target) and superseded(target) and doc.parent.name != "adr":
                 findings.append(f"{shown}:{n}: link to superseded ADR: {raw}")
     for f in findings:
         print(f)
