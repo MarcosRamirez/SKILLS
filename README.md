@@ -2,8 +2,10 @@
 
 # 🧰 SKILLS
 
-**Plug-and-play superpowers for [Claude Code](https://claude.ai/code).**
-Drop a skill in, and Claude learns a new trick. No config hell.
+**Plug-and-play superpowers for AI coding agents.**
+Skills follow the [Agent Skills](https://agentskills.io) standard. Built and tested on
+[Claude Code](https://claude.ai/code); other agents are planned ([SPEC-0013](spec/features/0013-portability)).
+Drop a skill in, and your agent learns a new trick. No config hell.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-skills-D97757?logo=anthropic&logoColor=white)](https://claude.ai/code)
@@ -38,7 +40,7 @@ pick which one wins.
 you    › build me a booking app
 claude › Before writing code, 4 quick questions (I'll remember the answers):
          stack · database · where you deploy · default branch…
-         ✔ ADR-0001..0004 written · CLAUDE.md updated · spec/INVENTORY.md created
+         ✔ 4 ADRs written · conventions saved · spec/INVENTORY.md created
          Here's spec/features/0001-bookings/spec.md: 6 acceptance criteria.
          Approve it and I'll start with the tests.
 ```
@@ -72,16 +74,70 @@ claude › Image saved to ~/Pictures/claude-images/2026-10-12_10-41-07_3_0.png
 
 ## 🚀 Install in 30 seconds
 
-Pick whichever you like. All three work for every skill.
+Skills follow the [Agent Skills](https://agentskills.io) standard, so the first path is the standard
+one: `npx skills`, into your project. Pick whichever you like.
 
-### 1. Ask your agent (easiest)
+### 1. `npx skills` (recommended)
 
-Paste this into Claude Code, swapping in the skill you want:
+```bash
+# Claude Code plus agents that read .agents/skills/ (Codex, OpenCode...)
+npx skills add MarcosRamirez/SKILLS --skill senior-mindset -a claude-code codex --copy
+
+# Claude Code only
+npx skills add MarcosRamirez/SKILLS --skill senior-mindset -a claude-code
+
+# For all your projects instead of this one: add -g
+npx skills add MarcosRamirez/SKILLS --skill senior-mindset -a claude-code -g
+```
+
+- The command writes `.agents/skills/senior-mindset/` (the standard location) and
+  `.claude/skills/senior-mindset/` (the bridge Claude Code reads today), plus `skills-lock.json`.
+- `--copy` writes real folders instead of symlinks. Commit `.agents/skills/`, `.claude/skills/` and
+  `skills-lock.json` and your team and cloud sessions get the skill too.
+- **Pin a release tag.** The default branch can hold changes that are not released yet. Pick a
+  version on the [Releases page](https://github.com/MarcosRamirez/SKILLS/releases):
+
+  ```bash
+  npx skills add MarcosRamirez/SKILLS#senior-mindset-vX.Y.Z --skill senior-mindset -a claude-code codex --copy
+  ```
+
+- `npx skills update` keeps a tag-pinned install on its tag. To move to a new version, run `add`
+  again with the new tag.
+
+### 2. Ask your agent
+
+Paste this into your agent, swapping in the skill you want:
 
 > Install the **senior-mindset** skill from https://github.com/MarcosRamirez/SKILLS/tree/master/skills/senior-mindset
-> into `~/.claude/skills/senior-mindset`. Copy the whole folder.
+> into this project's `.agents/skills/senior-mindset/`. Copy the whole folder. If your agent does not
+> read `.agents/skills/` (Claude Code does not yet), also copy it to `.claude/skills/senior-mindset/`.
+> Ask me before installing it globally.
 
-### 2. Plugin marketplace (one-click updates)
+### 3. Manual
+
+Copy the folder into `.agents/skills/` (and into `.claude/skills/` for Claude Code).
+
+**macOS / Linux**
+
+```bash
+git clone --depth 1 https://github.com/MarcosRamirez/SKILLS.git /tmp/skills
+mkdir -p .agents/skills .claude/skills
+cp -r /tmp/skills/skills/senior-mindset .agents/skills/
+cp -r /tmp/skills/skills/senior-mindset .claude/skills/
+```
+
+**Windows (PowerShell)**
+
+```powershell
+git clone --depth 1 https://github.com/MarcosRamirez/SKILLS.git $env:TEMP\skills
+New-Item -ItemType Directory -Force .agents\skills, .claude\skills | Out-Null
+Copy-Item -Recurse $env:TEMP\skills\skills\senior-mindset .agents\skills\
+Copy-Item -Recurse $env:TEMP\skills\skills\senior-mindset .claude\skills\
+```
+
+Skills with hooks (like save-image) need one extra step when installed by hand; it's in their README.
+
+### 4. Claude Code plugin marketplace (Claude Code only)
 
 ```text
 /plugin marketplace add MarcosRamirez/SKILLS
@@ -90,41 +146,31 @@ Paste this into Claude Code, swapping in the skill you want:
 ```
 
 Update later with `claude plugin marketplace update marcosramirez-skills`, then
-`claude plugin update <skill>@marcosramirez-skills`. Plugins also register their hooks for you.
+`claude plugin update <skill>@marcosramirez-skills`. Plugins also register their hooks for you,
+which is why save-image needs this path.
 
-### 3. Manual
-
-**macOS / Linux**
-
-```bash
-git clone --depth 1 https://github.com/MarcosRamirez/SKILLS.git /tmp/skills
-cp -r /tmp/skills/skills/senior-mindset ~/.claude/skills/
-```
-
-**Windows (PowerShell)**
-
-```powershell
-git clone --depth 1 https://github.com/MarcosRamirez/SKILLS.git $env:TEMP\skills
-Copy-Item -Recurse $env:TEMP\skills\skills\senior-mindset $HOME\.claude\skills\
-```
-
-Skills with hooks (like save-image) need one extra step when installed by hand; it's in their README.
+> **Known duplicate.** If senior-mindset is also installed globally as a plugin, Claude Code lists
+> both `senior-mindset` (the project copy) and `senior-mindset:senior-mindset` (the plugin).
+> Keep one. Detecting it comes with SPEC-0021.
 
 ## 🧩 How skills work
 
-A skill is a folder with a `SKILL.md`. Claude reads its short description all the time,
+A skill is a folder with a `SKILL.md`. The agent reads its short description all the time,
 and loads the full instructions only when your request matches. Heavy details live in
 `references/` and are read on demand, so skills cost almost nothing until you need them.
 
 ```text
 .claude-plugin/
-  marketplace.json      — makes this repo a plugin marketplace
+  marketplace.json      — makes this repo a Claude Code plugin marketplace
 skills/<name>/
-  SKILL.md              — what Claude loads (the behavior)
+  SKILL.md              — what the agent loads (the behavior)
   README.md             — for humans: setup and usage
-  .claude-plugin/       — plugin manifest
+  .claude-plugin/       — Claude Code plugin manifest
   references/           — detail docs, loaded on demand
   scripts/ · hooks/     — hook scripts and their auto-registration
+spec/                   — this repo's own specs: constitution/, features/, fixes/, adr/,
+                          INVENTORY.md, POSTMORTEMS.md
+.github/                — workflows/ (close specs, tag releases) · scripts/
 ```
 
 ## 🤝 Contributing
