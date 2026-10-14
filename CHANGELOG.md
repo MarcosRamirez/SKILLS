@@ -5,21 +5,33 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ## [Unreleased]
 
-### Fixed
+### Added
 
-- **repo:** Refuse to tag a version with nothing new in the skill (2026-10-14)
-- **repo:** Close specs even when the tag step fails (2026-10-14)
-- **senior-mindset:** Never propose the unchanged version (2026-10-13)
-- **senior-mindset:** Check for implementation before a release (2026-10-13)
+- **senior-mindset:** Ask closed questions with clickable options (2026-10-14)
 
 ### Documentation
 
-- **senior-mindset:** Tick task T-4 of fix 0023 (2026-10-14)
-- **repo:** Tick task T-3 of fix 0023 (2026-10-14)
-- **senior-mindset:** Tick task T-2 of fix 0023 (2026-10-13)
-- **repo:** State that specs never move a version (2026-10-13)
-- **senior-mindset:** Record the reproduction of fix 0023 (2026-10-13)
-- **repo:** Mark SPEC-0022 implemented (#44) (2026-10-13)
+- **senior-mindset:** Tick task T-3 of spec 0016 (2026-10-14)
+- **repo:** Approve spec 0016 and start its plan (2026-10-14)
+- **repo:** Mark SPEC-0023 implemented (#48) (2026-10-14)
+
+## [senior-mindset-v2.2.1] - 2026-10-14
+
+### Fixed
+
+- **repo:** Refuse to tag a version with nothing new in the skill
+- **repo:** Close specs even when the tag step fails
+- **senior-mindset:** Never propose the unchanged version
+- **senior-mindset:** Check for implementation before a release
+
+### Documentation
+
+- **senior-mindset:** Tick task T-4 of fix 0023
+- **repo:** Tick task T-3 of fix 0023
+- **senior-mindset:** Tick task T-2 of fix 0023
+- **repo:** State that specs never move a version
+- **senior-mindset:** Record the reproduction of fix 0023
+- **repo:** Mark SPEC-0022 implemented (#44)
 
 ## [senior-mindset-v2.2.0] - 2026-10-13
 
