@@ -1,7 +1,8 @@
 # PLAN-0016: closed questions with clickable answers
 
 Spec: [SPEC-0016](spec.md)
-Status: In progress
+Status: Done
+Done: 2026-10-14, PR #51
 Recommended overall: low — Claude Haiku 5.5 (a short, well-defined rule)
 
 ## Context
