@@ -222,7 +222,10 @@ question, or your own judgment is not approval.
 
 **ADR rules:** a design decision that reaches beyond the feature (library, pattern,
 platform, language) becomes its own ADR. ADRs are never edited: a change is a new
-ADR, and the old one becomes `Superseded by ADR-00XX`.
+ADR, and the old one becomes `Superseded by ADR-00XX`. Every ADR has an `## Impact` section, and
+accepting or superseding one runs the impact sweep in the same PR: update the documents that
+describe it, list follow-ups as Draft specs ([references/adr.md](references/adr.md)).
+A spec that changes a convention, a layout or described behaviour runs the same sweep.
 
 ## Step 3b — Design evaluation
 
