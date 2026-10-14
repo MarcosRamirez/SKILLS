@@ -9,10 +9,12 @@ description: >
   once per project and stores conventions in the project's CLAUDE.md. Use whenever
   Claude is about to write or change code of any size: an app, a feature, an API,
   a worker, a fix, or a one-off script (scripts take a fast path: no interview, but
-  English names and clean code). Also for releases and versioning. Triggers include
-  "build", "create", "write a script", "fix", "release", "crea una aplicación",
-  "programa X", "hazme un script", "nuevo proyecto", "nueva feature", "saca la versión",
-  "run plan 0008", "ejecuta el plan 0008".
+  English names and clean code). Also for releases and versioning, and for git requests
+  with no code in them: merging, pushing, committing, opening or merging a pull request.
+  Triggers include "build", "create", "write a script", "fix", "release", "merge",
+  "push", "commit", "open a PR", "crea una aplicación", "programa X", "hazme un script",
+  "nuevo proyecto", "nueva feature", "saca la versión", "mergea", "sube los cambios",
+  "haz commit", "abre un PR", "run plan 0008", "ejecuta el plan 0008".
 license: MIT
 metadata:
   author: Marcos Ramírez
@@ -161,7 +163,8 @@ has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md inst
 - [ ] **Code folder** chosen in question 12 and recorded in CLAUDE.md (`Code: …`); existing projects
   keep theirs, recorded the same way
 - [ ] One ADR per decision in `spec/adr/` (template: [references/adr.md](references/adr.md)) + index `spec/adr/README.md`
-- [ ] `## Engineering conventions` in CLAUDE.md: summary, N/A items with reasons, links to the ADRs and `spec/INVENTORY.md`
+- [ ] `## Engineering conventions` in CLAUDE.md: summary, N/A items with reasons, links to the ADRs and `spec/INVENTORY.md`,
+  and the **"Git rules that always hold"** block (below)
 - [ ] `spec/INVENTORY.md` from [references/inventory-template.md](references/inventory-template.md)
 - [ ] `.gitignore`; linter and formatter configured and passing
 - [ ] Logger wrapper, unless logging is N/A
@@ -171,6 +174,13 @@ has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md inst
   — [references/automations.md](references/automations.md)
 - [ ] **Kickoff committed on its own branch** (`chore/kickoff`) and its PR opened before any
   feature work. Feature branches stack on it until the user merges it.
+
+**"Git rules that always hold".** The conventions section carries this short block (text in
+[references/project-layout.md](references/project-layout.md)): changes reach the default branch
+through pull requests that the user merges; never merge, push or force-push unless the user asks;
+confirm with a closed question ([references/questions.md](references/questions.md)). It exists so
+the rules stay active in a session where this skill does not load. A project that already has
+conventions gets the block once, as a change notice on its own branch, like any edit to an existing project.
 
 Layout and naming of all these files: [references/project-layout.md](references/project-layout.md).
 

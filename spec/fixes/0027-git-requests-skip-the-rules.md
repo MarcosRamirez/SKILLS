@@ -118,6 +118,6 @@ The reproduction before and after; the trigger runs; `claude plugin validate --s
 
 ## Tasks
 - [x] T-1 Reproduce and record (AC-1)
-- [ ] T-2 Description triggers, conventions block, setup.md rule
+- [x] T-2 Description triggers, conventions block, setup.md rule
 - [ ] T-3 Trigger check, at least 3 runs per prompt and language (AC-2, AC-3)
 - [ ] T-4 Postmortem, register and PATCH release with `Closes-Spec: SPEC-0027` (AC-4)
