@@ -5,20 +5,36 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ## [Unreleased]
 
-### Added
+### Fixed
 
-- **senior-mindset:** Add postmortem method and templates (2026-10-14)
+- **repo:** Check docs for broken and superseded links on PRs (2026-10-14)
 
 ### Documentation
 
-- **senior-mindset:** Tick task T-4 of spec 0026 (2026-10-14)
-- **repo:** Add the postmortem of fix 0023 and tick T-2 (2026-10-14)
-- **repo:** Start the postmortem register with past bugs (2026-10-14)
-- **senior-mindset:** Start plan 0026 and tick T-1 (2026-10-14)
-- **senior-mindset:** Add spec and plan 0025 for the impact sweep (2026-10-14)
-- **senior-mindset:** Add fix spec 0024 for docs behind the ADRs (2026-10-14)
-- **senior-mindset:** Add spec and plan 0026 for postmortems (2026-10-14)
-- **repo:** Mark SPEC-0016 implemented (#51) (2026-10-14)
+- **senior-mindset:** Tick task T-4 of fix 0024 (2026-10-14)
+- **repo:** Write the postmortem of fix 0024 (2026-10-14)
+- **repo:** Align Draft specs 0009, 0012, 0015 with ADRs (2026-10-14)
+- **repo:** State the standard-first identity and ADRs (2026-10-14)
+- **senior-mindset:** Install with npx skills first (2026-10-14)
+- **senior-mindset:** Record the npx skills checks for fix 0024 (2026-10-14)
+- **repo:** Mark SPEC-0026 implemented (#56) (2026-10-14)
+
+## [senior-mindset-v2.4.0] - 2026-10-14
+
+### Added
+
+- **senior-mindset:** Add postmortem method and templates
+
+### Documentation
+
+- **senior-mindset:** Tick task T-4 of spec 0026
+- **repo:** Add the postmortem of fix 0023 and tick T-2
+- **repo:** Start the postmortem register with past bugs
+- **senior-mindset:** Start plan 0026 and tick T-1
+- **senior-mindset:** Add spec and plan 0025 for the impact sweep
+- **senior-mindset:** Add fix spec 0024 for docs behind the ADRs
+- **senior-mindset:** Add spec and plan 0026 for postmortems
+- **repo:** Mark SPEC-0016 implemented (#51)
 
 ## [senior-mindset-v2.3.0] - 2026-10-14
 
