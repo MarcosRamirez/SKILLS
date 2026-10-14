@@ -32,6 +32,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `models.md` — tier → Claude and open models (dated table)
 - `performance.md` — computational cost rules
 - `platforms.md` — hosting options (Cloudflare default)
+- `postmortem.md` — blameless postmortem per bug: method, `## Postmortem` template, `spec/POSTMORTEMS.md` register, categories, pattern rule
 - `project-layout.md` — project tree and CLAUDE.md section
 - `questions.md` — closed questions with clickable options (question tool): format, examples, numbered fallback
 - `sdd.md` — spec / design / tasks templates

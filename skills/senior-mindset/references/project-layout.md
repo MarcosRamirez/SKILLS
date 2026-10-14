@@ -22,6 +22,7 @@ spec/                           everything Spec-Driven Development: the "why" an
   api/
     openapi.yaml                API contract (if there is an API)
   INVENTORY.md                  map of what already exists — check before creating
+  POSTMORTEMS.md                register of fixed bugs and their lessons — created at the first bug
 <code>/                         the application code, separate from spec/ — the user chooses
                                 where at kickoff: src/ (recommended), app/, apps/<name>/ or any
                                 folder they type (see below)
@@ -65,6 +66,7 @@ The code never mixes with `spec/`, but **the user decides where it lives**. Kick
     criteria stating that behaviour does not change.
   - `spec/fixes/`: behaviour that is wrong (a bug). Create it with the first fix spec; a project
     that only has `spec/features/` is fine as it is.
+- `spec/POSTMORTEMS.md` is one file, rows `PM-NNNN`. Method and template: [postmortem.md](postmortem.md).
 - References in text and commits: `SPEC-0007`, `PLAN-0007`, `ADR-0007`.
 - Inside a spec folder, fixed names: `spec.md`, `plan.<tier>.md` (`high` / `medium` / `low`), `tasks.md`.
 - A fix is one file by default, `spec/fixes/NNNN-<slug>.md`, with `## Spec`, `## Plan` and `## Tasks`.
@@ -100,6 +102,6 @@ Managed by the senior-mindset skill. Details and reasons live in the ADRs.
 - Lint/format: Biome · Tests: Vitest + Playwright · Package manager: pnpm
 - API: REST, OpenAPI 3.1 in spec/api/openapi.yaml
 
-Before creating anything, check [spec/INVENTORY.md](spec/INVENTORY.md).
+Before creating anything, check [spec/INVENTORY.md](spec/INVENTORY.md); before a spec or a release, read [spec/POSTMORTEMS.md](spec/POSTMORTEMS.md) once it exists.
 Features: spec/features/ · Fixes: spec/fixes/ · ADRs: [spec/adr/README.md](spec/adr/README.md)
 ```

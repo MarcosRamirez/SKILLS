@@ -181,6 +181,18 @@ assumption). "To be found in T-2" while it is unknown.
 
 **Out of scope.** ...
 
+## Postmortem
+
+Blameless, written once the root cause is known; method and register in [postmortem.md](postmortem.md).
+
+**Impact.** Who or what was affected, and for how long.
+**5 Whys.** 1. Why <symptom>? → because <cause>. 2. Why <cause>? → because <deeper cause>. (Stop at a cause you can act on.)
+**Why it was not caught.** The missing test, check, review step or rule.
+**Corrective action.** The fix (this spec).
+**Preventive actions.**
+- [x] <action> (where: test / check / rule)
+- [ ] <action> (SPEC-NNNN)
+
 ## Plan
 
 ### Design
@@ -201,6 +213,7 @@ The reproduction before and after the fix; the unchanged-behaviour tests.
 - [ ] T-3 Fix (AC-2, AC-3)
 ```
 
+- Every fix has a `## Postmortem`, and a row in `spec/POSTMORTEMS.md` ([postmortem.md](postmortem.md)).
 - The first three acceptance criteria are always there; add more only when the bug needs them.
 - Unchanged behaviour is the regression guard: name what is close to the bug and must keep working,
   and give each item a test.
@@ -209,7 +222,7 @@ The reproduction before and after the fix; the unchanged-behaviour tests.
 ## When a fix needs a spec
 
 A **trivial fix** gets no spec: a regression test that fails first and a `fix:` commit are enough
-(branch `fix/<slug>`, no number).
+(branch `fix/<slug>`, no number), plus its row in `spec/POSTMORTEMS.md`.
 
 A fix needs a spec when:
 - the root cause is unknown;
@@ -234,6 +247,9 @@ running the app to understand the bug is fine before that. Then:
    what the spec assumed, go back to the user before fixing (a scope change after Approved).
 3. **Fix.** The smallest change that makes the failing test pass, with the unchanged-behaviour
    tests still green. The test stays: it is the regression guard.
+4. **Postmortem.** Fill the spec's `## Postmortem` (a trivial fix has no spec: skip the section) and add
+   the row to `spec/POSTMORTEMS.md`, creating it from the template at the first bug
+   ([postmortem.md](postmortem.md)). Each preventive action is done or pending with its spec.
 
 - Branch `fix/NNNN-<slug>` (a task of the spec: `fix/NNNN-tN-<slug>`); commit `🐛 fix(<scope>): …`
   ([git.md](git.md)). The last PR carries `Closes-Spec: SPEC-NNNN`.
