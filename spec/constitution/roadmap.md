@@ -21,7 +21,11 @@ table format.
 | SPEC-0026 | Postmortem for every bug and a register of lessons | medium | Implemented | SPEC-0022 |
 | SPEC-0024 | Docs follow the current ADRs | medium | Implemented | SPEC-0026 |
 | SPEC-0025 | Propagate every decision to what it touches | medium | Implemented | SPEC-0024 |
+| SPEC-0027 | Git requests skip senior-mindset's rules | medium | Approved | SPEC-0016 |
 | SPEC-0019 | AGENTS.md as the single source of project instructions | medium | Draft | SPEC-0016, SPEC-0025 |
+| SPEC-0028 | Committed headless suite, run before every release | high | Approved | SPEC-0027 |
+| SPEC-0029 | Committed tests for the release scripts, run in CI | medium | Approved | SPEC-0024 |
+| SPEC-0030 | Update the docs when what a file does changes | low | Approved | SPEC-0025 |
 | SPEC-0008 | Work safely on existing projects | high | Draft | SPEC-0019 |
 | SPEC-0014 | Documented commands, help and status | medium | Draft | SPEC-0022 |
 | SPEC-0021 | Install in the project, standard locations first | high | Draft | SPEC-0008, SPEC-0014, SPEC-0023 |
