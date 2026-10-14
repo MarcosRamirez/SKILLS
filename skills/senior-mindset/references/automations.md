@@ -11,6 +11,7 @@ Adding a new automation = adding a row here, a section below, and its templates 
 | Automation | What it does | Requires | Recommended | Details |
 |---|---|---|---|---|
 | **release-automation** | On merge: specs named in `Closes-Spec:` become Implemented (bot commit); new versions get a tag and a GitHub Release | GitHub remote, GitHub Actions | Yes | [release-automation.md](release-automation.md) |
+| **docs-check** | On every pull request: the living documents have no broken relative links and no link to a superseded ADR | GitHub remote, GitHub Actions, Python 3 on the CI runner | Yes, when the project has docs, specs or ADRs | [docs-check](#docs-check) |
 
 ## release-automation
 
@@ -19,6 +20,24 @@ Adding a new automation = adding a row here, a section below, and its templates 
   list them in `spec/INVENTORY.md`, and test the scripts locally (`DRY_RUN=1`).
 - Without it: tag releases by hand, and mark specs Implemented in the next PR (manual fallback
   in [release-automation.md](release-automation.md)).
+
+## docs-check
+
+- What it does: `check-docs.py` reads the living documents and fails (exit 1, one `path:line: message`
+  per finding) on a relative link that does not resolve and on a link to an ADR (any `adr/` folder)
+  whose `Status:` starts with Superseded. Links in code fences and inline code are skipped; feature
+  specs are not checked because they carry history. It is the deterministic half of the impact
+  sweep in [adr.md](adr.md).
+- Requires: Python 3 on the CI runner and a GitHub remote. Recommended when the project has docs,
+  specs or ADRs.
+- Templates: `templates/docs-check/` — `check-docs.py` and `checks.yml`.
+- Install: copy `check-docs.py` to `.github/scripts/check-docs.py` and `checks.yml` to
+  `.github/workflows/checks.yml` (the script finds the project root two folders up), list them in
+  `spec/INVENTORY.md`, and run `python3 .github/scripts/check-docs.py` once before the first merge.
+  Default documents: `README.md`, `AGENTS.md`, `CLAUDE.md`, `docs/**/*.md`, `spec/constitution/*.md`,
+  `spec/INVENTORY.md`, `spec/POSTMORTEMS.md`. To change them, set `DOCS_CHECK_FILES` (comma-separated
+  globs) in the workflow step, or pass files as arguments.
+- Turn it off: delete `checks.yml` (and the script), and update the `Automations:` line in CLAUDE.md.
 
 ## Rules for every automation
 
