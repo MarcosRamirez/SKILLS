@@ -48,9 +48,9 @@ Sources to re-read before implementing:
   - the tag script reads SKILL.md, plus the version check;
   - keep SPEC-0023's check (no tag without a change in the skill since its last tag): it now ignores
     the `metadata.version` line instead of `plugin.json`;
-  - update the CLAUDE.md versioning rules and the validate commands;
+  - update the AGENTS.md versioning rules and the validate commands;
   - check `/plugin` install and update from a local marketplace copy.
-- Files: ~ .claude-plugin/marketplace.json, − skills/*/.claude-plugin/, ~ skills/save-image/SKILL.md, ~ .github/scripts/tag-skill-releases.sh, + version check script, ~ CLAUDE.md
+- Files: ~ .claude-plugin/marketplace.json, − skills/*/.claude-plugin/, ~ skills/save-image/SKILL.md, ~ .github/scripts/tag-skill-releases.sh, + version check script, ~ AGENTS.md
 - Done when: AC-6
 
 ### T-2 Verify npx skills updates and other agents — medium

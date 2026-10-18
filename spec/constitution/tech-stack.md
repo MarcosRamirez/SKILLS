@@ -14,4 +14,4 @@ Derived from the ADRs — do not edit by hand; change the ADR and regenerate.
 - Content: Markdown skills, JSON manifests, shell and Python scripts for hooks and automation.
 - Checks instead of a linter: `claude plugin validate` (marketplace and `--strict` per skill), relative links resolve.
 - Automation: `.github/workflows/on-merge.yml` closes features and tags releases on merge.
-- Git, language, documentation and versioning rules: [CLAUDE.md](../../CLAUDE.md).
+- Git, language, documentation and versioning rules: [AGENTS.md](../../AGENTS.md).

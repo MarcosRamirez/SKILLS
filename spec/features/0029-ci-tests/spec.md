@@ -31,9 +31,9 @@ very tests, which are not kept anywhere.
   on ubuntu-latest:
   - with a runner-like git config: no global identity unless a test sets one (PM-0008), and `core.autocrlf` off;
   - with no network access needed: `gh` calls are faked, as in PR #47.
-- R-3 **The same command runs locally**: `bash tests/ci/run.sh`. It is documented in `CLAUDE.md` and
+- R-3 **The same command runs locally**: `bash tests/ci/run.sh`. It is documented in `AGENTS.md` and
   in the INVENTORY.
-- R-4 **When a script changes, its suite changes in the same PR.** This is stated in `CLAUDE.md`.
+- R-4 **When a script changes, its suite changes in the same PR.** This is stated in `AGENTS.md`.
 - R-5 **Testing reference in the skill** (`references/testing.md`): before relying on how a platform
   behaves (GitHub, a CI runner, a CLI), try it on a throwaway repository or in CI with a runner-like
   configuration (from the "environment" pattern).
@@ -44,9 +44,13 @@ very tests, which are not kept anywhere.
 - AC-2 `checks.yml` runs them on a pull request, and the run is green on ubuntu-latest.
 - AC-3 Reverting the SPEC-0023 tag guard, or the SPEC-0022 `SPEC_DIRS` change, in a scratch branch
   makes the matching suite fail in CI.
-- AC-4 `CLAUDE.md` documents the local command and the "suite changes with its script" rule.
+- AC-4 `AGENTS.md` documents the local command and the "suite changes with its script" rule.
   `references/testing.md` has the throwaway-environment line.
 
 ## Out of scope
 
 - Headless model runs (SPEC-0028).
+
+## Changelog
+
+- 2026-10-18: this repo's instructions moved to AGENTS.md (SPEC-0019); references to CLAUDE.md as the conventions file now name AGENTS.md.

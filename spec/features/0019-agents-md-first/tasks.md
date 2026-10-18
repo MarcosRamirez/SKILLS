@@ -5,7 +5,7 @@ One branch per task, stacked PRs. Executed through PLAN-0019.
 - [x] T-1 References and SKILL.md: AGENTS.md as the conventions file, case table, safety rule (AC-1)
 - [x] T-2 Merge behaviour and six headless tests (AC-2). 6 of 6 cases pass; case b passed once the
   user's plugins were left out (see "Case b without the user's plugins" below)
-- [ ] T-3 Migrate this repo, update SPEC-0013 (AC-3, AC-4)
+- [x] T-3 Migrate this repo, update SPEC-0013 (AC-3, AC-4). The interactive `/memory` check is left for the user (see Results (T-3))
 - [ ] T-4 Release (minor) with `Closes-Spec: SPEC-0019`
 
 ## Test results (T-2, 2026-10-18)
@@ -159,3 +159,50 @@ Reading:
   `--add-dir <skill folder>`. This is recorded for the headless suite (SPEC-0028).
 
 AC-2 verdict: met (a, c, d, e, f as above, and b in this run).
+
+## Results (T-3, 2026-10-18)
+
+**Migration.** `git mv CLAUDE.md AGENTS.md` kept alone in `2be4805`, so `git log --follow` reaches the
+old history. `fdaf43d` writes the new `CLAUDE.md`, which holds only `@AGENTS.md` and one HTML comment,
+and changes the `AGENTS.md` heading to `# AGENTS.md`. Nothing in the repo is Claude-only yet: the
+marketplace and plugin rules are the repo's conventions for every agent, so they stay in AGENTS.md.
+
+**AC-3 proxy (headless, not the interactive check).** Command run from the repo root on this branch:
+`claude -p "List the instruction/memory files loaded in this session (CLAUDE.md, AGENTS.md, imports)
+and quote the first heading of each." --output-format text --permission-mode acceptEdits
+--setting-sources project,local`. The answer listed `CLAUDE.md` (project file, one import line),
+`AGENTS.md` (pulled in by `@AGENTS.md`, first heading `# AGENTS.md`) and the user's auto-memory
+`MEMORY.md`. So AGENTS.md is loaded through the import. **The interactive `/memory` check is left for
+the user**: it needs an interactive session, which this run does not have.
+
+**AC-4.** `git log --follow --oneline AGENTS.md | head`:
+
+```text
+fdaf43d 📝 docs(repo): add CLAUDE.md import of AGENTS.md
+2be4805 🚚 refactor(repo): rename CLAUDE.md to AGENTS.md
+2e77045 🐛 fix(senior-mindset): load for git-only requests, keep git rules
+fe62427 📖 docs(repo): add impact sweep rule to CLAUDE.md
+3460d72 🐛 fix(repo): check docs for broken and superseded links on PRs
+ae0ce75 📖 docs(repo): state the standard-first identity and ADRs
+5f3ba05 📖 docs(repo): start the postmortem register with past bugs
+d8d8e68 🐛 fix(repo): refuse to tag a version with nothing new in the skill
+834eb7c 📖 docs(repo): state that specs never move a version
+1f8576e 📖 docs(repo): say the bot closes fixes like features
+```
+
+**Impact sweep** (`git grep -n CLAUDE.md`, commit `24f0571`):
+
+- Living documents: `spec/INVENTORY.md` (AGENTS.md entry, CLAUDE.md as the import line),
+  `spec/constitution/tech-stack.md` (link now `../../AGENTS.md`).
+- Draft and Approved specs changed (each with a `## Changelog` line dated 2026-10-18):
+  0021 (`plan.high.md`, lines 51 and 53), 0028 (`spec.md`, `plan.high.md`, `tasks.md`),
+  0029 (`spec.md`, `plan.medium.md`, `tasks.md`), 0030 (`role-change-rule.md`, lines 22, 26, 38, 45).
+- Checked, no change: SPEC-0013 R-2 and its plan already point to SPEC-0019 and read correctly.
+  SPEC-0019 itself keeps CLAUDE.md where it names the file.
+- Left as history: Implemented specs and fixes, `spec/POSTMORTEMS.md`, the ADRs, all `CHANGELOG.md`.
+- Left in the skill: `skills/senior-mindset/` mentions CLAUDE.md as the file a user's project may
+  have. That is the skill's behaviour, not this repo's convention, so no skill file changed and no
+  version moved.
+
+**Verification.** `python3 .github/scripts/check-docs.py` exits 0. `claude plugin validate .`
+passes. No version changed.
