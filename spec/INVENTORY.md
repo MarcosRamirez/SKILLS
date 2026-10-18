@@ -69,7 +69,8 @@ Copied into app projects by the skill (`skills/senior-mindset/templates/release-
 
 ## Repo docs
 
-- `CLAUDE.md` — repo conventions and rules (docs, versioning, git)
+- `AGENTS.md` — repo conventions and rules (docs, versioning, git)
+- `CLAUDE.md` — one line: `@AGENTS.md`, the import that makes Claude Code read AGENTS.md; Claude Code-only notes go below it
 - `spec/constitution/` — mission, tech stack (derived from the ADRs) and roadmap (states updated by the bot)
 - `spec/features/` — one folder per feature (`spec.md`, `plan.<tier>.md`, `tasks.md`); "run plan NNNN" executes it
 - `spec/fixes/` — one file per bug fix (current, expected and unchanged behaviour, root cause, postmortem, plan, tasks); same SPEC-NNNN numbering

@@ -52,7 +52,7 @@ Each step so far wrote one-off headless runs in the scratchpad: SPEC-0003, 0016 
 ### T-4 Release step integration — low
 - Recommended: low — Claude Haiku 5.5 (wording)
 - Branch: `docs/0028-t4-release-step`
-- Do: CLAUDE.md release step and the release PR body template run the suite; INVENTORY lines. The PR body carries `Closes-Spec: SPEC-0028`. No skill version moves if nothing under `skills/` changed.
+- Do: AGENTS.md release step and the release PR body template run the suite; INVENTORY lines. The PR body carries `Closes-Spec: SPEC-0028`. No skill version moves if nothing under `skills/` changed.
 - Done when: AC-5; the bot closes the spec
 
 ## Verification

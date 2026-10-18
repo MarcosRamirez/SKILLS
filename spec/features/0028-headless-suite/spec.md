@@ -42,7 +42,7 @@ missing trigger tests (PM-0004, PM-0011), and one from test runs that wrote to t
     skill writes) before and after, and fails if any of them changed (PM-0012).
   - Plan T-1 checks whether an isolated HOME keeps the login working. If it does, the runner uses it.
 - R-4 **Run before every release.**
-  - The release step in this repository's `CLAUDE.md` runs the suite and pastes the summary into the
+  - The release step in this repository's `AGENTS.md` runs the suite and pastes the summary into the
     release PR.
   - A failure blocks the release until it is fixed or the user accepts it explicitly.
   - It is not run on every pull request, because each run costs model usage. A manual GitHub Actions
@@ -59,9 +59,13 @@ missing trigger tests (PM-0004, PM-0011), and one from test runs that wrote to t
 - AC-3 A deliberately broken copy of the skill (for example, the approval hard rules removed) makes
   the gate scenario fail.
 - AC-4 The user-file hashes are unchanged after a full run, and the runner proves it.
-- AC-5 `CLAUDE.md` and the release PR template include the suite run.
+- AC-5 `AGENTS.md` and the release PR template include the suite run.
 
 ## Out of scope
 
 - Judging prose quality with a model.
 - Running on every pull request.
+
+## Changelog
+
+- 2026-10-18: this repo's instructions moved to AGENTS.md (SPEC-0019); references to CLAUDE.md as the conventions file now name AGENTS.md.
