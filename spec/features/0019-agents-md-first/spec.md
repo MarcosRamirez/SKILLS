@@ -1,6 +1,7 @@
 # SPEC-0019: AGENTS.md as the single source of project instructions
 
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-18, PR #75
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, "implementa todas las fases, una a una, con subagentes"
 

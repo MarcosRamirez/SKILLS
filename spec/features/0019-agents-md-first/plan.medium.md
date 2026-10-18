@@ -1,7 +1,8 @@
 # PLAN-0019: AGENTS.md as the single source of project instructions
 
 Spec: [SPEC-0019](spec.md)
-Status: In progress
+Status: Done
+Done: 2026-10-18, PR #75
 Recommended overall: medium — Claude Sonnet 5.5 (mostly references and wording; one high-tier step for merging foreign content)
 
 ## Context
