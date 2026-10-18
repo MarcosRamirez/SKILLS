@@ -1,7 +1,7 @@
 # PLAN-0019: AGENTS.md as the single source of project instructions
 
 Spec: [SPEC-0019](spec.md)
-Status: Draft
+Status: In progress
 Recommended overall: medium — Claude Sonnet 5.5 (mostly references and wording; one high-tier step for merging foreign content)
 
 ## Context
@@ -57,7 +57,7 @@ when both exist, merge and ask only the conflicts.
 - Files: CLAUDE.md → AGENTS.md, + CLAUDE.md, ~ README.md, ~ spec/**
 - Done when: AC-3, AC-4
 
-### T-4 Release 2.2.0 — low
+### T-4 Release (minor) — low
 - Recommended: low — Claude Haiku 5.5 (mechanical)
 - Branch: `chore/0019-t4-release`
 - Do: minor bump, changelogs; PR body with `Closes-Spec: SPEC-0019`
