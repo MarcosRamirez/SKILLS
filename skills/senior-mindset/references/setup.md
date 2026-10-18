@@ -73,7 +73,7 @@ Written by senior-mindset's first-use setup. Edit freely, or say "reconfigure se
 ```
 
 Precedence when working in a project:
-1. The project's CLAUDE.md `## Engineering conventions`.
+1. The project's AGENTS.md `## Engineering conventions`.
 2. `~/.claude/senior-mindset.md`.
 3. senior-mindset defaults.
 

@@ -17,6 +17,7 @@ Format: `name — path — purpose — usage`.
 Loaded on demand from `SKILL.md`. One topic per file:
 
 - `adr.md` — ADR template and rules
+- `agents-md.md` — AGENTS.md as the project's instructions: case table, `@AGENTS.md` safety rule, what stays in CLAUDE.md
 - `api-design.md` — OpenAPI contract-first, REST standards
 - `architecture.md` — hexagonal, SOLID, DRY, KISS, YAGNI and when not to apply them
 - `automations.md` — catalog of automations offered at kickoff
@@ -33,7 +34,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `performance.md` — computational cost rules
 - `platforms.md` — hosting options (Cloudflare default)
 - `postmortem.md` — blameless postmortem per bug: method, `## Postmortem` template, `spec/POSTMORTEMS.md` register, categories, pattern rule
-- `project-layout.md` — project tree and CLAUDE.md section
+- `project-layout.md` — project tree and AGENTS.md section
 - `questions.md` — closed questions with clickable options (question tool): format, examples, numbered fallback
 - `sdd.md` — spec / design / tasks templates
 - `release-automation.md` — specs close on merge, releases tag themselves; uses the templates below

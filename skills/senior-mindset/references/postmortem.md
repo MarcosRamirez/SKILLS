@@ -78,7 +78,7 @@ reported missing invoices.
 
 ## Template: the register `spec/POSTMORTEMS.md`
 
-Created at the first bug. Link it from CLAUDE.md next to the inventory.
+Created at the first bug. Link it from AGENTS.md next to the inventory.
 
 ```markdown
 # Postmortems

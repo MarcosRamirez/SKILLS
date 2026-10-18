@@ -40,7 +40,7 @@ pick which one wins.
 you    › build me a booking app
 claude › Before writing code, 4 quick questions (I'll remember the answers):
          stack · database · where you deploy · default branch…
-         ✔ 4 ADRs written · conventions saved · spec/INVENTORY.md created
+         ✔ 4 ADRs written · conventions saved in AGENTS.md · spec/INVENTORY.md created
          Here's spec/features/0001-bookings/spec.md: 6 acceptance criteria.
          Approve it and I'll start with the tests.
 ```

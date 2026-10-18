@@ -56,7 +56,7 @@ Derived from the ADRs — do not edit by hand; change the ADR and regenerate.
 | Platform | Cloudflare | [ADR-0003](../adr/0003-deploy-on-cloudflare.md) |
 
 ## Conventions
-Naming, linter, formatter, tests, package manager — each linked to its ADR or to CLAUDE.md.
+Naming, linter, formatter, tests, package manager — each linked to its ADR or to AGENTS.md.
 ```
 
 ## roadmap.md

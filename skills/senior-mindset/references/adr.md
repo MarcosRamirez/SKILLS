@@ -95,7 +95,7 @@ Replaces terms: `PostgreSQL` → `SQLite`, `DATABASE_URL` → `DB_PATH`
 | Document | Action |
 |---|---|
 | README.md (setup) | updated in this PR |
-| CLAUDE.md (conventions) | updated in this PR |
+| AGENTS.md (conventions) | updated in this PR |
 | spec/constitution/tech-stack.md | updated in this PR |
 | spec/features/0012-reports/spec.md (Draft) | updated in this PR (Changelog line) |
 | spec/features/0003-login/spec.md (Implemented) | kept as written |

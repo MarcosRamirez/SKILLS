@@ -2,7 +2,7 @@
 
 Automations senior-mindset can install in a project. At kickoff, ask which ones to install
 (one AskUserQuestion, `multiSelect: true`), with the recommended ones listed first and marked
-"(Recommended)". Record the answer in CLAUDE.md (`Automations: …`) and do not ask again in
+"(Recommended)". Record the answer in AGENTS.md (`Automations: …`) and do not ask again in
 that project. If a requirement is missing (e.g. no GitHub remote), say so and leave that one out.
 
 Adding a new automation = adding a row here, a section below, and its templates under
@@ -37,7 +37,7 @@ Adding a new automation = adding a row here, a section below, and its templates 
   Default documents: `README.md`, `AGENTS.md`, `CLAUDE.md`, `docs/**/*.md`, `spec/constitution/*.md`,
   `spec/INVENTORY.md`, `spec/POSTMORTEMS.md`. To change them, set `DOCS_CHECK_FILES` (comma-separated
   globs) in the workflow step, or pass files as arguments.
-- Turn it off: delete `checks.yml` (and the script), and update the `Automations:` line in CLAUDE.md.
+- Turn it off: delete `checks.yml` (and the script), and update the `Automations:` line in AGENTS.md.
 
 ## Rules for every automation
 

@@ -26,7 +26,8 @@ spec/                           everything Spec-Driven Development: the "why" an
 <code>/                         the application code, separate from spec/ — the user chooses
                                 where at kickoff: src/ (recommended), app/, apps/<name>/ or any
                                 folder they type (see below)
-CLAUDE.md                       conventions summary + links (read every session)
+AGENTS.md                       conventions summary + links (read every session, by every agent)
+CLAUDE.md                       only if one already existed: `@AGENTS.md` + Claude Code-only content
 CHANGELOG.md · cliff.toml       generated changelog (see changelog.md)
 .github/                        workflows (see release-automation.md)
 .gitignore · .env.example
@@ -40,14 +41,14 @@ The code never mixes with `spec/`, but **the user decides where it lives**. Kick
 | Option | Layout | Good for |
 |---|---|---|
 | **`src/`** (Recommended for one app) | Manifests and configs at the root (`package.json`, `pyproject.toml`…), code in `src/`, tests in `tests/` | What most frameworks expect; a single app |
-| **`app/`** | The whole project (configs, `src/`, tests) inside `app/`; the root keeps only `spec/`, `CLAUDE.md`, `.github/` | A clean root with one deployable |
+| **`app/`** | The whole project (configs, `src/`, tests) inside `app/`; the root keeps only `spec/`, `AGENTS.md`, `.github/` | A clean root with one deployable |
 | **`apps/<name>/`** | One folder per deployable (`apps/web`, `apps/api`) with a workspace tool (pnpm/npm workspaces, uv workspace, Cargo workspace) | Several deployables (monorepo) |
 | **Another folder** | Whatever the user types, e.g. `backend/` + `frontend/`, `packages/core/` | The user's own conventions |
 
 - **A typed folder is validated before use:** a relative path inside the repo, no `..`, not absolute,
   not `spec/`, `.github/` or `.git/`, only letters, digits, `-`, `_`, `.` and `/`. If it is invalid,
   say why and ask again.
-- Record the answer in CLAUDE.md (`Code: src/`). Paths in specs, plans, CI and scripts follow it.
+- Record the answer in AGENTS.md (`Code: src/`). Paths in specs, plans, CI and scripts follow it.
 - Hexagonal layers, when there is a domain, go in the language's source folder: `src/domain/…`
   with `src/`, `app/src/domain/…` with `app/` (see architecture.md).
 - CI runs from the code folder when it is not the root (`working-directory: app`, or a matrix over `apps/*`).
@@ -85,7 +86,10 @@ layout, it proposes the migration through a change notice, on its own branch:
 
 History is kept (`git mv`), and nothing is deleted without being merged first.
 
-## CLAUDE.md section (written after the kickoff interview)
+## AGENTS.md section (written after the kickoff interview)
+
+It goes in `AGENTS.md` at the project root; see [agents-md.md](agents-md.md) for what happens
+when the project already has a `CLAUDE.md`.
 
 ```markdown
 ## Engineering conventions
