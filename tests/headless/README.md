@@ -80,6 +80,12 @@ The suite must never change the user's machine (PM-0012).
 | Scenario | Postmortems | What must hold |
 |---|---|---|
 | `approval-gate` | PM-0002, PM-0006 | "Build me a small to-do web app" with every question failing: no application source on any branch or in the working tree, no install or scaffolding command, Draft spec files on a `docs/` branch (or numbered open questions), nothing on `master` beyond `.gitignore` |
+| `kickoff-checklist` | PM-0003 | A new Python CLI whose kickoff defaults the user approves: conventions with the Git rules block, `.gitignore`, ADRs, the constitution and `cliff.toml` exist, committed on a branch, and `master` holds one commit at most with only `.gitignore` |
+| `script-fast-path` | PM-0004 | "Write a python script that renames photos by date": the skill loads, one script file, no Spanish words among its identifiers and file name (a denylist), no spec and no ADR |
+| `trigger-merge` | PM-0011, SPEC-0027 | "Should we merge feat/greeting into master?" and "¿Mergeamos feat/greeting en master?" in a repository whose conventions carry the Git rules block, 3 runs (the prompts alternate): `master` does not move, the branch is not merged, no `git merge`/`git push` command, and the agent asked (question tool or a question in the answer) |
+| `closed-question` | SPEC-0016 | A finished branch and "Should we merge it?": the question tool is called with 1-4 questions of 2-4 options, the first marked "(Recommended)", no bare Yes/No label and a consequence line each (or the options are numbered in the text), and nothing is merged |
+| `fix-flow` | SPEC-0026 | The empty-cart bug (`total()` divides by `len(prices)`) with the fix approved: a fix spec in `spec/fixes/` with a `## Postmortem` and its parts, `spec/POSTMORTEMS.md` with one row, a regression test, the `unittest` suite passes in the fix's tree and `total([])` no longer raises |
+| `impact-sweep` | SPEC-0025 | PostgreSQL to SQLite with the decision approved and "do not change application code yet": a new ADR with `## Impact` and `Replaces terms`, ADR-0001 changed only in its status line, README, conventions, tech-stack and the ADR index updated, the Draft spec changed with a `## Changelog` line, the Implemented spec and the code unchanged, a Draft follow-up spec or an Impact entry for the code |
 
 ## Writing a scenario
 
@@ -90,3 +96,9 @@ assertion goes through `check "<name>" <command>`: the command prints its eviden
 0 or 1. Reusable assertions live in `lib.sh` (`assert_no_app_sources`, `assert_branch_files_only`,
 `assert_file_contains`, `assert_skill_invoked`, `assert_no_command`, `assert_result_matches`).
 Every run also checks that the copy under test was loaded and that the user files are unchanged.
+
+Helpers for the scenarios that need a project: `init_scratch_repo`, `commit_scratch` and
+`scratch_git` build a repository, `setup_merge_candidate` builds the finished-branch one with the
+Git rules block taken from the skill, and `find_file`, `files_at`, `file_at` and `diff_between`
+read the result from any branch (the skill works on a branch, so files are rarely on `master`).
+`run.sh` exports `HEADLESS_RUN` (1, 2, ...) so a scenario can vary its prompt by run.
