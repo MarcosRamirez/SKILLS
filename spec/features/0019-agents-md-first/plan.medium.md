@@ -47,7 +47,8 @@ when both exist, merge and ask only the conflicts.
 - Recommended: high — Claude Opus 5.5 (merging someone else's instructions without losing anything)
 - Branch: `feat/0019-t2-merge-and-tests`
 - Do: write the merge procedure; build six scratch repos (one per case in AC-2); run headless with `--plugin-dir`; fix wording until each case passes
-- Files: ~ references/project-layout.md (or a new references/agents-md.md)
+- Files: ~ references/agents-md.md (merge procedure, symlinks, CLAUDE.local.md); ~ SKILL.md Step 0,
+  Step 1 and hard rule 3 (wording fixes found by the runs); ~ skills/senior-mindset/README.md
 - Done when: AC-2
 
 ### T-3 Migrate this repo, update SPEC-0013 — low
