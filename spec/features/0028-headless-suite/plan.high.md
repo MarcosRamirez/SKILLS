@@ -1,7 +1,7 @@
 # PLAN-0028: a committed headless suite, run before every release
 
 Spec: [SPEC-0028](spec.md)
-Status: Ready
+Status: In progress
 Recommended overall: high — Claude Opus 5.5 (test design, isolation of the user's machine, deterministic checks of model behaviour)
 
 ## Context
