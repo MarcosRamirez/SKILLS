@@ -135,8 +135,45 @@ skill, which loads on demand, and nowhere that is always loaded.
 
 ## Postmortem
 
-The analysis is in [PM-0011](../POSTMORTEMS.md#pm-0011-a-merge-went-ahead-without-a-question-when-only-git-workflow-loaded).
-It moves here when this fix runs.
+**Impact.** Seen in test runs only, in SPEC-0016 T-2 (2026-10-14) and again in the T-3 trigger
+check (2026-10-18). No merge reached a user's repository. The risk was real: in any session where a
+merge-only request loaded git-workflow and not senior-mindset, the agent could merge without asking.
+In the T-3 check, a Spanish "¿Mergeamos …?" merged 3 of 3 runs when only git-workflow loaded and the
+project's conventions did not carry the git rules.
+
+**5 Whys.**
+1. Why did the merge go ahead without a question? → The rules "never merge unless asked" and "ask
+   closed questions with options" were not in context.
+2. Why not? → senior-mindset did not load; only git-workflow did.
+3. Why did senior-mindset not load? → Its description triggers on writing or changing code, releases
+   and plans. A merge-only request matches none of them, while git-workflow's description names
+   merges. T-3 showed that adding git triggers to senior-mindset's description was not enough: the
+   model still picked git-workflow, whose description is more specific.
+4. Why did the collision decision not help? → The decision that senior-mindset's git rules win
+   (stored in `~/.claude/senior-mindset.md`) is applied by senior-mindset itself, so it is lost
+   when only the other skill loads. Same root as PM-0004: the rules that must always hold live
+   only in a skill that loads on demand.
+
+**Why it was not caught.** No trigger test existed; the bug was found by chance while SPEC-0016
+tested questions. The T-1 reproduction did not show the merge either: the runs stopped on blockers
+from the conventions, not on a question rule. T-3 found it, once the branch passed those checks. The
+T-3 finding is that the description layer alone does not make the skill load when a more specific
+git skill competes. Only the always-loaded conventions held: with the "Git rules that always hold"
+block, there was no unrequested merge in 6 of 6 runs, whichever skill loaded.
+
+**Corrective action.** The fix in this spec: the description names git requests (T-2), the
+kickoff, existing projects and the collision setup write the "Git rules that always hold" block
+into the always-loaded conventions, and setup.md keeps the collision choice in the conventions too
+(T-2, verified in T-3).
+
+**Preventive actions.**
+- [x] Conventions block: "Git rules that always hold" in the always-loaded `## Engineering
+  conventions` (where: rule, written by kickoff, existing projects and collision setup; verified in
+  T-3, 0/6 unrequested merges)
+- [ ] Trigger scenarios A and B (git-only prompts in English and Spanish) run in the headless suite
+  before every release (SPEC-0028)
+- [x] Description names git requests, in English and Spanish (where: `SKILL.md` frontmatter, T-2).
+  It does not trigger the skill when git-workflow competes, so it stays only as a hint.
 
 ## Plan
 
@@ -158,4 +195,4 @@ The reproduction before and after; the trigger runs; `claude plugin validate --s
 - [x] T-1 Reproduce and record (AC-1)
 - [x] T-2 Description triggers, conventions block, setup.md rule
 - [x] T-3 Trigger check, at least 3 runs per prompt and language (AC-2, AC-3)
-- [ ] T-4 Postmortem, register and PATCH release with `Closes-Spec: SPEC-0027` (AC-4)
+- [x] T-4 Postmortem, register and PATCH release with `Closes-Spec: SPEC-0027` (AC-4)

@@ -27,7 +27,7 @@ One row per bug, newest last. The register is how this project learns.
 | PM-0008 | 2026-10-13 | The first real on-merge run (merge of #19) failed in the tag step for lack of a git identity. SPEC-0005 stayed open and 1.5.0 was tagged by hand | environment | The identity was set only in a later step. Local tests passed because the machine had a global identity | Tests ran with a configured git, not a runner-like one (`GIT_CONFIG_GLOBAL=/dev/null`) | Identity set right after checkout (done: `on-merge.yml`, app template); workflow tests with a runner-like config (pending: SPEC-0029) | [PR #20](https://github.com/MarcosRamirez/SKILLS/pull/20), [e985f41](https://github.com/MarcosRamirez/SKILLS/commit/e985f41); [SPEC-0005](features/0005-close-on-merge/spec.md) |
 | PM-0009 | 2026-10-13 | The on-merge step that commits closed specs would abort before committing when no changed path matched its id grep (a fix-only PR, or only a roadmap row); its fallback id was dead code | tooling | Under `set -euo pipefail` a grep with no match fails the assignment, and no test had ever run this inline step's no-match path | Inline workflow steps had no tests. SPEC-0022 caught both cases (R-5, a probe in its T-2 suite) before a real run hit them | Both cases fixed (done: abba42e, cac50d9); the line checked under pipefail (done: PR #43, scratch only); committed workflow tests (pending: SPEC-0029) | [PR #43](https://github.com/MarcosRamirez/SKILLS/pull/43), [abba42e](https://github.com/MarcosRamirez/SKILLS/commit/abba42e), [cac50d9](https://github.com/MarcosRamirez/SKILLS/commit/cac50d9) |
 | PM-0010 | 2026-10-13 | Nothing stopped a version moving with nothing implemented: git-cliff proposes a PATCH for a docs-only commit, and the tag script tagged a version-only bump. No such version was released | spec gap | The rule was implicit. The release step trusted the version calculator, and the tag script only checked that the tag did not exist yet | No test ran a docs-only range or a version-only bump | Rule, release check and tag guard (done: `versioning.md`, `SKILL.md`, CLAUDE.md, `tag-skill-releases.sh`); their tests in CI (pending: SPEC-0029) | [SPEC-0023](fixes/0023-bump-only-on-implementation.md) |
-| PM-0011 | 2026-10-14 | In the SPEC-0016 tests, "should we merge?" loaded only the git-workflow skill. With the question tool available, the agent merged on its own in two of two Spanish runs | code defect | Same cause as PM-0004: the git rules load only with the skill, and its description does not cover git-only requests (merge, push, pull request) | No trigger test; found by chance while testing questions | Fix pending (SPEC-0027); trigger prompts (pending: SPEC-0028) | [SPEC-0016 T-2 results](features/0016-clickable-answers/tasks.md#test-results-t-2-2026-10-14), [PR #50](https://github.com/MarcosRamirez/SKILLS/pull/50) |
+| PM-0011 | 2026-10-14 | In the SPEC-0016 tests, "should we merge?" loaded only the git-workflow skill. With the question tool available, the agent merged on its own in two of two Spanish runs | code defect | Same cause as PM-0004: the git rules load only with the skill, and its description does not cover git-only requests (merge, push, pull request) | No trigger test; found by chance while testing questions | fixed; conventions block (done, SPEC-0027); trigger scenarios in the headless suite (pending: SPEC-0028) | [SPEC-0027](fixes/0027-git-requests-skip-the-rules.md); [SPEC-0016 T-2 results](features/0016-clickable-answers/tasks.md#test-results-t-2-2026-10-14), [PR #50](https://github.com/MarcosRamirez/SKILLS/pull/50) |
 | PM-0012 | 2026-10-14 | The same headless runs rewrote the user's real `~/.claude/senior-mindset.md` through the skill's update notice (`senior-mindset version` 1.3.0 to 2.2.1) | environment | Headless test runs use the user's real home, so the skill's user-level setup file is shared with them | The test procedure has no isolation step and no check that the home is unchanged afterwards | Fix pending: runs in an isolated home (pending: SPEC-0028) | [PR #50](https://github.com/MarcosRamirez/SKILLS/pull/50) |
 | PM-0013 | 2026-10-14 | PR #40 accepted ADR-0005 and ADR-0006 but updated none of the living documents. CLAUDE.md still cites the superseded ADR-0001 and ADR-0003, and the READMEs install Claude-first and globally | docs drift | Accepting an ADR does not require checking the documents that describe the decision; the documentation rule covers skill changes, not decisions | No check flags a link to a superseded ADR. PR #40 deferred CLAUDE.md to plan 0021 without marking it in the document | `check-docs.py` on every PR (done: SPEC-0024 T-3); impact sweep for every decision (done: SPEC-0025, senior-mindset 2.5.0) | [SPEC-0024](fixes/0024-docs-out-of-step-with-adrs.md) |
 
@@ -88,11 +88,12 @@ Approved by the user on 2026-10-14 and written: git trigger fix [SPEC-0027](fixe
 
 ## Postmortems without a fix spec
 
-Bugs fixed before SPEC-0022 had no fix spec, and two bugs are not fixed yet, so their postmortems
+Bugs fixed before SPEC-0022 had no fix spec, and one bug is not fixed yet, so its postmortem
 live here, in the template of [postmortem.md](../skills/senior-mindset/references/postmortem.md).
 PM-0001 and PM-0007 were trivial fixes and have only their row. PM-0010 has its postmortem in
 [SPEC-0023](fixes/0023-bump-only-on-implementation.md#postmortem). PM-0013 has its postmortem in
-[SPEC-0024](fixes/0024-docs-out-of-step-with-adrs.md#postmortem). When a fix spec is
+[SPEC-0024](fixes/0024-docs-out-of-step-with-adrs.md#postmortem). PM-0011 has its postmortem in
+[SPEC-0027](fixes/0027-git-requests-skip-the-rules.md#postmortem). When a fix spec is
 written for a bug below, its `## Postmortem` takes over and this section links to it.
 
 PM-0002 and PM-0006 are the same symptom twice (SPEC-0003 counts both runs). They are separate rows
@@ -293,31 +294,6 @@ match" non-fatal (`|| true` inside the substitution), without dropping `pipefail
 
 - [x] The `ids=` line evaluated under `set -euo pipefail` with sample lists (where: test, [PR #43](https://github.com/MarcosRamirez/SKILLS/pull/43), scratch only)
 - [ ] The on-merge tests committed and run in CI (SPEC-0029)
-
-### PM-0011: a merge went ahead without a question when only git-workflow loaded
-
-**Impact.** Seen in test runs only ([SPEC-0016 T-2](features/0016-clickable-answers/tasks.md#test-results-t-2-2026-10-14)).
-In any session where a merge request loads another git skill and not senior-mindset, the agent can
-merge without asking. Open since the description was written; not fixed.
-
-**5 Whys.**
-
-1. Why did the merge go ahead without a question? → The rules "never merge unless asked" and "ask
-   closed questions with options" were not in context.
-2. Why not? → senior-mindset did not load; only git-workflow did.
-3. Why? → senior-mindset's description triggers on writing or changing code, releases and plans.
-   A merge-only request matches none of them, while git-workflow's description names merges.
-4. Why did the collision decision not help? → The decision that senior-mindset's git rules win
-   (stored in `~/.claude/senior-mindset.md`) is applied by senior-mindset itself, so it is lost
-   when only the other skill loads. Same root as PM-0004.
-
-**Why it was not caught.** No trigger test. It was found by chance, while the tests checked questions.
-
-**Corrective action.** Pending (SPEC-0027).
-
-**Preventive actions.**
-
-- [ ] Trigger prompts for git-only requests (SPEC-0028)
 
 ### PM-0012: headless test runs rewrote the user's setup file
 

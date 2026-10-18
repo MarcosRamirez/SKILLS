@@ -5,18 +5,33 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ## [Unreleased]
 
-### Added
+### Fixed
 
-- **senior-mindset:** Allow superseded-ADR links inside adr folders (2026-10-14)
-- **senior-mindset:** Add docs-check automation template (2026-10-14)
-- **senior-mindset:** Add ADR impact section and sweep (2026-10-14)
+- **senior-mindset:** Load for git-only requests, keep git rules (2026-10-14)
 
 ### Documentation
 
-- **senior-mindset:** Tick task T-4 of spec 0025 (2026-10-14)
-- **repo:** Add impact sweep rule to CLAUDE.md (2026-10-14)
-- **repo:** Start plan 0025 and tick task T-1 (2026-10-14)
-- **repo:** Mark SPEC-0024 implemented (#60) (2026-10-14)
+- **senior-mindset:** Tick task T-4 of fix 0027 (2026-10-18)
+- **repo:** Write the postmortem of fix 0027 (2026-10-18)
+- **senior-mindset:** Record the reproduction of fix 0027 (2026-10-14)
+- **senior-mindset:** Add specs 0027-0030 against the bug patterns (2026-10-14)
+- **repo:** Mark SPEC-0025 implemented (#65) (2026-10-14)
+
+## [senior-mindset-v2.5.0] - 2026-10-14
+
+### Added
+
+- **senior-mindset:** Allow superseded-ADR links inside adr folders
+- **senior-mindset:** Add docs-check automation template
+- **senior-mindset:** Add ADR impact section and sweep
+
+### Documentation
+
+- **repo:** Mark the impact sweep done for PM-0013
+- **senior-mindset:** Tick task T-4 of spec 0025
+- **repo:** Add impact sweep rule to CLAUDE.md
+- **repo:** Start plan 0025 and tick task T-1
+- **repo:** Mark SPEC-0024 implemented (#60)
 
 ## [senior-mindset-v2.4.1] - 2026-10-14
 

@@ -21,7 +21,7 @@ metadata:
   homepage: https://marcosramirez.info
   blog: https://blog.marcosramirez.info
   dev: https://marcosramirez.dev
-  version: "2.5.0"
+  version: "2.5.1"
 ---
 
 # Senior mindset
