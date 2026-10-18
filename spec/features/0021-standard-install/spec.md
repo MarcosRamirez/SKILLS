@@ -88,3 +88,7 @@ Facts checked on 2026-10-13:
 
 - 2026-10-14: R-3 and AC-1 (the READMEs) move to SPEC-0024, which ships the standard install docs
   now, after verifying `npx skills`. T-2 keeps the checks on updates, tags and other agents.
+
+## Changelog
+
+- 2026-10-18: this repo's instructions moved to AGENTS.md (SPEC-0019); references to CLAUDE.md as the conventions file now name AGENTS.md.

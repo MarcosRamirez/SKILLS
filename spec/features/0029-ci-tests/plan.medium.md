@@ -37,7 +37,7 @@ on Linux.
 ### T-2 CI job and documentation — medium
 - Recommended: medium — Claude Sonnet 5.5 (CI wiring)
 - Branch: `test/0029-t2-ci-job`
-- Do: the `scripts` job in `checks.yml`; the AC-3 revert check on a scratch branch (not merged); `CLAUDE.md` and INVENTORY; the throwaway-environment line in `references/testing.md` (a skill change, so a PATCH release follows)
+- Do: the `scripts` job in `checks.yml`; the AC-3 revert check on a scratch branch (not merged); `AGENTS.md` and INVENTORY; the throwaway-environment line in `references/testing.md` (a skill change, so a PATCH release follows)
 - Done when: AC-2, AC-3, AC-4
 
 ### T-3 Release — low
