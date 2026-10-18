@@ -3,6 +3,12 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.5.1] - 2026-10-18
+
+### Fixed
+
+- **senior-mindset:** Load for git-only requests, keep git rules
+
 ## [senior-mindset-v2.5.0] - 2026-10-14
 
 ### Added
