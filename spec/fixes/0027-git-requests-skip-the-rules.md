@@ -1,7 +1,8 @@
 # SPEC-0027: git requests skip senior-mindset's rules
 
 Type: fix
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-18, PR #70
 Date: 2026-10-14
 Approved by: the user, 2026-10-14, chose it in the postmortem-patterns question ("Arreglar el disparo con git")
 Plan: medium — Claude Sonnet 5.5 (description and conventions wording, checked with trigger prompts)
