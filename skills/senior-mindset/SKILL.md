@@ -48,8 +48,8 @@ next person (or AI) does not have to guess.
      marked "proposed", `spec/INVENTORY.md`, and `.gitignore` if you created the repo;
    - the feature as **Draft**, with `spec.md`, `plan.<tier>.md` and `tasks.md` (or a single small-feature file);
    - a commit on a `docs/` branch, never on the default branch;
-   - a final message with numbered open questions and what you will build once they are
-     answered and the spec is approved.
+   - a final message with numbered open questions, any proposal from Step 1 (instruction files,
+     old layout), and what you will build once they are answered and the spec is approved.
 
    Scripts are the exception: they take the fast path in Step 0 and need no spec. A trivial fix
    (Step 3) needs no spec either, but it still needs the user's explicit go-ahead for that fix;
@@ -119,6 +119,17 @@ When in doubt, ask the user which one it is.
 
 ## Step 1 — Load context
 
+**First, check the instruction files** (`ls -a`): `AGENTS.md`, `CLAUDE.md`, `.claude/CLAUDE.md`,
+`CLAUDE.local.md`. Each CLAUDE file that does not start with `@AGENTS.md` gets a proposal, whatever
+the request is about ([references/agents-md.md](references/agents-md.md)):
+- only `CLAUDE.md` → propose migrating it to `AGENTS.md` (change notice);
+- `CLAUDE.md` and `AGENTS.md` with different content → warn that Claude reads only `CLAUDE.md`, and
+  propose the merge (change notice: what is kept from each file, and each conflict as a question);
+- `CLAUDE.local.md` → propose adding `@AGENTS.md` as its first line.
+
+Nothing changes until the user answers. The proposal goes in your answer, next to the work on the
+request, in a headless run too (hard rule 3).
+
 Read, if present: `AGENTS.md`, then `CLAUDE.md` (only the
 Claude Code bridge: `@AGENTS.md` plus Claude-only content), `spec/constitution/` (mission, tech-stack, roadmap),
 `spec/INVENTORY.md`, `spec/POSTMORTEMS.md` (known failure modes: read it before writing a spec or
@@ -131,12 +142,6 @@ If a skill that overlaps one of senior-mindset's areas is installed but missing 
 **Project instructions live in `AGENTS.md`**, the standard file that Claude Code and other agents
 read. Kickoff writes it; a new project gets no `CLAUDE.md`, because Claude Code reads `AGENTS.md`
 natively when there is none.
-**Check the instruction files every session** (`ls -a`): `AGENTS.md`, `CLAUDE.md`, `.claude/CLAUDE.md`,
-`CLAUDE.local.md`. A CLAUDE file that does not start with `@AGENTS.md` always gets a proposal, even
-when the request is about something else: read [references/agents-md.md](references/agents-md.md) and
-apply its case. Only `CLAUDE.md` → propose the migration; both with different content → warn that
-Claude reads only `CLAUDE.md` and propose the merge; `CLAUDE.local.md` → propose adding the import.
-Nothing changes until the user answers: put the proposal in your answer and go on with the request.
 If AGENTS.md (or, until it is migrated, CLAUDE.md) has a `## Engineering conventions` section → use
 it and go to Step 3.
 Never re-ask what is already recorded.
