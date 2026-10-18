@@ -138,7 +138,7 @@ for scenario_file in "${scenario_files[@]}"; do
     run_dir="$REPORT_DIR/$name/run-$run"
     mkdir -p "$run_dir"
     echo "  run $run/$runs"
-    run_scenario_once "$scenario_file" "$run_dir"
+    HEADLESS_RUN=$run run_scenario_once "$scenario_file" "$run_dir"   # scenarios may vary their prompt by run
     rows+=("$name|$run/$runs|$run_dir")
   done
   echo

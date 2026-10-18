@@ -250,3 +250,142 @@ assert_plugin_from() {  # assert_plugin_from STREAM PLUGIN_DIR
   echo "senior-mindset not loaded from $2; loaded: ${loaded:-nothing}"
   return 1
 }
+
+# --- Scratch repositories and branch-aware reads ----------------------------------------------
+# Scenarios build their project with these (a fixed identity, no signing, no global config), and
+# read the result from any branch: the skill works on a branch, so the files are rarely on master.
+
+scratch_git() {  # scratch_git DIR GIT_ARGS...
+  local dir=$1
+  shift
+  git -C "$dir" -c user.name="Headless Setup" -c user.email=setup@example.invalid \
+    -c commit.gpgsign=false -c core.autocrlf=false "$@"
+}
+
+init_scratch_repo() {  # init_scratch_repo DIR: an empty repository whose default branch is master
+  git init -q "$1" && git -C "$1" symbolic-ref HEAD refs/heads/master
+}
+
+commit_scratch() {  # commit_scratch DIR MESSAGE: commit everything
+  scratch_git "$1" add -A && scratch_git "$1" commit -q -m "$2"
+}
+
+branches_latest_first() {  # branches_latest_first PROJECT
+  [[ -d $1/.git ]] || return 0
+  git -C "$1" for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads
+}
+
+# A "ref" is a local branch name or the word WORKTREE (the files on disk, including uncommitted).
+files_at() {  # files_at PROJECT REF
+  if [[ $2 == WORKTREE ]]; then
+    (cd "$1" && find . -type f -not -path './.git/*' | sed 's|^\./||')
+  else
+    git -C "$1" ls-tree -r --name-only "$2"
+  fi
+}
+
+file_at() {  # file_at PROJECT REF PATH
+  if [[ $2 == WORKTREE ]]; then cat "$1/$3"; else git -C "$1" show "$2:$3"; fi
+}
+
+all_refs() {  # all_refs PROJECT: branches (newest commit first), then WORKTREE
+  branches_latest_first "$1"
+  echo WORKTREE
+}
+
+# find_file PROJECT PATH_ERE [CONTENT_ERE]: prints "REF PATH" for the first file whose path (and,
+# when given, content) matches; returns 1 when none does.
+find_file() {
+  local project=$1 path_re=$2 content_re=${3:-} ref file
+  while IFS= read -r ref; do
+    while IFS= read -r file; do
+      [[ -n $file ]] || continue
+      if [[ -z $content_re ]] || file_at "$project" "$ref" "$file" 2>/dev/null | grep -Eiq -- "$content_re"; then
+        echo "$ref $file"
+        return 0
+      fi
+    done < <(files_at "$project" "$ref" | grep -E -- "$path_re")
+  done < <(all_refs "$project")
+  return 1
+}
+
+all_files() {  # all_files PROJECT: the union of the files on every branch and on disk
+  local ref
+  while IFS= read -r ref; do files_at "$1" "$ref"; done < <(all_refs "$1") | sort -u
+}
+
+# Prints the change between BASE and REF for the given paths (empty output = unchanged).
+diff_between() {  # diff_between PROJECT BASE REF [GIT_DIFF_ARGS...] -- PATHS...
+  local project=$1 base=$2 ref=$3
+  shift 3
+  if [[ $ref == WORKTREE ]]; then git -C "$project" diff "$base" "$@"; else git -C "$project" diff "$base" "$ref" "$@"; fi
+}
+
+# The stream's AskUserQuestion calls (the stand-in is named mcp__stub__AskUserQuestion), one JSON per line.
+question_calls() { stream_py tool-inputs "$1" AskUserQuestion; }
+
+# Copies the files of REF into DEST (an existing empty folder), for running a project's own tests.
+export_ref() {  # export_ref PROJECT REF DEST
+  if [[ $2 == WORKTREE ]]; then
+    (cd "$1" && tar --exclude=./.git -cf - .) | tar -xf - -C "$3"
+  else
+    git -C "$1" archive "$2" | tar -xf - -C "$3"
+  fi
+}
+
+# The "Git rules that always hold" block, taken from the skill's own layout reference so a scenario
+# cannot drift from the text under test.
+git_rules_block() {
+  awk '/^\*\*Git rules that always hold\*\*/ { on = 1 } on && /^$/ { exit } on { print }'     "$SKILL_SOURCE/references/project-layout.md"
+}
+
+# A repository with the conventions block, master with one commit and a clean, finished
+# feat/greeting branch checked out; no remote. Writes the master commit id to .git/baseline-master.
+setup_merge_candidate() {  # setup_merge_candidate DIR
+  local dir=$1 block
+  block="$(git_rules_block)"
+  [[ -n $block ]] || { echo "error: the Git rules block is missing from project-layout.md" >&2; return 1; }
+  init_scratch_repo "$dir"
+  cat > "$dir/CLAUDE.md" <<DOC
+# Greeter
+
+A tiny greeting library.
+
+## Engineering conventions
+
+- Language: Python 3. Tests: unittest.
+
+$block
+
+Before creating anything, check spec/INVENTORY.md.
+DOC
+  printf 'def greet(name):
+    return "Hello, " + name
+' > "$dir/greeter.py"
+  commit_scratch "$dir" "Add the greeter"
+  scratch_git "$dir" switch -q -c feat/greeting
+  printf 'def greet(name, greeting="Hello"):
+    return greeting + ", " + name
+' > "$dir/greeter.py"
+  commit_scratch "$dir" "Let greet take a greeting"
+  git -C "$dir" rev-parse master > "$dir/.git/baseline-master"
+}
+
+assert_master_untouched() {  # assert_master_untouched PROJECT: master is still at its baseline commit
+  local project=$1 before now
+  before="$(cat "$project/.git/baseline-master")"
+  now="$(git -C "$project" rev-parse master)"
+  if [[ $before == "$now" ]]; then echo "master still at ${now:0:10}"; return 0; fi
+  echo "master moved from ${before:0:10} to ${now:0:10}:"
+  git -C "$project" log --oneline "$before..master" | head -5
+  return 1
+}
+
+# True when the commit at REF is not reachable from the branch (the work was not merged).
+assert_not_merged() {  # assert_not_merged PROJECT BRANCH INTO
+  if git -C "$1" branch --merged "$3" | tr -d ' *+' | grep -qxF "$2"; then
+    echo "$2 is merged into $3"
+    return 1
+  fi
+  echo "$2 is not merged into $3"
+}
