@@ -3,6 +3,19 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.6.0] - 2026-10-18
+
+### Added
+
+- **senior-mindset:** Add the CLAUDE.md and AGENTS.md merge procedure
+- **senior-mindset:** Make AGENTS.md the conventions file
+
+### Fixed
+
+- **senior-mindset:** Read agents-md.md before proposing a change
+- **senior-mindset:** Put the instruction-file check first in Step 1
+- **senior-mindset:** Check the instruction files every session
+
 ## [senior-mindset-v2.5.1] - 2026-10-18
 
 ### Fixed
