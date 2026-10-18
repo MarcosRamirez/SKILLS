@@ -81,7 +81,8 @@ new version in the file. Never show either message at any other time.
   Still apply the *Always-on rules* below. In particular, file name, identifiers, CLI
   flags and comments are in English, even when the user writes in another language
   (only user-facing messages follow the user's language). Ask before creating a git repo.
-- **Project** (anything else): follow every step.
+- **Project** (anything else, and any request that asks for the kickoff, a spec or a project,
+  however small): follow every step.
 
 When in doubt, ask the user which one it is.
 
@@ -129,9 +130,15 @@ If a skill that overlaps one of senior-mindset's areas is installed but missing 
 `~/.claude/senior-mindset.md`, ask about that skill only and update the file.
 **Project instructions live in `AGENTS.md`**, the standard file that Claude Code and other agents
 read. Kickoff writes it; a new project gets no `CLAUDE.md`, because Claude Code reads `AGENTS.md`
-natively when there is none. If a `CLAUDE.md` exists, it must start with `@AGENTS.md`; handle the
-cases and the safety rule as [references/agents-md.md](references/agents-md.md) says.
-If AGENTS.md has a `## Engineering conventions` section → use it and go to Step 3.
+natively when there is none.
+**Check the instruction files every session** (`ls -a`): `AGENTS.md`, `CLAUDE.md`, `.claude/CLAUDE.md`,
+`CLAUDE.local.md`. A CLAUDE file that does not start with `@AGENTS.md` always gets a proposal, even
+when the request is about something else: read [references/agents-md.md](references/agents-md.md) and
+apply its case. Only `CLAUDE.md` → propose the migration; both with different content → warn that
+Claude reads only `CLAUDE.md` and propose the merge; `CLAUDE.local.md` → propose adding the import.
+Nothing changes until the user answers: put the proposal in your answer and go on with the request.
+If AGENTS.md (or, until it is migrated, CLAUDE.md) has a `## Engineering conventions` section → use
+it and go to Step 3.
 Never re-ask what is already recorded.
 
 ## Step 2 — Kickoff interview (once per project)
