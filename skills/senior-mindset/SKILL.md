@@ -121,7 +121,8 @@ When in doubt, ask the user which one it is.
 
 **First, check the instruction files** (`ls -a`): `AGENTS.md`, `CLAUDE.md`, `.claude/CLAUDE.md`,
 `CLAUDE.local.md`. Each CLAUDE file that does not start with `@AGENTS.md` gets a proposal, whatever
-the request is about ([references/agents-md.md](references/agents-md.md)):
+the request is about: read [references/agents-md.md](references/agents-md.md) and show its change
+notice (a one-line remark is not a proposal):
 - only `CLAUDE.md` → propose migrating it to `AGENTS.md` (change notice);
 - `CLAUDE.md` and `AGENTS.md` with different content → warn that Claude reads only `CLAUDE.md`, and
   propose the merge (change notice: what is kept from each file, and each conflict as a question);

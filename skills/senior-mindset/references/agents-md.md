@@ -39,7 +39,8 @@ root and above, and per package in a monorepo. Check whether each CLAUDE file st
 | `CLAUDE.local.md` present | Respected; it must start with `@AGENTS.md` (see the safety rule) |
 | Monorepo with an `AGENTS.md` per package | Same rule per folder; the closest `AGENTS.md` wins |
 
-Every case that changes a file is a **proposal**: a change notice, a closed question
+Every case that changes a file is a **proposal**: a change notice (the template in the merge section
+below, without the lines that do not apply), a closed question
 ([questions.md](questions.md)) and, for tracked files, a branch. **Nothing is written until the user
 answers.** A failed or skipped question, or a headless run, is no answer: leave the files as they
 are, end with the notice and the numbered questions, and go on with the user's request.
