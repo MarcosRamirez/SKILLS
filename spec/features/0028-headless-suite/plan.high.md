@@ -20,6 +20,12 @@ Each step so far wrote one-off headless runs in the scratchpad: SPEC-0003, 0016 
 - **Isolation:** run in `acceptEdits` with `--allowedTools` limited to what each scenario needs.
   Hash user-level files before and after. T-1 tries `HOME`/`USERPROFILE` pointed at a temp folder
   with the credentials kept working, and documents the result.
+- **Skill references readable:** pass `--add-dir <skills/senior-mindset>` to every run. Without it,
+  headless runs are denied reads outside the project, so the skill's `references/` are never opened
+  (seen in SPEC-0019 T-2).
+- **User plugins:** run with `--setting-sources project,local` by default, so user-level hooks
+  (e.g. a terse-style plugin) do not change the results. One scenario may run with the user's real
+  setup, as a separate check (SPEC-0019 T-2, case b).
 - **Cost control:** the default is 1 run per scenario, and N=3 for trigger and question scenarios.
   `--only <name>` runs one scenario. The summary shows the model and the Claude Code version.
 

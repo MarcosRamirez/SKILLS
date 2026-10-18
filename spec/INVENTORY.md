@@ -17,7 +17,7 @@ Format: `name — path — purpose — usage`.
 Loaded on demand from `SKILL.md`. One topic per file:
 
 - `adr.md` — ADR template and rules
-- `agents-md.md` — AGENTS.md as the project's instructions: case table, `@AGENTS.md` safety rule, what stays in CLAUDE.md
+- `agents-md.md` — AGENTS.md as the project's instructions: case table, `@AGENTS.md` safety rule, what stays in CLAUDE.md, merge procedure, symlinks, `CLAUDE.local.md`
 - `api-design.md` — OpenAPI contract-first, REST standards
 - `architecture.md` — hexagonal, SOLID, DRY, KISS, YAGNI and when not to apply them
 - `automations.md` — catalog of automations offered at kickoff

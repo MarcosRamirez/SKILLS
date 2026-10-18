@@ -12,7 +12,7 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
    each area, and remembers your answer in `~/.claude/senior-mindset.md`. It greets you once
    when installed and once per update, never more.
 2. **Sizes the task.** A one-off script skips the ceremony but still gets English names
-   and clean code. A project follows the full flow.
+   and clean code. A project follows the full flow, and so does any request for the kickoff.
 3. **Sets up git.** Runs `git init` if needed (default branch `master`, or `main` if you
    prefer: it asks once), writes a safe `.gitignore`, opens **one branch per change**
    (never commits on `master`), commits after every significant change, and delivers
@@ -24,7 +24,9 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
    architecture, naming, logging, linter, changelog and versioning, skipping what doesn't apply.
    It stores the answers as ADRs plus an `## Engineering conventions` section in the
    project's `AGENTS.md` (the standard file Claude Code and other agents read), and never asks again. A kickoff checklist is verified and committed
-   before the first feature.
+   before the first feature. Every session it checks the instruction files: a `CLAUDE.md` or
+   `CLAUDE.local.md` without the `@AGENTS.md` import gets a proposal (migrate, merge without losing
+   anything, or add the import), and nothing changes until you answer.
 5. **Asks with clickable answers.** Every closed question (yes/no, pick one of 2–4 options,
    confirm a step) comes with buttons: the recommended option first, each with a one-line
    consequence, and a free-text field to type your own answer. Open questions stay as text.
@@ -141,7 +143,7 @@ and suggest 2–3 options.
 | `references/observability.md` | Logging and tracing libraries and rules |
 | `references/languages.md` | Choosing a language per component |
 | `references/project-layout.md` | Folder tree and AGENTS.md section |
-| `references/agents-md.md` | `AGENTS.md` as the single source of project instructions: the case table (new, only CLAUDE.md, both…), the `@AGENTS.md` safety rule and what stays in CLAUDE.md |
+| `references/agents-md.md` | `AGENTS.md` as the single source of project instructions: the case table (new, only CLAUDE.md, both…), the `@AGENTS.md` safety rule, what stays in CLAUDE.md, and how to merge both files (nothing lost, conflicts asked), symlinks and `CLAUDE.local.md` |
 | `references/inventory-template.md` | `spec/INVENTORY.md` template |
 | `references/postmortem.md` | Blameless postmortem for every bug: method, `## Postmortem` template, `spec/POSTMORTEMS.md` register, categories, pattern rule |
 
