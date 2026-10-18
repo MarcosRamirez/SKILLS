@@ -141,7 +141,7 @@ and suggest 2–3 options.
 | `references/observability.md` | Logging and tracing libraries and rules |
 | `references/languages.md` | Choosing a language per component |
 | `references/project-layout.md` | Folder tree and AGENTS.md section |
-| `references/agents-md.md` | `AGENTS.md` as the single source of project instructions: the case table (new, only CLAUDE.md, both…), the `@AGENTS.md` safety rule and what stays in CLAUDE.md |
+| `references/agents-md.md` | `AGENTS.md` as the single source of project instructions: the case table (new, only CLAUDE.md, both…), the `@AGENTS.md` safety rule, what stays in CLAUDE.md, and how to merge both files (nothing lost, conflicts asked), symlinks and `CLAUDE.local.md` |
 | `references/inventory-template.md` | `spec/INVENTORY.md` template |
 | `references/postmortem.md` | Blameless postmortem for every bug: method, `## Postmortem` template, `spec/POSTMORTEMS.md` register, categories, pattern rule |
 
