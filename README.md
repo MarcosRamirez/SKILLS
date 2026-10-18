@@ -171,6 +171,7 @@ skills/<name>/
 spec/                   — this repo's own specs: constitution/, features/, fixes/, adr/,
                           INVENTORY.md, POSTMORTEMS.md
 .github/                — workflows/ (close specs, tag releases) · scripts/
+tests/headless/         — headless suite: real `claude -p` runs with checks, before each release
 ```
 
 ## 🤝 Contributing

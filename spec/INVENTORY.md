@@ -67,6 +67,17 @@ Copied into app projects by the skill (`skills/senior-mindset/templates/release-
 - `tag-skill-releases.sh` — .github/scripts/tag-skill-releases.sh — tags `<name>-vX.Y.Z` and creates GitHub Releases; refuses a version with nothing but the version and changelog changed since the skill's last tag — `DRY_RUN=1 bash .github/scripts/tag-skill-releases.sh`
 - `check-docs.py` — .github/scripts/check-docs.py — in the living documents, reports relative links that do not resolve and links to ADRs whose `Status:` is Superseded; exit 1 with `path:line: message` — `python3 .github/scripts/check-docs.py`
 
+## Tests
+
+Headless suite (SPEC-0028): real `claude -p` runs on scratch projects with deterministic checks; costs model usage, run before releases. Guide: `tests/headless/README.md`.
+
+- `run.sh` — tests/headless/run.sh — runs the scenarios against a temp copy of `skills/senior-mindset`, prints each check with evidence and a summary (outcome, checks, cost, model, Claude Code version), fails if a user-level file changed — `bash tests/headless/run.sh [--only NAME] [--runs N] [--isolated-home]`
+- `lib.sh` — tests/headless/lib.sh — helpers sourced by the runner and scenarios: scratch folders, `claude -p` with the isolation flags, user-file hashes, `check` and reusable assertions (files, git branches, stream events)
+- `stream.py` — tests/headless/stream.py — reads the stream-json: outcome (ok, usage limit, not logged in), cost, model, skills invoked, tool calls and inputs, Bash commands, permission denials, plugins; also hashes files — `python3 tests/headless/stream.py info <stream.jsonl>`
+- `question_stub.py` — tests/headless/question_stub.py — stand-in AskUserQuestion over MCP for headless runs; fails like a client with no UI (`STUB_MODE=error`) or returns no answer
+- `approval-gate.sh` — tests/headless/scenarios/approval-gate.sh — PM-0002/PM-0006: "build me a to-do web app" with failing questions must leave no code and Draft documents on a `docs/` branch
+- `tests/headless/README.md` — how to run the suite, its cost, the isolation it uses, how to write a scenario
+
 ## Repo docs
 
 - `AGENTS.md` — repo conventions and rules (docs, versioning, git)
