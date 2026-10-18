@@ -24,7 +24,7 @@ Depends on PLAN-0008 (change notice). The user's documentation projects follow d
    - external integrations;
    - environment variables used (names only, never values).
 4. **Conventions found:** naming, folder structure, error handling, logging, from code samples
-   and linter config → CLAUDE.md, even when they differ from skill defaults.
+   and linter config → AGENTS.md, even when they differ from skill defaults.
 5. **Retroactive ADRs** (`Accepted`, context "found in code"), each with its evidence file.
 6. **Health:** tests (count, passing), CI status, outdated or vulnerable dependencies,
    **committed secrets** (alert), TODO/FIXME, obvious dead code.
@@ -85,3 +85,7 @@ Hallucinated inventory entries → verification gate. Large repos blow the conte
 ## Out of scope
 
 Fixing the health issues found.
+
+## Changelog
+
+- 2026-10-18: conventions file is AGENTS.md (SPEC-0019)
