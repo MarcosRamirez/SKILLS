@@ -3,8 +3,8 @@
 One branch per task, stacked PRs. Executed through PLAN-0019.
 
 - [x] T-1 References and SKILL.md: AGENTS.md as the conventions file, case table, safety rule (AC-1)
-- [ ] T-2 Merge behaviour and six headless tests (AC-2). Merge procedure written; 5 of 6 cases
-  pass, case b (only `CLAUDE.md`) does not, see the results below. Left open for the user to decide
+- [x] T-2 Merge behaviour and six headless tests (AC-2). 6 of 6 cases pass; case b passed once the
+  user's plugins were left out (see "Case b without the user's plugins" below)
 - [ ] T-3 Migrate this repo, update SPEC-0013 (AC-3, AC-4)
 - [ ] T-4 Release (minor) with `Closes-Spec: SPEC-0019`
 
@@ -137,3 +137,25 @@ folder `0019-t2/`.
 - Re-test b without the user's plugins (`--setting-sources project`) or interactively.
 - Make the check deterministic, for example a SessionStart hook that prints the instruction-file
   case. That needs its own decision.
+
+**Case b without the user's plugins (2026-10-18, main session).** Case b was run again from a clean
+repo, with `--setting-sources project,local` so that the user-level plugins and hooks (caveman) did
+not load. Everything else was the same as run 4. The model was `claude-opus-5-5` and the run cost
+0.38 USD. Result: **pass**.
+
+- The final answer says: "This folder has no `AGENTS.md`. The conventions are in `CLAUDE.md`, but the
+  skill expects `CLAUDE.md` to start with `@AGENTS.md`. Moving them over would be a separate change on
+  its own branch. I didn't do it, but I can."
+- `CLAUDE.md` is unchanged in the tree and on every branch.
+- `~/.claude/senior-mindset.md` has the same SHA-256 (`e2245cbe…905941`).
+
+Reading:
+- With the caveman plugin active, its "respond terse" hook made the model drop this side proposal. The
+  skill's wording works without it. A user-level style plugin can hide the skill's proposals, which is
+  worth knowing, but it is not a defect of the skill.
+- Every run, including this one, had its reads of the skill's `references/` denied, because they are
+  outside the project folder. That is why `agents-md.md` was never opened, and why the full change
+  notice with the "Kept from" lists has not been seen headless. Headless runs need
+  `--add-dir <skill folder>`. This is recorded for the headless suite (SPEC-0028).
+
+AC-2 verdict: met (a, c, d, e, f as above, and b in this run).
