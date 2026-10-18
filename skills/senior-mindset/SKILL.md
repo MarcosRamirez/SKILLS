@@ -6,7 +6,7 @@ description: >
   sensible default stack, OWASP security, computational cost awareness, hexagonal
   architecture when there is a domain, tests, logging from day zero, contract-first
   APIs, and reuse of what already exists (spec/INVENTORY.md). Interviews the user
-  once per project and stores conventions in the project's CLAUDE.md. Use whenever
+  once per project and stores conventions in the project's AGENTS.md. Use whenever
   Claude is about to write or change code of any size: an app, a feature, an API,
   a worker, a fix, or a one-off script (scripts take a fast path: no interview, but
   English names and clean code). Also for releases and versioning, and for git requests
@@ -44,7 +44,7 @@ next person (or AI) does not have to guess.
    they are drafts based on your recommended options, cheap to change, and they give the
    user something concrete to approve. Run `git init -b master` for a new project (Step 0b),
    then produce only what needs no approval, and stop:
-   - kickoff documents: Proposed ADRs with their recommended option, CLAUDE.md conventions
+   - kickoff documents: Proposed ADRs with their recommended option, AGENTS.md conventions
      marked "proposed", `spec/INVENTORY.md`, and `.gitignore` if you created the repo;
    - the feature as **Draft**, with `spec.md`, `plan.<tier>.md` and `tasks.md` (or a single small-feature file);
    - a commit on a `docs/` branch, never on the default branch;
@@ -68,7 +68,7 @@ Read `~/.claude/senior-mindset.md`. **If it does not exist, run the setup in
    > ✅ senior-mindset vX.Y.Z installed and configured.
    > Made by Marcos Ramírez — https://blog.marcosramirez.info/sobre-mi/
 
-Its decisions apply to every project, unless the project's CLAUDE.md overrides them.
+Its decisions apply to every project, unless the project's AGENTS.md overrides them.
 
 **Updated?** If the file exists but its `senior-mindset version` is older than this skill's
 `metadata.version`, say once: "🔄 senior-mindset updated to vX.Y.Z — what's new in its
@@ -89,9 +89,9 @@ When in doubt, ask the user which one it is.
 
 - No repo in a project → `git init -b <default-branch>` plus a `.gitignore` for the stack.
   It must always cover `.env*`, secrets, dependencies and build output.
-- **Default branch: `master`.** Use the branch recorded in CLAUDE.md if there is one;
+- **Default branch: `master`.** Use the branch recorded in AGENTS.md if there is one;
   otherwise ask once: "Default branch: master (Recommended) or main?" and record the answer.
-- **Precedence:** follow the decisions in the project's CLAUDE.md, then
+- **Precedence:** follow the decisions in the project's AGENTS.md, then
   `~/.claude/senior-mindset.md` (Step 0a), then [references/git.md](references/git.md)
   (emoji + Conventional Commits, English, imperative). Another git skill is followed only
   for the areas where the user chose it in the setup.
@@ -118,7 +118,8 @@ When in doubt, ask the user which one it is.
 
 ## Step 1 — Load context
 
-Read, if present: `CLAUDE.md`, `spec/constitution/` (mission, tech-stack, roadmap),
+Read, if present: `AGENTS.md`, then `CLAUDE.md` (only the
+Claude Code bridge: `@AGENTS.md` plus Claude-only content), `spec/constitution/` (mission, tech-stack, roadmap),
 `spec/INVENTORY.md`, `spec/POSTMORTEMS.md` (known failure modes: read it before writing a spec or
 reviewing a change), `spec/adr/README.md`.
 **Old layout** (`docs/specs/`, `docs/plans/`, `docs/adr/` from senior-mindset 1.x): propose the
@@ -126,7 +127,11 @@ migration to `spec/` through a change notice, on its own branch, keeping history
 ([references/project-layout.md](references/project-layout.md)). Do not mix it with other work.
 If a skill that overlaps one of senior-mindset's areas is installed but missing from
 `~/.claude/senior-mindset.md`, ask about that skill only and update the file.
-If CLAUDE.md has a `## Engineering conventions` section → use it and go to Step 3.
+**Project instructions live in `AGENTS.md`**, the standard file that Claude Code and other agents
+read. Kickoff writes it; a new project gets no `CLAUDE.md`, because Claude Code reads `AGENTS.md`
+natively when there is none. If a `CLAUDE.md` exists, it must start with `@AGENTS.md`; handle the
+cases and the safety rule as [references/agents-md.md](references/agents-md.md) says.
+If AGENTS.md has a `## Engineering conventions` section → use it and go to Step 3.
 Never re-ask what is already recorded.
 
 ## Step 2 — Kickoff interview (once per project)
@@ -153,17 +158,17 @@ Use AskUserQuestion (max 4 questions per round), marking the default as
     [references/project-layout.md](references/project-layout.md).
 
 **Items that do not apply are skipped, not forced.** A docs repo has no database, and a CLI
-has no deployment platform. Mark such items `N/A — <reason>` in CLAUDE.md instead of asking about them.
+has no deployment platform. Mark such items `N/A — <reason>` in AGENTS.md instead of asking about them.
 
 **Kickoff checklist.** Verify every item before the first feature, and do not start the spec until it is complete:
 
 - [ ] **Constitution** in `spec/constitution/` ([references/constitution.md](references/constitution.md)):
   `mission.md` asked of and **approved by the user**, `tech-stack.md` derived from the ADRs,
   `roadmap.md` with its table (empty until the first feature)
-- [ ] **Code folder** chosen in question 12 and recorded in CLAUDE.md (`Code: …`); existing projects
+- [ ] **Code folder** chosen in question 12 and recorded in AGENTS.md (`Code: …`); existing projects
   keep theirs, recorded the same way
 - [ ] One ADR per decision in `spec/adr/` (template: [references/adr.md](references/adr.md)) + index `spec/adr/README.md`
-- [ ] `## Engineering conventions` in CLAUDE.md: summary, N/A items with reasons, links to the ADRs and `spec/INVENTORY.md`,
+- [ ] `## Engineering conventions` in AGENTS.md: summary, N/A items with reasons, links to the ADRs and `spec/INVENTORY.md`,
   and the **"Git rules that always hold"** block (below)
 - [ ] `spec/INVENTORY.md` from [references/inventory-template.md](references/inventory-template.md)
 - [ ] `.gitignore`; linter and formatter configured and passing

@@ -23,7 +23,7 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
 4. **Interviews you once per project.** It asks about stack, database, deployment platform,
    architecture, naming, logging, linter, changelog and versioning, skipping what doesn't apply.
    It stores the answers as ADRs plus an `## Engineering conventions` section in the
-   project's `CLAUDE.md`, and never asks again. A kickoff checklist is verified and committed
+   project's `AGENTS.md` (the standard file Claude Code and other agents read), and never asks again. A kickoff checklist is verified and committed
    before the first feature.
 5. **Asks with clickable answers.** Every closed question (yes/no, pick one of 2–4 options,
    confirm a step) comes with buttons: the recommended option first, each with a one-line
@@ -140,7 +140,8 @@ and suggest 2–3 options.
 | `references/api-design.md` | OpenAPI contract-first, REST standards |
 | `references/observability.md` | Logging and tracing libraries and rules |
 | `references/languages.md` | Choosing a language per component |
-| `references/project-layout.md` | Folder tree and CLAUDE.md section |
+| `references/project-layout.md` | Folder tree and AGENTS.md section |
+| `references/agents-md.md` | `AGENTS.md` as the single source of project instructions: the case table (new, only CLAUDE.md, both…), the `@AGENTS.md` safety rule and what stays in CLAUDE.md |
 | `references/inventory-template.md` | `spec/INVENTORY.md` template |
 | `references/postmortem.md` | Blameless postmortem for every bug: method, `## Postmortem` template, `spec/POSTMORTEMS.md` register, categories, pattern rule |
 
@@ -160,6 +161,6 @@ spec/
   POSTMORTEMS.md              one row per fixed bug, created at the first bug
 src/ · app/ · apps/<name>/    the code, separate from spec/: you choose where at kickoff
                               (or type any other folder)
-CLAUDE.md                     ## Engineering conventions
+AGENTS.md                     ## Engineering conventions (no CLAUDE.md in new projects)
 CHANGELOG.md + cliff.toml     generated from commits, newest first
 ```

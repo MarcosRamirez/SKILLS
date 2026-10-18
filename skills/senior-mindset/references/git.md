@@ -1,13 +1,13 @@
 # Git (fallback convention)
 
-**Precedence:** the project's CLAUDE.md, then the decisions in `~/.claude/senior-mindset.md`
+**Precedence:** the project's AGENTS.md, then the decisions in `~/.claude/senior-mindset.md`
 (first-use setup, see [setup.md](setup.md)), then this file. Another git skill is followed
 only for the areas the user assigned to it in the setup.
 
 ## Init
 
 - Project without a repo → `git init -b master`. Default is `master`; ask once whether the
-  user prefers `main` and record the choice in CLAUDE.md (`Default branch: ...`).
+  user prefers `main` and record the choice in AGENTS.md (`Default branch: ...`).
 - Script → ask before creating a repo.
 - `.gitignore` for the stack (start from github/gitignore templates), always including:
 
@@ -113,7 +113,7 @@ If the repo has no remote, there is nowhere to open a PR. Offer to create one:
 - any other host: ask for the URL and run `git remote add origin <url>`
 
 If the user declines, integrate locally with `git merge --no-ff <branch>` and delete the
-branch, and record `Integration: local merge, no remote` in CLAUDE.md so you do not ask again.
+branch, and record `Integration: local merge, no remote` in AGENTS.md so you do not ask again.
 
 ## Commits
 
