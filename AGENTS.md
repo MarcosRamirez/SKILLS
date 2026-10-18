@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 Plug-and-play skills for AI coding agents, following the Agent Skills standard (standard first,
 [ADR-0005](spec/adr/0005-standard-locations-first.md)). Built and tested on Claude Code; other agents
