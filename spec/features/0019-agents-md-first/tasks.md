@@ -6,7 +6,7 @@ One branch per task, stacked PRs. Executed through PLAN-0019.
 - [x] T-2 Merge behaviour and six headless tests (AC-2). 6 of 6 cases pass; case b passed once the
   user's plugins were left out (see "Case b without the user's plugins" below)
 - [x] T-3 Migrate this repo, update SPEC-0013 (AC-3, AC-4). The interactive `/memory` check is left for the user (see Results (T-3))
-- [ ] T-4 Release (minor) with `Closes-Spec: SPEC-0019`
+- [x] T-4 Release (minor) with `Closes-Spec: SPEC-0019`
 
 ## Test results (T-2, 2026-10-18)
 

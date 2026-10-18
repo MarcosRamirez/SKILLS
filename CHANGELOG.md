@@ -5,17 +5,44 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ## [Unreleased]
 
+### Added
+
+- **senior-mindset:** Add the CLAUDE.md and AGENTS.md merge procedure (2026-10-18)
+- **senior-mindset:** Make AGENTS.md the conventions file (2026-10-18)
+
 ### Fixed
 
-- **senior-mindset:** Load for git-only requests, keep git rules (2026-10-14)
+- **senior-mindset:** Read agents-md.md before proposing a change (2026-10-18)
+- **senior-mindset:** Put the instruction-file check first in Step 1 (2026-10-18)
+- **senior-mindset:** Check the instruction files every session (2026-10-18)
+
+### Changed
+
+- **repo:** Rename CLAUDE.md to AGENTS.md (2026-10-18)
 
 ### Documentation
 
-- **senior-mindset:** Tick task T-4 of fix 0027 (2026-10-18)
-- **repo:** Write the postmortem of fix 0027 (2026-10-18)
-- **senior-mindset:** Record the reproduction of fix 0027 (2026-10-14)
-- **senior-mindset:** Add specs 0027-0030 against the bug patterns (2026-10-14)
-- **repo:** Mark SPEC-0025 implemented (#65) (2026-10-14)
+- **senior-mindset:** Tick task T-4 of spec 0019 (2026-10-18)
+- **repo:** Tick SPEC-0019 T-3 with migration results (2026-10-18)
+- **repo:** Point conventions references to AGENTS.md (2026-10-18)
+- **repo:** Add CLAUDE.md import of AGENTS.md (2026-10-18)
+- **repo:** Sweep Draft specs and tick T-1 of SPEC-0019 (2026-10-18)
+- **repo:** Approve SPEC-0019 and start its plan (2026-10-18)
+- **repo:** Mark SPEC-0027 implemented (#70) (2026-10-18)
+
+## [senior-mindset-v2.5.1] - 2026-10-18
+
+### Fixed
+
+- **senior-mindset:** Load for git-only requests, keep git rules
+
+### Documentation
+
+- **senior-mindset:** Tick task T-4 of fix 0027
+- **repo:** Write the postmortem of fix 0027
+- **senior-mindset:** Record the reproduction of fix 0027
+- **senior-mindset:** Add specs 0027-0030 against the bug patterns
+- **repo:** Mark SPEC-0025 implemented (#65)
 
 ## [senior-mindset-v2.5.0] - 2026-10-14
 
