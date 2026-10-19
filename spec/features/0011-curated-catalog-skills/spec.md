@@ -1,8 +1,9 @@
 # SPEC-0011: curated catalog of skills and MCPs, and skill management
 
-Status: Draft
+Type: feature
+Status: Approved
 Date: 2026-10-13
-Approved by: (empty until the user explicitly approves)
+Approved by: the user, 2026-10-19, chose "0011 ahora, contigo" in the next-step question
 
 ## Problem
 
