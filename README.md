@@ -168,13 +168,14 @@ and loads the full instructions only when your request matches. Heavy details li
 skills/<name>/
   SKILL.md              — what the agent loads (the behavior)
   README.md             — for humans: setup and usage
-  .claude-plugin/       — Claude Code plugin manifest
   references/           — detail docs, loaded on demand
   scripts/ · hooks/     — hook scripts and their auto-registration
 spec/                   — this repo's own specs: constitution/, features/, fixes/, adr/,
                           INVENTORY.md, POSTMORTEMS.md
 .github/                — workflows/ (close specs, tag releases) · scripts/
 tests/headless/         — headless suite: real `claude -p` runs with checks, before each release
+.agents/skills/ · .claude/skills/ · skills-lock.json
+                        — the published senior-mindset this repo uses (installed copies, not the source)
 ```
 
 ## 🤝 Contributing

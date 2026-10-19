@@ -1,0 +1,91 @@
+# Release automation: specs close on merge, releases tag themselves
+
+Two manual steps used to follow every merge: tagging the release, and opening a PR only to
+mark the spec Implemented. A spec cannot be marked Implemented *inside* its PR, because that
+claims what has not happened yet. This workflow does both at merge time.
+
+## When it is installed
+
+At kickoff, the automations question ([automations.md](automations.md)) offers it as
+recommended when the project has a GitHub remote. If the user picks it, copy the templates,
+list them in `spec/INVENTORY.md`, and install them through the kickoff PR. If not, use the
+manual fallback at the end.
+
+## How it works
+
+On every push to the default branch (that is, every merged PR):
+
+1. Find the merged PR for the pushed commit.
+2. **Close specs:** every `Closes-Spec: SPEC-NNNN` line in the PR body turns that spec, a feature in
+   `spec/features/` or a fix in `spec/fixes/`, from `Approved` into `Status: Implemented` +
+   `Implemented: <date>, PR #<n>`. Its plan (`plan*.md` in the spec's folder) becomes `Status: Done`
+   and its row in `spec/constitution/roadmap.md` becomes Implemented, all committed by
+   `github-actions[bot]`. This is the **only** commit allowed on the default branch outside a PR.
+3. **Tag the release:** if the manifest version has no `v<version>` tag yet, tag the merge
+   commit and create a GitHub Release with that version's changelog section
+   (`--prerelease` for alpha, beta and rc).
+
+The AI's part: the last PR of a spec carries `Closes-Spec: SPEC-NNNN`, and checks that only
+make sense after the merge go in the PR body under "Post-merge checks".
+
+## Templates (shipped with this skill)
+
+Copy them from the skill's own folder, `templates/release-automation/` next to this
+`references/` folder, into the project:
+
+| Template | Copy to | What it does |
+|---|---|---|
+| `on-merge.yml` | `.github/workflows/on-merge.yml` | Runs on push to the default branch: finds the merged PR, tags the release, closes specs |
+| `close-specs.sh` | `.github/scripts/close-specs.sh` | Marks the specs (features and fixes) named in `Closes-Spec:` as Implemented |
+| `tag-release.sh` | `.github/scripts/tag-release.sh` | Reads the version from `package.json` / `pyproject.toml` / `Cargo.toml`, tags `v<version>` once, creates the GitHub Release |
+
+After copying:
+- set the default branch in `on-merge.yml` (`branches: [master]`);
+- adapt the bot's commit message to the project's git convention;
+- if the specs are not in `spec/features/` and `spec/fixes/`, set `SPEC_DIRS` in the `env:` of the
+  step that closes specs;
+- add the files to `spec/INVENTORY.md`;
+- record the decision as an ADR.
+
+What `close-specs.sh` guarantees:
+- reads the PR body only from `PR_BODY`;
+- accepts only ids matching `^SPEC-[0-9]{4}$`;
+- looks for the spec in `spec/features/` and `spec/fixes/`, as a folder (`NNNN-*/spec.md`) or a
+  single file (`NNNN-*.md`), and requires exactly one match across both: a number used in two
+  places fails and changes nothing;
+- fails if the spec is missing or not `Approved`;
+- skips specs that are already `Implemented`;
+- prints the files it changed.
+
+Where it looks is set by two optional environment variables:
+- `SPEC_DIRS`: the spec folders, space-separated. Default: `spec/features spec/fixes`. A folder that
+  does not exist is skipped, so a project with no `spec/fixes/` yet needs no change.
+- `FEATURES_DIR`: the old name, kept so that existing workflows keep working. When set, it is the
+  only folder looked in and `SPEC_DIRS` is ignored.
+
+Test both scripts locally before the first merge:
+
+```bash
+PR_NUMBER=1 PR_BODY='Closes-Spec: SPEC-0001' bash .github/scripts/close-specs.sh
+DRY_RUN=1 bash .github/scripts/tag-release.sh
+```
+
+For monorepos (several packages, tags `<name>-v<version>`), loop over the manifests as
+senior-mindset's own repository does in its `.github/scripts/tag-skill-releases.sh`.
+
+## Security and safety
+
+- The PR body is **untrusted** (anyone can open a PR). It travels only in an env var. Never
+  write `${{ github.event.pull_request.body }}` inside a `run:` block: that is script injection.
+- Minimal permissions: `contents: write`, `pull-requests: read`.
+- Trigger on `push`, not `pull_request: closed`: fork PRs get a read-only token on `pull_request` events.
+- Pushes made with `GITHUB_TOKEN` do not trigger workflows, so the bot commit cannot loop.
+- `concurrency` serializes runs, so two quick merges do not race on the status commit.
+- **Branch protection:** if the default branch requires PRs, allow `github-actions[bot]` to
+  bypass for this workflow, or use a GitHub App token with bypass rights. Otherwise the status
+  commit is rejected; the tag step still works.
+
+## Manual fallback (no GitHub, or no Actions)
+
+- After the merge, tag by hand: `git tag -a vX.Y.Z <merge-sha> -m "vX.Y.Z" && git push origin vX.Y.Z`.
+- Mark the spec Implemented in the **next** PR (or the user marks it), never inside its own PR.

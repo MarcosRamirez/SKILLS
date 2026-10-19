@@ -1,1 +1,3 @@
-.claude/
+# Claude Code local files stay out of git; the skill bridge in .claude/skills/ is committed (SPEC-0021).
+.claude/*
+!.claude/skills/

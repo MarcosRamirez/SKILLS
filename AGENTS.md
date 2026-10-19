@@ -29,6 +29,26 @@ Managed with the senior-mindset skill. Details and reasons live in the ADRs.
 - Confirm with a closed question (options to pick), never by assuming.
   Before writing a spec, reviewing a change or preparing a release, read [spec/POSTMORTEMS.md](spec/POSTMORTEMS.md).
 
+## The skill in this repository
+
+senior-mindset lives here in three places:
+
+- `skills/senior-mindset/` is the **source**. Every change goes here, and only here.
+- `.agents/skills/senior-mindset/` and `.claude/skills/senior-mindset/` (plus `skills-lock.json`)
+  are the **published release this repository uses**, installed with
+  `npx skills add MarcosRamirez/SKILLS#senior-mindset-vX.Y.Z --skill senior-mindset -a claude-code codex --copy`.
+  Never edit them by hand. After a release, "update senior-mindset" moves them to the new tag by PR.
+- The globally installed plugin is disabled for this project in `.claude/settings.local.json`
+  (`"senior-mindset@marcosramirez-skills": false`, not committed), so Claude Code loads one copy.
+
+Searches skip the installed copies: `.ignore` excludes them from ripgrep (the agent's Grep and
+Glob). With git, exclude them by hand: `git grep -n <term> -- ':!.agents' ':!.claude'`.
+
+To try the working copy, run Claude Code from a scratch folder outside this repository with
+`claude --plugin-dir <path-to-this-repo>/skills/senior-mindset`. That plugin replaces the installed
+one of the same name, so only the working copy loads. For checks with assertions, use the headless
+suite (`bash tests/headless/run.sh`, which loads the working copy the same way).
+
 ## Git
 
 Git rules follow senior-mindset (decided in `~/.claude/senior-mindset.md`); commit format
@@ -138,6 +158,10 @@ skills/<name>/
   SKILL.md                        what the agent loads (name, version in metadata.version)
   README.md                       for humans
   references/ scripts/ hooks/     optional
+.agents/skills/senior-mindset/   the published release this repo uses (installed copy, never edited)
+.claude/skills/senior-mindset/   the same release, the bridge Claude Code reads
+skills-lock.json                 what npx skills installed, with the release tag (ref)
+.ignore                          ripgrep skips the installed copies
 spec/constitution/  mission.md · tech-stack.md · roadmap.md
 spec/features/     NNNN-slug/{spec.md, plan.<tier>.md, tasks.md} or NNNN-slug.md
 spec/fixes/        NNNN-slug.md (bug specs: current / expected / unchanged behaviour, postmortem)
