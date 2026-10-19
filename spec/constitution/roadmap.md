@@ -28,7 +28,7 @@ table format.
 | SPEC-0030 | Update the docs when what a file does changes | low | Implemented | SPEC-0025 |
 | SPEC-0008 | Work safely on existing projects | high | Implemented | SPEC-0019 |
 | SPEC-0014 | Documented commands, help and status | medium | Implemented | SPEC-0022 |
-| SPEC-0021 | Install in the project, standard locations first | high | Draft | SPEC-0008, SPEC-0014, SPEC-0023 |
+| SPEC-0021 | Install in the project, standard locations first | high | Approved | SPEC-0008, SPEC-0014, SPEC-0023 |
 | SPEC-0009 | Analyse existing projects and normalise them | high | Draft | SPEC-0021 |
 | SPEC-0011 | Curated catalog of skills and MCPs, skill management | high | Draft | SPEC-0021 |
 | SPEC-0012 | MCP management from the curated catalog | medium | Draft | SPEC-0011 |

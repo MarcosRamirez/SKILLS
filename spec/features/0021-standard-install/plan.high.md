@@ -1,7 +1,7 @@
 # PLAN-0021: install in the project, standard locations first
 
 Spec: [SPEC-0021](spec.md)
-Status: Draft
+Status: In progress
 Recommended overall: high — Claude Opus 5.5 (release automation, install behaviour across agents, migration of an existing global install)
 
 ## Context

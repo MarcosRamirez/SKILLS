@@ -12,11 +12,11 @@ Managed with the senior-mindset skill. Details and reasons live in the ADRs.
 - **Project type:** documentation-first repo: Markdown skills, JSON manifests, one Python hook.
   Not applicable here: database, deployment platform, API, logging, load tests (no runtime).
 - **Distribution:** `npx skills` into the project's `.agents/skills/` plus the `.claude/skills/` bridge for Claude Code; the Claude Code plugin marketplace in `.claude-plugin/marketplace.json` (one plugin per skill) is an optional channel. See [ADR-0005](spec/adr/0005-standard-locations-first.md).
-- **Versioning:** SemVer 2.0 per skill, kept in its `SKILL.md` ([ADR-0006](spec/adr/0006-version-in-skill-md.md)). Until SPEC-0021 T-1 moves it, the source of truth is still `plugin.json` (rules below).
+- **Versioning:** SemVer 2.0 per skill, kept in its `SKILL.md` ([ADR-0006](spec/adr/0006-version-in-skill-md.md)); the marketplace entry repeats it (rules below).
 - **Changelog:** `CHANGELOG.md` generated with git-cliff from the commit history. See [ADR-0002](spec/adr/0002-generate-changelog-with-git-cliff.md).
-- **Checks (instead of a linter):** `claude plugin validate .` and `claude plugin validate ./skills/<name> --strict`, plus
-  `python3 .github/scripts/check-docs.py` (relative links resolve, no link to a superseded ADR in the living documents).
-  The docs check runs on every pull request through `.github/workflows/checks.yml`. Before every
+- **Checks (instead of a linter):** `claude plugin validate .`, `python3 .github/scripts/check-docs.py` (relative links resolve,
+  no link to a superseded ADR in the living documents) and `python3 .github/scripts/check-versions.py`
+  (each marketplace entry carries its skill's name and version). Both scripts run on every pull request through `.github/workflows/checks.yml`. Before every
   release, the headless suite (`bash tests/headless/run.sh`) checks the skill's behaviour.
 - **Scripts have tests:** when a script under `.github/scripts/` or `skills/*/templates/` changes,
   its suite in `tests/ci/` changes in the same pull request.
@@ -74,8 +74,8 @@ does or how it is installed, update in the same commit:
 - Root `README.md`: skills table, the skill's section, the skills-count badge, the repo
   structure and the install instructions if they change.
 - The skill's `README.md`: what it does and its `references/` table.
-- `.claude-plugin/marketplace.json` and the skill's `plugin.json`: description if it changes,
-  version per the rules below.
+- `.claude-plugin/marketplace.json` (the skill's entry) and the skill's `SKILL.md`: description if
+  it changes, version per the rules below.
 - `spec/INVENTORY.md` when files are added, moved or removed, or when what a file does changes
   (its line and every mention that describes it).
 - `spec/constitution/roadmap.md` when a feature is added (the bot sets Implemented on merge).
@@ -94,8 +94,9 @@ Before committing, check that every relative link in the READMEs resolves.
 **Every change inside `skills/<name>/` bumps that skill's version.** Without a bump,
 users who installed it with `/plugin` never receive the update.
 
-- Source of truth: `version` in `skills/<name>/.claude-plugin/plugin.json`. Keep
-  `metadata.version` in the skill's `SKILL.md` frontmatter identical. No version in `marketplace.json`.
+- Source of truth: `metadata.version` in the skill's `SKILL.md` frontmatter. Keep `version` in its
+  `.claude-plugin/marketplace.json` entry identical (`check-versions.py` fails otherwise): it is the
+  one `claude plugin update` compares. Skill folders hold no `.claude-plugin/` (ADR-0006).
 - **PATCH** (`1.1.0 → 1.1.1`): typos, wording, clarifications, examples that do not change behavior.
 - **MINOR** (`1.1.0 → 1.2.0`): new rule, step, reference or feature that does not break what was there.
 - **MAJOR** (`1.x → 2.0.0`): a skill or command is removed or renamed, installation or required
@@ -134,9 +135,8 @@ users who installed it with `/plugin` never receive the update.
 ```text
 .claude-plugin/marketplace.json   marketplace manifest
 skills/<name>/
-  SKILL.md                        what Claude loads
+  SKILL.md                        what the agent loads (name, version in metadata.version)
   README.md                       for humans
-  .claude-plugin/plugin.json      plugin manifest (version lives here)
   references/ scripts/ hooks/     optional
 spec/constitution/  mission.md · tech-stack.md · roadmap.md
 spec/features/     NNNN-slug/{spec.md, plan.<tier>.md, tasks.md} or NNNN-slug.md
@@ -148,6 +148,7 @@ CHANGELOG.md  cliff.toml
 .github/scripts/tag-skill-releases.sh   tags new skill versions, refuses version-only bumps (repo-only, DRY_RUN=1 to test)
 .github/workflows/checks.yml        on every pull request: check-docs.py (job docs) and tests/ci/run.sh (job scripts)
 .github/scripts/check-docs.py       living documents: broken relative links, links to superseded ADRs
+.github/scripts/check-versions.py   marketplace entries match each SKILL.md name and metadata.version
 tests/ci/                          tests of the release scripts and the docs check (run.sh; the scripts job in CI)
 tests/headless/                    headless suite: run.sh, scenarios/ (run before every release)
 skills/senior-mindset/templates/  files the skill copies into apps; this repo reuses close-specs.sh

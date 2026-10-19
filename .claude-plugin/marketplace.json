@@ -9,12 +9,28 @@
     {
       "name": "save-image",
       "source": "./skills/save-image",
-      "description": "Paste an image in Claude Code and it lands on disk automatically — no filenames, no export dialogs"
+      "description": "Paste an image in Claude Code and it lands on disk automatically — no filenames, no export dialogs",
+      "version": "1.0.1",
+      "author": {
+        "name": "Marcos Ramírez",
+        "url": "https://marcosramirez.info"
+      },
+      "homepage": "https://github.com/MarcosRamirez/SKILLS/tree/master/skills/save-image",
+      "repository": "https://github.com/MarcosRamirez/SKILLS",
+      "license": "MIT"
     },
     {
       "name": "senior-mindset",
       "source": "./skills/senior-mindset",
-      "description": "Claude builds software like a pragmatic senior engineer: spec first, ADRs, reuse, readable, secure, tested code"
+      "description": "Claude builds software like a pragmatic senior engineer: spec first, ADRs, reuse, readable, secure, tested code",
+      "version": "2.8.0",
+      "author": {
+        "name": "Marcos Ramírez",
+        "url": "https://marcosramirez.info"
+      },
+      "homepage": "https://github.com/MarcosRamirez/SKILLS/tree/master/skills/senior-mindset",
+      "repository": "https://github.com/MarcosRamirez/SKILLS",
+      "license": "MIT"
     }
   ]
 }

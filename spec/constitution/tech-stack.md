@@ -12,6 +12,6 @@ Derived from the ADRs — do not edit by hand; change the ADR and regenerate.
 ## Conventions
 
 - Content: Markdown skills, JSON manifests, shell and Python scripts for hooks and automation.
-- Checks instead of a linter: `claude plugin validate` (marketplace and `--strict` per skill), relative links resolve.
+- Checks instead of a linter: `claude plugin validate .` (marketplace), `check-docs.py` (relative links resolve) and `check-versions.py` (marketplace versions match each SKILL.md).
 - Automation: `.github/workflows/on-merge.yml` closes features and tags releases on merge.
 - Git, language, documentation and versioning rules: [AGENTS.md](../../AGENTS.md).

@@ -5,7 +5,7 @@ Format: `name — path — purpose — usage`.
 
 ## Marketplace
 
-- `marcosramirez-skills` — .claude-plugin/marketplace.json — lists every skill as a plugin — `/plugin marketplace add MarcosRamirez/SKILLS`
+- `marcosramirez-skills` — .claude-plugin/marketplace.json — lists every skill as a plugin; each entry repeats the version of its SKILL.md — `/plugin marketplace add MarcosRamirez/SKILLS`
 
 ## Skills (plugins)
 
@@ -64,10 +64,11 @@ Copied into app projects by the skill (`skills/senior-mindset/templates/release-
 ## Automation
 
 - `on-merge.yml` — .github/workflows/on-merge.yml — after each merge to master: closes specs named in `Closes-Spec:`, tags new skill versions — runs automatically
-- `checks.yml` — .github/workflows/checks.yml — on every pull request (and manually): job `docs` runs `check-docs.py`, job `scripts` runs `tests/ci/run.sh` in a runner-like git configuration
+- `checks.yml` — .github/workflows/checks.yml — on every pull request (and manually): job `docs` runs `check-docs.py` and `check-versions.py`, job `scripts` runs `tests/ci/run.sh` in a runner-like git configuration
 - `close-specs.sh` — skills/senior-mindset/templates/release-automation/close-specs.sh — marks specs Implemented from a PR body; shipped with the skill for apps and reused by this repo's workflow (single copy)
-- `tag-skill-releases.sh` — .github/scripts/tag-skill-releases.sh — tags `<name>-vX.Y.Z` and creates GitHub Releases; refuses a version with nothing but the version and changelog changed since the skill's last tag — `DRY_RUN=1 bash .github/scripts/tag-skill-releases.sh`
+- `tag-skill-releases.sh` — .github/scripts/tag-skill-releases.sh — reads each `skills/*/SKILL.md` frontmatter (`name`, `metadata.version`), tags `<name>-vX.Y.Z` and creates GitHub Releases; refuses a version with nothing but the version and changelog changed since the skill's last tag — `DRY_RUN=1 bash .github/scripts/tag-skill-releases.sh`
 - `check-docs.py` — .github/scripts/check-docs.py — in the living documents, reports relative links that do not resolve and links to ADRs whose `Status:` is Superseded; exit 1 with `path:line: message` — `python3 .github/scripts/check-docs.py`
+- `check-versions.py` — .github/scripts/check-versions.py — each local marketplace entry carries the `name` and `metadata.version` of its skill's SKILL.md (SemVer), and every skill folder has an entry (ADR-0006) — `python3 .github/scripts/check-versions.py`
 
 ## Tests
 
@@ -100,6 +101,7 @@ Committed tests for the release scripts and the docs check (SPEC-0029): bash, gi
 - `test-close-specs.sh` — tests/ci/test-close-specs.sh — `close-specs.sh` (features, fixes, collisions, `SPEC_DIRS`, guards) and the on-merge id extraction with its `pipefail` fallback
 - `test-tag-skill-releases.sh` — tests/ci/test-tag-skill-releases.sh — `tag-skill-releases.sh` on a scratch repository: the version-only refusal (SPEC-0023), tag selection, real tagging against a scratch remote
 - `test-check-docs.sh` — tests/ci/test-check-docs.sh — `check-docs.py` (repo copy and template): broken links, superseded ADRs, code fences, the `adr/` folder rule, `DOCS_CHECK_FILES`
+- `test-check-versions.sh` — tests/ci/test-check-versions.sh — `check-versions.py` on scratch repos: version and name mismatches, non-SemVer, missing version, CRLF, skills without an entry, external entries
 - `fakebin/gh` — tests/ci/fakebin/gh — fake `gh` that records its calls in `$GH_CALLS_LOG`; on `PATH` only inside the tag suite
 - `tests/ci/README.md` — what each suite covers and how to run them
 

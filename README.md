@@ -180,8 +180,9 @@ tests/headless/         — headless suite: real `claude -p` runs with checks, b
 Got a skill that makes Claude better at something? Open a PR.
 
 - One folder per skill under `skills/<name>/` with a `SKILL.md` and a `README.md`
-- Add a `.claude-plugin/plugin.json` and an entry in `.claude-plugin/marketplace.json`
-- Run `claude plugin validate .` and `claude plugin validate ./skills/<name> --strict`
+- Put the version in `metadata.version` of the `SKILL.md` frontmatter and add an entry with the same
+  version in `.claude-plugin/marketplace.json` (no `.claude-plugin/` inside the skill folder)
+- Run `claude plugin validate .` and `python3 .github/scripts/check-versions.py`
 - MIT license
 
 ## 👋 Author
