@@ -16,6 +16,7 @@ Commands:
   denials STREAM            "tool<TAB>JSON input" per permission denial in the result event
   plugins STREAM            "name<TAB>version<TAB>path" per plugin in the init event
   hash FILE...              "sha256<TAB>path" per file, or "absent<TAB>path" when it does not exist
+  hash-tree DIR             "sha256<TAB>relative/path" per file under DIR, sorted, skipping .git/
 
 Standard library only. Lines that are not JSON are ignored.
 """
@@ -150,6 +151,17 @@ def command_hash(paths):
             print(f"absent\t{raw}")
 
 
+def command_hash_tree(root):
+    """Every file under ROOT except the .git folder, so a scenario can prove nothing changed on disk."""
+    base = Path(root)
+    files = sorted(
+        path for path in base.rglob("*")
+        if path.is_file() and ".git" not in path.relative_to(base).parts
+    )
+    for path in files:
+        print(f"{hashlib.sha256(path.read_bytes()).hexdigest()}\t{path.relative_to(base).as_posix()}")
+
+
 COMMANDS = {
     "info": command_info,
     "result": command_result,
@@ -165,6 +177,9 @@ def main(argv):
     sys.stdout.reconfigure(encoding="utf-8", newline="\n")
     if len(argv) >= 2 and argv[0] == "hash":
         command_hash(argv[1:])
+        return 0
+    if len(argv) == 2 and argv[0] == "hash-tree":
+        command_hash_tree(argv[1])
         return 0
     if len(argv) == 3 and argv[0] == "tool-inputs":
         command_tool_inputs(argv[1], argv[2])
