@@ -45,6 +45,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `project-layout.md` — project tree and AGENTS.md section
 - `questions.md` — closed questions with clickable options (question tool): format, examples, numbered fallback
 - `existing-projects.md` — working on existing projects (hard rule 4): change notice template, edge-case table, examples
+- `catalog.md` — the curated catalog: inclusion criteria, entry fields, when and how an entry is proposed (at most three, consent), project-first install of skills and MCPs, update and removal
 - `onboarding.md` — onboarding an existing project without conventions: state detection, six-stage code analysis, inventory verification gate, secrets by location only, docs mapping, `spec/ASSESSMENT.md` template, adoption spec flow, no-deletion check
 - `sdd.md` — spec / design / tasks templates
 - `release-automation.md` — specs close on merge, releases tag themselves; uses the templates below
@@ -55,6 +56,14 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `system-design.md` — monolith vs microservices, event-driven
 - `testing.md` — test pyramid, TDD, k6
 - `versioning.md` — app versioning from `0.0.1-alpha.1`, stages, git-cliff bump, release process
+
+## senior-mindset catalog (SPEC-0011)
+
+Shipped with the skill; rules in `references/catalog.md`, validated by `check-catalog.py`:
+
+- `skills.json` — skills/senior-mindset/catalog/skills.json — curated agent skills the skill may propose (approved entries and rejected candidates)
+- `mcps.json` — skills/senior-mindset/catalog/mcps.json — curated MCP servers the skill may propose; starts with Context7
+- `catalog.schema.json` — skills/senior-mindset/catalog/catalog.schema.json — JSON Schema of both lists (editors and `check-catalog.py`)
 
 ## senior-mindset templates
 
@@ -77,6 +86,7 @@ Copied into app projects by the skill (`skills/senior-mindset/templates/release-
 - `close-specs.sh` — skills/senior-mindset/templates/release-automation/close-specs.sh — marks specs Implemented from a PR body; shipped with the skill for apps and reused by this repo's workflow (single copy)
 - `tag-skill-releases.sh` — .github/scripts/tag-skill-releases.sh — reads each `skills/*/SKILL.md` frontmatter (`name`, `metadata.version`), tags `<name>-vX.Y.Z` and creates GitHub Releases; refuses a version with nothing but the version and changelog changed since the skill's last tag — `DRY_RUN=1 bash .github/scripts/tag-skill-releases.sh`
 - `check-docs.py` — .github/scripts/check-docs.py — in the living documents, reports relative links that do not resolve and links to ADRs whose `Status:` is Superseded; exit 1 with `path:line: message` — `python3 .github/scripts/check-docs.py`
+- `check-catalog.py` — .github/scripts/check-catalog.py — validates `skills/senior-mindset/catalog/{skills,mcps}.json` against `catalog.schema.json` (stdlib subset of JSON Schema) plus kind, unique ids, pinned refs and versions, no scope flags in install commands, `npx skills add` for skills, no secret-looking strings — `python3 .github/scripts/check-catalog.py [dir]`
 - `check-versions.py` — .github/scripts/check-versions.py — each local marketplace entry carries the `name` and `metadata.version` of its skill's SKILL.md (SemVer), and every skill folder has an entry (ADR-0006) — `python3 .github/scripts/check-versions.py`
 
 ## Tests
@@ -115,6 +125,7 @@ Committed tests for the release scripts and the docs check (SPEC-0029): bash, gi
 - `test-close-specs.sh` — tests/ci/test-close-specs.sh — `close-specs.sh` (features, fixes, collisions, `SPEC_DIRS`, guards) and the on-merge id extraction with its `pipefail` fallback
 - `test-tag-skill-releases.sh` — tests/ci/test-tag-skill-releases.sh — `tag-skill-releases.sh` on a scratch repository: the version-only refusal (SPEC-0023), tag selection, real tagging against a scratch remote
 - `test-check-docs.sh` — tests/ci/test-check-docs.sh — `check-docs.py` (repo copy and template): broken links, superseded ADRs, code fences, the `adr/` folder rule, `DOCS_CHECK_FILES`
+- `test-check-catalog.sh` — tests/ci/test-check-catalog.sh — `check-catalog.py` on scratch catalogs: one case per rule (missing field, types, unknown key, id, date, duplicates, rejected vs entry, unpinned ref and version, scope flags, non-npx skill, secrets, kind, invalid JSON) and this checkout
 - `test-check-versions.sh` — tests/ci/test-check-versions.sh — `check-versions.py` on scratch repos: version and name mismatches, non-SemVer, missing version, CRLF, skills without an entry, external entries
 - `fakebin/gh` — tests/ci/fakebin/gh — fake `gh` that records its calls in `$GH_CALLS_LOG`; on `PATH` only inside the tag suite
 - `tests/ci/README.md` — what each suite covers and how to run them

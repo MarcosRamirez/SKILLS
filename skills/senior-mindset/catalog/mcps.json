@@ -1,0 +1,31 @@
+{
+  "$schema": "./catalog.schema.json",
+  "kind": "mcps",
+  "entries": [
+    {
+      "id": "context7",
+      "name": "Context7",
+      "purpose": "Up-to-date, version-specific documentation and code examples for libraries and frameworks, fetched on demand",
+      "recommended": true,
+      "proposeWhen": {
+        "tasks": ["use a library", "framework API", "integrate an SDK", "upgrade a dependency", "fix an API error"],
+        "stack": ["any"]
+      },
+      "source": {
+        "repo": "https://github.com/upstash/context7",
+        "ref": "npm @upstash/context7-mcp 4.4.4",
+        "license": "MIT"
+      },
+      "install": {
+        "claude-code": "claude mcp add --transport http context7 https://mcp.context7.com/mcp",
+        "claude-code-local": "claude mcp add context7 -- npx -y @upstash/context7-mcp@4.4.4"
+      },
+      "auth": "Optional free API key for higher rate limits, sent as the header \"Authorization: Bearer <key>\" (local: --api-key). Never write the key in a committed file: use an environment variable.",
+      "permissions": "Network: sends library names and documentation queries to context7.com. No file or shell access.",
+      "version": "4.4.4",
+      "why": "The user's own pick (SPEC-0011 AC-1c, SPEC-0012 R-6). The skill checks official docs first; Context7 serves them for the exact library version, which cuts answers based on outdated APIs.",
+      "added": "2026-10-19"
+    }
+  ],
+  "rejected": []
+}

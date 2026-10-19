@@ -7,7 +7,7 @@
 set -uo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-suites=(test-close-specs.sh test-tag-skill-releases.sh test-check-docs.sh test-check-versions.sh)
+suites=(test-close-specs.sh test-tag-skill-releases.sh test-check-docs.sh test-check-versions.sh test-check-catalog.sh)
 names=()
 results=()
 status=0
