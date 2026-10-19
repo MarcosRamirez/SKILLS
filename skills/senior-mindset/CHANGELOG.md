@@ -3,6 +3,17 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.10.0] - 2026-10-19
+
+### Added
+
+- **senior-mindset:** Onboard existing projects before the kickoff
+- **senior-mindset:** Add the onboarding reference for existing projects
+
+### Fixed
+
+- **senior-mindset:** Make the inventory gate check routes on Git Bash
+
 ## [senior-mindset-v2.9.0] - 2026-10-19
 
 ### Added
