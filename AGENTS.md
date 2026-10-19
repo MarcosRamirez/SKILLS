@@ -16,7 +16,8 @@ Managed with the senior-mindset skill. Details and reasons live in the ADRs.
 - **Changelog:** `CHANGELOG.md` generated with git-cliff from the commit history. See [ADR-0002](spec/adr/0002-generate-changelog-with-git-cliff.md).
 - **Checks (instead of a linter):** `claude plugin validate .` and `claude plugin validate ./skills/<name> --strict`, plus
   `python3 .github/scripts/check-docs.py` (relative links resolve, no link to a superseded ADR in the living documents).
-  The docs check runs on every pull request through `.github/workflows/checks.yml`.
+  The docs check runs on every pull request through `.github/workflows/checks.yml`. Before every
+  release, the headless suite (`bash tests/headless/run.sh`) checks the skill's behaviour.
 - **Language:** skill files, READMEs and docs in English.
 - **Git:** default branch `master`, PR flow from senior-mindset (see Git below). Before creating anything, check [spec/INVENTORY.md](spec/INVENTORY.md).
 
@@ -106,17 +107,22 @@ users who installed it with `/plugin` never receive the update.
 
 ## Releasing a skill: tag and changelog
 
-1. In the release PR, regenerate the changelogs:
+1. Run the headless suite first: `bash tests/headless/run.sh` (see `tests/headless/README.md`). Paste
+   its summary (scenarios, results, cost, model, Claude Code version) into the release PR body.
+   A FAIL blocks the release until it is fixed or the user accepts it explicitly. A run SKIPPED
+   by a usage limit is reported as such and rerun later. The suite makes model calls, so it runs
+   before releases, not on every pull request.
+2. In the release PR, regenerate the changelogs:
    - repo: `npx git-cliff -o CHANGELOG.md`
    - per skill: `npx git-cliff --include-path "skills/<name>/**" --tag-pattern "<name>-v.*" --tag <name>-vX.Y.Z -o skills/<name>/CHANGELOG.md`
-2. When the user merges it, `on-merge.yml` tags the merge commit `<name>-vX.Y.Z` and creates
+3. When the user merges it, `on-merge.yml` tags the merge commit `<name>-vX.Y.Z` and creates
    the GitHub Release with that version's changelog section (`--prerelease` for alpha/beta/rc).
    The tag must sit on the merge commit that bumped the version, which is why the workflow tags
    `$GITHUB_SHA`. Manual fallback if the workflow fails:
    `git tag -a <name>-vX.Y.Z <merge-sha> -m "<name> X.Y.Z" && git push origin <name>-vX.Y.Z`.
    The script refuses a version when nothing but the version and the changelog changed in the skill
    since its previous tag (the job fails and names it): drop the bump, do not use the fallback.
-3. Post-merge checks: `gh run list --workflow on-merge.yml` is green, the tag and Release exist,
+4. Post-merge checks: `gh run list --workflow on-merge.yml` is green, the tag and Release exist,
    then `claude plugin marketplace update marcosramirez-skills` +
    `claude plugin update <name>@marcosramirez-skills`. Post the result as a PR comment.
 
@@ -139,5 +145,6 @@ CHANGELOG.md  cliff.toml
 .github/scripts/tag-skill-releases.sh   tags new skill versions, refuses version-only bumps (repo-only, DRY_RUN=1 to test)
 .github/workflows/checks.yml        runs check-docs.py on every pull request
 .github/scripts/check-docs.py       living documents: broken relative links, links to superseded ADRs
+tests/headless/                    headless suite: run.sh, scenarios/ (run before every release)
 skills/senior-mindset/templates/  files the skill copies into apps; this repo reuses close-specs.sh
 ```
