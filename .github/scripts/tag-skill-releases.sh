@@ -3,7 +3,7 @@
 #
 # A version moves only when something users can run changed (SPEC-0023). So a new tag is refused
 # when nothing changed in the skill's folder since its previous "<name>-v*" tag, not counting
-# CHANGELOG.md, .claude-plugin/plugin.json and the version line of SKILL.md. A skill's first tag
+# CHANGELOG.md and the version line of SKILL.md. A skill's first tag
 # has nothing to compare with and passes. A refusal prints an error and a GitHub Actions
 # annotation, the other skills are still handled, and the script exits 1 at the end (also with
 # DRY_RUN=1, which reports the refusals too).
@@ -13,8 +13,12 @@
 #   DRY_RUN     "1" prints what would be done without tagging or releasing
 #   GH_TOKEN    token for `gh release create` (not needed in dry run)
 #
+# Each skill's name and version come from its SKILL.md frontmatter: `name:` and `metadata.version`
+# (ADR-0006). The Claude Code marketplace entry carries the same version, checked by
+# check-versions.py.
+#
 # Exit status: 0 when every new version was tagged (or would be) or is already tagged;
-#              1 when a manifest is invalid or at least one tag was refused.
+#              1 when a SKILL.md is invalid or at least one tag was refused.
 set -euo pipefail
 
 TARGET_SHA="${TARGET_SHA:-$(git rev-parse HEAD)}"
@@ -46,9 +50,8 @@ skill_text() {
 # Succeeds when the skill folder $1 differs between the commits $2 and $3 in a way that counts.
 changed_since() {
   local dir="$1" from="$2" to="$3"
-  # Every file except the three that change with each release: any difference counts.
-  if differs "$from" "$to" -- "$dir" ":(exclude)$dir/CHANGELOG.md" \
-    ":(exclude)$dir/.claude-plugin/plugin.json" ":(exclude)$dir/SKILL.md"; then
+  # Every file except the two that change with each release: any difference counts.
+  if differs "$from" "$to" -- "$dir" ":(exclude)$dir/CHANGELOG.md" ":(exclude)$dir/SKILL.md"; then
     return 0
   fi
   # SKILL.md counts when its text changed apart from the version lines. Other files keep theirs:
@@ -59,19 +62,30 @@ changed_since() {
 git fetch --quiet --tags origin 2>/dev/null || true
 
 shopt -s nullglob
-manifests=(skills/*/.claude-plugin/plugin.json)
+manifests=(skills/*/SKILL.md)
 shopt -u nullglob
 if [ "${#manifests[@]}" -eq 0 ]; then
-  echo "no skills/*/.claude-plugin/plugin.json found — nothing to tag" >&2
+  echo "no skills/*/SKILL.md found — nothing to tag" >&2
   exit 0
 fi
 
 for manifest in "${manifests[@]}"; do
-  skill_dir="${manifest%/.claude-plugin/plugin.json}"
+  skill_dir="${manifest%/SKILL.md}"
+  # Frontmatter only: the top-level `name:` and the `version:` under `metadata:`.
   read -r name version < <("$PYTHON" -c '
-import json, sys
-data = json.load(open(sys.argv[1], encoding="utf-8"))
-print(data.get("name", ""), data.get("version", ""))
+import re, sys
+text = open(sys.argv[1], encoding="utf-8").read().replace("\r\n", "\n")
+m = re.match(r"---\n(.*?)\n---", text, re.S)
+name = version = ""
+in_metadata = False
+for line in (m.group(1).splitlines() if m else []):
+    if re.match(r"\S", line):
+        in_metadata = line.startswith("metadata:")
+        if line.startswith("name:"):
+            name = line.split(":", 1)[1].strip().strip("\"\x27")
+    elif in_metadata and re.match(r"\s+version:", line):
+        version = line.split(":", 1)[1].strip().strip("\"\x27")
+print(name, version)
 ' "$manifest")
   # Strip a trailing CR (Python on Windows prints CRLF) so local runs match CI.
   name="${name%$'\r'}"

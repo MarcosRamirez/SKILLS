@@ -66,9 +66,7 @@ open(p, "wb").write(data)
 
 write_skill() {  # write_skill <dir> <name> <version>: a skill as the repository ships them
   local dir="skills/$1"
-  mkdir -p "$dir/.claude-plugin" "$dir/scripts"
-  printf '{\n  "name": "%s",\n  "version": "%s",\n  "description": "Skill %s for the tests"\n}\n' "$2" "$3" "$2" \
-    >"$dir/.claude-plugin/plugin.json"
+  mkdir -p "$dir/scripts"
   cat >"$dir/SKILL.md" <<MD
 ---
 name: $2
@@ -174,10 +172,7 @@ expect_lacks() { if printf '%s\n' "$OUT" | grep -qF -- "$1"; then bad "output ha
 
 # --- edits -------------------------------------------------------------------------------------
 
-bump_manifest() {     # bump_manifest <skill> <old> <new>: version in plugin.json
-  sedi "s/\"version\": \"$2\"/\"version\": \"$3\"/" "skills/$1/.claude-plugin/plugin.json"
-}
-bump_frontmatter() {  # bump_frontmatter <skill> <old> <new>: metadata.version in SKILL.md
+bump_version() {  # bump_version <skill> <old> <new>: metadata.version in SKILL.md (ADR-0006)
   sedi "s/^  version: \"$2\"\$/  version: \"$3\"/" "skills/$1/SKILL.md"
 }
 add_changelog_section() {  # add_changelog_section <skill> <tag>: a new release section, newest first
@@ -200,9 +195,9 @@ setup
 say
 say "################ Required cases (a-g) ################"
 
-begin a "save-image: plugin.json 1.0.1 -> 1.0.2, no other change  => refused, exit 1"
-bump_manifest save-image 1.0.1 1.0.2
-commit "bump save-image to 1.0.2 (plugin.json only)"
+begin a "save-image: version 1.0.1 -> 1.0.2 in SKILL.md, no other change  => refused, exit 1"
+bump_version save-image 1.0.1 1.0.2
+commit "bump save-image to 1.0.2 (version line only)"
 changes save-image-v1.0.1 save-image
 run_new
 expect_rc 1
@@ -211,9 +206,8 @@ expect_has "::error::refusing to tag save-image-v1.0.2"
 expect_lacks "would tag save-image-v1.0.2"
 expect_has "senior-mindset-v2.2.0 exists — skipping"
 
-begin b "save-image: bump (plugin.json + SKILL.md version) + a real change in the SKILL.md body  => would tag"
-bump_manifest save-image 1.0.1 1.0.2
-bump_frontmatter save-image 1.0.1 1.0.2
+begin b "save-image: bump (SKILL.md version) + a real change in the SKILL.md body  => would tag"
+bump_version save-image 1.0.1 1.0.2
 change_body save-image
 commit "bump save-image to 1.0.2 with a reworded heading"
 changes save-image-v1.0.1 save-image
@@ -222,9 +216,8 @@ expect_rc 0
 expect_has "would tag save-image-v1.0.2 at"
 expect_lacks "refusing"
 
-begin b2 "save-image: MINOR bump 1.1.0 (plugin.json + SKILL.md version) + a real change in scripts/  => would tag"
-bump_manifest save-image 1.0.1 1.1.0
-bump_frontmatter save-image 1.0.1 1.1.0
+begin b2 "save-image: MINOR bump 1.1.0 (SKILL.md version) + a real change in scripts/  => would tag"
+bump_version save-image 1.0.1 1.1.0
 printf '\n# a real code change\n' >>skills/save-image/scripts/save-image-hook.py
 commit "bump save-image to 1.1.0 with a change in the hook"
 changes save-image-v1.0.1 save-image
@@ -233,10 +226,11 @@ expect_rc 0
 expect_has "would tag save-image-v1.1.0 at"
 expect_lacks "refusing"
 
-begin c "save-image: bump (plugin.json + only the SKILL.md version line)  => refused, exit 1"
-bump_manifest save-image 1.0.1 1.0.2
-bump_frontmatter save-image 1.0.1 1.0.2
-commit "bump save-image to 1.0.2 (plugin.json + SKILL.md version line)"
+begin c "save-image: bump (the SKILL.md version line + the marketplace entry outside skills/)  => refused, exit 1"
+bump_version save-image 1.0.1 1.0.2
+mkdir -p .claude-plugin && printf '{"plugins": [{"name": "save-image", "version": "1.0.2"}]}
+' >.claude-plugin/marketplace.json
+commit "bump save-image to 1.0.2 (SKILL.md version line + marketplace entry)"
 changes save-image-v1.0.1 save-image
 run_new
 expect_rc 1
@@ -244,7 +238,6 @@ expect_has "$REFUSE_SI"
 expect_lacks "would tag save-image-v1.0.2"
 
 begin c2 "save-image: same as c, the version line rewritten without quotes (version: 1.0.2)  => refused, exit 1"
-bump_manifest save-image 1.0.1 1.0.2
 sedi 's/^  version: "1.0.1"$/  version: 1.0.2/' skills/save-image/SKILL.md
 commit "bump save-image to 1.0.2 (unquoted version line)"
 changes save-image-v1.0.1 save-image
@@ -252,10 +245,10 @@ run_new
 expect_rc 1
 expect_has "$REFUSE_SI"
 
-begin d "save-image: bump (plugin.json) + only CHANGELOG.md changed  => refused, exit 1"
-bump_manifest save-image 1.0.1 1.0.2
+begin d "save-image: bump + only CHANGELOG.md changed  => refused, exit 1"
+bump_version save-image 1.0.1 1.0.2
 add_changelog_section save-image save-image-v1.0.2
-commit "bump save-image to 1.0.2 (plugin.json + CHANGELOG.md)"
+commit "bump save-image to 1.0.2 (version + CHANGELOG.md)"
 changes save-image-v1.0.1 save-image
 run_new
 expect_rc 1
@@ -263,14 +256,7 @@ expect_has "$REFUSE_SI"
 expect_lacks "would tag save-image-v1.0.2"
 
 begin e "brand-new skill skills/new-skill at 0.0.1-alpha.1, no previous tag  => would tag"
-mkdir -p skills/new-skill/.claude-plugin
-cat >skills/new-skill/.claude-plugin/plugin.json <<'JSON'
-{
-  "name": "new-skill",
-  "version": "0.0.1-alpha.1",
-  "description": "A brand-new skill used only by the T-3 tests"
-}
-JSON
+mkdir -p skills/new-skill
 cat >skills/new-skill/SKILL.md <<'MD'
 ---
 name: new-skill
@@ -304,9 +290,8 @@ begin g "two skills at once: save-image bump-only (refused) + senior-mindset bum
 # A local release point at the base keeps this case independent of the unreleased T-2 changes
 # that master already carries in skills/senior-mindset since senior-mindset-v2.2.0.
 git tag -a senior-mindset-v2.2.1 -m "local test tag" "$BASE"
-bump_manifest save-image 1.0.1 1.0.2
-bump_manifest senior-mindset 2.2.0 2.2.2
-bump_frontmatter senior-mindset 2.2.0 2.2.2
+bump_version save-image 1.0.1 1.0.2
+bump_version senior-mindset 2.2.0 2.2.2
 printf '\nA real change.\n' >>skills/senior-mindset/README.md
 commit "bump both skills; only senior-mindset has a real change"
 changes save-image-v1.0.1 save-image
@@ -321,7 +306,7 @@ say
 say "################ Extra cases (edges of the check) ################"
 
 begin h "save-image: bump + only skills/save-image/README.md changed  => would tag (README counts)"
-bump_manifest save-image 1.0.1 1.0.2
+bump_version save-image 1.0.1 1.0.2
 printf '\nOne more sentence.\n' >>skills/save-image/README.md
 commit "bump save-image to 1.0.2 with a README change"
 changes save-image-v1.0.1 save-image
@@ -332,8 +317,7 @@ expect_has "would tag save-image-v1.0.2 at"
 begin i "release-PR shape: a body change merged earlier, then a commit that only bumps + changelog  => would tag"
 change_body save-image
 commit "reword a heading (no bump yet)"
-bump_manifest save-image 1.0.1 1.0.2
-bump_frontmatter save-image 1.0.1 1.0.2
+bump_version save-image 1.0.1 1.0.2
 add_changelog_section save-image save-image-v1.0.2
 commit "release save-image 1.0.2 (version + changelog only)"
 changes save-image-v1.0.1 save-image
@@ -343,9 +327,8 @@ expect_rc 0
 expect_has "would tag save-image-v1.0.2 at"
 expect_has "Wording"
 
-begin j "full version-only release: plugin.json + SKILL.md version + CHANGELOG.md, nothing else  => refused"
-bump_manifest save-image 1.0.1 1.0.2
-bump_frontmatter save-image 1.0.1 1.0.2
+begin j "full version-only release: SKILL.md version + CHANGELOG.md, nothing else  => refused"
+bump_version save-image 1.0.1 1.0.2
 add_changelog_section save-image save-image-v1.0.2
 commit "release save-image 1.0.2 (version + changelog only)"
 changes save-image-v1.0.1 save-image
@@ -359,7 +342,7 @@ printf 'name: sample\n  version: "1.0.0"\n' >skills/save-image/templates/sample.
 commit "add a sample template"
 git tag -a save-image-v1.0.2 -m "local test tag"
 sedi 's/^  version: "1.0.0"$/  version: "1.0.3"/' skills/save-image/templates/sample.yml
-bump_manifest save-image 1.0.1 1.0.3
+bump_version save-image 1.0.1 1.0.3
 commit "bump save-image to 1.0.3; only the version line of templates/sample.yml changed"
 changes save-image-v1.0.2 save-image
 run_new
@@ -367,18 +350,15 @@ expect_rc 0
 expect_has "would tag save-image-v1.0.3 at"
 
 begin l "previous tag = nearest tag in the history, not the highest by name (1.0.0-rc.1 sorts after 1.0.0)"
-mkdir -p skills/pre-skill/.claude-plugin
-printf '{\n  "name": "pre-skill",\n  "version": "1.0.0-rc.1"\n}\n' >skills/pre-skill/.claude-plugin/plugin.json
+mkdir -p skills/pre-skill
 printf -- '---\nname: pre-skill\nmetadata:\n  version: "1.0.0-rc.1"\n---\n\n# pre-skill\n\nfirst text\n' >skills/pre-skill/SKILL.md
 commit "add pre-skill at 1.0.0-rc.1"
 git tag -a pre-skill-v1.0.0-rc.1 -m "local test tag"
 sedi 's/^first text$/second text/' skills/pre-skill/SKILL.md
-bump_manifest pre-skill 1.0.0-rc.1 1.0.0
-bump_frontmatter pre-skill 1.0.0-rc.1 1.0.0
+bump_version pre-skill 1.0.0-rc.1 1.0.0
 commit "pre-skill 1.0.0 with a real change"
 git tag -a pre-skill-v1.0.0 -m "local test tag"
-bump_manifest pre-skill 1.0.0 1.0.1
-bump_frontmatter pre-skill 1.0.0 1.0.1
+bump_version pre-skill 1.0.0 1.0.1
 commit "bump pre-skill to 1.0.1, nothing else"
 say "git tag --sort=-v:refname (highest by name): $(git tag -l 'pre-skill-v*' --sort=-v:refname | head -1)"
 say "git describe (nearest in the history):       $(git describe --tags --abbrev=0 --match 'pre-skill-v*' HEAD)"
@@ -387,8 +367,8 @@ expect_rc 1
 expect_has "error: refusing to tag pre-skill-v1.0.1: nothing changed in skills/pre-skill/ since pre-skill-v1.0.0 besides"
 
 begin m "TARGET_SHA is the upper bound of the comparison (the workflow passes github.sha)"
-bump_manifest save-image 1.0.1 1.0.2
-commit "bump save-image to 1.0.2 (plugin.json only)"
+bump_version save-image 1.0.1 1.0.2
+commit "bump save-image to 1.0.2 (version line only)"
 X="$(git rev-parse HEAD)"
 change_body save-image
 commit "real change on top"
@@ -406,7 +386,7 @@ expect_rc 0
 expect_has "would tag save-image-v1.0.2 at $Y"
 
 begin n "tags exist but none is an ancestor of the commit to tag  => warning, no check, would tag"
-bump_manifest save-image 1.0.1 1.0.2
+bump_version save-image 1.0.1 1.0.2
 git add -A
 tree="$(git write-tree)"
 orphan="$(git commit-tree "$tree" -m "orphan commit with no history")"
@@ -418,7 +398,7 @@ expect_has "warning: no save-image-v* tag is an ancestor of $orphan"
 expect_has "would tag save-image-v1.0.2 at $orphan"
 
 begin q "bump + changes only outside skills/save-image (root README, spec/, another skill)  => refused"
-bump_manifest save-image 1.0.1 1.0.2
+bump_version save-image 1.0.1 1.0.2
 printf '\nroot readme change\n' >>README.md
 printf '\nspec change\n' >>spec/INVENTORY.md
 printf '\nother skill change\n' >>skills/senior-mindset/README.md
@@ -430,8 +410,7 @@ expect_has "$REFUSE_SI"
 expect_has "senior-mindset-v2.2.0 exists — skipping"
 
 begin t "a top-level 'version: 2' line added to the body of SKILL.md is content  => would tag"
-bump_manifest save-image 1.0.1 1.0.2
-bump_frontmatter save-image 1.0.1 1.0.2
+bump_version save-image 1.0.1 1.0.2
 printf '\nversion: 2\n' >>skills/save-image/SKILL.md
 commit "bump save-image to 1.0.2; a 'version:' line in the body"
 changes save-image-v1.0.1 save-image
@@ -440,8 +419,7 @@ expect_rc 0
 expect_has "would tag save-image-v1.0.2 at"
 
 begin y "T-4 rehearsal: senior-mindset 2.2.0 -> 2.2.1 as a version-only commit; T-2's changes since v2.2.0 are already on master  => would tag"
-bump_manifest senior-mindset 2.2.0 2.2.1
-bump_frontmatter senior-mindset 2.2.0 2.2.1
+bump_version senior-mindset 2.2.0 2.2.1
 commit "release senior-mindset 2.2.1 (version only)"
 say "last commit alone touches: $(git diff --name-only HEAD~1 HEAD | tr '\n' ' ')"
 changes senior-mindset-v2.2.0 senior-mindset
@@ -452,8 +430,8 @@ expect_has "save-image-v1.0.1 exists — skipping"
 expect_lacks "refusing"
 
 begin r "git diff fails (simulated): the script stops with an error instead of letting the tag through"
-bump_manifest save-image 1.0.1 1.0.2
-commit "bump save-image to 1.0.2 (plugin.json only)"
+bump_version save-image 1.0.1 1.0.2
+commit "bump save-image to 1.0.2 (version line only)"
 REAL_GIT="$(command -v git)"
 mkdir -p "$WORK/failing-git"
 cat >"$WORK/failing-git/git" <<SH
@@ -472,21 +450,19 @@ to_crlf skills/save-image/SKILL.md
 commit "convert SKILL.md to CRLF"
 say "CR characters in the committed SKILL.md: $(git show HEAD:skills/save-image/SKILL.md | grep -c $'\r')"
 git tag -a save-image-v1.0.2 -m "local test tag"
-bump_manifest save-image 1.0.1 1.0.3
 sedi 's/version: "1\.0\.1"/version: "1.0.3"/' skills/save-image/SKILL.md
-commit "bump save-image to 1.0.3 (plugin.json + SKILL.md version line)"
+commit "bump save-image to 1.0.3 (SKILL.md version line)"
 changes save-image-v1.0.2 save-image
 run_new
 expect_rc 1
 expect_has "error: refusing to tag save-image-v1.0.3: nothing changed in skills/save-image/ since save-image-v1.0.2 besides"
 
-begin w "the skill folder comes from the manifest path, not from the plugin name (skills/dir-x holds plugin name-y)"
-mkdir -p skills/dir-x/.claude-plugin
-printf '{\n  "name": "name-y",\n  "version": "1.0.0"\n}\n' >skills/dir-x/.claude-plugin/plugin.json
+begin w "the skill folder comes from the SKILL.md path, not from the skill name (skills/dir-x holds name-y)"
+mkdir -p skills/dir-x
 printf -- '---\nname: name-y\nmetadata:\n  version: "1.0.0"\n---\n\n# name-y\n' >skills/dir-x/SKILL.md
-commit "add skills/dir-x (plugin name-y)"
+commit "add skills/dir-x (name-y)"
 git tag -a name-y-v1.0.0 -m "local test tag"
-bump_manifest dir-x 1.0.0 1.0.1
+bump_version dir-x 1.0.0 1.0.1
 commit "bump name-y to 1.0.1, nothing else"
 run_new
 expect_rc 1
@@ -525,9 +501,8 @@ say
 new_case x1 "real mode: save-image bump-only (refused) + senior-mindset bump with a real change (tagged)"
 say "=== x1. ${CASE_TITLE[x1]}"
 git tag -a senior-mindset-v2.2.1 -m "local test tag"
-bump_manifest save-image 1.0.1 1.0.2
-bump_manifest senior-mindset 2.2.0 2.2.2
-bump_frontmatter senior-mindset 2.2.0 2.2.2
+bump_version save-image 1.0.1 1.0.2
+bump_version senior-mindset 2.2.0 2.2.2
 printf '\nA real change.\n' >>skills/senior-mindset/README.md
 git add -A && git commit -q -m "bump both skills; only senior-mindset has a real change"
 run_real

@@ -57,5 +57,4 @@ Files land in `C:\Users\<you>\Pictures\claude-images\` with timestamp filenames:
 - `SKILL.md` — Claude behavior spec
 - `scripts/save-image-hook.py` — UserPromptSubmit hook (auto-save)
 - `hooks/hooks.json` — registers the hook automatically when installed as a plugin
-- `.claude-plugin/plugin.json` — plugin manifest
 - `CHANGELOG.md` — what changed in each version
