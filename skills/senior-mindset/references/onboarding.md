@@ -108,15 +108,19 @@ A line that fails is dropped, or kept with "(to confirm)" and listed in the asse
 
 ```bash
 grep -E '^- `' spec/INVENTORY.md | while IFS= read -r line; do
-  name=$(printf '%s\n' "$line" | sed -E 's/^- `([^`]+)`.*/\1/')
+  name=$(printf '%s\n' "$line" | sed -E 's/^- `([^`]+)`.*/\1/; s/\(\)$//')
   path=$(printf '%s\n' "$line" | awk -F' — ' '{ print $2 }')
+  word=-w
+  case $name in GET\ *|POST\ *|PUT\ *|PATCH\ *|DELETE\ *) name=${name#* }; word= ;; esac
   if [ ! -e "$path" ]; then echo "MISSING PATH  $path ($name)"; continue; fi
-  git grep -q -w -F -- "$name" -- "$path" || echo "NO SYMBOL     $name in $path"
+  MSYS_NO_PATHCONV=1 git grep -q $word -F -- "$name" -- "$path" || echo "NO SYMBOL     $name in $path"
 done
 ```
 
-Endpoints are checked by their route string, tables by their name in the migration or schema. The
-gate passes when it prints nothing.
+An endpoint (`GET /orders/:id`) is checked by its route string, a table by its name in the
+migration or schema, a function without its `()`. The gate passes when it prints nothing.
+`MSYS_NO_PATHCONV=1` stops Git Bash on Windows from turning a route such as `/orders` into a
+Windows path; elsewhere it does nothing.
 
 ## 4. Documentation: map it onto the standard layout
 
