@@ -1,7 +1,7 @@
 # PLAN-0008: work safely on existing projects (code or documentation)
 
 Spec: [SPEC-0008](spec.md)
-Status: Draft
+Status: In progress
 Recommended overall: high — Claude Opus 5.5 (safety rules that must hold under pressure need careful wording and adversarial tests)
 
 ## Context

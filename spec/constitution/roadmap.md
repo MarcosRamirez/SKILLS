@@ -26,7 +26,7 @@ table format.
 | SPEC-0028 | Committed headless suite, run before every release | high | Implemented | SPEC-0027 |
 | SPEC-0029 | Committed tests for the release scripts, run in CI | medium | Implemented | SPEC-0024 |
 | SPEC-0030 | Update the docs when what a file does changes | low | Implemented | SPEC-0025 |
-| SPEC-0008 | Work safely on existing projects | high | Draft | SPEC-0019 |
+| SPEC-0008 | Work safely on existing projects | high | Approved | SPEC-0019 |
 | SPEC-0014 | Documented commands, help and status | medium | Draft | SPEC-0022 |
 | SPEC-0021 | Install in the project, standard locations first | high | Draft | SPEC-0008, SPEC-0014, SPEC-0023 |
 | SPEC-0009 | Analyse existing projects and normalise them | high | Draft | SPEC-0021 |
