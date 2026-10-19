@@ -1,7 +1,8 @@
 # PLAN-0009: analyse existing projects and normalise them to the standard pattern
 
 Spec: [SPEC-0009](spec.md)
-Status: In progress
+Status: Done
+Done: 2026-10-19, PR #101
 Recommended overall: high — Claude Opus 5.5 (reading unknown code and mapping heterogeneous docs is judgment-heavy)
 
 ## Context

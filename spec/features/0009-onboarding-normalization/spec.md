@@ -1,7 +1,8 @@
 # SPEC-0009: analyse existing projects and normalise them to the standard pattern
 
 Type: feature
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-19, PR #101
 Date: 2026-10-13
 Approved by: the user, 2026-10-13, "implementa todas las fases, una a una, con subagentes"
 
