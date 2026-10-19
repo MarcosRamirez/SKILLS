@@ -89,7 +89,8 @@ or cannot be read, and before help, status and list plans. Compare this skill's 
 the project, look for project copies (`ls -d .agents/skills/senior-mindset .claude/skills/senior-mindset`)
 and for a second senior-mindset in your skills list. Loaded from a global copy with no project copy,
 and nothing recorded → ask once: "Install it in this project (Recommended)" / "Keep it global".
-Global and project copies both present → propose disabling the global one for this project. When
+Global and project copies both present → propose disabling the global one for this project. Project
+copy only → say nothing. When
 you cannot ask, or the answer is help or status, end with one line naming the copies found and the
 pending decision. Never install, disable or uninstall without the answer. Cases, commands and where the answer is recorded:
 [references/setup.md](references/setup.md#7-where-the-skill-loads-from-each-project).

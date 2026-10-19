@@ -142,6 +142,9 @@ global one hides the project one.
 
 ### Detect (cheap: one command)
 
+Detection uses only what is at hand: your base directory, the project folders and your skills list.
+Do not read global folders (`~/.claude/…`, `~/.agents/…`) for it.
+
 1. **Where this copy loads from:** the base directory shown when the skill loaded. Inside the current
    project → a project copy. Anywhere else (`~/.claude/plugins/cache/…`, `~/.claude/skills/`,
    `~/.agents/skills/`, a `--plugin-dir`) → a global copy.
@@ -154,7 +157,7 @@ global one hides the project one.
 
 | Situation | Question (closed, [questions.md](questions.md)) |
 |---|---|
-| Project copy only | None |
+| Project copy only (one senior-mindset in your skills list) | None, and nothing to say: do not look in global folders, and do not mention copies that might exist |
 | Global copy only, and the file says `Install: global` or lists this project in `Kept global in` | None |
 | Global copy only, nothing recorded | "Install it in this project (Recommended)": the team and cloud sessions get the same version, pinned to a release · "Keep it global": every project shares one copy |
 | Global plugin and a project copy, this project not in `Duplicates kept in` | "Disable the global plugin in this project (Recommended)" · "Uninstall the global plugin" · "Keep both" |
