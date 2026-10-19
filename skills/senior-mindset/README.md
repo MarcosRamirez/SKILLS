@@ -14,7 +14,8 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
 2. **Sizes the task.** A one-off script skips the ceremony but still gets English names
    and clean code. A project follows the full flow, and so does any request for the kickoff.
    In an existing project (code or docs already there), every change starts with a change
-   notice and waits for your OK, then happens on its own branch.
+   notice and waits for your OK, then happens on its own branch. Your uncommitted changes are
+   never touched: it asks whether to commit them on their own branch, stash them or stop.
 3. **Sets up git.** Runs `git init` if needed (default branch `master`, or `main` if you
    prefer: it asks once), writes a safe `.gitignore`, opens **one branch per change**
    (never commits on `master`), commits after every significant change, and delivers

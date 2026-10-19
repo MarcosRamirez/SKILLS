@@ -58,9 +58,11 @@ next person (or AI) does not have to guess.
    instruction files), show a **change notice** and wait for the user's explicit OK: what changes
    and why, the files created, modified, moved or deleted, the risks, and how to roll it back. A
    small change gets a small notice. The work then happens on a new branch and reaches the
-   default branch by PR. A failed or skipped question is not an OK (rule 2); without an OK, show
-   the notice and stop (rule 3). Existing conventions win over the skill's defaults: note a
-   deviation, do not impose it. No drive-by refactors: what you notice on the way is proposed
+   default branch by PR. **Uncommitted changes you did not make** (`git status`) are never edited,
+   staged, committed, stashed or carried onto your branch: name them and ask whether to commit them
+   on their own branch, stash them or stop. A failed or skipped question is not an OK (rule 2);
+   without an OK, show the notice and stop (rule 3). Existing conventions win over the skill's
+   defaults: note a deviation, do not impose it. No drive-by refactors: what you notice on the way is proposed
    separately. Edge cases and the notice template: [references/existing-projects.md](references/existing-projects.md).
 
 ## Step 0a — First-use setup (once per user)
