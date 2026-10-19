@@ -187,3 +187,40 @@ Name the versions in the question when the copies differ.
 
 Never install, disable, uninstall or remove anything without the answer, and never touch other
 skills or plugins.
+
+## 8. Update senior-mindset
+
+The **update senior-mindset** command ([commands.md](commands.md)). The target is always the latest
+release tag, never the default branch, which can hold merged changes that are not released yet.
+
+1. **Latest release:** the highest SemVer among
+   `git ls-remote --tags --refs https://github.com/MarcosRamirez/SKILLS 'senior-mindset-v*'`
+   (or `gh release list --repo MarcosRamirez/SKILLS`). Skip pre-releases (`-alpha`, `-beta`, `-rc`)
+   unless the installed copy is one or the user asks for them.
+2. **Installed copies and their versions:** `metadata.version` in
+   `.agents/skills/senior-mindset/SKILL.md` and `.claude/skills/senior-mindset/SKILL.md`, plus the
+   `ref` in `skills-lock.json`; and any global copy (section 7).
+3. **Already at the latest** (every copy) → say so with the version, and stop.
+4. **Project copies** (the usual case). The update changes the project, so it follows hard rule 4:
+   - Change notice: `~ .agents/skills/senior-mindset/`, `~ .claude/skills/senior-mindset/`,
+     `~ skills-lock.json`; why: from X to Y; risks: the skill's behaviour changes as its CHANGELOG
+     says; rollback: revert the PR. Wait for the OK.
+   - Branch `chore/update-senior-mindset-vY` from the updated default branch.
+   - `npx skills add MarcosRamirez/SKILLS#senior-mindset-vY --skill senior-mindset -a <agents> --copy -y`,
+     with the agents of the copies that exist (`claude-code` for `.claude/skills/`, `codex` for
+     `.agents/skills/`), so both copies move to the same version.
+   - Check that every copy now says `metadata.version: "Y"` and that `skills-lock.json` has
+     `"ref": "senior-mindset-vY"`. A copy that did not move stops the update: report it.
+   - One commit in the project's format (`chore: update senior-mindset to Y`), push, open the PR.
+     Its body: the change notice, then the CHANGELOG.md sections of the versions after X up to Y,
+     copied from the new copy. Stop: the user merges.
+   - No remote or no `gh` → keep the branch and the commit, show the PR body in the final message,
+     and say what is missing.
+5. **Global copy only:** it is the user's, not the project's, so there is no branch or PR. Name the
+   versions and the command, and run it only after an explicit OK:
+   - plugin: `claude plugin marketplace update <marketplace>` then
+     `claude plugin update senior-mindset@<marketplace>` (takes effect after a restart);
+   - folder: `npx skills add MarcosRamirez/SKILLS#senior-mindset-vY --skill senior-mindset -g --copy -y`.
+   If the install check has not been answered here, ask it first (section 7): installing in the
+   project may be the better answer.
+6. The next session shows the update message (section 5) once, as for any update.

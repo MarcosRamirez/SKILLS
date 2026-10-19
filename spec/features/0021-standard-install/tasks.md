@@ -5,7 +5,7 @@ One branch per task, stacked PRs. Executed through PLAN-0021.
 - [x] T-1 Manifest data in marketplace.json, version in `metadata.version`, tag script and version check (R-7, AC-6)
 - [x] T-2 Verify `npx skills` (canonical copy, `--copy`, tags, update), then both READMEs (R-1…R-3, AC-1, AC-2)
 - [x] T-3 First-use detection of global, project and duplicate installs, with headless tests (R-4, AC-3)
-- [ ] T-4 "update senior-mindset" opens a PR from the latest release tag (R-5, AC-4)
+- [x] T-4 "update senior-mindset" opens a PR from the latest release tag (R-5, AC-4)
 - [ ] T-5 This repository: published copy and bridge, global plugin disabled here, AGENTS.md note (R-6, AC-5)
 - [ ] T-6 Minor release with `Closes-Spec: SPEC-0021`
 
@@ -53,3 +53,21 @@ Python project, question tool failing (no UI). The suite's plugin plays the glob
 
 No run installed, disabled or uninstalled anything, wrote `.claude/settings.local.json` or committed.
 The user's `~/.claude/senior-mindset.md` kept its SHA-256 in every run (`e2245cbe…`).
+
+## Test results (T-4, 2026-10-19)
+
+One headless run in a scratch project (Claude Code 2.1.303, `claude-opus-5-5`, 0.41 USD, 16 turns).
+The project had both copies installed with `npx skills@1.7.2` from `senior-mindset-v2.7.0`
+(`skills-lock.json` ref v2.7.0), with the working copy's files put in place and the version line set
+to 2.7.0, so the copy that runs already knows the command. No plugin was loaded
+(`SCENARIO_LOAD=project`). Prompt: "update senior-mindset. I approve the change notice in advance, go
+ahead. There is no git remote: stop after the commit and show me the PR body."
+
+- The latest tag came from `git ls-remote --tags --refs … 'senior-mindset-v*'`: 2.8.0.
+- Branch `chore/update-senior-mindset-v2.8.0`, then
+  `npx -y skills add 'MarcosRamirez/SKILLS#senior-mindset-v2.8.0' --skill senior-mindset -a claude-code codex --copy -y`.
+- On the branch: both copies say `version: "2.8.0"` and `skills-lock.json` has `"ref": "senior-mindset-v2.8.0"`.
+  One commit, `🔧 chore: update senior-mindset to 2.8.0`. `master` still holds 2.7.0, and the working tree is clean.
+- The final message held the PR body: the change notice (files, risks, rollback), the checks, and
+  the 2.8.0 section of the new copy's CHANGELOG.md. Nothing was pushed (no remote), as asked.
+- The user's `~/.claude/senior-mindset.md` kept its SHA-256 (`e2245cbe…`).

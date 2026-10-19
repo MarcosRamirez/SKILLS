@@ -40,8 +40,8 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `sdd.md` — spec / design / tasks templates
 - `release-automation.md` — specs close on merge, releases tag themselves; uses the templates below
 - `security.md` — OWASP Top 10 checklist
-- `commands.md` — the commands as intents (help, status, list plans, run plan, release, reconfigure, automations): example phrases, effect, where specified; the single source that help renders
-- `setup.md` — first-use collision check with other skills, `~/.claude/senior-mindset.md`, and the install check in each project (global, project or duplicate copies)
+- `commands.md` — the commands as intents (help, status, list plans, run plan, release, reconfigure, update, automations): example phrases, effect, where specified; the single source that help renders
+- `setup.md` — first-use collision check with other skills, `~/.claude/senior-mindset.md`, the install check in each project (global, project or duplicate copies) and the update command
 - `stack.md` — default stack per use case
 - `system-design.md` — monolith vs microservices, event-driven
 - `testing.md` — test pyramid, TDD, k6

@@ -131,6 +131,7 @@ Full list, with what each does and where it is specified: [references/commands.m
 | run plan | "run plan 0008", "ejecuta el plan 0008" | Executes an approved plan step by step |
 | release | "release the beta", "saca la versión 2.1" | Proposes the version and opens the release PR |
 | reconfigure | "reconfigure senior-mindset" | Runs the first-use collision setup again |
+| update senior-mindset | "update senior-mindset" | Installs the latest release over the project's copies, on a branch, and opens a PR with its changelog |
 | automations | "add the docs check" | Installs or removes an automation through a PR |
 
 ## Customize your defaults
@@ -143,8 +144,8 @@ and suggest 2–3 options.
 |---|---|
 | `references/stack.md` | Default stack per use case |
 | `references/platforms.md` | Hosting options (Cloudflare default) |
-| `references/commands.md` | Every command as an intent (help, status, list plans, run plan, release, reconfigure, automations): example phrases in several languages, what it does, where it is specified |
-| `references/setup.md` | First-use collision check with other skills, `~/.claude/senior-mindset.md`, and the install check (global, project or duplicate copies) |
+| `references/commands.md` | Every command as an intent (help, status, list plans, run plan, release, reconfigure, update, automations): example phrases in several languages, what it does, where it is specified |
+| `references/setup.md` | First-use collision check with other skills, `~/.claude/senior-mindset.md`, the install check (global, project or duplicate copies) and the update command |
 | `references/versioning.md` | App versioning: `0.0.1-alpha.1` → beta → rc → stable, the "nothing to release" check, git-cliff bump, release steps |
 | `references/changelog.md` | Dated CHANGELOG.md with git-cliff (tested `cliff.toml`), per-package changelogs |
 | `references/git.md` | Branch per change, pull-request flow, stacked PRs, commit format |
