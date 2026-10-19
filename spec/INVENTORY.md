@@ -84,6 +84,17 @@ Headless suite (SPEC-0028): real `claude -p` runs on scratch projects with deter
 - `impact-sweep.sh` — tests/headless/scenarios/impact-sweep.sh — SPEC-0025: PostgreSQL to SQLite updates the living documents, leaves the Implemented spec and the code alone, and records the follow-up
 - `tests/headless/README.md` — how to run the suite, its cost, the isolation it uses, how to write a scenario
 
+## CI tests
+
+Committed tests for the release scripts and the docs check (SPEC-0029): bash, git and python3 only, fixtures in temp folders, the scripts of the checkout under test. Guide: `tests/ci/README.md`.
+
+- `run.sh` — tests/ci/run.sh — runs the three suites below and prints a summary; exit 1 if any fails — `bash tests/ci/run.sh`
+- `test-close-specs.sh` — tests/ci/test-close-specs.sh — `close-specs.sh` (features, fixes, collisions, `SPEC_DIRS`, guards) and the on-merge id extraction with its `pipefail` fallback
+- `test-tag-skill-releases.sh` — tests/ci/test-tag-skill-releases.sh — `tag-skill-releases.sh` on a scratch repository: the version-only refusal (SPEC-0023), tag selection, real tagging against a scratch remote
+- `test-check-docs.sh` — tests/ci/test-check-docs.sh — `check-docs.py` (repo copy and template): broken links, superseded ADRs, code fences, the `adr/` folder rule, `DOCS_CHECK_FILES`
+- `fakebin/gh` — tests/ci/fakebin/gh — fake `gh` that records its calls in `$GH_CALLS_LOG`; on `PATH` only inside the tag suite
+- `tests/ci/README.md` — what each suite covers and how to run them
+
 ## Repo docs
 
 - `AGENTS.md` — repo conventions and rules (docs, versioning, git)
