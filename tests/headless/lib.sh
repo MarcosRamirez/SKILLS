@@ -389,3 +389,142 @@ assert_not_merged() {  # assert_not_merged PROJECT BRANCH INTO
   fi
   echo "$2 is not merged into $3"
 }
+
+# --- Existing projects (SPEC-0008) ------------------------------------------------------------
+# A scenario saves a baseline at the end of its setup, next to the project (PROJECT.baseline/,
+# outside the folder the run may read), and the checks compare the project with it: the files on
+# disk byte for byte and, for a repository, its branches (commit and tree), every commit reachable
+# from a ref (a stash included) and `git status`.
+
+baseline_of() { printf '%s.baseline\n' "$1"; }
+
+snapshot_project() {  # snapshot_project PROJECT OUT_DIR
+  local project=$1 out=$2
+  mkdir -p "$out"
+  stream_py hash-tree "$project" > "$out/files"
+  [[ -d $project/.git ]] || return 0
+  git -C "$project" for-each-ref --format='%(refname)%09%(objectname)%09%(tree)' > "$out/refs"
+  git -C "$project" rev-list --all | sort > "$out/commits"
+  git -C "$project" status --porcelain=v1 --untracked-files=all > "$out/status"
+}
+
+save_baseline() { snapshot_project "$1" "$(baseline_of "$1")"; }
+
+# Byte-for-byte checks need git to write files back as they were committed. Git for Windows'
+# system config sets core.autocrlf=true, so a branch switch and back would rewrite LF files with
+# CRLF and show them as modified although their content is the same.
+keep_line_endings() { git -C "$1" config core.autocrlf false; }
+
+# "added|modified|removed<TAB>path" per difference between two hash-tree listings, sorted by path.
+tree_changes() {  # tree_changes BEFORE AFTER
+  awk -F'\t' 'NR == FNR { before[$2] = $1; next }
+    { seen[$2] = 1; if (!($2 in before)) print "added\t" $2; else if (before[$2] != $1) print "modified\t" $2 }
+    END { for (path in before) if (!(path in seen)) print "removed\t" path }' "$1" "$2" | sort -t "$(printf '\t')" -k2
+}
+
+# Every file on disk (outside .git/) is byte-identical to the baseline: none added, modified or removed.
+assert_files_unchanged() {  # assert_files_unchanged PROJECT
+  local project=$1 now changes
+  now="$(mktemp)"
+  stream_py hash-tree "$project" > "$now"
+  changes="$(tree_changes "$(baseline_of "$project")/files" "$now")"
+  rm -f "$now"
+  if [[ -n $changes ]]; then printf '%s\n' "$changes" | head -20; return 1; fi
+  echo "$(grep -c . "$(baseline_of "$project")/files") file(s) on disk, all byte-identical to the baseline"
+}
+
+# Existing files are byte-identical and no application source was added; other new files (such as
+# a .gitignore next to a `git init`) are listed but allowed.
+assert_sources_unchanged() {  # assert_sources_unchanged PROJECT
+  local project=$1 now changes added touched new_sources other
+  now="$(mktemp)"
+  stream_py hash-tree "$project" > "$now"
+  changes="$(tree_changes "$(baseline_of "$project")/files" "$now")"
+  rm -f "$now"
+  touched="$(printf '%s\n' "$changes" | awk -F'\t' '$1 == "modified" || $1 == "removed"')"
+  added="$(printf '%s\n' "$changes" | awk -F'\t' '$1 == "added" { print $2 }')"
+  new_sources="$(printf '%s\n' "$added" | grep . | app_sources_in)"
+  other="$(printf '%s\n' "$added" | grep . | grep -Ev "$APP_SOURCE_PATTERN|$APP_MANIFEST_PATTERN")"
+  if [[ -n $other ]]; then echo "new files that are not sources (allowed): $(printf '%s' "$other" | tr '\n' ' ')"; fi
+  if [[ -n $touched || -n $new_sources ]]; then
+    if [[ -n $touched ]]; then printf '%s\n' "$touched" | head -20; fi
+    if [[ -n $new_sources ]]; then printf '%s\n' "$new_sources" | sed 's/^/added source\t/' | head -20; fi
+    return 1
+  fi
+  echo "$(grep -c . "$(baseline_of "$project")/files") existing file(s) byte-identical, no source file added"
+}
+
+# Every branch of the baseline still has its tree, and every new branch holds a tree of the
+# baseline (a branch created without a commit of its own passes).
+assert_branch_trees_unchanged() {  # assert_branch_trees_unchanged PROJECT
+  local project=$1 before status=0 ref tree now_tree tab
+  before="$(baseline_of "$project")/refs"
+  tab="$(printf '\t')"
+  while IFS=$tab read -r ref _ tree; do
+    [[ $ref == refs/heads/* ]] || continue
+    now_tree="$(git -C "$project" rev-parse --verify --quiet "$ref^{tree}")"
+    if [[ $now_tree != "$tree" ]]; then
+      echo "${ref#refs/heads/}: tree ${tree:0:10} -> $(if [[ -n $now_tree ]]; then echo "${now_tree:0:10}"; else echo "gone"; fi)"
+      status=1
+    fi
+  done < "$before"
+  while IFS=$tab read -r ref tree; do
+    awk -F'\t' '{ print $1 }' "$before" | grep -qxF "$ref" && continue
+    if ! awk -F'\t' '{ print $3 }' "$before" | grep -qxF "$tree"; then
+      echo "new branch ${ref#refs/heads/} holds a tree that was not there before:"
+      git -C "$project" log --stat --format='  %h %s' -1 "$ref" | head -8
+      status=1
+    fi
+  done < <(git -C "$project" for-each-ref --format='%(refname)%09%(tree)' refs/heads)
+  if [[ $status -eq 0 ]]; then echo "$(git_branches "$project" | wc -l | tr -d ' ') branch(es), every tree as in the baseline"; fi
+  return $status
+}
+
+# The set of commits reachable from any ref is the baseline's: nothing committed, nothing stashed,
+# nothing reset away.
+assert_no_commit_added() {  # assert_no_commit_added PROJECT
+  local project=$1 before now added removed commit
+  before="$(baseline_of "$project")/commits"
+  now="$(git -C "$project" rev-list --all | sort)"
+  added="$(printf '%s\n' "$now" | grep . | grep -vxF -f "$before")"
+  removed="$(grep -vxF -f <(printf '%s\n' "$now") "$before")"
+  if [[ -z $added && -z $removed ]]; then
+    echo "$(grep -c . "$before") commit(s), as before; refs: $(git -C "$project" for-each-ref --format='%(refname:short)' | tr '\n' ' ')"
+    return 0
+  fi
+  for commit in $added; do
+    echo "added: $(git -C "$project" log -1 --format='%h %s' "$commit") (on: $(git -C "$project" for-each-ref --contains "$commit" --format='%(refname:short)' | tr '\n' ' '))"
+  done
+  for commit in $removed; do echo "no longer reachable: ${commit:0:10}"; done
+  return 1
+}
+
+assert_status_unchanged() {  # assert_status_unchanged PROJECT: `git status` as in the baseline
+  local project=$1 before now
+  before="$(baseline_of "$project")/status"
+  now="$(git -C "$project" status --porcelain=v1 --untracked-files=all)"
+  if [[ $now == "$(cat "$before")" ]]; then
+    if [[ -s $before ]]; then echo "git status as before: $(tr '\n' ';' < "$before" | sed 's/;$//')"; else echo "git status clean, as before"; fi
+    return 0
+  fi
+  echo "before:"; sed 's/^/  /' "$before"
+  echo "now:"; printf '%s\n' "$now" | sed 's/^/  /'
+  return 1
+}
+
+# Change notice in the final message (references/existing-projects.md): it names a file of the
+# change and gives the reason, the risks and the way back. Equivalent words are accepted.
+NOTICE_WHY='(^|[^[:alnum:]])(why|reasons?|because|so that|in order to|purpose|rationale|motivation)([^[:alnum:]]|$)'
+NOTICE_RISKS='(^|[^[:alnum:]])(risks?|risky|regressions?|break|breaks|breaking|side.?effects?|impact)([^[:alnum:]]|$)'
+NOTICE_ROLLBACK='(^|[^[:alnum:]])(roll.?back|revert|undo|back.?out)'
+
+assert_change_notice() {  # assert_change_notice STREAM FILES_ERE
+  local text part label pattern hit status=0
+  text="$(stream_py result "$1")"
+  for part in "files=$2" "why=$NOTICE_WHY" "risks=$NOTICE_RISKS" "rollback=$NOTICE_ROLLBACK"; do
+    label=${part%%=*} pattern=${part#*=}
+    hit="$(printf '%s\n' "$text" | grep -Ei -m1 -- "$pattern")"
+    if [[ -n $hit ]]; then echo "$label: $(printf '%s' "$hit" | cut -c1-150)"; else echo "$label: no line matches /$pattern/"; status=1; fi
+  done
+  return $status
+}
