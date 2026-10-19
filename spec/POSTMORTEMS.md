@@ -73,7 +73,8 @@ description matches) or a reference (loaded only when the agent follows the link
 trigger fix** and the trigger prompts of the **headless suite** target the first half. Proposed
 for the second half: an audit of the references for rules that must hold without being read
 (each one moves to a hard rule or a step of `SKILL.md`, in one sentence), with a headless scenario
-for each. Not specified yet: it waits for the user's go-ahead.
+for each. Spec: **[SPEC-0031](fixes/0031-must-hold-rules-in-references.md)** (Draft, written at the
+user's request on 2026-10-19).
 
 ### Specs against the patterns
 
