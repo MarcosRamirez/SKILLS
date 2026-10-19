@@ -88,6 +88,8 @@ Headless suite (SPEC-0028): real `claude -p` runs on scratch projects with deter
 - `existing-docs-notice.sh` — tests/headless/scenarios/existing-docs-notice.sh — SPEC-0008 AC-3: "organise the specs" in a docs-only repository with its own pattern ends with a notice of moves (or an assessment offer), with nothing moved or committed
 - `dirty-tree.sh` — tests/headless/scenarios/dirty-tree.sh — SPEC-0008 AC-4: uncommitted user changes stay byte-identical, uncommitted and unstashed, and the agent asks whether to commit them on a branch, stash them or stop
 - `no-git.sh` — tests/headless/scenarios/no-git.sh — SPEC-0008 AC-5: code outside git gets a proposal of `git init` and a snapshot commit, with no source changed; a `git init` run without the OK is reported as a finding
+- `help-languages.sh` — tests/headless/scenarios/help-languages.sh — SPEC-0014 AC-2/AC-2b: "what can you do?" in Spanish, English and French lists the commands and the configuration in that language, and changes nothing; runs 3 times
+- `status.sh` — tests/headless/scenarios/status.sh — SPEC-0014 AC-3: "status" in a repository with a small spec tree names every spec with the state, plan state and tier of its files, plus version, tag and automation, and changes nothing
 - `tests/headless/README.md` — how to run the suite, its cost, the isolation it uses, how to write a scenario
 
 ## CI tests

@@ -91,6 +91,8 @@ The suite must never change the user's machine (PM-0012).
 | `existing-docs-notice` | SPEC-0008 (AC-3) | "Organise the specs" in a docs-only repository with its own pattern (`docs/requirements/REQ-n`, `docs/decisions/DEC-n`): a notice of moves or renames that names its documents, or the offer of an assessment; nothing moved or changed, no commit added |
 | `dirty-tree` | SPEC-0008 (AC-4) | A change to `app/greeter.py` while the user has a modified `app/config.py` and an untracked `notes/todo.txt`: both byte-identical and still uncommitted, nothing committed or stashed (the commits and the git commands), the agent asks whether to commit them on their own branch, stash them or stop, nothing else changed |
 | `no-git` | SPEC-0008 (AC-5) | A change to code in a folder without git: the final message proposes `git init` and a commit of the current state, no source file changed or added. A `git init` run without the OK is printed as a finding: an observation, not a failure |
+| `help-languages` | SPEC-0014 (AC-2, AC-2b) | "What can you do?" in an empty folder, 3 runs (Spanish, English, French): the answer lists the commands and the configuration, is in the language of the question (function words that belong to one language only), calls no question tool, runs no command that changes anything, and creates no file and no repository |
+| `status` | SPEC-0014 (AC-3) | "status" in a repository with six specs (features and fixes: Draft, Approved, Implemented), plans with tiers and states, a roadmap, a tag and an automation: each spec is named with the state, plan state and tier read from its file at check time, the version, the tag and the automation are named, and no file, commit, branch or tag changes |
 
 ## Writing a scenario
 
