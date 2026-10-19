@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "skills": {
+    "senior-mindset": {
+      "source": "MarcosRamirez/SKILLS",
+      "ref": "senior-mindset-v2.8.0",
+      "sourceType": "github",
+      "skillPath": "skills/senior-mindset/SKILL.md",
+      "computedHash": "3f630d92a906dac3cb5f4a989c3ca6a28cc071e2e71e5a52165d0d82e89caeb1"
+    }
+  }
+}

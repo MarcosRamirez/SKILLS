@@ -1,0 +1,3 @@
+# Installed copies of the published skill (SPEC-0021). Searches skip them: the source is skills/.
+.agents/
+.claude/skills/

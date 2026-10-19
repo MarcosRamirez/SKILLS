@@ -7,6 +7,14 @@ Format: `name — path — purpose — usage`.
 
 - `marcosramirez-skills` — .claude-plugin/marketplace.json — lists every skill as a plugin; each entry repeats the version of its SKILL.md — `/plugin marketplace add MarcosRamirez/SKILLS`
 
+## The skill installed in this repo (SPEC-0021)
+
+- `.agents/skills/senior-mindset/` — .agents/skills/senior-mindset/ — the published release this repo uses (standard location); installed, never edited — "update senior-mindset"
+- `.claude/skills/senior-mindset/` — .claude/skills/senior-mindset/ — the same release, the bridge Claude Code reads — "update senior-mindset"
+- `skills-lock.json` — skills-lock.json — what `npx skills` installed, with the release tag in `ref`
+- `.ignore` — .ignore — ripgrep (the agent's Grep and Glob) skips the installed copies
+- `.gitignore` — .gitignore — keeps `.claude/` local files out of git, except the `.claude/skills/` bridge
+
 ## Skills (plugins)
 
 - `senior-mindset` — skills/senior-mindset/ — Claude works like a pragmatic senior engineer — `/plugin install senior-mindset@marcosramirez-skills`

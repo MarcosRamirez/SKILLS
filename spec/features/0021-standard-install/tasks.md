@@ -6,7 +6,7 @@ One branch per task, stacked PRs. Executed through PLAN-0021.
 - [x] T-2 Verify `npx skills` (canonical copy, `--copy`, tags, update), then both READMEs (R-1…R-3, AC-1, AC-2)
 - [x] T-3 First-use detection of global, project and duplicate installs, with headless tests (R-4, AC-3)
 - [x] T-4 "update senior-mindset" opens a PR from the latest release tag (R-5, AC-4)
-- [ ] T-5 This repository: published copy and bridge, global plugin disabled here, AGENTS.md note (R-6, AC-5)
+- [x] T-5 This repository: published copy and bridge, global plugin disabled here, AGENTS.md note (R-6, AC-5)
 - [ ] T-6 Minor release with `Closes-Spec: SPEC-0021`
 
 ## Test results (T-2, 2026-10-19)
@@ -71,3 +71,20 @@ ahead. There is no git remote: stop after the commit and show me the PR body."
 - The final message held the PR body: the change notice (files, risks, rollback), the checks, and
   the 2.8.0 section of the new copy's CHANGELOG.md. Nothing was pushed (no remote), as asked.
 - The user's `~/.claude/senior-mindset.md` kept its SHA-256 (`e2245cbe…`).
+
+## Test results (T-5, 2026-10-19)
+
+- `npx skills@1.7.2 add "MarcosRamirez/SKILLS#senior-mindset-v2.8.0" --skill senior-mindset -a claude-code codex --copy -y`
+  in this repository wrote both copies at `version: "2.8.0"` and `skills-lock.json` with
+  `"ref": "senior-mindset-v2.8.0"`. `.gitignore` changed from `.claude/` to `.claude/*` plus
+  `!.claude/skills/`, so the bridge is committed and `.claude/settings.local.json` stays ignored.
+- `"enabledPlugins": {"senior-mindset@marcosramirez-skills": false}` merged into this repo's
+  `.claude/settings.local.json` (its permissions kept). `claude plugin list --json` here: the plugin
+  is `enabled: false`. `claude -p --model haiku` with the user's own settings listed one
+  `senior-mindset` (the project copy) and no `senior-mindset:senior-mindset` (AC-5).
+- Working copy: from a scratch folder outside the repository,
+  `claude -p --model haiku --plugin-dir <repo>/skills/senior-mindset` listed only
+  `senior-mindset:senior-mindset`, base directory `<repo>\skills\senior-mindset`: the `--plugin-dir`
+  replaces the installed plugin of the same name.
+- `check-docs.py`, `check-versions.py` and `claude plugin validate .` pass with the copies present
+  (they read `skills/` only).
