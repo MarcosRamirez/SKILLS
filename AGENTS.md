@@ -76,7 +76,8 @@ does or how it is installed, update in the same commit:
 - The skill's `README.md`: what it does and its `references/` table.
 - `.claude-plugin/marketplace.json` and the skill's `plugin.json`: description if it changes,
   version per the rules below.
-- `spec/INVENTORY.md` when files are added, moved or removed.
+- `spec/INVENTORY.md` when files are added, moved or removed, or when what a file does changes
+  (its line and every mention that describes it).
 - `spec/constitution/roadmap.md` when a feature is added (the bot sets Implemented on merge).
 - `spec/constitution/tech-stack.md` when an ADR is added or superseded.
 

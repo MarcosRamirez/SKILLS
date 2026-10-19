@@ -3,8 +3,8 @@
 Copy to `spec/INVENTORY.md` at kickoff. Link it from AGENTS.md so every session reads it.
 
 **Purpose:** before writing any function, helper, client, script or tool, check here
-(and grep). If it exists, use or extend it. After creating or removing something,
-update this file in the same commit.
+(and grep). If it exists, use or extend it. After creating or removing something, or changing
+what it does (its purpose or usage), update this file in the same commit.
 
 Format: one line per item — `name — path — purpose — usage`.
 

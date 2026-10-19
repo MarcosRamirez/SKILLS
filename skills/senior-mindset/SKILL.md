@@ -317,7 +317,9 @@ branch and tell the user, instead of silently doing something else.
 ## Step 6 — Update the inventory
 
 Every new module, tool, script, endpoint or table → one line in `spec/INVENTORY.md`
-(`name — path — purpose — usage`). Removed code → remove its line. The inventory is
+(`name — path — purpose — usage`). Removed code → remove its line. When what something does
+changes (its purpose or usage), update its line and every mention that describes it, in the same
+change. The inventory is
 what stops the next session from reinventing something that already exists.
 
 ## Step 7 — Release (when the user asks)
