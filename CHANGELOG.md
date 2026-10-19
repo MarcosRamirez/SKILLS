@@ -7,26 +7,46 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Add a what-I-can-do summary to the welcome (2026-10-19)
-- **senior-mindset:** Make help, status and list plans read-only (2026-10-19)
-- **senior-mindset:** Document the commands in one reference (2026-10-19)
-- **senior-mindset:** Add the existing-projects reference (2026-10-19)
-- **senior-mindset:** Ask before changing an existing project (2026-10-19)
+- **senior-mindset:** Update the installed skill by pull request (2026-10-19)
+- **senior-mindset:** Detect global, project and duplicate installs (2026-10-19)
 
-### Fixed
+### Changed
 
-- **senior-mindset:** Rule out working around uncommitted changes (2026-10-19)
-- **senior-mindset:** Ask about uncommitted changes in hard rule 4 (2026-10-19)
+- **marketplace:** Keep each skill's version only in SKILL.md (2026-10-19)
 
 ### Documentation
 
-- **senior-mindset:** Tick the release tasks of specs 0008 and 0014 (2026-10-19)
-- **repo:** Record T-1 to T-3 of SPEC-0014 and the alias decision (2026-10-19)
-- **repo:** Approve SPEC-0014 and start its plan (2026-10-19)
-- **repo:** Tick T-3 of SPEC-0008 with its run results (2026-10-19)
-- **repo:** Document the SPEC-0008 scenarios in the suite (2026-10-19)
-- **repo:** Approve SPEC-0008 and start its plan (2026-10-19)
-- **repo:** Mark SPEC-0029,SPEC-0030 implemented (#84) (2026-10-19)
+- **repo:** Record the SPEC-0021 T-5 checks (2026-10-19)
+- **repo:** Record the SPEC-0021 T-4 update check (2026-10-19)
+- **repo:** Record the SPEC-0021 T-2 install checks (2026-10-19)
+- **senior-mindset:** Install from the latest release tag (2026-10-19)
+- **repo:** Approve SPEC-0021 and start its plan (2026-10-19)
+- **repo:** Mark SPEC-0008,SPEC-0014 implemented (#89) (2026-10-19)
+
+## [senior-mindset-v2.8.0] - 2026-10-19
+
+### Added
+
+- **senior-mindset:** Add a what-I-can-do summary to the welcome
+- **senior-mindset:** Make help, status and list plans read-only
+- **senior-mindset:** Document the commands in one reference
+- **senior-mindset:** Add the existing-projects reference
+- **senior-mindset:** Ask before changing an existing project
+
+### Fixed
+
+- **senior-mindset:** Rule out working around uncommitted changes
+- **senior-mindset:** Ask about uncommitted changes in hard rule 4
+
+### Documentation
+
+- **senior-mindset:** Tick the release tasks of specs 0008 and 0014
+- **repo:** Record T-1 to T-3 of SPEC-0014 and the alias decision
+- **repo:** Approve SPEC-0014 and start its plan
+- **repo:** Tick T-3 of SPEC-0008 with its run results
+- **repo:** Document the SPEC-0008 scenarios in the suite
+- **repo:** Approve SPEC-0008 and start its plan
+- **repo:** Mark SPEC-0029,SPEC-0030 implemented (#84)
 
 ## [senior-mindset-v2.7.0] - 2026-10-19
 

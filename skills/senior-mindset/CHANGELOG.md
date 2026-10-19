@@ -3,6 +3,21 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.9.0] - 2026-10-19
+
+### Added
+
+- **senior-mindset:** Update the installed skill by pull request
+- **senior-mindset:** Detect global, project and duplicate installs
+
+### Changed
+
+- **marketplace:** Keep each skill's version only in SKILL.md
+
+### Documentation
+
+- **senior-mindset:** Install from the latest release tag
+
 ## [senior-mindset-v2.8.0] - 2026-10-19
 
 ### Added
