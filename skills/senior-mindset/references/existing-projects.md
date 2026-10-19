@@ -33,7 +33,7 @@ Branch: <type>/<slug> · OK to proceed?
 | Case | Behaviour |
 |---|---|
 | Empty folder | Normal kickoff, no notice: there is nothing to touch |
-| Documentation only, with its own pattern | Notice before reorganising or renaming anything; adopting the standard layout is SPEC-0009 (assessment first) |
+| Documentation only, with its own pattern | Notice before reorganising or renaming anything; adopting the standard layout starts with the assessment in [onboarding.md](onboarding.md) |
 | Code, with or without docs | Notice before touching code or docs; existing conventions (naming, structure, libraries, configs) win over the skill's defaults |
 | Not a git repo | Propose `git init` and a commit of the current state first, so there is a way back, then the notice |
 | Uncommitted user changes | Never touch or mix them. Ask: commit them on their own branch, stash them, or stop. Do not offer to work around them in place: switching branches carries them along, and a later `git add` can mix them into your commit |
@@ -68,7 +68,7 @@ Branch: feat/0012-signup-validation · OK to proceed?
 ```
 
 **Documentation-only repository, "organise the specs":** the notice lists every file moved and
-renamed, with `git mv` so history is kept, and offers the SPEC-0009 assessment first, because the
+renamed, with `git mv` so history is kept, and offers the assessment of [onboarding.md](onboarding.md) first, because the
 project already follows a pattern of its own.
 
 **Uncommitted changes in the working tree:** do not edit anything. Say which files have

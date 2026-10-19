@@ -45,6 +45,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `project-layout.md` — project tree and AGENTS.md section
 - `questions.md` — closed questions with clickable options (question tool): format, examples, numbered fallback
 - `existing-projects.md` — working on existing projects (hard rule 4): change notice template, edge-case table, examples
+- `onboarding.md` — onboarding an existing project without conventions: state detection, six-stage code analysis, inventory verification gate, secrets by location only, docs mapping, `spec/ASSESSMENT.md` template, adoption spec flow, no-deletion check
 - `sdd.md` — spec / design / tasks templates
 - `release-automation.md` — specs close on merge, releases tag themselves; uses the templates below
 - `security.md` — OWASP Top 10 checklist
