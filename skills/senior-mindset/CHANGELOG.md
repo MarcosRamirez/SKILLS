@@ -12,6 +12,7 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Fixed
 
+- **senior-mindset:** Propose git init and a snapshot before changes
 - **senior-mindset:** Make the inventory gate check routes on Git Bash
 
 ## [senior-mindset-v2.9.0] - 2026-10-19

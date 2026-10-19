@@ -12,10 +12,13 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Fixed
 
+- **senior-mindset:** Propose git init and a snapshot before changes (2026-10-19)
 - **senior-mindset:** Make the inventory gate check routes on Git Bash (2026-10-19)
 
 ### Documentation
 
+- **repo:** Record PM-0017 and the code-defect pattern (2026-10-19)
+- **repo:** Tick the SPEC-0009 release task (2026-10-19)
 - **repo:** Test SPEC-0009 on synthetic projects (2026-10-19)
 - **repo:** Approve SPEC-0009 and start its plan (2026-10-19)
 - **repo:** Mark SPEC-0021 implemented (#95) (2026-10-19)
