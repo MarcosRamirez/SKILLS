@@ -4,7 +4,7 @@ One branch per task. Executed through PLAN-0029.
 
 - [x] T-1 Port the scratchpad suites into `tests/ci/`, portable and self-contained, plus a check-docs suite (AC-1)
 - [x] T-2 `scripts` job in `checks.yml`, the revert check, AGENTS.md, INVENTORY, the `testing.md` line (AC-2, AC-3, AC-4)
-- [ ] T-3 PATCH release with `Closes-Spec: SPEC-0029`
+- [x] T-3 Release with `Closes-Spec: SPEC-0029` (shipped in the combined 2.7.0 minor release with SPEC-0030, so the headless suite ran once)
 
 ## Results (T-2)
 

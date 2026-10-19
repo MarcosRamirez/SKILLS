@@ -18,17 +18,17 @@ One row per bug, newest last. The register is how this project learns.
 | Id | Date | What happened | Category | Root cause | Why not caught | Prevention (status) | Link |
 |---|---|---|---|---|---|---|---|
 | PM-0001 | 2026-10-12 | save-image's `SKILL.md` said `version: "1.0"` while its new `plugin.json` said `1.0.0` | docs drift | The version lives in two files, and nothing compares them | No check compares the two fields; found by reading, while preparing senior-mindset 1.1.0 | Rule "keep `metadata.version` identical" (done: CLAUDE.md, Versioning); a check that keeps the versions equal (pending: SPEC-0021, per ADR-0006) | [dd86ac5](https://github.com/MarcosRamirez/SKILLS/commit/dd86ac5) |
-| PM-0002 | 2026-10-12 | A headless run of 1.1.0 could not ask the user, so it picked every default and built a whole app. It wrote only `spec.md` and marked it Implemented | process gap | "No code before an approved spec" was one sentence. It did not define approval or say what to do when the user cannot be asked | The skill had never run without a user before 1.1.0 shipped; no headless test | Approval gate with a Draft stop (done: `SKILL.md` Step 3, `sdd.md`; it did not hold, see PM-0006); repeatable headless tests (pending: SPEC-0028) | [SPEC-0001](features/0001-senior-mindset-1-2-0/spec.md) F1, F2; [dfbd476](https://github.com/MarcosRamirez/SKILLS/commit/dfbd476) |
-| PM-0003 | 2026-10-12 | The same run skipped `CHANGELOG.md` and `cliff.toml`, which 1.1.0 listed for kickoff, and committed the whole app at once on `master` | process gap | Kickoff had no exit check. Its artifacts were a list to read, not a checklist to verify and commit before the first feature | Nothing checked the kickoff artifacts or the shape of the history | Verified kickoff checklist on its own branch (done: `SKILL.md` kickoff); one branch per change (done: `SKILL.md`, `git.md`); the suite checks both (pending: SPEC-0028) | [SPEC-0001](features/0001-senior-mindset-1-2-0/spec.md) F3, F4, F7; [11238c6](https://github.com/MarcosRamirez/SKILLS/commit/11238c6), [639e8be](https://github.com/MarcosRamirez/SKILLS/commit/639e8be) |
-| PM-0004 | 2026-10-12 | Asked for "a python script that renames photos by date", the skill did not load: file name, functions and flags came out in Spanish | code defect | The always-on rules load only when the skill's description matches the prompt, and the description named only project-sized requests | No trigger test: no set of prompts that must load the skill | Description covers any code change, scripts included (done: `SKILL.md` frontmatter); trigger prompts (pending: SPEC-0028). Recurred for merges: PM-0011 | [SPEC-0001](features/0001-senior-mindset-1-2-0/spec.md) F6; [cde6c4f](https://github.com/MarcosRamirez/SKILLS/commit/cde6c4f) |
+| PM-0002 | 2026-10-12 | A headless run of 1.1.0 could not ask the user, so it picked every default and built a whole app. It wrote only `spec.md` and marked it Implemented | process gap | "No code before an approved spec" was one sentence. It did not define approval or say what to do when the user cannot be asked | The skill had never run without a user before 1.1.0 shipped; no headless test | Approval gate with a Draft stop (done: `SKILL.md` Step 3, `sdd.md`; it did not hold, see PM-0006); repeatable headless tests (done: SPEC-0028, `tests/headless/`) | [SPEC-0001](features/0001-senior-mindset-1-2-0/spec.md) F1, F2; [dfbd476](https://github.com/MarcosRamirez/SKILLS/commit/dfbd476) |
+| PM-0003 | 2026-10-12 | The same run skipped `CHANGELOG.md` and `cliff.toml`, which 1.1.0 listed for kickoff, and committed the whole app at once on `master` | process gap | Kickoff had no exit check. Its artifacts were a list to read, not a checklist to verify and commit before the first feature | Nothing checked the kickoff artifacts or the shape of the history | Verified kickoff checklist on its own branch (done: `SKILL.md` kickoff); one branch per change (done: `SKILL.md`, `git.md`); the suite checks both (done: SPEC-0028, `tests/headless/`) | [SPEC-0001](features/0001-senior-mindset-1-2-0/spec.md) F3, F4, F7; [11238c6](https://github.com/MarcosRamirez/SKILLS/commit/11238c6), [639e8be](https://github.com/MarcosRamirez/SKILLS/commit/639e8be) |
+| PM-0004 | 2026-10-12 | Asked for "a python script that renames photos by date", the skill did not load: file name, functions and flags came out in Spanish | code defect | The always-on rules load only when the skill's description matches the prompt, and the description named only project-sized requests | No trigger test: no set of prompts that must load the skill | Description covers any code change, scripts included (done: `SKILL.md` frontmatter); trigger prompts (done: SPEC-0028, `tests/headless/`). Recurred for merges: PM-0011 | [SPEC-0001](features/0001-senior-mindset-1-2-0/spec.md) F6; [cde6c4f](https://github.com/MarcosRamirez/SKILLS/commit/cde6c4f) |
 | PM-0005 | 2026-10-13 | Merging the bottom PR of the SPEC-0002 stack with `--delete-branch` closed #3, #5 and #7 instead of retargeting them; SPEC-0002 had to land again as one PR | environment | The stacked-PR procedure said GitHub retargets a PR when its base branch is deleted. That platform behaviour was written down without being tried | The flow ran for the first time on real PRs, not on a throwaway stack | Retarget, merge without deleting, delete last (done: `git.md`, CLAUDE.md; stacks #16 to #19 and #31 to #34 merged cleanly); see the environment pattern | [PR #8](https://github.com/MarcosRamirez/SKILLS/pull/8), [5f0d95e](https://github.com/MarcosRamirez/SKILLS/commit/5f0d95e) |
-| PM-0006 | 2026-10-13 | A headless "créame una app de tareas" with 1.3.0, which had the 1.2.0 gate, built the whole app: the failed question was read as "skipped" and defaults were picked | process gap | The gate sat in the middle of Step 3 and did not say that a failed or skipped question is not an answer | The 1.2.0 gate shipped without re-running the headless test that found PM-0002; no release step asked for it | Hard rules at the top of `SKILL.md`, verified headless (done: `SKILL.md`, SPEC-0003 T-2); gate kept for trivial fixes and clickable questions (done: df4c658, SPEC-0016 AC-3); suite before every release (pending: SPEC-0028) | [SPEC-0003](features/0003-headless-approval-gate/spec.md); [de1ce4e](https://github.com/MarcosRamirez/SKILLS/commit/de1ce4e) |
+| PM-0006 | 2026-10-13 | A headless "créame una app de tareas" with 1.3.0, which had the 1.2.0 gate, built the whole app: the failed question was read as "skipped" and defaults were picked | process gap | The gate sat in the middle of Step 3 and did not say that a failed or skipped question is not an answer | The 1.2.0 gate shipped without re-running the headless test that found PM-0002; no release step asked for it | Hard rules at the top of `SKILL.md`, verified headless (done: `SKILL.md`, SPEC-0003 T-2); gate kept for trivial fixes and clickable questions (done: df4c658, SPEC-0016 AC-3); suite before every release (done: SPEC-0028, `tests/headless/`) | [SPEC-0003](features/0003-headless-approval-gate/spec.md); [de1ce4e](https://github.com/MarcosRamirez/SKILLS/commit/de1ce4e) |
 | PM-0007 | 2026-10-13 | After 1.3.0 the inventory still called `git.md` a "fallback git convention when no git skill is installed", though it now defined the pull-request flow | docs drift | CLAUDE.md asks for an inventory update only when files are added, moved or removed, not when what a file does changes | Neither the rule nor a check covers a change of role | Line fixed (done); the rule also covers a change in what a file does (done: SPEC-0030) | [d6e2f49](https://github.com/MarcosRamirez/SKILLS/commit/d6e2f49) |
-| PM-0008 | 2026-10-13 | The first real on-merge run (merge of #19) failed in the tag step for lack of a git identity. SPEC-0005 stayed open and 1.5.0 was tagged by hand | environment | The identity was set only in a later step. Local tests passed because the machine had a global identity | Tests ran with a configured git, not a runner-like one (`GIT_CONFIG_GLOBAL=/dev/null`) | Identity set right after checkout (done: `on-merge.yml`, app template); workflow tests with a runner-like config (pending: SPEC-0029) | [PR #20](https://github.com/MarcosRamirez/SKILLS/pull/20), [e985f41](https://github.com/MarcosRamirez/SKILLS/commit/e985f41); [SPEC-0005](features/0005-close-on-merge/spec.md) |
-| PM-0009 | 2026-10-13 | The on-merge step that commits closed specs would abort before committing when no changed path matched its id grep (a fix-only PR, or only a roadmap row); its fallback id was dead code | tooling | Under `set -euo pipefail` a grep with no match fails the assignment, and no test had ever run this inline step's no-match path | Inline workflow steps had no tests. SPEC-0022 caught both cases (R-5, a probe in its T-2 suite) before a real run hit them | Both cases fixed (done: abba42e, cac50d9); the line checked under pipefail (done: PR #43, scratch only); committed workflow tests (pending: SPEC-0029) | [PR #43](https://github.com/MarcosRamirez/SKILLS/pull/43), [abba42e](https://github.com/MarcosRamirez/SKILLS/commit/abba42e), [cac50d9](https://github.com/MarcosRamirez/SKILLS/commit/cac50d9) |
-| PM-0010 | 2026-10-13 | Nothing stopped a version moving with nothing implemented: git-cliff proposes a PATCH for a docs-only commit, and the tag script tagged a version-only bump. No such version was released | spec gap | The rule was implicit. The release step trusted the version calculator, and the tag script only checked that the tag did not exist yet | No test ran a docs-only range or a version-only bump | Rule, release check and tag guard (done: `versioning.md`, `SKILL.md`, CLAUDE.md, `tag-skill-releases.sh`); their tests in CI (pending: SPEC-0029) | [SPEC-0023](fixes/0023-bump-only-on-implementation.md) |
-| PM-0011 | 2026-10-14 | In the SPEC-0016 tests, "should we merge?" loaded only the git-workflow skill. With the question tool available, the agent merged on its own in two of two Spanish runs | code defect | Same cause as PM-0004: the git rules load only with the skill, and its description does not cover git-only requests (merge, push, pull request) | No trigger test; found by chance while testing questions | fixed; conventions block (done, SPEC-0027); trigger scenarios in the headless suite (pending: SPEC-0028) | [SPEC-0027](fixes/0027-git-requests-skip-the-rules.md); [SPEC-0016 T-2 results](features/0016-clickable-answers/tasks.md#test-results-t-2-2026-10-14), [PR #50](https://github.com/MarcosRamirez/SKILLS/pull/50) |
-| PM-0012 | 2026-10-14 | The same headless runs rewrote the user's real `~/.claude/senior-mindset.md` through the skill's update notice (`senior-mindset version` 1.3.0 to 2.2.1) | environment | Headless test runs use the user's real home, so the skill's user-level setup file is shared with them | The test procedure has no isolation step and no check that the home is unchanged afterwards | Fix pending: runs in an isolated home (pending: SPEC-0028) | [PR #50](https://github.com/MarcosRamirez/SKILLS/pull/50) |
+| PM-0008 | 2026-10-13 | The first real on-merge run (merge of #19) failed in the tag step for lack of a git identity. SPEC-0005 stayed open and 1.5.0 was tagged by hand | environment | The identity was set only in a later step. Local tests passed because the machine had a global identity | Tests ran with a configured git, not a runner-like one (`GIT_CONFIG_GLOBAL=/dev/null`) | Identity set right after checkout (done: `on-merge.yml`, app template); workflow tests with a runner-like config (done: SPEC-0029, `tests/ci/` in CI) | [PR #20](https://github.com/MarcosRamirez/SKILLS/pull/20), [e985f41](https://github.com/MarcosRamirez/SKILLS/commit/e985f41); [SPEC-0005](features/0005-close-on-merge/spec.md) |
+| PM-0009 | 2026-10-13 | The on-merge step that commits closed specs would abort before committing when no changed path matched its id grep (a fix-only PR, or only a roadmap row); its fallback id was dead code | tooling | Under `set -euo pipefail` a grep with no match fails the assignment, and no test had ever run this inline step's no-match path | Inline workflow steps had no tests. SPEC-0022 caught both cases (R-5, a probe in its T-2 suite) before a real run hit them | Both cases fixed (done: abba42e, cac50d9); the line checked under pipefail (done: PR #43, scratch only); committed workflow tests (done: SPEC-0029, `tests/ci/` in CI) | [PR #43](https://github.com/MarcosRamirez/SKILLS/pull/43), [abba42e](https://github.com/MarcosRamirez/SKILLS/commit/abba42e), [cac50d9](https://github.com/MarcosRamirez/SKILLS/commit/cac50d9) |
+| PM-0010 | 2026-10-13 | Nothing stopped a version moving with nothing implemented: git-cliff proposes a PATCH for a docs-only commit, and the tag script tagged a version-only bump. No such version was released | spec gap | The rule was implicit. The release step trusted the version calculator, and the tag script only checked that the tag did not exist yet | No test ran a docs-only range or a version-only bump | Rule, release check and tag guard (done: `versioning.md`, `SKILL.md`, CLAUDE.md, `tag-skill-releases.sh`); their tests in CI (done: SPEC-0029, `tests/ci/` in CI) | [SPEC-0023](fixes/0023-bump-only-on-implementation.md) |
+| PM-0011 | 2026-10-14 | In the SPEC-0016 tests, "should we merge?" loaded only the git-workflow skill. With the question tool available, the agent merged on its own in two of two Spanish runs | code defect | Same cause as PM-0004: the git rules load only with the skill, and its description does not cover git-only requests (merge, push, pull request) | No trigger test; found by chance while testing questions | fixed; conventions block (done, SPEC-0027); trigger scenarios in the headless suite (done: SPEC-0028, `tests/headless/`) | [SPEC-0027](fixes/0027-git-requests-skip-the-rules.md); [SPEC-0016 T-2 results](features/0016-clickable-answers/tasks.md#test-results-t-2-2026-10-14), [PR #50](https://github.com/MarcosRamirez/SKILLS/pull/50) |
+| PM-0012 | 2026-10-14 | The same headless runs rewrote the user's real `~/.claude/senior-mindset.md` through the skill's update notice (`senior-mindset version` 1.3.0 to 2.2.1) | environment | Headless test runs use the user's real home, so the skill's user-level setup file is shared with them | The test procedure has no isolation step and no check that the home is unchanged afterwards | fixed: headless runs use `acceptEdits` and a user-file hash check (done: SPEC-0028, `tests/headless/`; an isolated home loses the login) | [PR #50](https://github.com/MarcosRamirez/SKILLS/pull/50) |
 | PM-0013 | 2026-10-14 | PR #40 accepted ADR-0005 and ADR-0006 but updated none of the living documents. CLAUDE.md still cites the superseded ADR-0001 and ADR-0003, and the READMEs install Claude-first and globally | docs drift | Accepting an ADR does not require checking the documents that describe the decision; the documentation rule covers skill changes, not decisions | No check flags a link to a superseded ADR. PR #40 deferred CLAUDE.md to plan 0021 without marking it in the document | `check-docs.py` on every PR (done: SPEC-0024 T-3); impact sweep for every decision (done: SPEC-0025, senior-mindset 2.5.0) | [SPEC-0024](fixes/0024-docs-out-of-step-with-adrs.md) |
 
 ## Patterns
@@ -124,7 +124,7 @@ Proposed ADRs and open questions when the user cannot be asked.
 **Preventive actions.**
 
 - [x] Approval gate (where: rule, `SKILL.md` Step 3, `references/sdd.md`). It did not hold in headless runs: PM-0006.
-- [ ] Repeatable headless tests (SPEC-0028)
+- [x] Repeatable headless tests (done: SPEC-0028)
 
 ### PM-0003: kickoff checklist skipped (1.1.0)
 
@@ -152,7 +152,7 @@ one branch per change. Both in 1.2.0.
 
 - [x] Verified kickoff checklist and kickoff commit (where: rule, `SKILL.md` kickoff)
 - [x] One branch per change, never on the default branch (where: rule, `SKILL.md`, `references/git.md`)
-- [ ] The suite checks the kickoff artifacts and the branch history (SPEC-0028)
+- [x] The suite checks the kickoff artifacts and the branch history (done: SPEC-0028)
 
 ### PM-0004: the skill did not load for a script
 
@@ -177,7 +177,7 @@ names, flags and comments stay in English.
 **Preventive actions.**
 
 - [x] Description covers scripts, fixes and releases (where: `SKILL.md` frontmatter)
-- [ ] Trigger prompts that must load the skill (SPEC-0028). The same cause recurred for merges: PM-0011.
+- [x] Trigger prompts that must load the skill (done: SPEC-0028). The same cause recurred for merges: PM-0011.
 
 ### PM-0005: stacked PRs closed when their base branch was deleted
 
@@ -204,8 +204,8 @@ retarget the next PR first, merge without `--delete-branch`, delete the branch l
 
 - [x] Safe merge order (where: rule, `references/git.md`, CLAUDE.md "Git"). Each stacked PR body
   states its merge order; the stacks #16 to #19 and #31 to #34 merged in order with none closed.
-- [ ] A procedure that relies on platform behaviour is first tried on a throwaway repository
-  (SPEC-0029 R-5, the line in `references/testing.md`)
+- [x] A procedure that relies on platform behaviour is first tried on a throwaway repository
+  (done: SPEC-0029 R-5, the line in `references/testing.md`, 2.7.0)
 
 ### PM-0006: the approval gate failed in headless runs (1.3.0)
 
@@ -237,7 +237,7 @@ step requires one.
 - [x] The gate kept when later features added exceptions: trivial fixes
   ([df4c658](https://github.com/MarcosRamirez/SKILLS/commit/df4c658), SPEC-0022) and clickable
   questions (SPEC-0016 R-6; its AC-3 headless test passed)
-- [ ] The suite runs before every release, so a gate that stops holding is caught (SPEC-0028)
+- [x] The suite runs before every release, so a gate that stops holding is caught (done: SPEC-0028)
 
 ### PM-0008: on-merge without a git identity; 1.5.0 tagged by hand
 
@@ -265,7 +265,7 @@ checkout, in this repository's workflow and in the app template (1.6.0).
 
 - [x] Identity step before any git write (where: `.github/workflows/on-merge.yml`, `skills/senior-mindset/templates/release-automation/on-merge.yml`)
 - [x] Manual fallback documented (where: CLAUDE.md "Releasing a skill")
-- [ ] Workflow tests in CI with a runner-like git config (SPEC-0029)
+- [x] Workflow tests in CI with a runner-like git config (done: SPEC-0029)
 
 ### PM-0009: on-merge aborting when no spec path changed
 
@@ -293,7 +293,7 @@ match" non-fatal (`|| true` inside the substitution), without dropping `pipefail
 **Preventive actions.**
 
 - [x] The `ids=` line evaluated under `set -euo pipefail` with sample lists (where: test, [PR #43](https://github.com/MarcosRamirez/SKILLS/pull/43), scratch only)
-- [ ] The on-merge tests committed and run in CI (SPEC-0029)
+- [x] The on-merge tests committed and run in CI (done: SPEC-0029)
 
 ### PM-0012: headless test runs rewrote the user's setup file
 
@@ -318,4 +318,4 @@ the tests reported it ([PR #50](https://github.com/MarcosRamirez/SKILLS/pull/50)
 
 **Preventive actions.**
 
-- [ ] Headless runs in an isolated home, with a check that the real home is unchanged afterwards (SPEC-0028)
+- [x] Headless runs that cannot change the real home, with a check that it is unchanged afterwards (done: SPEC-0028: `acceptEdits` plus a hash check; an isolated home loses the login)

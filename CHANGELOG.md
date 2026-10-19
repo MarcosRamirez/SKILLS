@@ -7,28 +7,50 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Add the CLAUDE.md and AGENTS.md merge procedure (2026-10-18)
-- **senior-mindset:** Make AGENTS.md the conventions file (2026-10-18)
-
-### Fixed
-
-- **senior-mindset:** Read agents-md.md before proposing a change (2026-10-18)
-- **senior-mindset:** Put the instruction-file check first in Step 1 (2026-10-18)
-- **senior-mindset:** Check the instruction files every session (2026-10-18)
-
-### Changed
-
-- **repo:** Rename CLAUDE.md to AGENTS.md (2026-10-18)
+- **senior-mindset:** Update the docs when what a file does changes (2026-10-19)
 
 ### Documentation
 
-- **senior-mindset:** Tick task T-4 of spec 0019 (2026-10-18)
-- **repo:** Tick SPEC-0019 T-3 with migration results (2026-10-18)
-- **repo:** Point conventions references to AGENTS.md (2026-10-18)
-- **repo:** Add CLAUDE.md import of AGENTS.md (2026-10-18)
-- **repo:** Sweep Draft specs and tick T-1 of SPEC-0019 (2026-10-18)
-- **repo:** Approve SPEC-0019 and start its plan (2026-10-18)
-- **repo:** Mark SPEC-0027 implemented (#70) (2026-10-18)
+- **senior-mindset:** Tick the release tasks of specs 0029 and 0030 (2026-10-19)
+- **repo:** Tick T-2 of SPEC-0029 with its results (2026-10-19)
+- **senior-mindset:** Try the platform before relying on it (2026-10-19)
+- **repo:** Document the scripts job and the suite-with-script rule (2026-10-19)
+- **repo:** Document tests/ci and tick T-1 (2026-10-19)
+- **repo:** Start PLAN-0029 (T-1 in progress) (2026-10-19)
+- **repo:** Mark SPEC-0028 implemented (#79) (2026-10-19)
+- **repo:** Run the headless suite before every release (2026-10-19)
+- **repo:** Tick T-2 of SPEC-0028 with its run results (2026-10-18)
+- **repo:** Document the T-2 scenarios in the suite README (2026-10-18)
+- **repo:** Document the headless suite and tick T-1 (2026-10-18)
+- **repo:** Start plan 0028 with task T-1 (2026-10-18)
+- **repo:** Mark SPEC-0019 implemented (#75) (2026-10-18)
+
+## [senior-mindset-v2.6.0] - 2026-10-18
+
+### Added
+
+- **senior-mindset:** Add the CLAUDE.md and AGENTS.md merge procedure
+- **senior-mindset:** Make AGENTS.md the conventions file
+
+### Fixed
+
+- **senior-mindset:** Read agents-md.md before proposing a change
+- **senior-mindset:** Put the instruction-file check first in Step 1
+- **senior-mindset:** Check the instruction files every session
+
+### Changed
+
+- **repo:** Rename CLAUDE.md to AGENTS.md
+
+### Documentation
+
+- **senior-mindset:** Tick task T-4 of spec 0019
+- **repo:** Tick SPEC-0019 T-3 with migration results
+- **repo:** Point conventions references to AGENTS.md
+- **repo:** Add CLAUDE.md import of AGENTS.md
+- **repo:** Sweep Draft specs and tick T-1 of SPEC-0019
+- **repo:** Approve SPEC-0019 and start its plan
+- **repo:** Mark SPEC-0027 implemented (#70)
 
 ## [senior-mindset-v2.5.1] - 2026-10-18
 

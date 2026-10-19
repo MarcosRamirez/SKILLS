@@ -3,6 +3,16 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.7.0] - 2026-10-19
+
+### Added
+
+- **senior-mindset:** Update the docs when what a file does changes
+
+### Documentation
+
+- **senior-mindset:** Try the platform before relying on it
+
 ## [senior-mindset-v2.6.0] - 2026-10-18
 
 ### Added

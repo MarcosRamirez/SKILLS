@@ -43,7 +43,7 @@ PM-0001 and PM-0013.
 
 ## Tasks
 - [x] T-1 Rule in SKILL.md Step 6, inventory-template.md and AGENTS.md; PM-0007 marked done (AC-1, AC-2)
-- [ ] T-2 Minor release with `Closes-Spec: SPEC-0030` (AC-3)
+- [x] T-2 Minor release with `Closes-Spec: SPEC-0030` (AC-3)
 
 ## Changelog
 
