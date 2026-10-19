@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Fake gh for the tag suite: records the call, does nothing else.
+echo "gh $*" >>"${GH_CALLS_LOG:?GH_CALLS_LOG must be set}"
