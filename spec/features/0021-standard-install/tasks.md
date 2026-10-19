@@ -7,7 +7,7 @@ One branch per task, stacked PRs. Executed through PLAN-0021.
 - [x] T-3 First-use detection of global, project and duplicate installs, with headless tests (R-4, AC-3)
 - [x] T-4 "update senior-mindset" opens a PR from the latest release tag (R-5, AC-4)
 - [x] T-5 This repository: published copy and bridge, global plugin disabled here, AGENTS.md note (R-6, AC-5)
-- [ ] T-6 Minor release with `Closes-Spec: SPEC-0021`
+- [x] T-6 Minor release with `Closes-Spec: SPEC-0021`
 
 ## Test results (T-2, 2026-10-19)
 

@@ -10,7 +10,7 @@
       "name": "save-image",
       "source": "./skills/save-image",
       "description": "Paste an image in Claude Code and it lands on disk automatically — no filenames, no export dialogs",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Marcos Ramírez",
         "url": "https://marcosramirez.info"
@@ -23,7 +23,7 @@
       "name": "senior-mindset",
       "source": "./skills/senior-mindset",
       "description": "Claude builds software like a pragmatic senior engineer: spec first, ADRs, reuse, readable, secure, tested code",
-      "version": "2.8.0",
+      "version": "2.9.0",
       "author": {
         "name": "Marcos Ramírez",
         "url": "https://marcosramirez.info"
