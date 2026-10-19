@@ -7,23 +7,49 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Update the docs when what a file does changes (2026-10-19)
+- **senior-mindset:** Add a what-I-can-do summary to the welcome (2026-10-19)
+- **senior-mindset:** Make help, status and list plans read-only (2026-10-19)
+- **senior-mindset:** Document the commands in one reference (2026-10-19)
+- **senior-mindset:** Add the existing-projects reference (2026-10-19)
+- **senior-mindset:** Ask before changing an existing project (2026-10-19)
+
+### Fixed
+
+- **senior-mindset:** Rule out working around uncommitted changes (2026-10-19)
+- **senior-mindset:** Ask about uncommitted changes in hard rule 4 (2026-10-19)
 
 ### Documentation
 
-- **senior-mindset:** Tick the release tasks of specs 0029 and 0030 (2026-10-19)
-- **repo:** Tick T-2 of SPEC-0029 with its results (2026-10-19)
-- **senior-mindset:** Try the platform before relying on it (2026-10-19)
-- **repo:** Document the scripts job and the suite-with-script rule (2026-10-19)
-- **repo:** Document tests/ci and tick T-1 (2026-10-19)
-- **repo:** Start PLAN-0029 (T-1 in progress) (2026-10-19)
-- **repo:** Mark SPEC-0028 implemented (#79) (2026-10-19)
-- **repo:** Run the headless suite before every release (2026-10-19)
-- **repo:** Tick T-2 of SPEC-0028 with its run results (2026-10-18)
-- **repo:** Document the T-2 scenarios in the suite README (2026-10-18)
-- **repo:** Document the headless suite and tick T-1 (2026-10-18)
-- **repo:** Start plan 0028 with task T-1 (2026-10-18)
-- **repo:** Mark SPEC-0019 implemented (#75) (2026-10-18)
+- **senior-mindset:** Tick the release tasks of specs 0008 and 0014 (2026-10-19)
+- **repo:** Record T-1 to T-3 of SPEC-0014 and the alias decision (2026-10-19)
+- **repo:** Approve SPEC-0014 and start its plan (2026-10-19)
+- **repo:** Tick T-3 of SPEC-0008 with its run results (2026-10-19)
+- **repo:** Document the SPEC-0008 scenarios in the suite (2026-10-19)
+- **repo:** Approve SPEC-0008 and start its plan (2026-10-19)
+- **repo:** Mark SPEC-0029,SPEC-0030 implemented (#84) (2026-10-19)
+
+## [senior-mindset-v2.7.0] - 2026-10-19
+
+### Added
+
+- **senior-mindset:** Update the docs when what a file does changes
+
+### Documentation
+
+- **repo:** Mark the suite and CI preventive actions done
+- **senior-mindset:** Tick the release tasks of specs 0029 and 0030
+- **repo:** Tick T-2 of SPEC-0029 with its results
+- **senior-mindset:** Try the platform before relying on it
+- **repo:** Document the scripts job and the suite-with-script rule
+- **repo:** Document tests/ci and tick T-1
+- **repo:** Start PLAN-0029 (T-1 in progress)
+- **repo:** Mark SPEC-0028 implemented (#79)
+- **repo:** Run the headless suite before every release
+- **repo:** Tick T-2 of SPEC-0028 with its run results
+- **repo:** Document the T-2 scenarios in the suite README
+- **repo:** Document the headless suite and tick T-1
+- **repo:** Start plan 0028 with task T-1
+- **repo:** Mark SPEC-0019 implemented (#75)
 
 ## [senior-mindset-v2.6.0] - 2026-10-18
 

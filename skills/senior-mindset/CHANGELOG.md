@@ -3,6 +3,21 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.8.0] - 2026-10-19
+
+### Added
+
+- **senior-mindset:** Add a what-I-can-do summary to the welcome
+- **senior-mindset:** Make help, status and list plans read-only
+- **senior-mindset:** Document the commands in one reference
+- **senior-mindset:** Add the existing-projects reference
+- **senior-mindset:** Ask before changing an existing project
+
+### Fixed
+
+- **senior-mindset:** Rule out working around uncommitted changes
+- **senior-mindset:** Ask about uncommitted changes in hard rule 4
+
 ## [senior-mindset-v2.7.0] - 2026-10-19
 
 ### Added
