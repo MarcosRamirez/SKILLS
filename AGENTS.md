@@ -16,7 +16,8 @@ Managed with the senior-mindset skill. Details and reasons live in the ADRs.
 - **Changelog:** `CHANGELOG.md` generated with git-cliff from the commit history. See [ADR-0002](spec/adr/0002-generate-changelog-with-git-cliff.md).
 - **Checks (instead of a linter):** `claude plugin validate .`, `python3 .github/scripts/check-docs.py` (relative links resolve,
   no link to a superseded ADR in the living documents) and `python3 .github/scripts/check-versions.py`
-  (each marketplace entry carries its skill's name and version). Both scripts run on every pull request through `.github/workflows/checks.yml`. Before every
+  (each marketplace entry carries its skill's name and version), plus `python3 .github/scripts/check-catalog.py`
+  (the curated catalog in `skills/senior-mindset/catalog/`). The scripts run on every pull request through `.github/workflows/checks.yml`. Before every
   release, the headless suite (`bash tests/headless/run.sh`) checks the skill's behaviour.
 - **Scripts have tests:** when a script under `.github/scripts/` or `skills/*/templates/` changes,
   its suite in `tests/ci/` changes in the same pull request.
@@ -173,6 +174,7 @@ CHANGELOG.md  cliff.toml
 .github/workflows/checks.yml        on every pull request: check-docs.py (job docs) and tests/ci/run.sh (job scripts)
 .github/scripts/check-docs.py       living documents: broken relative links, links to superseded ADRs
 .github/scripts/check-versions.py   marketplace entries match each SKILL.md name and metadata.version
+.github/scripts/check-catalog.py    the curated catalog: schema, pinned refs, no scope flags, no secrets
 tests/ci/                          tests of the release scripts and the docs check (run.sh; the scripts job in CI)
 tests/headless/                    headless suite: run.sh, scenarios/ (run before every release)
 skills/senior-mindset/templates/  files the skill copies into apps; this repo reuses close-specs.sh

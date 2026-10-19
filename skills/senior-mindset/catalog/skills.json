@@ -1,0 +1,6 @@
+{
+  "$schema": "./catalog.schema.json",
+  "kind": "skills",
+  "entries": [],
+  "rejected": []
+}

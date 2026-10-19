@@ -1,7 +1,7 @@
 # PLAN-0011: curated catalog of skills and MCPs, and skill management
 
 Spec: [SPEC-0011](spec.md)
-Status: Draft
+Status: In progress
 Recommended overall: high — Claude Opus 5.5 (inclusion criteria and curation are judgment calls)
 
 ## Context

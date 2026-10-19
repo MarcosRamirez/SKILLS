@@ -160,6 +160,7 @@ and suggest 2–3 options.
 | `references/automations.md` | Catalog of automations offered at kickoff (multi-select question): release-automation, docs-check |
 | `references/questions.md` | Closed questions asked with the question tool: format, click or type, examples, numbered fallback |
 | `references/existing-projects.md` | Hard rule 4 in practice: the change notice template, edge cases (no git, uncommitted changes, other branch, AI config, CI), conventions win, no drive-by refactors |
+| `references/catalog.md` | The curated catalog of skills and MCPs (`catalog/skills.json`, `catalog/mcps.json`, `catalog/catalog.schema.json`): inclusion criteria, entry fields, proposing at most three with consent, project-first install, update and removal |
 | `references/onboarding.md` | Onboarding an existing project: state detection, the six-stage code analysis with a verification gate for the inventory, secrets reported by location only, mapping existing docs (spec-kit, Kiro, ADRs, loose documents, wikis) onto the standard layout, the `spec/ASSESSMENT.md` template and the adoption spec |
 | `references/constitution.md` | Mission, tech stack (from ADRs) and roadmap (updated by the bot) |
 | `references/plans.md` | The plan of each spec (`plan.<tier>.md`, or the `## Plan` section of a single-file spec or fix), "run plan X" |
