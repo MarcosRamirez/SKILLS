@@ -1,7 +1,8 @@
 # SPEC-0030: update the docs when what a file does changes
 
 Type: feature
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-19, PR #84
 Date: 2026-10-14
 Approved by: the user, 2026-10-14, chose it in the postmortem-patterns question ("Regla de cambio de rol")
 Plan: low — Claude Haiku 5.5 (wording in three places)

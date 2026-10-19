@@ -1,7 +1,8 @@
 # SPEC-0029: committed tests for the release scripts, run in CI
 
 Type: feature
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-19, PR #84
 Date: 2026-10-14
 Approved by: the user, 2026-10-14, chose it in the postmortem-patterns question ("Pruebas de CI commiteadas")
 
