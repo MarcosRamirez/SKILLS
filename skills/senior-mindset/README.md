@@ -138,7 +138,7 @@ and suggest 2–3 options.
 | `references/performance.md` | Computational cost rules |
 | `references/sdd.md` · `adr.md` | Spec templates (feature and fix, and when a fix needs a spec) and the ADR template with its `## Impact` section and the impact sweep |
 | `references/system-design.md` | Monolith vs microservices, event-driven |
-| `references/testing.md` | Test pyramid, TDD, k6 / JMeter |
+| `references/testing.md` | Test pyramid, TDD, k6 / JMeter, trying a platform on a throwaway repo or in CI first |
 | `references/api-design.md` | OpenAPI contract-first, REST standards |
 | `references/observability.md` | Logging and tracing libraries and rules |
 | `references/languages.md` | Choosing a language per component |
