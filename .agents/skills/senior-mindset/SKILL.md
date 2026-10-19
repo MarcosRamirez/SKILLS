@@ -23,7 +23,7 @@ metadata:
   homepage: https://marcosramirez.info
   blog: https://blog.marcosramirez.info
   dev: https://marcosramirez.dev
-  version: "2.9.0"
+  version: "2.10.0"
 ---
 
 # Senior mindset
@@ -62,7 +62,9 @@ next person (or AI) does not have to guess.
    small change gets a small notice. The work then happens on a new branch and reaches the
    default branch by PR. **Uncommitted changes you did not make** (`git status`) are never edited,
    staged, committed, stashed or carried onto your branch: name them and ask whether to commit them
-   on their own branch, stash them or stop. A failed or skipped question is not an OK (rule 2);
+   on their own branch, stash them or stop. **Not a git repository:** propose `git init -b master` and
+   a first commit of the current state before the change, so there is a way back; never offer to
+   edit in place without it. A failed or skipped question is not an OK (rule 2);
    without an OK, show the notice and stop (rule 3). Existing conventions win over the skill's
    defaults: note a deviation, do not impose it. No drive-by refactors: what you notice on the way is proposed
    separately. Edge cases and the notice template: [references/existing-projects.md](references/existing-projects.md).
@@ -186,9 +188,17 @@ read. Kickoff writes it; a new project gets no `CLAUDE.md`, because Claude Code 
 natively when there is none.
 If AGENTS.md (or, until it is migrated, CLAUDE.md) has a `## Engineering conventions` section → use
 it and go to Step 3.
+**No conventions, and the folder already has code or documentation → onboarding before the
+kickoff** ([references/onboarding.md](references/onboarding.md)): a read-only analysis built from
+the files (committed secrets reported first, by location only), then `spec/ASSESSMENT.md` and an
+"Adopt senior-mindset" spec, written only after the change notice is accepted. The kickoff that
+follows asks only what the analysis could not answer.
 Never re-ask what is already recorded.
 
 ## Step 2 — Kickoff interview (once per project)
+
+In an existing project the kickoff comes after onboarding (Step 1): what the code already decided is
+recorded with its evidence, and only the rest is asked.
 
 Use AskUserQuestion (max 4 questions per round), marking the default as
 "(Recommended)" and stating pros/cons. Cover:
