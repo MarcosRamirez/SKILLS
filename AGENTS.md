@@ -18,6 +18,8 @@ Managed with the senior-mindset skill. Details and reasons live in the ADRs.
   `python3 .github/scripts/check-docs.py` (relative links resolve, no link to a superseded ADR in the living documents).
   The docs check runs on every pull request through `.github/workflows/checks.yml`. Before every
   release, the headless suite (`bash tests/headless/run.sh`) checks the skill's behaviour.
+- **Scripts have tests:** when a script under `.github/scripts/` or `skills/*/templates/` changes,
+  its suite in `tests/ci/` changes in the same pull request.
 - **Language:** skill files, READMEs and docs in English.
 - **Git:** default branch `master`, PR flow from senior-mindset (see Git below). Before creating anything, check [spec/INVENTORY.md](spec/INVENTORY.md).
 
@@ -143,8 +145,9 @@ spec/POSTMORTEMS.md               one row per bug: category, root cause, prevent
 CHANGELOG.md  cliff.toml
 .github/workflows/on-merge.yml    closes specs + tags releases after each merge
 .github/scripts/tag-skill-releases.sh   tags new skill versions, refuses version-only bumps (repo-only, DRY_RUN=1 to test)
-.github/workflows/checks.yml        runs check-docs.py on every pull request
+.github/workflows/checks.yml        on every pull request: check-docs.py (job docs) and tests/ci/run.sh (job scripts)
 .github/scripts/check-docs.py       living documents: broken relative links, links to superseded ADRs
+tests/ci/                          tests of the release scripts and the docs check (run.sh; the scripts job in CI)
 tests/headless/                    headless suite: run.sh, scenarios/ (run before every release)
 skills/senior-mindset/templates/  files the skill copies into apps; this repo reuses close-specs.sh
 ```
