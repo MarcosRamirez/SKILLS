@@ -111,7 +111,11 @@ run_scenario_once() {  # run_scenario_once SCENARIO_FILE RUN_DIR
         echo "    ERROR: the run ended with an error: $(stream_py result "$stream" | head -1)" ;;
     esac
 
-    check "senior-mindset loaded from the working copy" assert_plugin_from "$stream" "$run_dir/plugin/senior-mindset"
+    if [[ ${SCENARIO_LOAD:-plugin} == project ]]; then
+      check "senior-mindset loaded only from the project copy (no plugin)" assert_no_skill_plugin "$stream"
+    else
+      check "senior-mindset loaded from the working copy" assert_plugin_from "$stream" "$run_dir/plugin/senior-mindset"
+    fi
     scenario_checks "$project" "$stream"
     snapshot_user_files "$run_dir/user-files.after"
     check "user-level files unchanged" compare_snapshots "$run_dir/user-files.before" "$run_dir/user-files.after"

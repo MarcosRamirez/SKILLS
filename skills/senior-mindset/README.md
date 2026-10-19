@@ -104,7 +104,8 @@ cp -r /tmp/skills/skills/senior-mindset .claude/skills/
 
 The `references/` folder must come along: `SKILL.md` loads those files only when needed.
 If senior-mindset is also installed globally as a plugin, Claude Code lists both `senior-mindset`
-and `senior-mindset:senior-mindset`; keep one (detection comes in SPEC-0021).
+and `senior-mindset:senior-mindset`. On first use in each project the skill notices it and offers to
+disable the global plugin there (or, with only a global copy, to install it in the project).
 
 ## Usage
 
@@ -143,7 +144,7 @@ and suggest 2–3 options.
 | `references/stack.md` | Default stack per use case |
 | `references/platforms.md` | Hosting options (Cloudflare default) |
 | `references/commands.md` | Every command as an intent (help, status, list plans, run plan, release, reconfigure, automations): example phrases in several languages, what it does, where it is specified |
-| `references/setup.md` | First-use collision check with other skills, `~/.claude/senior-mindset.md` |
+| `references/setup.md` | First-use collision check with other skills, `~/.claude/senior-mindset.md`, and the install check (global, project or duplicate copies) |
 | `references/versioning.md` | App versioning: `0.0.1-alpha.1` → beta → rc → stable, the "nothing to release" check, git-cliff bump, release steps |
 | `references/changelog.md` | Dated CHANGELOG.md with git-cliff (tested `cliff.toml`), per-package changelogs |
 | `references/git.md` | Branch per change, pull-request flow, stacked PRs, commit format |
