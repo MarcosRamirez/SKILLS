@@ -186,9 +186,17 @@ read. Kickoff writes it; a new project gets no `CLAUDE.md`, because Claude Code 
 natively when there is none.
 If AGENTS.md (or, until it is migrated, CLAUDE.md) has a `## Engineering conventions` section → use
 it and go to Step 3.
+**No conventions, and the folder already has code or documentation → onboarding before the
+kickoff** ([references/onboarding.md](references/onboarding.md)): a read-only analysis built from
+the files (committed secrets reported first, by location only), then `spec/ASSESSMENT.md` and an
+"Adopt senior-mindset" spec, written only after the change notice is accepted. The kickoff that
+follows asks only what the analysis could not answer.
 Never re-ask what is already recorded.
 
 ## Step 2 — Kickoff interview (once per project)
+
+In an existing project the kickoff comes after onboarding (Step 1): what the code already decided is
+recorded with its evidence, and only the rest is asked.
 
 Use AskUserQuestion (max 4 questions per round), marking the default as
 "(Recommended)" and stating pros/cons. Cover:
