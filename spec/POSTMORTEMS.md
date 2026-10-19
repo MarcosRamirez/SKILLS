@@ -30,6 +30,8 @@ One row per bug, newest last. The register is how this project learns.
 | PM-0011 | 2026-10-14 | In the SPEC-0016 tests, "should we merge?" loaded only the git-workflow skill. With the question tool available, the agent merged on its own in two of two Spanish runs | code defect | Same cause as PM-0004: the git rules load only with the skill, and its description does not cover git-only requests (merge, push, pull request) | No trigger test; found by chance while testing questions | fixed; conventions block (done, SPEC-0027); trigger scenarios in the headless suite (done: SPEC-0028, `tests/headless/`) | [SPEC-0027](fixes/0027-git-requests-skip-the-rules.md); [SPEC-0016 T-2 results](features/0016-clickable-answers/tasks.md#test-results-t-2-2026-10-14), [PR #50](https://github.com/MarcosRamirez/SKILLS/pull/50) |
 | PM-0012 | 2026-10-14 | The same headless runs rewrote the user's real `~/.claude/senior-mindset.md` through the skill's update notice (`senior-mindset version` 1.3.0 to 2.2.1) | environment | Headless test runs use the user's real home, so the skill's user-level setup file is shared with them | The test procedure has no isolation step and no check that the home is unchanged afterwards | fixed: headless runs use `acceptEdits` and a user-file hash check (done: SPEC-0028, `tests/headless/`; an isolated home loses the login) | [PR #50](https://github.com/MarcosRamirez/SKILLS/pull/50) |
 | PM-0013 | 2026-10-14 | PR #40 accepted ADR-0005 and ADR-0006 but updated none of the living documents. CLAUDE.md still cites the superseded ADR-0001 and ADR-0003, and the READMEs install Claude-first and globally | docs drift | Accepting an ADR does not require checking the documents that describe the decision; the documentation rule covers skill changes, not decisions | No check flags a link to a superseded ADR. PR #40 deferred CLAUDE.md to plan 0021 without marking it in the document | `check-docs.py` on every PR (done: SPEC-0024 T-3); impact sweep for every decision (done: SPEC-0025, senior-mindset 2.5.0) | [SPEC-0024](fixes/0024-docs-out-of-step-with-adrs.md) |
+| PM-0014 | 2026-10-19 | In the 2.9.0 pre-release suite, `kickoff-checklist` failed: the agent ran `git init` through Claude Code's PowerShell tool, which the scenario does not allow (only `Bash(git:*)`), so no repository and no kickoff branch were made | environment | Claude Code 2.1.303 on Windows offers a PowerShell tool next to Bash; the suite granted shell commands only through Bash and never pinned the tool | The suite ran green on 2.1.296, before the agent started using PowerShell; nothing checked which shell tool a run used | `run_claude` passes `--disallowedTools PowerShell` so commands go through Bash (done: SPEC-0021 T-6, `tests/headless/lib.sh`) | [SPEC-0021 tasks](features/0021-standard-install/tasks.md) |
+| PM-0015 | 2026-10-19 | After SPEC-0021 T-1 removed `skills/*/.claude-plugin/`, the root README's structure block still listed `.claude-plugin/ — Claude Code plugin manifest` under each skill; found and fixed in T-5 | docs drift | The T-1 sweep searched for `plugin.json`, the file name, but the README named only the folder, `.claude-plugin/` | `check-docs.py` checks links, not paths written as text in a structure block | Sweep every replaced term: file and folder names (rule exists: impact sweep in AGENTS.md); a check for dead paths in living documents (proposed, no spec yet) | [SPEC-0021 tasks](features/0021-standard-install/tasks.md) |
 
 ## Patterns
 
@@ -38,11 +40,11 @@ Rows per category. At three, propose a spec that removes the pattern.
 | Category | Rows |
 |---|---|
 | spec gap | 1 (PM-0010) |
-| docs drift | 3 (PM-0001, PM-0007, PM-0013) |
+| docs drift | 4 (PM-0001, PM-0007, PM-0013, PM-0015) |
 | process gap | 3 (PM-0002, PM-0003, PM-0006) |
 | code defect | 2 (PM-0004, PM-0011) |
 | tooling | 1 (PM-0009) |
-| environment | 3 (PM-0005, PM-0008, PM-0012) |
+| environment | 4 (PM-0005, PM-0008, PM-0012, PM-0014) |
 
 **process gap: three rows.** The skill's workflow steps (approval, the kickoff checklist) were prose
 that a run could skip, and only a headless run of the real skill showed it. Those runs are manual
