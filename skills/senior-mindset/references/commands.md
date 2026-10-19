@@ -16,6 +16,7 @@ or in the reference it points to).
 | **run plan** | "run plan 0008", "ejecuta el plan 0008", "lance le plan 0008" | Checks the spec is approved (asks if it is Draft), then executes the plan step by step with branches and PRs | [plans.md](plans.md) |
 | **release** | "release the beta", "release 2.1", "saca la versión 2.1", "publie la version 2.1" | Checks something was implemented since the last tag, proposes the version, opens the release PR | [versioning.md](versioning.md) |
 | **reconfigure** | "reconfigure senior-mindset", "reconfigura senior-mindset" | Runs the first-use collision setup again and rewrites `~/.claude/senior-mindset.md` | [setup.md](setup.md) |
+| **update senior-mindset** | "update senior-mindset", "actualiza senior-mindset", "mets à jour senior-mindset" | Installs the latest release tag over the project's copies on a branch and opens a PR with that version's changelog; a global copy is updated in place after an OK | [setup.md](setup.md#8-update-senior-mindset) |
 | **install or remove an automation** | "add the docs check", "quita la automatización de releases", "désactive le check des docs" | Copies an automation's templates into the project (or deletes them) through a PR, and updates the `Automations:` line | [automations.md](automations.md) |
 
 **Not commands.** The update message ("senior-mindset updated to vX.Y.Z") is shown by the skill

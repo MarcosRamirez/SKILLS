@@ -102,8 +102,8 @@ new version in the file. Never show either message at any other time.
 ## Commands
 
 The user can ask for these in any language; recognise the intent, not the exact words: **help**,
-**status**, **list plans**, **run plan X**, **release**, **reconfigure senior-mindset**, and
-install or remove an automation. Examples, what each does and where it is specified:
+**status**, **list plans**, **run plan X**, **release**, **reconfigure senior-mindset**,
+**update senior-mindset**, and install or remove an automation. Examples, what each does and where it is specified:
 [references/commands.md](references/commands.md).
 
 **help, status and list plans are read-only.** Answer them from the files, in the user's language,
