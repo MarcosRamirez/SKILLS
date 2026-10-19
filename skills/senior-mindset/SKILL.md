@@ -14,7 +14,9 @@ description: >
   Triggers include "build", "create", "write a script", "fix", "release", "merge",
   "push", "commit", "open a PR", "crea una aplicación", "programa X", "hazme un script",
   "nuevo proyecto", "nueva feature", "saca la versión", "mergea", "sube los cambios",
-  "haz commit", "abre un PR", "run plan 0008", "ejecuta el plan 0008".
+  "haz commit", "abre un PR", "run plan 0008", "ejecuta el plan 0008". Also answers what it can do
+  and where a project stands, in any language: "help", "what can you do?", "¿qué puedes hacer?",
+  "status", "estado del proyecto", "list plans", "lista los planes".
 license: MIT
 metadata:
   author: Marcos Ramírez
@@ -91,6 +93,11 @@ The user can ask for these in any language; recognise the intent, not the exact 
 **status**, **list plans**, **run plan X**, **release**, **reconfigure senior-mindset**, and
 install or remove an automation. Examples, what each does and where it is specified:
 [references/commands.md](references/commands.md).
+
+**help, status and list plans are read-only.** Answer them from the files, in the user's language,
+and skip the rest of this skill (Step 0a above is the only exception, and only when it is due): no kickoff, no interview, no spec, no approval gate, no
+proposals, no change notice, no file written or changed. Asking what the skill can do is not a
+request to build anything.
 
 ## Step 0 — Size the task
 
