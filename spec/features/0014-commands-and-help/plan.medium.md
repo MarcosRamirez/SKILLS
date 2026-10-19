@@ -1,7 +1,7 @@
 # PLAN-0014: documented commands, help and status
 
 Spec: [SPEC-0014](spec.md)
-Status: Draft
+Status: In progress
 Recommended overall: medium — Claude Sonnet 5.5 (documentation plus small read-only behaviours)
 
 ## Context
@@ -45,6 +45,32 @@ Rendered in the user's language. At most four lines.
 - Read-only commands bypass the kickoff and spec flow: asking for help is not a request to build anything.
 - Slash aliases: verify in official docs whether plugins can ship commands, and how they are named,
   before adding them.
+
+### Slash aliases: decision (T-3, AC-4)
+
+**No aliases are added.** Checked on 2026-10-19 against the official docs:
+
+- [Skills](https://code.claude.com/docs/en/skills): "Custom commands have been merged into skills."
+  A file in `commands/` and a skill both create `/name`; command files are the older format and the
+  docs say to prefer a skill. A plugin skill is invoked as `/plugin-name:skill-name`.
+- [Plugins overview](https://code.claude.com/docs/en/plugins): a plugin holds skills, agents, hooks and
+  MCP servers; its skill "runs as /my-plugin:review".
+
+So the skill is already a slash command: `/senior-mindset:senior-mindset` from the plugin and
+`/senior-mindset` from a project copy, and the text after it ("/senior-mindset help", "/senior-mindset
+status") reaches the skill as the request, which the commands already recognise by intent in any
+language. Thin aliases such as `/senior-mindset:help` would need a `commands/` folder (or extra
+skill folders) inside the skill, and:
+
+- ADR-0005 makes the Agent Skills standard and `npx skills` the primary channel, and the standard has
+  no commands. A Claude Code-only folder inside the skill would ship to every agent that cannot use
+  it, and the aliases would exist only for plugin installs, so behaviour would differ by channel.
+- `commands/` is the legacy format, and another skill folder for each alias adds three more names and
+  descriptions to Claude's context on every turn for what the intent matching already does.
+- ADR-0006 keeps the version and everything the skill needs in `SKILL.md`, with no Claude Code-only
+  files inside the skill folder.
+
+Revisit if Claude Code or the standard adds a way to declare aliases in `SKILL.md` frontmatter.
 
 ## Steps
 

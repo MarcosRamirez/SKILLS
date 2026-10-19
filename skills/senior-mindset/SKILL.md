@@ -14,7 +14,9 @@ description: >
   Triggers include "build", "create", "write a script", "fix", "release", "merge",
   "push", "commit", "open a PR", "crea una aplicación", "programa X", "hazme un script",
   "nuevo proyecto", "nueva feature", "saca la versión", "mergea", "sube los cambios",
-  "haz commit", "abre un PR", "run plan 0008", "ejecuta el plan 0008".
+  "haz commit", "abre un PR", "run plan 0008", "ejecuta el plan 0008". Also answers what it can do
+  and where a project stands, in any language: "help", "what can you do?", "¿qué puedes hacer?",
+  "status", "estado del proyecto", "list plans", "lista los planes".
 license: MIT
 metadata:
   author: Marcos Ramírez
@@ -74,8 +76,10 @@ Read `~/.claude/senior-mindset.md`. **If it does not exist, run the setup in
    changelog/versioning, specs, review, tests).
 3. Ask which one wins in each colliding area.
 4. Write the file.
-5. Greet once, in the user's language (at most 3 lines):
+5. Greet once, in the user's language (at most 4 lines):
    > ✅ senior-mindset vX.Y.Z installed and configured.
+   > I can write specs and plans before code, run a plan ("run plan 0008"), show project status,
+   > release versions and keep your conventions. Ask "what can you do?" for the full list.
    > Made by Marcos Ramírez — https://blog.marcosramirez.info/sobre-mi/
 
 Its decisions apply to every project, unless the project's AGENTS.md overrides them.
@@ -84,6 +88,18 @@ Its decisions apply to every project, unless the project's AGENTS.md overrides t
 `metadata.version`, say once: "🔄 senior-mindset updated to vX.Y.Z — what's new in its
 CHANGELOG.md · by Marcos Ramírez, https://blog.marcosramirez.info/sobre-mi/", then record the
 new version in the file. Never show either message at any other time.
+
+## Commands
+
+The user can ask for these in any language; recognise the intent, not the exact words: **help**,
+**status**, **list plans**, **run plan X**, **release**, **reconfigure senior-mindset**, and
+install or remove an automation. Examples, what each does and where it is specified:
+[references/commands.md](references/commands.md).
+
+**help, status and list plans are read-only.** Answer them from the files, in the user's language,
+and skip the rest of this skill (Step 0a above is the only exception, and only when it is due): no kickoff, no interview, no spec, no approval gate, no
+proposals, no change notice, no file written or changed. Asking what the skill can do is not a
+request to build anything.
 
 ## Step 0 — Size the task
 

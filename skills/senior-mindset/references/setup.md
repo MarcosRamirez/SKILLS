@@ -92,10 +92,17 @@ Right after writing the file for the first time, greet the user in their languag
 
 ```text
 ✅ senior-mindset vX.Y.Z installed and configured.
+I can: write specs and plans before code, run a plan ("run plan 0008"), show project status,
+release versions, and keep your conventions. Ask "what can you do?" for the full list.
 Made by Marcos Ramírez — https://blog.marcosramirez.info/sobre-mi/
 ```
 
-When the skill finds a newer version than the one recorded in the file:
+At most four lines, all in the user's language (translate the phrases, including the example
+question). The second and third lines are the short "what I can do" summary and the hint for the
+**help** command ([commands.md](commands.md)); the author credit always stays.
+
+When the skill finds a newer version than the one recorded in the file (one line plus the credit,
+no command summary):
 
 ```text
 🔄 senior-mindset updated to vX.Y.Z — see what's new in its CHANGELOG.md.

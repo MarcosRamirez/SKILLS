@@ -34,7 +34,8 @@ spec first, records every important decision with its reasons, reuses before bui
 and picks the simplest design that works. It asks about your conventions **once** per
 project and remembers them. Work is split into branches and delivered as pull requests that
 you merge. On first use, it checks your other skills for conflicting rules and lets you
-pick which one wins.
+pick which one wins. Ask "what can you do?" (in any language) for its commands: help, status,
+list plans, run plan, release and more ([full list](skills/senior-mindset/references/commands.md)).
 
 ```text
 you    › build me a booking app
