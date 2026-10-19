@@ -109,14 +109,16 @@ npx skills add MarcosRamirez/SKILLS --skill senior-mindset -a claude-code -g
 
 Paste this into your agent, swapping in the skill you want:
 
-> Install the **senior-mindset** skill from https://github.com/MarcosRamirez/SKILLS/tree/master/skills/senior-mindset
+> Install the **senior-mindset** skill from https://github.com/MarcosRamirez/SKILLS, folder `skills/senior-mindset`,
+> at its latest release tag (`senior-mindset-vX.Y.Z` on the Releases page, not the default branch),
 > into this project's `.agents/skills/senior-mindset/`. Copy the whole folder. If your agent does not
 > read `.agents/skills/` (Claude Code does not yet), also copy it to `.claude/skills/senior-mindset/`.
 > Ask me before installing it globally.
 
 ### 3. Manual
 
-Copy the folder into `.agents/skills/` (and into `.claude/skills/` for Claude Code).
+Copy the folder into `.agents/skills/` (and into `.claude/skills/` for Claude Code). To pin a release,
+clone with `--branch senior-mindset-vX.Y.Z`.
 
 **macOS / Linux**
 
