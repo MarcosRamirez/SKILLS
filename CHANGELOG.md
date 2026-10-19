@@ -10,12 +10,18 @@ Generated from the commit history with git-cliff: do not edit by hand.
 - **senior-mindset:** Update the installed skill by pull request (2026-10-19)
 - **senior-mindset:** Detect global, project and duplicate installs (2026-10-19)
 
+### Fixed
+
+- **senior-mindset:** Say nothing when only the project copy loads (2026-10-19)
+
 ### Changed
 
 - **marketplace:** Keep each skill's version only in SKILL.md (2026-10-19)
 
 ### Documentation
 
+- **repo:** Record PM-0014 and PM-0015 in the register (2026-10-19)
+- **repo:** Tick the SPEC-0021 release task (2026-10-19)
 - **repo:** Record the SPEC-0021 T-5 checks (2026-10-19)
 - **repo:** Record the SPEC-0021 T-4 update check (2026-10-19)
 - **repo:** Record the SPEC-0021 T-2 install checks (2026-10-19)

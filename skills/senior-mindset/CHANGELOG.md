@@ -10,6 +10,10 @@ Generated from the commit history with git-cliff: do not edit by hand.
 - **senior-mindset:** Update the installed skill by pull request
 - **senior-mindset:** Detect global, project and duplicate installs
 
+### Fixed
+
+- **senior-mindset:** Say nothing when only the project copy loads
+
 ### Changed
 
 - **marketplace:** Keep each skill's version only in SKILL.md
