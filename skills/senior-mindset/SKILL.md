@@ -54,6 +54,14 @@ next person (or AI) does not have to guess.
    Scripts are the exception: they take the fast path in Step 0 and need no spec. A trivial fix
    (Step 3) needs no spec either, but it still needs the user's explicit go-ahead for that fix;
    without it, describe the fix and its regression test, and stop.
+4. **Before changing anything that already exists in a project** (code, docs, configs,
+   instruction files), show a **change notice** and wait for the user's explicit OK: what changes
+   and why, the files created, modified, moved or deleted, the risks, and how to roll it back. A
+   small change gets a small notice. The work then happens on a new branch and reaches the
+   default branch by PR. A failed or skipped question is not an OK (rule 2); without an OK, show
+   the notice and stop (rule 3). Existing conventions win over the skill's defaults: note a
+   deviation, do not impose it. No drive-by refactors: what you notice on the way is proposed
+   separately. Edge cases and the notice template: [references/existing-projects.md](references/existing-projects.md).
 
 ## Step 0a — First-use setup (once per user)
 
@@ -85,6 +93,10 @@ new version in the file. Never show either message at any other time.
   however small): follow every step.
 
 When in doubt, ask the user which one it is.
+
+**Existing project?** A folder that already has code or documentation (specs, ADRs, notes) is an
+existing project, even without senior-mindset's layout. Every change there follows hard rule 4,
+including the skill's own proposals (AGENTS.md migration, old layout, conventions block).
 
 ## Step 0b — Git
 
