@@ -114,6 +114,21 @@ crea una aplicación para gestionar reservas
 programa un worker que procese imágenes
 ```
 
+## Commands
+
+Ask in any language; the skill recognises the intent, and the phrases below are only examples.
+Full list, with what each does and where it is specified: [references/commands.md](references/commands.md).
+
+| Command | Example | What it does |
+|---|---|---|
+| help | "what can you do?", "¿qué puedes hacer?" | Lists the commands and summarises your configuration. Read-only |
+| status | "status", "estado del proyecto" | Specs and plans with their states, open PRs, version and tags, automations. Read-only |
+| list plans | "list plans", "lista los planes" | Plans with state and tier, marking which can run now. Read-only |
+| run plan | "run plan 0008", "ejecuta el plan 0008" | Executes an approved plan step by step |
+| release | "release the beta", "saca la versión 2.1" | Proposes the version and opens the release PR |
+| reconfigure | "reconfigure senior-mindset" | Runs the first-use collision setup again |
+| automations | "add the docs check" | Installs or removes an automation through a PR |
+
 ## Customize your defaults
 
 Edit [references/stack.md](references/stack.md). It holds your default framework,
@@ -124,6 +139,7 @@ and suggest 2–3 options.
 |---|---|
 | `references/stack.md` | Default stack per use case |
 | `references/platforms.md` | Hosting options (Cloudflare default) |
+| `references/commands.md` | Every command as an intent (help, status, list plans, run plan, release, reconfigure, automations): example phrases in several languages, what it does, where it is specified |
 | `references/setup.md` | First-use collision check with other skills, `~/.claude/senior-mindset.md` |
 | `references/versioning.md` | App versioning: `0.0.1-alpha.1` → beta → rc → stable, the "nothing to release" check, git-cliff bump, release steps |
 | `references/changelog.md` | Dated CHANGELOG.md with git-cliff (tested `cliff.toml`), per-package changelogs |

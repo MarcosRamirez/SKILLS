@@ -85,6 +85,13 @@ Its decisions apply to every project, unless the project's AGENTS.md overrides t
 CHANGELOG.md · by Marcos Ramírez, https://blog.marcosramirez.info/sobre-mi/", then record the
 new version in the file. Never show either message at any other time.
 
+## Commands
+
+The user can ask for these in any language; recognise the intent, not the exact words: **help**,
+**status**, **list plans**, **run plan X**, **release**, **reconfigure senior-mindset**, and
+install or remove an automation. Examples, what each does and where it is specified:
+[references/commands.md](references/commands.md).
+
 ## Step 0 — Size the task
 
 - **Script** (one file, one-off, no users): skip interview, SDD, linter and ADRs.
