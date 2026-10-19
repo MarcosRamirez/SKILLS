@@ -1,7 +1,8 @@
 name: checks
 
 # On every pull request: the living documents have no broken relative links and
-# link no superseded ADR (SPEC-0024).
+# link no superseded ADR (SPEC-0024), and the release scripts pass their tests
+# in a runner-like git configuration (SPEC-0029).
 
 on:
   pull_request:
@@ -17,3 +18,17 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check living documents
         run: python3 .github/scripts/check-docs.py
+
+  scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Runner-like git configuration
+        run: |
+          # No global identity and no autocrlf: what a fresh runner has (PM-0008).
+          git config --global --unset-all user.name || true
+          git config --global --unset-all user.email || true
+          git config --global --unset-all core.autocrlf || true
+          git config --global init.defaultBranch master
+      - name: Test the scripts
+        run: bash tests/ci/run.sh

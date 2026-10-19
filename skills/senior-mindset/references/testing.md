@@ -71,3 +71,9 @@ export default function () {
   check(response, { "status is 200": (r) => r.status === 200 });
 }
 ```
+
+## Trying the platform first
+
+Before relying on how a platform behaves (GitHub, a CI runner, a CLI), try it on a throwaway
+repository or in CI with a runner-like configuration: no global git identity, no `autocrlf`, a fresh
+checkout. Your own machine hides what a runner lacks, so a test that passes only locally proves little.
