@@ -41,7 +41,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `release-automation.md` — specs close on merge, releases tag themselves; uses the templates below
 - `security.md` — OWASP Top 10 checklist
 - `commands.md` — the commands as intents (help, status, list plans, run plan, release, reconfigure, automations): example phrases, effect, where specified; the single source that help renders
-- `setup.md` — first-use collision check with other skills, `~/.claude/senior-mindset.md`
+- `setup.md` — first-use collision check with other skills, `~/.claude/senior-mindset.md`, and the install check in each project (global, project or duplicate copies)
 - `stack.md` — default stack per use case
 - `system-design.md` — monolith vs microservices, event-driven
 - `testing.md` — test pyramid, TDD, k6
@@ -91,6 +91,9 @@ Headless suite (SPEC-0028): real `claude -p` runs on scratch projects with deter
 - `no-git.sh` — tests/headless/scenarios/no-git.sh — SPEC-0008 AC-5: code outside git gets a proposal of `git init` and a snapshot commit, with no source changed; a `git init` run without the OK is reported as a finding
 - `help-languages.sh` — tests/headless/scenarios/help-languages.sh — SPEC-0014 AC-2/AC-2b: "what can you do?" in Spanish, English and French lists the commands and the configuration in that language, and changes nothing; runs 3 times
 - `status.sh` — tests/headless/scenarios/status.sh — SPEC-0014 AC-3: "status" in a repository with a small spec tree names every spec with the state, plan state and tier of its files, plus version, tag and automation, and changes nothing
+- `install-global-only.sh` — tests/headless/scenarios/install-global-only.sh — SPEC-0021 AC-3: with the skill loaded only from outside the project, "help" names the project install as a pending decision and changes nothing
+- `install-project-only.sh` — tests/headless/scenarios/install-project-only.sh — SPEC-0021 AC-3: with the skill only in the project (`SCENARIO_LOAD=project`), "help" raises no install or duplicate question and changes nothing
+- `install-duplicate.sh` — tests/headless/scenarios/install-duplicate.sh — SPEC-0021 AC-3: with a project copy and a plugin, "help" names the duplicate and proposes disabling the global one, with no setting written
 - `tests/headless/README.md` — how to run the suite, its cost, the isolation it uses, how to write a scenario
 
 ## CI tests
