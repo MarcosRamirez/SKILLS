@@ -6,7 +6,7 @@ One branch per task, stacked PRs. Executed through PLAN-0014.
 - [x] T-2 help, status and list plans behaviour, any language; headless tests (AC-2, AC-2b, AC-3)
 - [x] T-2b Welcome message with the help summary (AC-2c)
 - [x] T-3 Slash-command aliases, if supported by the official docs (AC-4)
-- [ ] T-4 Release (minor), changelogs; last PR carries `Closes-Spec: SPEC-0014`
+- [x] T-4 Release (minor), changelogs; last PR carries `Closes-Spec: SPEC-0014`
 
 ## Results
 
