@@ -111,7 +111,10 @@ run_claude() {  # run_claude PROJECT RUN_DIR PROMPT
     --permission-mode acceptEdits
     --setting-sources project,local
     --no-session-persistence
-    --strict-mcp-config)
+    --strict-mcp-config
+    # Shell commands go through Bash, where SCENARIO_ALLOWED_TOOLS grants them: on Windows, Claude
+    # Code also offers a PowerShell tool, and a command sent there is denied (PM-0014).
+    --disallowedTools PowerShell)
   if [[ ${SCENARIO_LOAD:-plugin} != project ]]; then
     mkdir -p "$run_dir/plugin"
     cp -R "$SKILL_SOURCE" "$plugin_dir"
