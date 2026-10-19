@@ -23,7 +23,7 @@ metadata:
   homepage: https://marcosramirez.info
   blog: https://blog.marcosramirez.info
   dev: https://marcosramirez.dev
-  version: "2.8.0"
+  version: "2.9.0"
 ---
 
 # Senior mindset
@@ -84,6 +84,17 @@ Read `~/.claude/senior-mindset.md`. **If it does not exist, run the setup in
 
 Its decisions apply to every project, unless the project's AGENTS.md overrides them.
 
+**Install check (every project, until answered there).** It runs even when the setup file exists
+or cannot be read, and before help, status and list plans. Compare this skill's base directory with
+the project, look for project copies (`ls -d .agents/skills/senior-mindset .claude/skills/senior-mindset`)
+and for a second senior-mindset in your skills list. Loaded from a global copy with no project copy,
+and nothing recorded → ask once: "Install it in this project (Recommended)" / "Keep it global".
+Global and project copies both present → propose disabling the global one for this project. Project
+copy only → say nothing. When
+you cannot ask, or the answer is help or status, end with one line naming the copies found and the
+pending decision. Never install, disable or uninstall without the answer. Cases, commands and where the answer is recorded:
+[references/setup.md](references/setup.md#7-where-the-skill-loads-from-each-project).
+
 **Updated?** If the file exists but its `senior-mindset version` is older than this skill's
 `metadata.version`, say once: "🔄 senior-mindset updated to vX.Y.Z — what's new in its
 CHANGELOG.md · by Marcos Ramírez, https://blog.marcosramirez.info/sobre-mi/", then record the
@@ -92,12 +103,12 @@ new version in the file. Never show either message at any other time.
 ## Commands
 
 The user can ask for these in any language; recognise the intent, not the exact words: **help**,
-**status**, **list plans**, **run plan X**, **release**, **reconfigure senior-mindset**, and
-install or remove an automation. Examples, what each does and where it is specified:
+**status**, **list plans**, **run plan X**, **release**, **reconfigure senior-mindset**,
+**update senior-mindset**, and install or remove an automation. Examples, what each does and where it is specified:
 [references/commands.md](references/commands.md).
 
 **help, status and list plans are read-only.** Answer them from the files, in the user's language,
-and skip the rest of this skill (Step 0a above is the only exception, and only when it is due): no kickoff, no interview, no spec, no approval gate, no
+and skip the rest of this skill (Step 0a above, with its install check, is the only exception, and only when it is due): no kickoff, no interview, no spec, no approval gate, no
 proposals, no change notice, no file written or changed. Asking what the skill can do is not a
 request to build anything.
 
