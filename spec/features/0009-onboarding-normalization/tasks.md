@@ -6,7 +6,7 @@ One branch per task, stacked PRs. Executed through PLAN-0009.
 - [x] T-2 `SKILL.md`: first-use-in-project step that runs onboarding before kickoff
 - [x] T-3 Headless scenario on a synthetic documentation project (AC-2)
 - [x] T-4 Headless scenario on a synthetic code repository, every inventory entry checked (AC-3, AC-4)
-- [ ] T-5 Release (minor), docs, changelogs; last PR carries `Closes-Spec: SPEC-0009`
+- [x] T-5 Release (minor), docs, changelogs; last PR carries `Closes-Spec: SPEC-0009`
 
 ## Test results (T-3, 2026-10-19)
 

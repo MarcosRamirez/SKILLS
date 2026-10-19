@@ -33,6 +33,7 @@ One row per bug, newest last. The register is how this project learns.
 | PM-0014 | 2026-10-19 | In the 2.9.0 pre-release suite, `kickoff-checklist` failed: the agent ran `git init` through Claude Code's PowerShell tool, which the scenario does not allow (only `Bash(git:*)`), so no repository and no kickoff branch were made | environment | Claude Code 2.1.303 on Windows offers a PowerShell tool next to Bash; the suite granted shell commands only through Bash and never pinned the tool | The suite ran green on 2.1.296, before the agent started using PowerShell; nothing checked which shell tool a run used | `run_claude` passes `--disallowedTools PowerShell` so commands go through Bash (done: SPEC-0021 T-6, `tests/headless/lib.sh`) | [SPEC-0021 tasks](features/0021-standard-install/tasks.md) |
 | PM-0015 | 2026-10-19 | After SPEC-0021 T-1 removed `skills/*/.claude-plugin/`, the root README's structure block still listed `.claude-plugin/ — Claude Code plugin manifest` under each skill; found and fixed in T-5 | docs drift | The T-1 sweep searched for `plugin.json`, the file name, but the README named only the folder, `.claude-plugin/` | `check-docs.py` checks links, not paths written as text in a structure block | Sweep every replaced term: file and folder names (rule exists: impact sweep in AGENTS.md); a check for dead paths in living documents (proposed, no spec yet) | [SPEC-0021 tasks](features/0021-standard-install/tasks.md) |
 | PM-0016 | 2026-10-19 | The inventory gate in `onboarding.md` (SPEC-0009 T-1) reported every endpoint as missing when run from Git Bash: MSYS turned the route `/orders` into a Windows path before `git grep` saw it | environment | Git Bash rewrites arguments that look like absolute POSIX paths; the gate passes route strings as arguments | T-1 tested the gate with identifiers and paths only, not with a route; T-4 found it | `MSYS_NO_PATHCONV=1` on the gate's `git grep`, and the same in the `onboarding-code` scenario (done: SPEC-0009 T-4) | [SPEC-0009 tasks](features/0009-onboarding-normalization/tasks.md) |
+| PM-0017 | 2026-10-19 | In the 2.10.0 pre-release suite, `no-git` failed: for a change in a folder without git, the agent offered `git init` as one option among others, including editing in place, and never proposed a commit of the current state | code defect | The no-git rule (git init plus a snapshot commit before the change) lived only in `existing-projects.md`, which loads on demand; hard rule 4 did not mention it | The scenario passed on 2.9.0: the miss is intermittent, and the new onboarding step adds more to weigh in an existing folder | One sentence in hard rule 4: git init and a snapshot commit first, never edit in place without it (done: SPEC-0009 T-5) | [SPEC-0009 tasks](features/0009-onboarding-normalization/tasks.md) |
 
 ## Patterns
 
@@ -43,7 +44,7 @@ Rows per category. At three, propose a spec that removes the pattern.
 | spec gap | 1 (PM-0010) |
 | docs drift | 4 (PM-0001, PM-0007, PM-0013, PM-0015) |
 | process gap | 3 (PM-0002, PM-0003, PM-0006) |
-| code defect | 2 (PM-0004, PM-0011) |
+| code defect | 3 (PM-0004, PM-0011, PM-0017) |
 | tooling | 1 (PM-0009) |
 | environment | 5 (PM-0005, PM-0008, PM-0012, PM-0014, PM-0016) |
 
@@ -66,9 +67,13 @@ part of the **headless suite** (isolated home) and of the **CI tests** (runner-l
 plus a line in the skill's testing reference: a procedure that relies on platform behaviour is
 first tried on a throwaway repository.
 
-**code defect: two rows, watch.** PM-0004 and PM-0011 share one cause: rules that must always hold
-load only when the skill's description matches the prompt. The **git trigger fix** and the trigger
-prompts of the **headless suite** target it.
+**code defect: three rows.** PM-0004, PM-0011 and PM-0017 share one cause: a rule that must always
+hold lives somewhere that is not always read, either the skill itself (loaded only when its
+description matches) or a reference (loaded only when the agent follows the link). The **git
+trigger fix** and the trigger prompts of the **headless suite** target the first half. Proposed
+for the second half: an audit of the references for rules that must hold without being read
+(each one moves to a hard rule or a step of `SKILL.md`, in one sentence), with a headless scenario
+for each. Not specified yet: it waits for the user's go-ahead.
 
 ### Specs against the patterns
 

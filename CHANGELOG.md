@@ -7,27 +7,47 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Update the installed skill by pull request (2026-10-19)
-- **senior-mindset:** Detect global, project and duplicate installs (2026-10-19)
+- **senior-mindset:** Onboard existing projects before the kickoff (2026-10-19)
+- **senior-mindset:** Add the onboarding reference for existing projects (2026-10-19)
 
 ### Fixed
 
-- **senior-mindset:** Say nothing when only the project copy loads (2026-10-19)
-
-### Changed
-
-- **marketplace:** Keep each skill's version only in SKILL.md (2026-10-19)
+- **senior-mindset:** Propose git init and a snapshot before changes (2026-10-19)
+- **senior-mindset:** Make the inventory gate check routes on Git Bash (2026-10-19)
 
 ### Documentation
 
-- **repo:** Record PM-0014 and PM-0015 in the register (2026-10-19)
-- **repo:** Tick the SPEC-0021 release task (2026-10-19)
-- **repo:** Record the SPEC-0021 T-5 checks (2026-10-19)
-- **repo:** Record the SPEC-0021 T-4 update check (2026-10-19)
-- **repo:** Record the SPEC-0021 T-2 install checks (2026-10-19)
-- **senior-mindset:** Install from the latest release tag (2026-10-19)
-- **repo:** Approve SPEC-0021 and start its plan (2026-10-19)
-- **repo:** Mark SPEC-0008,SPEC-0014 implemented (#89) (2026-10-19)
+- **repo:** Record PM-0017 and the code-defect pattern (2026-10-19)
+- **repo:** Tick the SPEC-0009 release task (2026-10-19)
+- **repo:** Test SPEC-0009 on synthetic projects (2026-10-19)
+- **repo:** Approve SPEC-0009 and start its plan (2026-10-19)
+- **repo:** Mark SPEC-0021 implemented (#95) (2026-10-19)
+
+## [senior-mindset-v2.9.0] - 2026-10-19
+
+### Added
+
+- **senior-mindset:** Update the installed skill by pull request
+- **senior-mindset:** Detect global, project and duplicate installs
+
+### Fixed
+
+- **senior-mindset:** Say nothing when only the project copy loads
+
+### Changed
+
+- **marketplace:** Keep each skill's version only in SKILL.md
+
+### Documentation
+
+- **repo:** Record PM-0014 and PM-0015 in the register
+- **repo:** Tick the SPEC-0021 release task
+- **repo:** Record the SPEC-0021 T-5 checks
+- **repo:** Record the SPEC-0021 T-4 update check
+- **repo:** Record the SPEC-0021 T-2 install checks
+- **senior-mindset:** Install from the latest release tag
+- **repo:** Approve SPEC-0021 and start its plan
+- **repo:** Mark SPEC-0008,SPEC-0014 implemented (#89)
 
 ## [senior-mindset-v2.8.0] - 2026-10-19
 

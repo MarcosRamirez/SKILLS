@@ -23,7 +23,7 @@ metadata:
   homepage: https://marcosramirez.info
   blog: https://blog.marcosramirez.info
   dev: https://marcosramirez.dev
-  version: "2.9.0"
+  version: "2.10.0"
 ---
 
 # Senior mindset
@@ -62,7 +62,9 @@ next person (or AI) does not have to guess.
    small change gets a small notice. The work then happens on a new branch and reaches the
    default branch by PR. **Uncommitted changes you did not make** (`git status`) are never edited,
    staged, committed, stashed or carried onto your branch: name them and ask whether to commit them
-   on their own branch, stash them or stop. A failed or skipped question is not an OK (rule 2);
+   on their own branch, stash them or stop. **Not a git repository:** propose `git init -b master` and
+   a first commit of the current state before the change, so there is a way back; never offer to
+   edit in place without it. A failed or skipped question is not an OK (rule 2);
    without an OK, show the notice and stop (rule 3). Existing conventions win over the skill's
    defaults: note a deviation, do not impose it. No drive-by refactors: what you notice on the way is proposed
    separately. Edge cases and the notice template: [references/existing-projects.md](references/existing-projects.md).
