@@ -32,6 +32,7 @@ One row per bug, newest last. The register is how this project learns.
 | PM-0013 | 2026-10-14 | PR #40 accepted ADR-0005 and ADR-0006 but updated none of the living documents. CLAUDE.md still cites the superseded ADR-0001 and ADR-0003, and the READMEs install Claude-first and globally | docs drift | Accepting an ADR does not require checking the documents that describe the decision; the documentation rule covers skill changes, not decisions | No check flags a link to a superseded ADR. PR #40 deferred CLAUDE.md to plan 0021 without marking it in the document | `check-docs.py` on every PR (done: SPEC-0024 T-3); impact sweep for every decision (done: SPEC-0025, senior-mindset 2.5.0) | [SPEC-0024](fixes/0024-docs-out-of-step-with-adrs.md) |
 | PM-0014 | 2026-10-19 | In the 2.9.0 pre-release suite, `kickoff-checklist` failed: the agent ran `git init` through Claude Code's PowerShell tool, which the scenario does not allow (only `Bash(git:*)`), so no repository and no kickoff branch were made | environment | Claude Code 2.1.303 on Windows offers a PowerShell tool next to Bash; the suite granted shell commands only through Bash and never pinned the tool | The suite ran green on 2.1.296, before the agent started using PowerShell; nothing checked which shell tool a run used | `run_claude` passes `--disallowedTools PowerShell` so commands go through Bash (done: SPEC-0021 T-6, `tests/headless/lib.sh`) | [SPEC-0021 tasks](features/0021-standard-install/tasks.md) |
 | PM-0015 | 2026-10-19 | After SPEC-0021 T-1 removed `skills/*/.claude-plugin/`, the root README's structure block still listed `.claude-plugin/ — Claude Code plugin manifest` under each skill; found and fixed in T-5 | docs drift | The T-1 sweep searched for `plugin.json`, the file name, but the README named only the folder, `.claude-plugin/` | `check-docs.py` checks links, not paths written as text in a structure block | Sweep every replaced term: file and folder names (rule exists: impact sweep in AGENTS.md); a check for dead paths in living documents (proposed, no spec yet) | [SPEC-0021 tasks](features/0021-standard-install/tasks.md) |
+| PM-0016 | 2026-10-19 | The inventory gate in `onboarding.md` (SPEC-0009 T-1) reported every endpoint as missing when run from Git Bash: MSYS turned the route `/orders` into a Windows path before `git grep` saw it | environment | Git Bash rewrites arguments that look like absolute POSIX paths; the gate passes route strings as arguments | T-1 tested the gate with identifiers and paths only, not with a route; T-4 found it | `MSYS_NO_PATHCONV=1` on the gate's `git grep`, and the same in the `onboarding-code` scenario (done: SPEC-0009 T-4) | [SPEC-0009 tasks](features/0009-onboarding-normalization/tasks.md) |
 
 ## Patterns
 
@@ -44,7 +45,7 @@ Rows per category. At three, propose a spec that removes the pattern.
 | process gap | 3 (PM-0002, PM-0003, PM-0006) |
 | code defect | 2 (PM-0004, PM-0011) |
 | tooling | 1 (PM-0009) |
-| environment | 4 (PM-0005, PM-0008, PM-0012, PM-0014) |
+| environment | 5 (PM-0005, PM-0008, PM-0012, PM-0014, PM-0016) |
 
 **process gap: three rows.** The skill's workflow steps (approval, the kickoff checklist) were prose
 that a run could skip, and only a headless run of the real skill showed it. Those runs are manual
