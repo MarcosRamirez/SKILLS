@@ -1,7 +1,7 @@
 # PLAN-0029: committed tests for the release scripts, run in CI
 
 Spec: [SPEC-0029](spec.md)
-Status: Ready
+Status: In progress
 Recommended overall: medium — Claude Sonnet 5.5 (port existing suites, make them portable, wire CI)
 
 ## Context
