@@ -36,7 +36,7 @@ Branch: <type>/<slug> · OK to proceed?
 | Documentation only, with its own pattern | Notice before reorganising or renaming anything; adopting the standard layout is SPEC-0009 (assessment first) |
 | Code, with or without docs | Notice before touching code or docs; existing conventions (naming, structure, libraries, configs) win over the skill's defaults |
 | Not a git repo | Propose `git init` and a commit of the current state first, so there is a way back, then the notice |
-| Uncommitted user changes | Never touch or mix them. Ask: commit them on their own branch, stash them, or stop |
+| Uncommitted user changes | Never touch or mix them. Ask: commit them on their own branch, stash them, or stop. Do not offer to work around them in place: switching branches carries them along, and a later `git add` can mix them into your commit |
 | The user is on another work branch | Do not reuse it. Branch from the updated default branch, or ask whether to stack on theirs |
 | Existing CLAUDE.md, AGENTS.md, `.cursorrules` or other AI config | Read and respect them; merge, never overwrite. AGENTS.md and CLAUDE.md follow [agents-md.md](agents-md.md) |
 | CI, branch protection, hooks, linters | Respect them; never disable a check or skip a hook to get a change through |
