@@ -28,10 +28,16 @@ follow the same pattern, built from what actually exists, not from assumptions.
 ## Acceptance criteria
 
 - AC-1 `references/onboarding.md` with state detection, the analysis pipeline and the docs mapping.
-- AC-2 On a clone of one of the user's documentation projects: ASSESSMENT + adoption spec + migration PR; no content lost (diff check).
-- AC-3 On a clone of a code repo (e.g. the blog): INVENTORY where every entry's path exists and its
-  symbol is found by grep; conventions match the linter config; each ADR cites its evidence.
-- AC-4 Committed secrets, if any, are reported immediately and never copied into docs.
+- AC-2 On a synthetic documentation project built by the headless suite (spec-kit specs, an ADR
+  folder, a PRD and loose notes; no code): ASSESSMENT + adoption spec + migration commits; every
+  source file appears in the mapping, and nothing is deleted (`git diff -M --diff-filter=D` is empty).
+- AC-3 On a synthetic code repository built by the headless suite (routes, a model and its
+  migration, environment variables, a payment integration, linter config, tests, CI): INVENTORY
+  where every entry's path exists and its name is found by grep; conventions cite the linter
+  config; each ADR cites its evidence.
+- AC-4 Committed secrets, if any, are reported immediately and never copied into docs (the suite
+  plants a fake password and a tracked `.env`, and checks that no written file and no answer holds
+  their values).
 
 ## Out of scope
 
@@ -40,3 +46,4 @@ follow the same pattern, built from what actually exists, not from assumptions.
 ## Changelog
 
 - 2026-10-14: aligned with ADR-0005/0006 (SPEC-0024)
+- 2026-10-19: AC-2 and AC-3 run on synthetic projects built by the headless suite (the user, during T-3).

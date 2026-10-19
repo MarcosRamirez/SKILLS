@@ -6,7 +6,7 @@ Recommended overall: high — Claude Opus 5.5 (reading unknown code and mapping 
 
 ## Context
 
-Depends on PLAN-0008 (change notice). The user's documentation projects follow different patterns; code repos lack inventories. The analysis must be deterministic and verified: nothing invented.
+Depends on PLAN-0008 (change notice). Documentation projects follow different patterns; code repos lack inventories. The analysis must be deterministic and verified: nothing invented.
 
 ## Design
 
@@ -53,18 +53,18 @@ Existing files are mapped to the standard layout in a table inside the adoption 
 - Files: ~ SKILL.md
 - Done when: AC-1 (flow)
 
-### T-3 Real test: documentation project — high
-- Recommended: high — Claude Opus 5.5 (judging a real mapping)
+### T-3 Test: documentation project — high
+- Recommended: high — Claude Opus 5.5 (judging a mapping)
 - Branch: `test/0009-t3-docs-project`
-- Do: clone one of the user's documentation projects into the scratchpad, run onboarding, review the mapping and the diff (no content lost)
-- Files: nothing in the original repo
+- Do: headless scenario `onboarding-docs` on a synthetic docs-only project (spec-kit, ADR folder, PRD, notes); review the mapping and the diff (no content lost)
+- Files: + tests/headless/scenarios/onboarding-docs.sh
 - Done when: AC-2
 
-### T-4 Real test: code repo (blog) — high
-- Recommended: high — Claude Opus 5.5 (verifying an inventory by hand)
+### T-4 Test: code repository — high
+- Recommended: high — Claude Opus 5.5 (verifying an inventory)
 - Branch: `test/0009-t4-code-project`
-- Do: clone the blog, run onboarding, check every inventory entry (path exists, symbol found), conventions vs linter config, ADR evidence, secrets scan
-- Files: nothing in the original repo
+- Do: headless scenario `onboarding-code` on a synthetic code repository with a planted fake secret: every inventory entry checked (path exists, name found), conventions vs linter config, ADR evidence, secrets reported by location only
+- Files: + tests/headless/scenarios/onboarding-code.sh
 - Done when: AC-3, AC-4
 
 ### T-5 Release — low
@@ -76,7 +76,7 @@ Existing files are mapped to the standard layout in a table inside the adoption 
 
 ## Verification
 
-Inventory verification script (paths + grep) run on the blog clone; docs-migration diff shows only moves/splits, no deletions.
+Inventory verification (paths + grep) run on the synthetic code repository; docs-migration diff shows only moves/splits, no deletions.
 
 ## Risks
 
@@ -89,3 +89,4 @@ Fixing the health issues found.
 ## Changelog
 
 - 2026-10-18: conventions file is AGENTS.md (SPEC-0019)
+- 2026-10-19: T-3 and T-4 use synthetic projects in the headless suite.
