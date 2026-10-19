@@ -100,21 +100,23 @@ PY
 
 # Runs `claude -p` in PROJECT with the suite's isolation flags. Writes stream.jsonl, stderr.txt
 # and exit-code into RUN_DIR. The plugin is a fresh copy of the skill inside RUN_DIR, so nothing
-# the run does can reach the repository's working tree.
+# the run does can reach the repository's working tree. With SCENARIO_LOAD=project there is no
+# plugin: the skill loads only from the copy the scenario put in the project's .claude/skills/.
 run_claude() {  # run_claude PROJECT RUN_DIR PROMPT
   local project=$1 run_dir=$2 prompt=$3
   local plugin_dir="$run_dir/plugin/senior-mindset"
-  mkdir -p "$run_dir/plugin"
-  cp -R "$SKILL_SOURCE" "$plugin_dir"
 
   local args=(-p "$prompt"
     --output-format stream-json --verbose
     --permission-mode acceptEdits
     --setting-sources project,local
     --no-session-persistence
-    --strict-mcp-config
-    --plugin-dir "$plugin_dir"
-    --add-dir "$plugin_dir")
+    --strict-mcp-config)
+  if [[ ${SCENARIO_LOAD:-plugin} != project ]]; then
+    mkdir -p "$run_dir/plugin"
+    cp -R "$SKILL_SOURCE" "$plugin_dir"
+    args+=(--plugin-dir "$plugin_dir" --add-dir "$plugin_dir")
+  fi
   local allowed=${SCENARIO_ALLOWED_TOOLS:-}
   if [[ ${SCENARIO_QUESTION_TOOL:-none} != none ]]; then
     write_question_stub_config "$run_dir" "$SCENARIO_QUESTION_TOOL"
@@ -230,6 +232,45 @@ assert_no_command() {  # assert_no_command STREAM ERE: no Bash tool call matches
   echo "none of $(stream_py bash "$1" | wc -l | tr -d ' ') Bash call(s) match"
 }
 
+assert_result_lacks() {  # assert_result_lacks STREAM ERE: the final message does not match
+  local hit
+  hit="$(stream_py result "$1" | grep -Ei -m1 -- "$2")"
+  if [[ -n $hit ]]; then echo "final message matches /$2/: $(printf '%s' "$hit" | cut -c1-150)"; return 1; fi
+  echo "final message does not match /$2/"
+}
+
+install_skill_in_project() {  # install_skill_in_project DIR: the copies `npx skills --copy` writes
+  local dir=$1
+  mkdir -p "$dir/.agents/skills" "$dir/.claude/skills"
+  cp -R "$SKILL_SOURCE" "$dir/.agents/skills/senior-mindset"
+  cp -R "$SKILL_SOURCE" "$dir/.claude/skills/senior-mindset"
+  printf '{
+  "version": 1,
+  "skills": {
+    "senior-mindset": { "source": "MarcosRamirez/SKILLS" }
+  }
+}
+' > "$dir/skills-lock.json"
+}
+
+existing_small_project() {  # existing_small_project DIR: a committed Python project with conventions
+  local dir=$1
+  init_scratch_repo "$dir"
+  keep_line_endings "$dir"
+  printf '# Notes
+
+## Engineering conventions
+
+- Language: Python 3. Default branch: master.
+' > "$dir/AGENTS.md"
+  printf 'def greet(name):
+    return f"Hello, {name}"
+' > "$dir/app.py"
+}
+
+# Commands that install, disable, uninstall or remove a copy of the skill.
+INSTALL_CHANGE_COMMAND="npx[[:space:]]+(--yes[[:space:]]+)?skills|claude[[:space:]]+plugin[[:space:]]+(install|uninstall|disable|enable)|skills[[:space:]]+remove"
+
 assert_result_matches() {  # assert_result_matches STREAM ERE
   local text
   text="$(stream_py result "$1")"
@@ -249,6 +290,14 @@ assert_plugin_from() {  # assert_plugin_from STREAM PLUGIN_DIR
   fi
   echo "senior-mindset not loaded from $2; loaded: ${loaded:-nothing}"
   return 1
+}
+
+# SCENARIO_LOAD=project: the skill must come from the project's copy, so no plugin of that name.
+assert_no_skill_plugin() {  # assert_no_skill_plugin STREAM
+  local loaded
+  loaded="$(stream_py plugins "$1" | awk -F'	' '$1 == "senior-mindset"')"
+  if [[ -n $loaded ]]; then echo "a senior-mindset plugin loaded: $loaded"; return 1; fi
+  echo "no senior-mindset plugin: the skill comes from the project copy (a copy of the working copy)"
 }
 
 # --- Scratch repositories and branch-aware reads ----------------------------------------------

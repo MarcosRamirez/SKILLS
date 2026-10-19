@@ -93,15 +93,20 @@ The suite must never change the user's machine (PM-0012).
 | `no-git` | SPEC-0008 (AC-5) | A change to code in a folder without git: the final message proposes `git init` and a commit of the current state, no source file changed or added. A `git init` run without the OK is printed as a finding: an observation, not a failure |
 | `help-languages` | SPEC-0014 (AC-2, AC-2b) | "What can you do?" in an empty folder, 3 runs (Spanish, English, French): the answer lists the commands and the configuration, is in the language of the question (function words that belong to one language only), calls no question tool, runs no command that changes anything, and creates no file and no repository |
 | `status` | SPEC-0014 (AC-3) | "status" in a repository with six specs (features and fixes: Draft, Approved, Implemented), plans with tiers and states, a roadmap, a tag and an automation: each spec is named with the state, plan state and tier read from its file at check time, the version, the tag and the automation are named, and no file, commit, branch or tag changes |
+| `install-global-only` | SPEC-0021 (AC-3) | "help" in an existing project with no copy of the skill, which loads only from the suite's plugin (like a global install): the answer names installing it in the project and leaves the decision to the user, no install, disable or uninstall command, no file changed, no commit |
+| `install-project-only` | SPEC-0021 (AC-3) | "help" with the skill only in the project's `.agents/skills/` and `.claude/skills/` (no plugin, `SCENARIO_LOAD=project`): no install or duplicate question in the answer, no such command, nothing changed |
+| `install-duplicate` | SPEC-0021 (AC-3) | "help" with a committed project copy and the suite's plugin loaded too: the answer names the two copies and proposes disabling the global one, no command that installs, disables or uninstalls, no `.claude/settings.local.json`, no commit |
 
 ## Writing a scenario
 
 A scenario is a bash file in `scenarios/` that sets `SCENARIO_DESCRIPTION`, `SCENARIO_PROMPT`,
-`SCENARIO_RUNS`, optionally `SCENARIO_ALLOWED_TOOLS` and `SCENARIO_QUESTION_TOOL` (`error`,
-`no-answer` or `none`), and defines `scenario_setup DIR` and `scenario_checks DIR STREAM`. Each
+`SCENARIO_RUNS`, optionally `SCENARIO_ALLOWED_TOOLS`, `SCENARIO_QUESTION_TOOL` (`error`,
+`no-answer` or `none`) and `SCENARIO_LOAD` (`plugin` by default; `project` loads no plugin, so the
+skill comes only from a copy the setup puts in the project's `.claude/skills/`), and defines `scenario_setup DIR` and `scenario_checks DIR STREAM`. Each
 assertion goes through `check "<name>" <command>`: the command prints its evidence and returns
 0 or 1. Reusable assertions live in `lib.sh` (`assert_no_app_sources`, `assert_branch_files_only`,
-`assert_file_contains`, `assert_skill_invoked`, `assert_no_command`, `assert_result_matches`).
+`assert_file_contains`, `assert_skill_invoked`, `assert_no_command`, `assert_result_matches`,
+`assert_result_lacks`) with setup helpers such as `existing_small_project` and `install_skill_in_project`.
 Every run also checks that the copy under test was loaded and that the user files are unchanged.
 
 A scenario about a project that already exists (SPEC-0008) calls `save_baseline` at the end of its
