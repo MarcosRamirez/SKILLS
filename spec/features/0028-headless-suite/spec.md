@@ -1,7 +1,8 @@
 # SPEC-0028: a committed headless suite, run before every release
 
 Type: feature
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-19, PR #79
 Date: 2026-10-14
 Approved by: the user, 2026-10-14, chose it in the postmortem-patterns question ("Batería de pruebas sin interfaz")
 
