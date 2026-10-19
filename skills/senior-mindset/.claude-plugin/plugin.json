@@ -1,6 +1,6 @@
 {
   "name": "senior-mindset",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Claude builds software like a pragmatic senior engineer: spec first, ADRs, reuse, readable, secure, tested code",
   "author": {
     "name": "Marcos Ramírez",
