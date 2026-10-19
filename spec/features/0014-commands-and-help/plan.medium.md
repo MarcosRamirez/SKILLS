@@ -1,7 +1,8 @@
 # PLAN-0014: documented commands, help and status
 
 Spec: [SPEC-0014](spec.md)
-Status: In progress
+Status: Done
+Done: 2026-10-19, PR #89
 Recommended overall: medium — Claude Sonnet 5.5 (documentation plus small read-only behaviours)
 
 ## Context
