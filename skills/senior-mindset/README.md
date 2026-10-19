@@ -17,6 +17,11 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
    In an existing project (code or docs already there), every change starts with a change
    notice and waits for your OK, then happens on its own branch. Your uncommitted changes are
    never touched: it asks whether to commit them on their own branch, stash them or stop.
+   An existing project without conventions is **analysed first**, from its files: stack,
+   structure, a verified inventory, conventions taken from the linter config, decisions found in
+   the code, health, and committed secrets (reported by file and line, never copied). The result
+   is `spec/ASSESSMENT.md` plus an "Adopt senior-mindset" spec that maps your existing docs onto
+   the standard layout without deleting anything.
 3. **Sets up git.** Runs `git init` if needed (default branch `master`, or `main` if you
    prefer: it asks once), writes a safe `.gitignore`, opens **one branch per change**
    (never commits on `master`), commits after every significant change, and delivers
