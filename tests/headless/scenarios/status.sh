@@ -19,7 +19,7 @@ SPEC_FILES=(
   spec/fixes/0005-rounding-error.md
   spec/fixes/0006-duplicate-emails.md
 )
-WRITE_COMMAND="${COMMAND_START}(mkdir|touch|rm|mv|cp|tee|sed[[:space:]]+-i|git[[:space:]]+(init|add|commit|switch|checkout|branch|stash|merge|push|tag[[:space:]]+[^-]))([[:space:]\"]|\\\\n|\$)"
+WRITE_COMMAND="${COMMAND_START}(mkdir|touch|rm|mv|cp|tee|sed[[:space:]]+-i|git[[:space:]]+(init|add|commit|switch|checkout|stash|merge|push))([[:space:]\"]|\\\\n|\$)|${COMMAND_START}git[[:space:]]+(tag[[:space:]]+(-[adfs]|[[:alnum:]_.])|branch[[:space:]]+(-[dDmMcC]|[[:alnum:]_.]))"
 
 make_spec() {  # make_spec DIR PATH STATUS TYPE TITLE [PLAN_PATH PLAN_STATUS TIER]
   local dir=$1 path=$2 status=$3 type=$4 title=$5 plan_path=${6:-} plan_status=${7:-} tier=${8:-}

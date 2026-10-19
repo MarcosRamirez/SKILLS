@@ -10,7 +10,8 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
 1. **Checks for collisions on first use.** It lists your installed skills, finds the ones
    that contradict its rules (e.g. a git skill that merges locally), asks which one wins in
    each area, and remembers your answer in `~/.claude/senior-mindset.md`. It greets you once
-   when installed and once per update, never more.
+   when installed (with a short summary of what it can do and how to ask for the full help) and
+   once per update, never more.
 2. **Sizes the task.** A one-off script skips the ceremony but still gets English names
    and clean code. A project follows the full flow, and so does any request for the kickoff.
    In an existing project (code or docs already there), every change starts with a change

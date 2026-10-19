@@ -32,7 +32,7 @@ COMMAND_GROUPS=(
   "automations=automati|automat"
 )
 CONFIG_WORDS='configur|convention|AGENTS|kickoff|setup|ajustes|param[eè]tr|senior-mindset\.md'
-WRITE_COMMAND="${COMMAND_START}(mkdir|touch|rm|mv|cp|tee|sed[[:space:]]+-i|git[[:space:]]+(init|add|commit|switch|checkout|branch|tag|stash|merge|push))([[:space:]\"]|\\\\n|\$)"
+WRITE_COMMAND="${COMMAND_START}(mkdir|touch|rm|mv|cp|tee|sed[[:space:]]+-i|git[[:space:]]+(init|add|commit|switch|checkout|stash|merge|push))([[:space:]\"]|\\\\n|\$)|${COMMAND_START}git[[:space:]]+(tag[[:space:]]+(-[adfs]|[[:alnum:]_.])|branch[[:space:]]+(-[dDmMcC]|[[:alnum:]_.]))"
 
 scenario_setup() {  # an empty folder, not even a repository
   local dir=$1

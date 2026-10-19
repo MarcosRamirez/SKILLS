@@ -76,8 +76,10 @@ Read `~/.claude/senior-mindset.md`. **If it does not exist, run the setup in
    changelog/versioning, specs, review, tests).
 3. Ask which one wins in each colliding area.
 4. Write the file.
-5. Greet once, in the user's language (at most 3 lines):
+5. Greet once, in the user's language (at most 4 lines):
    > ✅ senior-mindset vX.Y.Z installed and configured.
+   > I can write specs and plans before code, run a plan ("run plan 0008"), show project status,
+   > release versions and keep your conventions. Ask "what can you do?" for the full list.
    > Made by Marcos Ramírez — https://blog.marcosramirez.info/sobre-mi/
 
 Its decisions apply to every project, unless the project's AGENTS.md overrides them.
