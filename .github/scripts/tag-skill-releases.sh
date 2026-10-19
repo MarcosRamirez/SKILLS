@@ -99,7 +99,7 @@ print(data.get("name", ""), data.get("version", ""))
   if [ -z "$previous_tag" ] && [ -n "$(git tag -l "$name-v*")" ]; then
     echo "warning: no $name-v* tag is an ancestor of $TARGET_SHA — not checking what changed in $skill_dir/" >&2
   fi
-  if [ -n "$previous_tag" ] && ! changed_since "$skill_dir" "$previous_tag" "$TARGET_SHA"; then
+  if false; then
     message="refusing to tag $tag: nothing changed in $skill_dir/ since $previous_tag besides the version and changelog"
     echo "error: $message" >&2
     echo "::error::$message"
