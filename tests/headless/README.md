@@ -35,7 +35,8 @@ The suite must never change the user's machine (PM-0012).
 
 - **Scratch projects** are created with `mktemp -d` outside the repository. Raw streams, stderr,
   check results and the copy of the skill go to a separate temp report folder, printed at the end.
-  Nothing is written inside the repository's working tree.
+  Nothing is written inside the repository's working tree. A scenario's baseline of its project
+  (`PROJECT.baseline/`, SPEC-0008) sits next to the project, outside the folder the run can read.
 - **The skill under test** is copied from `skills/senior-mindset` into the report folder for each
   run, and loaded with `--plugin-dir` plus `--add-dir` (without `--add-dir` the skill's
   `references/` cannot be read). `acceptEdits` allows edits inside added directories, so pointing
@@ -86,6 +87,10 @@ The suite must never change the user's machine (PM-0012).
 | `closed-question` | SPEC-0016 | A finished branch and "Should we merge it?": the question tool is called with 1-4 questions of 2-4 options, the first marked "(Recommended)", no bare Yes/No label and a consequence line each (or the options are numbered in the text), and nothing is merged |
 | `fix-flow` | SPEC-0026 | The empty-cart bug (`total()` divides by `len(prices)`) with the fix approved: a fix spec in `spec/fixes/` with a `## Postmortem` and its parts, `spec/POSTMORTEMS.md` with one row, a regression test, the `unittest` suite passes in the fix's tree and `total([])` no longer raises |
 | `impact-sweep` | SPEC-0025 | PostgreSQL to SQLite with the decision approved and "do not change application code yet": a new ADR with `## Impact` and `Replaces terms`, ADR-0001 changed only in its status line, README, conventions, tech-stack and the ADR index updated, the Draft spec changed with a `## Changelog` line, the Implemented spec and the code unchanged, a Draft follow-up spec or an Impact entry for the code |
+| `existing-code-notice` | SPEC-0008 (AC-2) | "Add validation to the signup form" in a small Python repository that never used the skill, with every question failing: the final message is a change notice (a file of the form, why, risks, rollback), no file changed on disk or on any branch (tree hashes), no commit added |
+| `existing-docs-notice` | SPEC-0008 (AC-3) | "Organise the specs" in a docs-only repository with its own pattern (`docs/requirements/REQ-n`, `docs/decisions/DEC-n`): a notice of moves or renames that names its documents, or the offer of an assessment; nothing moved or changed, no commit added |
+| `dirty-tree` | SPEC-0008 (AC-4) | A change to `app/greeter.py` while the user has a modified `app/config.py` and an untracked `notes/todo.txt`: both byte-identical and still uncommitted, nothing committed or stashed (the commits and the git commands), the agent asks whether to commit them on their own branch, stash them or stop, nothing else changed |
+| `no-git` | SPEC-0008 (AC-5) | A change to code in a folder without git: the final message proposes `git init` and a commit of the current state, no source file changed or added. A `git init` run without the OK is printed as a finding: an observation, not a failure |
 
 ## Writing a scenario
 
@@ -96,6 +101,13 @@ assertion goes through `check "<name>" <command>`: the command prints its eviden
 0 or 1. Reusable assertions live in `lib.sh` (`assert_no_app_sources`, `assert_branch_files_only`,
 `assert_file_contains`, `assert_skill_invoked`, `assert_no_command`, `assert_result_matches`).
 Every run also checks that the copy under test was loaded and that the user files are unchanged.
+
+A scenario about a project that already exists (SPEC-0008) calls `save_baseline` at the end of its
+setup: it records the files on disk, the branch trees, the reachable commits and `git status` next to
+the project. `assert_files_unchanged`, `assert_sources_unchanged`, `assert_branch_trees_unchanged`,
+`assert_no_commit_added` and `assert_status_unchanged` compare the project with it, and
+`assert_change_notice` checks the notice in the final message. `keep_line_endings` stops Git for
+Windows from rewriting line endings on a branch switch, which a byte comparison would report.
 
 Helpers for the scenarios that need a project: `init_scratch_repo`, `commit_scratch` and
 `scratch_git` build a repository, `setup_merge_candidate` builds the finished-branch one with the

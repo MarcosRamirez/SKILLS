@@ -73,8 +73,8 @@ Copied into app projects by the skill (`skills/senior-mindset/templates/release-
 Headless suite (SPEC-0028): real `claude -p` runs on scratch projects with deterministic checks; costs model usage, run before releases. Guide: `tests/headless/README.md`.
 
 - `run.sh` — tests/headless/run.sh — runs the scenarios against a temp copy of `skills/senior-mindset`, prints each check with evidence and a summary (outcome, checks, cost, model, Claude Code version), fails if a user-level file changed — `bash tests/headless/run.sh [--only NAME] [--runs N] [--isolated-home]`
-- `lib.sh` — tests/headless/lib.sh — helpers sourced by the runner and scenarios: scratch folders and repositories, branch-aware file reads, `claude -p` with the isolation flags, user-file hashes, `check` and reusable assertions (files, git branches, stream events)
-- `stream.py` — tests/headless/stream.py — reads the stream-json: outcome (ok, usage limit, not logged in), cost, model, skills invoked, tool calls and inputs, Bash commands, permission denials, plugins; also hashes files — `python3 tests/headless/stream.py info <stream.jsonl>`
+- `lib.sh` — tests/headless/lib.sh — helpers sourced by the runner and scenarios: scratch folders and repositories, branch-aware file reads, `claude -p` with the isolation flags, user-file hashes, project baselines (files, branch trees, commits, status), `check` and reusable assertions (files, git branches, stream events, change notices)
+- `stream.py` — tests/headless/stream.py — reads the stream-json: outcome (ok, usage limit, not logged in), cost, model, skills invoked, tool calls and inputs, Bash commands, permission denials, plugins; also hashes files and whole folders (`hash-tree`) — `python3 tests/headless/stream.py info <stream.jsonl>`
 - `question_stub.py` — tests/headless/question_stub.py — stand-in AskUserQuestion over MCP for headless runs; fails like a client with no UI (`STUB_MODE=error`) or returns no answer
 - `approval-gate.sh` — tests/headless/scenarios/approval-gate.sh — PM-0002/PM-0006: "build me a to-do web app" with failing questions must leave no code and Draft documents on a `docs/` branch
 - `kickoff-checklist.sh` — tests/headless/scenarios/kickoff-checklist.sh — PM-0003: an approved kickoff leaves conventions, `.gitignore`, ADRs, constitution and `cliff.toml` on a branch, and at most `.gitignore` on `master`
@@ -83,6 +83,10 @@ Headless suite (SPEC-0028): real `claude -p` runs on scratch projects with deter
 - `closed-question.sh` — tests/headless/scenarios/closed-question.sh — SPEC-0016: a merge decision is asked with well-formed options (or numbered), and not carried out
 - `fix-flow.sh` — tests/headless/scenarios/fix-flow.sh — SPEC-0026: the approved empty-cart fix leaves a fix spec with a postmortem, a register row and a passing regression test
 - `impact-sweep.sh` — tests/headless/scenarios/impact-sweep.sh — SPEC-0025: PostgreSQL to SQLite updates the living documents, leaves the Implemented spec and the code alone, and records the follow-up
+- `existing-code-notice.sh` — tests/headless/scenarios/existing-code-notice.sh — SPEC-0008 AC-2: "add validation to the signup form" in an existing code repository ends with a change notice, and no file, branch tree or commit changes
+- `existing-docs-notice.sh` — tests/headless/scenarios/existing-docs-notice.sh — SPEC-0008 AC-3: "organise the specs" in a docs-only repository with its own pattern ends with a notice of moves (or an assessment offer), with nothing moved or committed
+- `dirty-tree.sh` — tests/headless/scenarios/dirty-tree.sh — SPEC-0008 AC-4: uncommitted user changes stay byte-identical, uncommitted and unstashed, and the agent asks whether to commit them on a branch, stash them or stop
+- `no-git.sh` — tests/headless/scenarios/no-git.sh — SPEC-0008 AC-5: code outside git gets a proposal of `git init` and a snapshot commit, with no source changed; a `git init` run without the OK is reported as a finding
 - `tests/headless/README.md` — how to run the suite, its cost, the isolation it uses, how to write a scenario
 
 ## CI tests
