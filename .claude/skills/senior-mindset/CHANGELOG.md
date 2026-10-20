@@ -3,6 +3,18 @@
 All notable changes to this project are documented here, newest first.
 Generated from the commit history with git-cliff: do not edit by hand.
 
+## [senior-mindset-v2.11.0] - 2026-10-20
+
+### Added
+
+- **senior-mindset:** Propose add-ons from the catalog, with consent
+- **senior-mindset:** Fill the catalog with the entries the user approved
+- **senior-mindset:** Add the curated catalog format and its check
+
+### Fixed
+
+- **senior-mindset:** State the dirty-tree and install-check limits
+
 ## [senior-mindset-v2.10.0] - 2026-10-19
 
 ### Added

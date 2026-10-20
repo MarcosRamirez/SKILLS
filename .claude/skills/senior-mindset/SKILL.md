@@ -23,7 +23,7 @@ metadata:
   homepage: https://marcosramirez.info
   blog: https://blog.marcosramirez.info
   dev: https://marcosramirez.dev
-  version: "2.10.0"
+  version: "2.11.0"
 ---
 
 # Senior mindset
@@ -62,7 +62,8 @@ next person (or AI) does not have to guess.
    small change gets a small notice. The work then happens on a new branch and reaches the
    default branch by PR. **Uncommitted changes you did not make** (`git status`) are never edited,
    staged, committed, stashed or carried onto your branch: name them and ask whether to commit them
-   on their own branch, stash them or stop. **Not a git repository:** propose `git init -b master` and
+   on their own branch, stash them or stop. Those three options and no other: never offer to leave
+   them in place, because switching branches carries them along. **Not a git repository:** propose `git init -b master` and
    a first commit of the current state before the change, so there is a way back; never offer to
    edit in place without it. A failed or skipped question is not an OK (rule 2);
    without an OK, show the notice and stop (rule 3). Existing conventions win over the skill's
@@ -89,10 +90,10 @@ Its decisions apply to every project, unless the project's AGENTS.md overrides t
 **Install check (every project, until answered there).** It runs even when the setup file exists
 or cannot be read, and before help, status and list plans. Compare this skill's base directory with
 the project, look for project copies (`ls -d .agents/skills/senior-mindset .claude/skills/senior-mindset`)
-and for a second senior-mindset in your skills list. Loaded from a global copy with no project copy,
+and for a second senior-mindset in your skills list; do not read global folders for it. Loaded from a global copy with no project copy,
 and nothing recorded → ask once: "Install it in this project (Recommended)" / "Keep it global".
 Global and project copies both present → propose disabling the global one for this project. Project
-copy only → say nothing. When
+copy only → no question, and no guess about global copies you cannot see. When
 you cannot ask, or the answer is help or status, end with one line naming the copies found and the
 pending decision. Never install, disable or uninstall without the answer. Cases, commands and where the answer is recorded:
 [references/setup.md](references/setup.md#7-where-the-skill-loads-from-each-project).
@@ -334,6 +335,17 @@ risks and out of scope. It is part of what the user approves. Template, lifecycl
 **"Run plan X" / "ejecuta el plan X":** read the plan and its spec, check approval (ask if the
 spec is still Draft), set the plan to `In progress`, and execute the steps with branches and PRs.
 The last PR carries `Closes-Spec: SPEC-X`, and the bot marks the spec Implemented and the plan Done.
+
+## Step 3d — Add-ons from the curated catalog
+
+When a request, a spec or a plan matches entries of [catalog/skills.json](catalog/skills.json) or
+[catalog/mcps.json](catalog/mcps.json) (their `proposeWhen` task words and stack signals), and they
+are not installed or declined in this project, propose **at most three** in one closed question,
+recommended ones first, each with its purpose and what it can access (and its `exception`, if any),
+plus "None for now". **Install nothing without the user's pick**; a failed or skipped question
+installs nothing, and in a headless run the proposal goes in the final message. A pick installs in
+the project (change notice, branch, PR), a new skill gets the collision check, and the add-on is
+recorded in `spec/INVENTORY.md`. Rules, install commands and removal: [references/catalog.md](references/catalog.md).
 
 ## Step 4 — Implement
 
