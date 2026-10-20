@@ -1,6 +1,371 @@
 {
   "$schema": "./catalog.schema.json",
   "kind": "skills",
-  "entries": [],
+  "entries": [
+    {
+      "id": "frontend-design",
+      "name": "Frontend design",
+      "purpose": "Distinctive, production-grade web interfaces instead of generic-looking UI",
+      "recommended": true,
+      "proposeWhen": {
+        "tasks": [
+          "landing page",
+          "ui",
+          "web design",
+          "component styling",
+          "redesign"
+        ],
+        "stack": [
+          "any"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/anthropics/skills",
+        "path": "skills/frontend-design",
+        "ref": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+        "license": "Apache-2.0"
+      },
+      "install": {
+        "npx-skills": "npx skills add anthropics/skills#dbd4588f9e1033efb41dad4bef2f7947c8993d44 --skill frontend-design"
+      },
+      "permissions": "Instructions only: no scripts, no network access.",
+      "version": "dbd4588 (2026-10-09)",
+      "why": "Vendor-maintained by Anthropic, Apache-2.0, active repository. Fills the gap between senior-mindset's code rules and the visual quality of a UI.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "webapp-testing",
+      "name": "Web app testing",
+      "purpose": "Test local web apps with Playwright scripts: screenshots, browser logs, UI checks",
+      "recommended": false,
+      "proposeWhen": {
+        "tasks": [
+          "end-to-end test",
+          "browser test",
+          "debug ui",
+          "verify frontend"
+        ],
+        "stack": [
+          "any"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/anthropics/skills",
+        "path": "skills/webapp-testing",
+        "ref": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+        "license": "Apache-2.0"
+      },
+      "install": {
+        "npx-skills": "npx skills add anthropics/skills#dbd4588f9e1033efb41dad4bef2f7947c8993d44 --skill webapp-testing"
+      },
+      "permissions": "Runs local Python scripts with Playwright against a local server; no network beyond the app under test.",
+      "version": "dbd4588 (2026-10-09)",
+      "why": "Vendor-maintained by Anthropic, Apache-2.0. Complements senior-mindset's testing reference for UI flows; overlaps in part with the Playwright MCP.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "vercel-react-best-practices",
+      "name": "React best practices",
+      "purpose": "Performance rules for React and Next.js components and data fetching",
+      "recommended": false,
+      "proposeWhen": {
+        "tasks": [
+          "react component",
+          "next.js page",
+          "performance review"
+        ],
+        "stack": [
+          "react",
+          "next"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/vercel-labs/agent-skills",
+        "path": "skills/react-best-practices",
+        "ref": "063bee94c3f4df8453406c830b0a7df0f2860278",
+        "license": "MIT"
+      },
+      "install": {
+        "npx-skills": "npx skills add vercel-labs/agent-skills#063bee94c3f4df8453406c830b0a7df0f2860278 --skill vercel-react-best-practices"
+      },
+      "permissions": "Instructions only: no scripts, no network access.",
+      "version": "063bee9 (2026-08-28)",
+      "why": "Vendor-maintained by Vercel, MIT. Proposed only in React or Next.js projects.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "web-design-guidelines",
+      "name": "Web design guidelines",
+      "purpose": "Review a UI against accessibility and web interface guidelines",
+      "recommended": false,
+      "proposeWhen": {
+        "tasks": [
+          "review ui",
+          "accessibility",
+          "finish a page",
+          "ux review"
+        ],
+        "stack": [
+          "any"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/vercel-labs/agent-skills",
+        "path": "skills/web-design-guidelines",
+        "ref": "063bee94c3f4df8453406c830b0a7df0f2860278",
+        "license": "MIT"
+      },
+      "install": {
+        "npx-skills": "npx skills add vercel-labs/agent-skills#063bee94c3f4df8453406c830b0a7df0f2860278 --skill web-design-guidelines"
+      },
+      "permissions": "Reads the files under review; may fetch the published guidelines over the network.",
+      "version": "063bee9 (2026-08-28)",
+      "why": "Vendor-maintained by Vercel, MIT. A review step that pairs with frontend-design.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare",
+      "purpose": "The Cloudflare developer platform: Workers, Pages, storage, AI and networking products",
+      "recommended": true,
+      "proposeWhen": {
+        "tasks": [
+          "deploy",
+          "worker",
+          "edge function",
+          "storage",
+          "cloudflare"
+        ],
+        "stack": [
+          "cloudflare",
+          "wrangler"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/cloudflare/skills",
+        "path": "skills/cloudflare",
+        "ref": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+        "license": "Apache-2.0"
+      },
+      "install": {
+        "npx-skills": "npx skills add cloudflare/skills#86505e44f87d801aa1864a3c4109e9a8ae5c409f --skill cloudflare"
+      },
+      "permissions": "Instructions only; it may suggest wrangler commands, which run only with the user's approval.",
+      "version": "86505e4 (2026-10-15)",
+      "why": "Vendor-maintained by Cloudflare, Apache-2.0, active. Cloudflare is senior-mindset's default platform.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "wrangler",
+      "name": "Wrangler",
+      "purpose": "Correct use of the wrangler CLI: configuration, deploys, bindings and secrets",
+      "recommended": true,
+      "proposeWhen": {
+        "tasks": [
+          "deploy a worker",
+          "wrangler config",
+          "bindings",
+          "secrets"
+        ],
+        "stack": [
+          "cloudflare",
+          "wrangler"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/cloudflare/skills",
+        "path": "skills/wrangler",
+        "ref": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+        "license": "Apache-2.0"
+      },
+      "install": {
+        "npx-skills": "npx skills add cloudflare/skills#86505e44f87d801aa1864a3c4109e9a8ae5c409f --skill wrangler"
+      },
+      "permissions": "Instructions only; wrangler commands run only with the user's approval.",
+      "version": "86505e4 (2026-10-15)",
+      "why": "Vendor-maintained by Cloudflare, Apache-2.0. Proposed when the project has a wrangler config.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "workers-best-practices",
+      "name": "Workers best practices",
+      "purpose": "Limits, streaming, error handling and performance for Cloudflare Workers code",
+      "recommended": true,
+      "proposeWhen": {
+        "tasks": [
+          "write a worker",
+          "review worker code",
+          "worker performance"
+        ],
+        "stack": [
+          "cloudflare",
+          "wrangler"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/cloudflare/skills",
+        "path": "skills/workers-best-practices",
+        "ref": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+        "license": "Apache-2.0"
+      },
+      "install": {
+        "npx-skills": "npx skills add cloudflare/skills#86505e44f87d801aa1864a3c4109e9a8ae5c409f --skill workers-best-practices"
+      },
+      "permissions": "Instructions only: no scripts, no network access.",
+      "version": "86505e4 (2026-10-15)",
+      "why": "Vendor-maintained by Cloudflare, Apache-2.0. Reviews Workers code against the platform's own guidance.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "web-perf",
+      "name": "Web performance",
+      "purpose": "Audit and improve web performance: Core Web Vitals, loading, caching",
+      "recommended": true,
+      "proposeWhen": {
+        "tasks": [
+          "performance",
+          "core web vitals",
+          "slow page",
+          "lighthouse"
+        ],
+        "stack": [
+          "any"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/cloudflare/skills",
+        "path": "skills/web-perf",
+        "ref": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+        "license": "Apache-2.0"
+      },
+      "install": {
+        "npx-skills": "npx skills add cloudflare/skills#86505e44f87d801aa1864a3c4109e9a8ae5c409f --skill web-perf"
+      },
+      "permissions": "Reads the project; may suggest measurement tools, which run only with the user's approval.",
+      "version": "86505e4 (2026-10-15)",
+      "why": "Vendor-maintained by Cloudflare, Apache-2.0. Covers web performance on any stack, not only Cloudflare.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "docx",
+      "name": "DOCX",
+      "purpose": "Create, edit and read Word documents",
+      "recommended": false,
+      "proposeWhen": {
+        "tasks": [
+          "word document",
+          "report",
+          "docx"
+        ],
+        "stack": [
+          "any"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/anthropics/skills",
+        "path": "skills/docx",
+        "ref": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+        "license": "Proprietary (Anthropic)"
+      },
+      "install": {
+        "npx-skills": "npx skills add anthropics/skills#dbd4588f9e1033efb41dad4bef2f7947c8993d44 --skill docx"
+      },
+      "permissions": "Runs local scripts (Python, Node and LibreOffice for conversions) on the files it is asked to handle; no network access.",
+      "version": "dbd4588 (2026-10-09)",
+      "why": "Vendor-maintained by Anthropic; the most complete skill for Office files.",
+      "exception": "Proprietary licence (Anthropic, all rights reserved): it fails criterion 3. Included as an exception by the maintainer on 2026-10-20, because no open skill covers creating and editing Office files as well.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "xlsx",
+      "name": "XLSX",
+      "purpose": "Create, edit and analyse Excel spreadsheets",
+      "recommended": false,
+      "proposeWhen": {
+        "tasks": [
+          "spreadsheet",
+          "excel",
+          "xlsx"
+        ],
+        "stack": [
+          "any"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/anthropics/skills",
+        "path": "skills/xlsx",
+        "ref": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+        "license": "Proprietary (Anthropic)"
+      },
+      "install": {
+        "npx-skills": "npx skills add anthropics/skills#dbd4588f9e1033efb41dad4bef2f7947c8993d44 --skill xlsx"
+      },
+      "permissions": "Runs local scripts (Python, Node and LibreOffice for conversions) on the files it is asked to handle; no network access.",
+      "version": "dbd4588 (2026-10-09)",
+      "why": "Vendor-maintained by Anthropic; the most complete skill for Office files.",
+      "exception": "Proprietary licence (Anthropic, all rights reserved): it fails criterion 3. Included as an exception by the maintainer on 2026-10-20, because no open skill covers creating and editing Office files as well.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "pptx",
+      "name": "PPTX",
+      "purpose": "Create and edit PowerPoint presentations",
+      "recommended": false,
+      "proposeWhen": {
+        "tasks": [
+          "presentation",
+          "slides",
+          "pptx"
+        ],
+        "stack": [
+          "any"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/anthropics/skills",
+        "path": "skills/pptx",
+        "ref": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+        "license": "Proprietary (Anthropic)"
+      },
+      "install": {
+        "npx-skills": "npx skills add anthropics/skills#dbd4588f9e1033efb41dad4bef2f7947c8993d44 --skill pptx"
+      },
+      "permissions": "Runs local scripts (Python, Node and LibreOffice for conversions) on the files it is asked to handle; no network access.",
+      "version": "dbd4588 (2026-10-09)",
+      "why": "Vendor-maintained by Anthropic; the most complete skill for Office files.",
+      "exception": "Proprietary licence (Anthropic, all rights reserved): it fails criterion 3. Included as an exception by the maintainer on 2026-10-20, because no open skill covers creating and editing Office files as well.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "pdf",
+      "name": "PDF",
+      "purpose": "Read, fill, merge and create PDF files",
+      "recommended": false,
+      "proposeWhen": {
+        "tasks": [
+          "pdf",
+          "fill a form",
+          "merge pdfs"
+        ],
+        "stack": [
+          "any"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/anthropics/skills",
+        "path": "skills/pdf",
+        "ref": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+        "license": "Proprietary (Anthropic)"
+      },
+      "install": {
+        "npx-skills": "npx skills add anthropics/skills#dbd4588f9e1033efb41dad4bef2f7947c8993d44 --skill pdf"
+      },
+      "permissions": "Runs local scripts (Python, Node and LibreOffice for conversions) on the files it is asked to handle; no network access.",
+      "version": "dbd4588 (2026-10-09)",
+      "why": "Vendor-maintained by Anthropic; the most complete skill for Office files.",
+      "exception": "Proprietary licence (Anthropic, all rights reserved): it fails criterion 3. Included as an exception by the maintainer on 2026-10-20, because no open skill covers creating and editing Office files as well.",
+      "added": "2026-10-20"
+    }
+  ],
   "rejected": []
 }
