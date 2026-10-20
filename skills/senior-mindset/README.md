@@ -48,7 +48,9 @@ Whenever you ask Claude to write code, from a one-off script to a full app, it:
    a list of questions.
 7. **Evaluates the design.** Monolith or microservices, event-driven or not, test strategy
    (unit, TDD, k6 load tests), contract-first OpenAPI, and the language per component
-   (it shows pros and cons, you decide).
+   (it shows pros and cons, you decide). When the task matches its **curated catalog** of skills
+   and MCP servers (vendor-maintained, licence and permissions checked, versions pinned), it proposes
+   at most three, each with what it can access, and installs only what you pick, in the project.
 8. **Implements.** Reuses what already exists (`spec/INVENTORY.md`), checks official docs first,
    and writes code meant to be read by humans.
 9. **Reviews itself.** Lint, tests, OWASP, defensive checks (guard clauses, resource checks, timeouts, limits), computational cost, logs without secrets.

@@ -335,6 +335,17 @@ risks and out of scope. It is part of what the user approves. Template, lifecycl
 spec is still Draft), set the plan to `In progress`, and execute the steps with branches and PRs.
 The last PR carries `Closes-Spec: SPEC-X`, and the bot marks the spec Implemented and the plan Done.
 
+## Step 3d — Add-ons from the curated catalog
+
+When a request, a spec or a plan matches entries of [catalog/skills.json](catalog/skills.json) or
+[catalog/mcps.json](catalog/mcps.json) (their `proposeWhen` task words and stack signals), and they
+are not installed or declined in this project, propose **at most three** in one closed question,
+recommended ones first, each with its purpose and what it can access (and its `exception`, if any),
+plus "None for now". **Install nothing without the user's pick**; a failed or skipped question
+installs nothing, and in a headless run the proposal goes in the final message. A pick installs in
+the project (change notice, branch, PR), a new skill gets the collision check, and the add-on is
+recorded in `spec/INVENTORY.md`. Rules, install commands and removal: [references/catalog.md](references/catalog.md).
+
 ## Step 4 — Implement
 
 Follow the plan step by step. If reality diverges from the plan, update the plan in the same
