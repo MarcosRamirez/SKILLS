@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "catalog.schema.json",
+  "title": "senior-mindset curated catalog (skills.json or mcps.json)",
+  "description": "Entries the user approved one by one, and the candidates they rejected. Rules: references/catalog.md.",
+  "type": "object",
+  "required": [
+    "kind",
+    "entries",
+    "rejected"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "skills",
+        "mcps"
+      ]
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    },
+    "rejected": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rejected"
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "words": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "entry": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "purpose",
+        "recommended",
+        "proposeWhen",
+        "source",
+        "install",
+        "permissions",
+        "version",
+        "why",
+        "added"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "purpose": {
+          "$ref": "#/$defs/text"
+        },
+        "recommended": {
+          "type": "boolean"
+        },
+        "proposeWhen": {
+          "type": "object",
+          "required": [
+            "tasks",
+            "stack"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "tasks": {
+              "$ref": "#/$defs/words"
+            },
+            "stack": {
+              "$ref": "#/$defs/words"
+            }
+          }
+        },
+        "source": {
+          "type": "object",
+          "required": [
+            "repo",
+            "ref",
+            "license"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "repo": {
+              "type": "string",
+              "pattern": "^https://"
+            },
+            "path": {
+              "$ref": "#/$defs/text"
+            },
+            "ref": {
+              "$ref": "#/$defs/text"
+            },
+            "license": {
+              "$ref": "#/$defs/text"
+            }
+          }
+        },
+        "install": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "auth": {
+          "$ref": "#/$defs/text"
+        },
+        "permissions": {
+          "$ref": "#/$defs/text"
+        },
+        "version": {
+          "$ref": "#/$defs/text"
+        },
+        "why": {
+          "$ref": "#/$defs/text"
+        },
+        "exception": {
+          "$ref": "#/$defs/text"
+        },
+        "added": {
+          "$ref": "#/$defs/date"
+        },
+        "reviewed": {
+          "$ref": "#/$defs/date"
+        }
+      }
+    },
+    "rejected": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "reason",
+        "date"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        },
+        "date": {
+          "$ref": "#/$defs/date"
+        }
+      }
+    }
+  }
+}
