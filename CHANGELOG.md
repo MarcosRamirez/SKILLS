@@ -11,8 +11,14 @@ Generated from the commit history with git-cliff: do not edit by hand.
 - **senior-mindset:** Fill the catalog with the entries the user approved (2026-10-20)
 - **senior-mindset:** Add the curated catalog format and its check (2026-10-19)
 
+### Fixed
+
+- **senior-mindset:** State the dirty-tree and install-check limits (2026-10-20)
+
 ### Documentation
 
+- **repo:** Record PM-0018 to PM-0020 in the register (2026-10-20)
+- **repo:** Tick the SPEC-0011 release task (2026-10-20)
 - **repo:** Record the SPEC-0011 T-3 install check (2026-10-20)
 - **repo:** Approve SPEC-0011 and start its plan (2026-10-19)
 - **repo:** Write SPEC-0031 against the code-defect pattern (2026-10-19)
