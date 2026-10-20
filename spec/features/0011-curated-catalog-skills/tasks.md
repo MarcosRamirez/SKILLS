@@ -10,7 +10,7 @@ One branch per task, stacked PRs. Executed through PLAN-0011.
   approved (AC-1c), so it is not asked again
 - [x] T-3 Vetted third-party skills installable with `npx skills`; marketplace listing optional (AC-4)
 - [x] T-4 Skill management flow in `SKILL.md`; headless test (AC-3)
-- [ ] T-5 Release (minor), docs, changelogs; last PR carries `Closes-Spec: SPEC-0011`
+- [x] T-5 Release (minor), docs, changelogs; last PR carries `Closes-Spec: SPEC-0011`
 
 ## Review session (T-2, 2026-10-19 and 2026-10-20)
 

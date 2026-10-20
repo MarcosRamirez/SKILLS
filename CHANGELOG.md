@@ -7,21 +7,42 @@ Generated from the commit history with git-cliff: do not edit by hand.
 
 ### Added
 
-- **senior-mindset:** Onboard existing projects before the kickoff (2026-10-19)
-- **senior-mindset:** Add the onboarding reference for existing projects (2026-10-19)
+- **senior-mindset:** Propose add-ons from the catalog, with consent (2026-10-20)
+- **senior-mindset:** Fill the catalog with the entries the user approved (2026-10-20)
+- **senior-mindset:** Add the curated catalog format and its check (2026-10-19)
 
 ### Fixed
 
-- **senior-mindset:** Propose git init and a snapshot before changes (2026-10-19)
-- **senior-mindset:** Make the inventory gate check routes on Git Bash (2026-10-19)
+- **senior-mindset:** State the dirty-tree and install-check limits (2026-10-20)
 
 ### Documentation
 
-- **repo:** Record PM-0017 and the code-defect pattern (2026-10-19)
-- **repo:** Tick the SPEC-0009 release task (2026-10-19)
-- **repo:** Test SPEC-0009 on synthetic projects (2026-10-19)
-- **repo:** Approve SPEC-0009 and start its plan (2026-10-19)
-- **repo:** Mark SPEC-0021 implemented (#95) (2026-10-19)
+- **repo:** Record PM-0018 to PM-0020 in the register (2026-10-20)
+- **repo:** Tick the SPEC-0011 release task (2026-10-20)
+- **repo:** Record the SPEC-0011 T-3 install check (2026-10-20)
+- **repo:** Approve SPEC-0011 and start its plan (2026-10-19)
+- **repo:** Write SPEC-0031 against the code-defect pattern (2026-10-19)
+- **repo:** Mark SPEC-0009 implemented (#101) (2026-10-19)
+
+## [senior-mindset-v2.10.0] - 2026-10-19
+
+### Added
+
+- **senior-mindset:** Onboard existing projects before the kickoff
+- **senior-mindset:** Add the onboarding reference for existing projects
+
+### Fixed
+
+- **senior-mindset:** Propose git init and a snapshot before changes
+- **senior-mindset:** Make the inventory gate check routes on Git Bash
+
+### Documentation
+
+- **repo:** Record PM-0017 and the code-defect pattern
+- **repo:** Tick the SPEC-0009 release task
+- **repo:** Test SPEC-0009 on synthetic projects
+- **repo:** Approve SPEC-0009 and start its plan
+- **repo:** Mark SPEC-0021 implemented (#95)
 
 ## [senior-mindset-v2.9.0] - 2026-10-19
 

@@ -22,7 +22,7 @@ scenario_checks() {  # scenario_checks PROJECT STREAM
   local project=$1 stream=$2
   check "the skill loaded" assert_skill_invoked "$stream" senior-mindset
   check "the answer names the two copies" assert_result_matches "$stream" '[Tt]wo (copies|installs)|[Bb]oth|[Dd]uplicat|[Tt]wice|global (plugin|copy)'
-  check "the answer proposes disabling the global one" assert_result_matches "$stream" '[Dd]isabl|[Tt]urn(ing)? (it )?off|[Ss]witch(ing)? (it )?off|[Dd]eactivat|[Dd]esactiv'
+  check "the answer proposes disabling the global one" assert_result_matches "$stream" '[Dd]isabl|[Tt]urn[a-z]* .{0,40}off|[Ss]witch[a-z]* .{0,40}off|[Dd]eactivat|[Dd]esactiv'
   check "nothing installed, disabled or uninstalled" assert_no_command "$stream" "$INSTALL_CHANGE_COMMAND"
   check "no file changed (no .claude/settings.local.json)" assert_files_unchanged "$project"
   check "no commit added" assert_no_commit_added "$project"

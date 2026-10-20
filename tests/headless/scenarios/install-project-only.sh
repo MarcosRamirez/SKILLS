@@ -20,7 +20,9 @@ scenario_setup() {
 scenario_checks() {  # scenario_checks PROJECT STREAM
   local project=$1 stream=$2
   check "the skill loaded" assert_skill_invoked "$stream" senior-mindset
-  check "no install or duplicate question in the answer" assert_result_lacks "$stream" 'keep it global|install it in (this|the) project|disable the global|duplicate|two copies|global copy'
+  # A neutral line in the help summary ("installed in this project, nothing to decide") is fine;
+  # a proposal or a question about another copy is not.
+  check "no install or duplicate question in the answer" assert_result_lacks "$stream" 'keep it global|install it in (this|the) project|(disabl[a-z]*|turn[a-z]* off|switch[a-z]* off) the (global|plugin)|duplicate|if (one|a global copy) (does|exists)'
   check "nothing installed, disabled or uninstalled" assert_no_command "$stream" "$INSTALL_CHANGE_COMMAND"
   check "no file changed" assert_files_unchanged "$project"
   check "no commit added" assert_no_commit_added "$project"

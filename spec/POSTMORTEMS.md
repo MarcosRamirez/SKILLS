@@ -34,6 +34,9 @@ One row per bug, newest last. The register is how this project learns.
 | PM-0015 | 2026-10-19 | After SPEC-0021 T-1 removed `skills/*/.claude-plugin/`, the root README's structure block still listed `.claude-plugin/ — Claude Code plugin manifest` under each skill; found and fixed in T-5 | docs drift | The T-1 sweep searched for `plugin.json`, the file name, but the README named only the folder, `.claude-plugin/` | `check-docs.py` checks links, not paths written as text in a structure block | Sweep every replaced term: file and folder names (rule exists: impact sweep in AGENTS.md); a check for dead paths in living documents (proposed, no spec yet) | [SPEC-0021 tasks](features/0021-standard-install/tasks.md) |
 | PM-0016 | 2026-10-19 | The inventory gate in `onboarding.md` (SPEC-0009 T-1) reported every endpoint as missing when run from Git Bash: MSYS turned the route `/orders` into a Windows path before `git grep` saw it | environment | Git Bash rewrites arguments that look like absolute POSIX paths; the gate passes route strings as arguments | T-1 tested the gate with identifiers and paths only, not with a route; T-4 found it | `MSYS_NO_PATHCONV=1` on the gate's `git grep`, and the same in the `onboarding-code` scenario (done: SPEC-0009 T-4) | [SPEC-0009 tasks](features/0009-onboarding-normalization/tasks.md) |
 | PM-0017 | 2026-10-19 | In the 2.10.0 pre-release suite, `no-git` failed: for a change in a folder without git, the agent offered `git init` as one option among others, including editing in place, and never proposed a commit of the current state | code defect | The no-git rule (git init plus a snapshot commit before the change) lived only in `existing-projects.md`, which loads on demand; hard rule 4 did not mention it | The scenario passed on 2.9.0: the miss is intermittent, and the new onboarding step adds more to weigh in an existing folder | One sentence in hard rule 4: git init and a snapshot commit first, never edit in place without it (done: SPEC-0009 T-5) | [SPEC-0009 tasks](features/0009-onboarding-normalization/tasks.md) |
+| PM-0018 | 2026-10-20 | In the 2.11.0 pre-release suite, `dirty-tree` failed again (it also failed once on 2.9.0): asked about the user's uncommitted changes, the agent offered "leave them where they are" as a third option and never offered to stop | code defect | "Never offer to leave them in place" lived only in `existing-projects.md`; hard rule 4 listed the three options but did not exclude others | The scenario passes most runs; the miss is intermittent, and two failures in three releases were treated as flakiness | Hard rule 4: those three options and no other, never leave them in place (done: SPEC-0011 T-5); the pattern is SPEC-0031 | [SPEC-0011 tasks](features/0011-curated-catalog-skills/tasks.md) |
+| PM-0019 | 2026-10-20 | In the same suite, `install-project-only` failed: with only the project copy loaded, "help" first tried to read global folders and then guessed about a global copy it could not see. Rechecks showed a second problem, in the test: a neutral "installed in this project, nothing to decide" line also tripped the check | code defect | "Do not read global folders" lived only in `setup.md`; `SKILL.md` said "say nothing", which also fought the help command's configuration summary. The check matched any mention of a global copy, not only a proposal | The 2.9.0 fix of this scenario changed `setup.md` and one short phrase in `SKILL.md`, got no register row, and passed once without being repeated | `SKILL.md`: do not read global folders; project copy only means no question and no guess. The check now looks for proposals only (done: SPEC-0011 T-5); the pattern is SPEC-0031 | [SPEC-0011 tasks](features/0011-curated-catalog-skills/tasks.md) |
+| PM-0020 | 2026-10-20 | Four headless FAILs in two days were the checks, not the skill: `install-duplicate` ("turn off", then "turned off"), `install-global-only` ("keep using the global copy") and `catalog-proposal` (names instead of ids) all answered correctly in words the regex did not list | tooling | Each text check was written from one run's wording; nothing tested it against other correct answers | A FAIL was read as a skill defect first; the recorded streams of earlier runs were not used to calibrate the check | Checks widened and calibrated against every recorded stream of their scenario; the suite README asks for that calibration before trusting a text check (done: SPEC-0011 T-5) | [tests/headless/README.md](../tests/headless/README.md) |
 
 ## Patterns
 
@@ -44,8 +47,8 @@ Rows per category. At three, propose a spec that removes the pattern.
 | spec gap | 1 (PM-0010) |
 | docs drift | 4 (PM-0001, PM-0007, PM-0013, PM-0015) |
 | process gap | 3 (PM-0002, PM-0003, PM-0006) |
-| code defect | 3 (PM-0004, PM-0011, PM-0017) |
-| tooling | 1 (PM-0009) |
+| code defect | 5 (PM-0004, PM-0011, PM-0017, PM-0018, PM-0019) |
+| tooling | 2 (PM-0009, PM-0020) |
 | environment | 5 (PM-0005, PM-0008, PM-0012, PM-0014, PM-0016) |
 
 **process gap: three rows.** The skill's workflow steps (approval, the kickoff checklist) were prose
@@ -67,7 +70,7 @@ part of the **headless suite** (isolated home) and of the **CI tests** (runner-l
 plus a line in the skill's testing reference: a procedure that relies on platform behaviour is
 first tried on a throwaway repository.
 
-**code defect: three rows.** PM-0004, PM-0011 and PM-0017 share one cause: a rule that must always
+**code defect: five rows.** PM-0004, PM-0011, PM-0017, PM-0018 and PM-0019 share one cause: a rule that must always
 hold lives somewhere that is not always read, either the skill itself (loaded only when its
 description matches) or a reference (loaded only when the agent follows the link). The **git
 trigger fix** and the trigger prompts of the **headless suite** target the first half. Proposed

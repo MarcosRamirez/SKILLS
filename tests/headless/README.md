@@ -112,6 +112,12 @@ assertion goes through `check "<name>" <command>`: the command prints its eviden
 `assert_result_lacks`) with setup helpers such as `existing_small_project` and `install_skill_in_project`.
 Every run also checks that the copy under test was loaded and that the user files are unchanged.
 
+**Text checks match meaning, not one phrasing.** The agent words the same answer differently from
+run to run ("disable", "turn off", "turned off"). Before trusting a new or changed text check, run it
+against the recorded streams of earlier runs (they stay in the `skills-headless.*` report folders):
+it must pass on the answers that were right and fail on the ones that were wrong. A FAIL on a
+text check is read in the answer before the skill is changed (PM-0020).
+
 A scenario about a project that already exists (SPEC-0008) calls `save_baseline` at the end of its
 setup: it records the files on disk, the branch trees, the reachable commits and `git status` next to
 the project. `assert_files_unchanged`, `assert_sources_unchanged`, `assert_branch_trees_unchanged`,
