@@ -9,7 +9,7 @@ One branch per task, stacked PRs. Executed through PLAN-0011.
   candidates, approve entry by entry, record rejections (AC-1, AC-1b). Context7 is already
   approved (AC-1c), so it is not asked again
 - [x] T-3 Vetted third-party skills installable with `npx skills`; marketplace listing optional (AC-4)
-- [ ] T-4 Skill management flow in `SKILL.md`; headless test (AC-3)
+- [x] T-4 Skill management flow in `SKILL.md`; headless test (AC-3)
 - [ ] T-5 Release (minor), docs, changelogs; last PR carries `Closes-Spec: SPEC-0011`
 
 ## Review session (T-2, 2026-10-19 and 2026-10-20)
@@ -56,3 +56,22 @@ Every skill entry's `install.npx-skills` command, run with `npx --yes skills@1.7
 12 of 12 installed from their pinned commit. Listing them in this repository's marketplace is
 optional (R-5) and not done: `npx skills` covers every agent, and a marketplace copy would be one
 more thing to keep in step.
+
+## Test results (T-4, 2026-10-20)
+
+`SKILL.md` Step 3d: matching catalog entries are proposed (at most three, recommended first, purpose,
+access and any exception, plus "None for now"), nothing is installed without the user's pick, and a
+pick installs in the project with a change notice and the collision check.
+
+Scenario `catalog-proposal` (Claude Code 2.1.303, `claude-opus-5-5`):
+
+- First version, an empty folder with "Design a landing page for a small bakery.": the skill did not
+  load. Claude Code treated it as a design request and wrote an HTML file in its own scratchpad. The
+  scenario tested the wrong thing, so it moved to a test project as AC-3 says.
+- A small Astro site with senior-mindset conventions and "Add a landing page for the bakery to this
+  project.": the answer listed "Add-ons" with Frontend design (recommended) and Web design
+  guidelines, what each can access, and "None for now". The first run failed one check only
+  because the count looked for ids and the answer used names; the check now accepts either.
+- Rerun: PASS 8/8, 0.59 USD: three entries named (frontend-design, web-design-guidelines,
+  web-perf), no install command, no installed copy or `.mcp.json`, no source changed (a Draft spec
+  `0001-landing-page.md` was written, as the approval gate allows).

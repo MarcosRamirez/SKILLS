@@ -58,6 +58,7 @@ claude › Before writing code, 4 quick questions (I'll remember the answers):
 | Code that trusts every input and fills the disk | Guard clauses, resource checks, timeouts and limits by default |
 | `console.log` when things break | Structured logs from the first commit |
 | One giant commit on `master` | A branch per change, a commit per task, a PR you merge |
+| "Is there a skill for this?" | A curated catalog of vendor-maintained skills and MCPs, proposed when the task fits, installed only if you pick them |
 | An old project nobody documented | Analysed from its files first: a verified inventory, decisions found in the code, secrets flagged by location, docs mapped without deleting anything |
 | "Which version is in production?" | `0.0.1-alpha.1` → beta → rc → `1.0.0`, numbers computed from commits |
 
