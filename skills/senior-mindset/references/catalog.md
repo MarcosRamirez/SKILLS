@@ -19,9 +19,14 @@ An entry is added only when all of these hold, and the entry's `why` says how:
 5. **Reviewed before inclusion**: its `SKILL.md` (or the server's entry points and install
    script) was read; nothing runs at install time beyond what it states.
 6. **Pinned**: `source.ref` and `version` name a release, a commit or a package version, never a
-   moving branch, so an install today and an install next month get the same thing.
+   moving branch, so an install today and an install next month get the same thing. A hosted
+   (remote) server cannot be pinned: `version` records the release that was reviewed.
 7. **Approved by the maintainer**, entry by entry. Rejected candidates go to `rejected`, with the
    reason, and are not proposed again.
+
+An exception to a criterion is the maintainer's explicit decision, written in the entry's
+`exception` field (which criterion, why, and the date). The skill names it when it proposes the
+entry, so the user decides knowing it.
 
 Each entry is reviewed again when it is updated, or at least once a year (`reviewed`).
 
@@ -38,6 +43,7 @@ Each entry is reviewed again when it is updated, or at least once a year (`revie
 | `permissions` | What it can read, write, run or send |
 | `version`, `added`, `reviewed` | Pinned version and dates |
 | `why` | Why it is in the list, and how it meets the criteria |
+| `exception` | Only when a criterion is waived: which one, why, and when the maintainer decided it |
 
 `catalog.schema.json` describes the format. In this repository, `check-catalog.py` validates both
 files on every pull request.

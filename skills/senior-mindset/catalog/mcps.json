@@ -8,8 +8,16 @@
       "purpose": "Up-to-date, version-specific documentation and code examples for libraries and frameworks, fetched on demand",
       "recommended": true,
       "proposeWhen": {
-        "tasks": ["use a library", "framework API", "integrate an SDK", "upgrade a dependency", "fix an API error"],
-        "stack": ["any"]
+        "tasks": [
+          "use a library",
+          "framework API",
+          "integrate an SDK",
+          "upgrade a dependency",
+          "fix an API error"
+        ],
+        "stack": [
+          "any"
+        ]
       },
       "source": {
         "repo": "https://github.com/upstash/context7",
@@ -25,7 +33,132 @@
       "version": "4.4.4",
       "why": "The user's own pick (SPEC-0011 AC-1c, SPEC-0012 R-6). The skill checks official docs first; Context7 serves them for the exact library version, which cuts answers based on outdated APIs.",
       "added": "2026-10-19"
+    },
+    {
+      "id": "playwright",
+      "name": "Playwright MCP",
+      "purpose": "Drive a real browser from the agent: navigate, fill forms, take screenshots, test and debug web apps",
+      "recommended": true,
+      "proposeWhen": {
+        "tasks": [
+          "end-to-end test",
+          "browser automation",
+          "debug ui",
+          "reproduce a bug in the browser"
+        ],
+        "stack": [
+          "any"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/microsoft/playwright-mcp",
+        "ref": "v0.0.83 (npm @playwright/mcp 0.0.83)",
+        "license": "Apache-2.0"
+      },
+      "install": {
+        "claude-code": "claude mcp add playwright -- npx -y @playwright/mcp@0.0.83"
+      },
+      "permissions": "Runs a local browser that can open any URL, read pages and fill forms; network access through the browser.",
+      "version": "0.0.83",
+      "why": "Vendor-maintained by Microsoft, Apache-2.0, active. The standard way for an agent to test a UI in a real browser.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "chrome-devtools",
+      "name": "Chrome DevTools MCP",
+      "purpose": "Performance traces, network, console and debugging of Chrome from the agent",
+      "recommended": false,
+      "proposeWhen": {
+        "tasks": [
+          "performance",
+          "network debugging",
+          "console errors",
+          "core web vitals"
+        ],
+        "stack": [
+          "any"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+        "ref": "chrome-devtools-mcp-v1.11.0 (npm 1.11.0)",
+        "license": "Apache-2.0"
+      },
+      "install": {
+        "claude-code": "claude mcp add chrome-devtools -- npx -y chrome-devtools-mcp@1.11.0 --no-usage-statistics"
+      },
+      "permissions": "Runs a local Chrome that can open any URL and read its pages, network and console. Usage statistics are switched off in the install command.",
+      "version": "1.11.0",
+      "why": "Vendor-maintained by the Chrome DevTools team (Google), Apache-2.0, active. Measures performance where a script cannot.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "github",
+      "name": "GitHub MCP",
+      "purpose": "Issues, pull requests, Actions and code search on GitHub from the agent",
+      "recommended": false,
+      "proposeWhen": {
+        "tasks": [
+          "pull request",
+          "issue",
+          "github actions",
+          "code search"
+        ],
+        "stack": [
+          "github"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/github/github-mcp-server",
+        "ref": "v2.0.2",
+        "license": "MIT"
+      },
+      "install": {
+        "claude-code": "claude mcp add-json github '{\"type\":\"http\",\"url\":\"https://api.githubcopilot.com/mcp\",\"headers\":{\"Authorization\":\"Bearer ${GITHUB_PAT}\"}}'"
+      },
+      "auth": "A GitHub personal access token in the environment variable GITHUB_PAT. The single quotes keep ${GITHUB_PAT} literal, so .mcp.json stores the variable name and Claude Code expands it at run time; the token is never written to a file.",
+      "permissions": "Reads and writes on GitHub with the permissions of the token: give it the narrowest fine-grained token that does the job.",
+      "version": "v2.0.2 (remote)",
+      "why": "Vendor-maintained by GitHub, MIT, active. Optional: senior-mindset already works through the gh CLI.",
+      "added": "2026-10-20"
+    },
+    {
+      "id": "cloudflare-docs",
+      "name": "Cloudflare Docs MCP",
+      "purpose": "Official, current Cloudflare documentation on demand",
+      "recommended": true,
+      "proposeWhen": {
+        "tasks": [
+          "cloudflare",
+          "worker",
+          "wrangler",
+          "deploy"
+        ],
+        "stack": [
+          "cloudflare",
+          "wrangler"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/cloudflare/mcp-server-cloudflare",
+        "ref": "@repo/mcp-common@0.20.11 (hosted server)",
+        "license": "Apache-2.0"
+      },
+      "install": {
+        "claude-code": "claude mcp add --transport http cloudflare-docs https://docs.mcp.cloudflare.com/mcp"
+      },
+      "permissions": "Network: sends documentation queries to Cloudflare. Reads public documentation only; no account access.",
+      "version": "remote, reviewed at @repo/mcp-common@0.20.11",
+      "why": "Vendor-maintained by Cloudflare, Apache-2.0, active. Official docs first, for senior-mindset's default platform.",
+      "added": "2026-10-20"
     }
   ],
-  "rejected": []
+  "rejected": [
+    {
+      "id": "sentry",
+      "name": "Sentry MCP",
+      "reason": "Licence not declared: the server moved to getsentry/toolkit, which GitHub reports as NOASSERTION. Revisit if Sentry clarifies it.",
+      "date": "2026-10-20"
+    }
+  ]
 }
