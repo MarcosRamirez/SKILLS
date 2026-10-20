@@ -1,7 +1,8 @@
 # SPEC-0011: curated catalog of skills and MCPs, and skill management
 
 Type: feature
-Status: Approved
+Status: Implemented
+Implemented: 2026-10-20, PR #108
 Date: 2026-10-13
 Approved by: the user, 2026-10-19, chose "0011 ahora, contigo" in the next-step question
 
