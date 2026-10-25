@@ -1,7 +1,7 @@
 # PLAN-0012: propose, install and manage MCPs from the curated catalog
 
 Spec: [SPEC-0012](spec.md)
-Status: Draft
+Status: In progress
 Recommended overall: medium — Claude Sonnet 5.5 (flow is clear once the catalog exists; security details need care)
 
 ## Context

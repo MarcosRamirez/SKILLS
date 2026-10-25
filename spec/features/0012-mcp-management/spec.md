@@ -1,8 +1,9 @@
 # SPEC-0012: propose, install and manage MCPs from the curated catalog
 
-Status: Draft
+Type: feature
+Status: Approved
 Date: 2026-10-13
-Approved by: (empty until the user explicitly approves)
+Approved by: the user, 2026-10-25, "continua" after SPEC-0012 was proposed as next
 
 ## Problem
 
