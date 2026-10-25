@@ -70,7 +70,7 @@ Every install is for the current project unless the user picks "Global" in the q
 - **MCP servers:** the agent's own project file, since there is no shared standard. Claude Code:
   the entry's `install.claude-code` command plus `--scope project`, placed before any `--` (it writes `.mcp.json`; Claude
   Code's default scope is `local`, so the flag is always explicit). Global: `--scope user`. Secrets
-  go in environment variables, never in a committed file. Details: SPEC-0012.
+  go in environment variables, never in a committed file. Details: [mcp.md](mcp.md).
 - **It changes the project**, so it follows hard rule 4: a change notice (files, permissions,
   rollback), a branch, a pull request.
 - **A new skill** goes through the collision check of the first-use setup

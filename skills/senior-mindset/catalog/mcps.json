@@ -25,14 +25,15 @@
         "license": "MIT"
       },
       "install": {
-        "claude-code": "claude mcp add --transport http context7 https://mcp.context7.com/mcp",
+        "claude-code": "claude mcp add-json context7 '{\"type\":\"http\",\"url\":\"https://mcp.context7.com/mcp\",\"headers\":{\"Authorization\":\"Bearer ${CONTEXT7_API_KEY:-}\"}}'",
         "claude-code-local": "claude mcp add context7 -- npx -y @upstash/context7-mcp@4.4.4"
       },
-      "auth": "Optional free API key for higher rate limits, sent as the header \"Authorization: Bearer <key>\" (local: --api-key). Never write the key in a committed file: use an environment variable.",
+      "auth": "Optional free API key for higher rate limits, in the environment variable CONTEXT7_API_KEY. The header uses ${CONTEXT7_API_KEY:-}: without the variable Context7 works anonymously, while a bare ${CONTEXT7_API_KEY} left unset is sent as text and fails with \"Invalid API key\" (checked 2026-10-25). The single quotes keep the variable name in .mcp.json; the key is never written to a file.",
       "permissions": "Network: sends library names and documentation queries to context7.com. No file or shell access.",
       "version": "4.4.4",
       "why": "The user's own pick (SPEC-0011 AC-1c, SPEC-0012 R-6). The skill checks official docs first; Context7 serves them for the exact library version, which cuts answers based on outdated APIs.",
-      "added": "2026-10-19"
+      "added": "2026-10-19",
+      "reviewed": "2026-10-25"
     },
     {
       "id": "playwright",
@@ -151,6 +152,38 @@
       "version": "remote, reviewed at @repo/mcp-common@0.20.11",
       "why": "Vendor-maintained by Cloudflare, Apache-2.0, active. Official docs first, for senior-mindset's default platform.",
       "added": "2026-10-20"
+    },
+    {
+      "id": "toolbox-postgres",
+      "name": "MCP Toolbox for Databases (PostgreSQL)",
+      "purpose": "PostgreSQL tools for the agent: list tables and schemas, run SQL, read query plans and database health",
+      "recommended": true,
+      "proposeWhen": {
+        "tasks": [
+          "database",
+          "sql query",
+          "schema",
+          "slow query",
+          "data question"
+        ],
+        "stack": [
+          "postgres",
+          "postgresql"
+        ]
+      },
+      "source": {
+        "repo": "https://github.com/googleapis/mcp-toolbox",
+        "ref": "v1.15.0 (npm @toolbox-sdk/server 1.15.0)",
+        "license": "Apache-2.0"
+      },
+      "install": {
+        "claude-code": "claude mcp add-json toolbox-postgres '{\"type\":\"stdio\",\"command\":\"npx\",\"args\":[\"-y\",\"@toolbox-sdk/server@1.15.0\",\"--prebuilt=postgres\",\"--stdio\"],\"env\":{\"POSTGRES_HOST\":\"${POSTGRES_HOST:-localhost}\",\"POSTGRES_PORT\":\"${POSTGRES_PORT:-5432}\",\"POSTGRES_DATABASE\":\"${POSTGRES_DATABASE}\",\"POSTGRES_USER\":\"${POSTGRES_READONLY_USER}\",\"POSTGRES_PASSWORD\":\"${POSTGRES_READONLY_PASSWORD}\"}}'"
+      },
+      "auth": "A read-only database role (see references/mcp.md): POSTGRES_READONLY_USER and POSTGRES_READONLY_PASSWORD in the environment, plus POSTGRES_DATABASE (host and port default to localhost:5432). Never the application's or an admin account; the values are never written to a file.",
+      "permissions": "Runs a local server that connects to the database with the role it is given. execute_sql runs any SQL that role allows, so the role gets SELECT only, on a development or staging database.",
+      "version": "1.15.0",
+      "why": "Vendor-maintained by Google, Apache-2.0, very active. The official reference PostgreSQL server is archived; Toolbox ships prebuilt PostgreSQL tools (and covers MySQL, SQL Server and others).",
+      "added": "2026-10-25"
     }
   ],
   "rejected": [
@@ -159,6 +192,12 @@
       "name": "Sentry MCP",
       "reason": "Licence not declared: the server moved to getsentry/toolkit, which GitHub reports as NOASSERTION. Revisit if Sentry clarifies it.",
       "date": "2026-10-20"
+    },
+    {
+      "id": "postgres-mcp-pro",
+      "name": "Postgres MCP Pro",
+      "reason": "Community project whose last release is from May 2025: it barely meets the maintenance criterion. Revisit if releases resume.",
+      "date": "2026-10-25"
     }
   ]
 }
