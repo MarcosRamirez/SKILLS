@@ -46,6 +46,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 - `questions.md` — closed questions with clickable options (question tool): format, examples, numbered fallback
 - `existing-projects.md` — working on existing projects (hard rule 4): change notice template, edge-case table, examples
 - `catalog.md` — the curated catalog: inclusion criteria, entry fields, when and how an entry is proposed (at most three, consent), project-first install of skills and MCPs, update and removal
+- `mcp.md` — MCP servers: proposal points, project-scope install, secrets as variables (with the `.mcp.json` grep check), least privilege, docs lookup order, management and review, directories
 - `onboarding.md` — onboarding an existing project without conventions: state detection, six-stage code analysis, inventory verification gate, secrets by location only, docs mapping, `spec/ASSESSMENT.md` template, adoption spec flow, no-deletion check
 - `sdd.md` — spec / design / tasks templates
 - `release-automation.md` — specs close on merge, releases tag themselves; uses the templates below
@@ -62,7 +63,7 @@ Loaded on demand from `SKILL.md`. One topic per file:
 Shipped with the skill; rules in `references/catalog.md`, validated by `check-catalog.py`:
 
 - `skills.json` — skills/senior-mindset/catalog/skills.json — curated agent skills the skill may propose (approved entries and rejected candidates)
-- `mcps.json` — skills/senior-mindset/catalog/mcps.json — curated MCP servers the skill may propose; starts with Context7
+- `mcps.json` — skills/senior-mindset/catalog/mcps.json — curated MCP servers the skill may propose (Context7, Playwright, Chrome DevTools, GitHub, Cloudflare Docs, MCP Toolbox for PostgreSQL)
 - `catalog.schema.json` — skills/senior-mindset/catalog/catalog.schema.json — JSON Schema of both lists (editors and `check-catalog.py`)
 
 ## senior-mindset templates

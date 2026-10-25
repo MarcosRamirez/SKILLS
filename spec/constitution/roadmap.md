@@ -31,7 +31,7 @@ table format.
 | SPEC-0021 | Install in the project, standard locations first | high | Implemented | SPEC-0008, SPEC-0014, SPEC-0023 |
 | SPEC-0009 | Analyse existing projects and normalise them | high | Implemented | SPEC-0021 |
 | SPEC-0011 | Curated catalog of skills and MCPs, skill management | high | Implemented | SPEC-0021 |
-| SPEC-0012 | MCP management from the curated catalog | medium | Draft | SPEC-0011 |
+| SPEC-0012 | MCP management from the curated catalog | medium | Approved | SPEC-0011 |
 | SPEC-0020 | Enable and disable MCPs as the work needs them | medium | Draft | SPEC-0012, SPEC-0014 |
 | SPEC-0010 | Environments: local, preview, staging, production | medium | Draft | — |
 | SPEC-0013 | Portable to other agents and open models | high | Draft | SPEC-0016, SPEC-0021 |
