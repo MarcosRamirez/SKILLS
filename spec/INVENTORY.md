@@ -19,6 +19,16 @@ Format: `name — path — purpose — usage`.
 
 - `senior-mindset` — skills/senior-mindset/ — Claude works like a pragmatic senior engineer — `/plugin install senior-mindset@marcosramirez-skills`
 - `save-image` — skills/save-image/ — saves pasted images to disk — `/plugin install save-image@marcosramirez-skills`
+- `write-skill` — skills/write-skill/ — writes and reviews agent skills within the standard's budgets — `/plugin install write-skill@marcosramirez-skills`
+
+## write-skill (SPEC-0032)
+
+- `SKILL.md` — skills/write-skill/SKILL.md — the procedure: worth a skill, name, description, body, progressive disclosure, scripts, validation, publishing
+- `references/standard.md` — frontmatter fields and limits, directory layout, progressive disclosure, relative references
+- `references/description.md` — how to write a description that triggers, with good and bad examples and the collision check
+- `references/budget.md` — the three costs, warning vs error, where a sentence goes, what to cut, anti-patterns
+- `references/checklist.md` — what to verify before publishing that the validators cannot judge
+- `validate-skill.py` — skills/write-skill/scripts/validate-skill.py — errors at the standard's limits and warnings at this repo's targets: name and folder, description, SemVer, lines, words, estimated tokens, links, reference depth, unlinked references, duplicated headings, TODOs; `--strict` and `--json` — `python3 skills/write-skill/scripts/validate-skill.py <skill-folder>`
 
 ## senior-mindset references
 
@@ -121,14 +131,15 @@ Headless suite (SPEC-0028): real `claude -p` runs on scratch projects with deter
 
 ## CI tests
 
-Committed tests for the release scripts and the docs check (SPEC-0029): bash, git and python3 only, fixtures in temp folders, the scripts of the checkout under test. Guide: `tests/ci/README.md`.
+Committed tests for the release scripts, the docs checks and the skill validator (SPEC-0029, SPEC-0032): bash, git and python3 only, fixtures in temp folders, the scripts of the checkout under test. Guide: `tests/ci/README.md`.
 
-- `run.sh` — tests/ci/run.sh — runs the three suites below and prints a summary; exit 1 if any fails — `bash tests/ci/run.sh`
+- `run.sh` — tests/ci/run.sh — runs the suites below and prints a summary; exit 1 if any fails — `bash tests/ci/run.sh`
 - `test-close-specs.sh` — tests/ci/test-close-specs.sh — `close-specs.sh` (features, fixes, collisions, `SPEC_DIRS`, guards) and the on-merge id extraction with its `pipefail` fallback
 - `test-tag-skill-releases.sh` — tests/ci/test-tag-skill-releases.sh — `tag-skill-releases.sh` on a scratch repository: the version-only refusal (SPEC-0023), tag selection, real tagging against a scratch remote
 - `test-check-docs.sh` — tests/ci/test-check-docs.sh — `check-docs.py` (repo copy and template): broken links, superseded ADRs, code fences, the `adr/` folder rule, `DOCS_CHECK_FILES`
 - `test-check-catalog.sh` — tests/ci/test-check-catalog.sh — `check-catalog.py` on scratch catalogs: one case per rule (missing field, types, unknown key, id, date, duplicates, rejected vs entry, unpinned ref and version, scope flags, non-npx skill, secrets, kind, invalid JSON) and this checkout
 - `test-check-versions.sh` — tests/ci/test-check-versions.sh — `check-versions.py` on scratch repos: version and name mismatches, non-SemVer, missing version, CRLF, skills without an entry, external entries
+- `test-validate-skill.sh` — tests/ci/test-validate-skill.sh — `validate-skill.py`: one case per rule (name and folder, description length, SemVer, line and word budgets, estimated tokens, broken links, nested references, chained references, unlinked references, duplicated headings, TODOs), `--strict`, `--json`, CRLF, usage, this checkout
 - `fakebin/gh` — tests/ci/fakebin/gh — fake `gh` that records its calls in `$GH_CALLS_LOG`; on `PATH` only inside the tag suite
 - `tests/ci/README.md` — what each suite covers and how to run them
 

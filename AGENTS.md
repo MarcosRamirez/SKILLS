@@ -9,8 +9,9 @@ are planned (SPEC-0013). The Claude Code plugin marketplace is one distribution 
 
 Managed with the senior-mindset skill. Details and reasons live in the ADRs.
 
-- **Project type:** documentation-first repo: Markdown skills, JSON manifests, one Python hook.
-  Not applicable here: database, deployment platform, API, logging, load tests (no runtime).
+- **Project type:** documentation-first repo: Markdown skills, JSON manifests, two Python scripts
+  (a hook and a validator). Not applicable here: database, deployment platform, API, logging, load
+  tests (no runtime).
 - **Distribution:** `npx skills` into the project's `.agents/skills/` plus the `.claude/skills/` bridge for Claude Code; the Claude Code plugin marketplace in `.claude-plugin/marketplace.json` (one plugin per skill) is an optional channel. See [ADR-0005](spec/adr/0005-standard-locations-first.md).
 - **Versioning:** SemVer 2.0 per skill, kept in its `SKILL.md` ([ADR-0006](spec/adr/0006-version-in-skill-md.md)); the marketplace entry repeats it (rules below).
 - **Changelog:** `CHANGELOG.md` generated with git-cliff from the commit history. See [ADR-0002](spec/adr/0002-generate-changelog-with-git-cliff.md).
@@ -65,7 +66,7 @@ follows senior-mindset's convention, which matches the emoji + Conventional Comm
   Never push to `master`, never merge a PR yourself unless asked.
 - **The only exception to "never commit on master":** `github-actions[bot]`, through
   `.github/workflows/on-merge.yml`, and only to mark specs Implemented after a merge.
-- Scopes: one per skill (`senior-mindset`, `save-image`), plus `marketplace` and `repo`.
+- Scopes: one per skill (`senior-mindset`, `save-image`, `write-skill`), plus `marketplace` and `repo`.
 
 ## Plans
 
