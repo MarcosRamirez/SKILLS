@@ -9,7 +9,7 @@ Drop a skill in, and your agent learns a new trick. No config hell.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-skills-D97757?logo=anthropic&logoColor=white)](https://claude.ai/code)
-[![Skills](https://img.shields.io/badge/skills-2-brightgreen)](#-the-skills)
+[![Skills](https://img.shields.io/badge/skills-3-brightgreen)](#-the-skills)
 [![Last commit](https://img.shields.io/github/last-commit/MarcosRamirez/SKILLS/master)](https://github.com/MarcosRamirez/SKILLS/commits/master)
 
 [The skills](#-the-skills) · [Install](#-install-in-30-seconds) · [How skills work](#-how-skills-work) · [Contributing](#-contributing)
@@ -24,6 +24,7 @@ Drop a skill in, and your agent learns a new trick. No config hell.
 |---|---|---|---|
 | 🧠 | **senior-mindset** | Claude thinks like a human senior engineer before writing a single line | [Docs](skills/senior-mindset/README.md) |
 | 🖼️ | **save-image** | Images you paste into Claude Code are saved to disk automatically | [Docs](skills/save-image/README.md) |
+| ✍️ | **write-skill** | Skills that fit the standard and stay small: triggers, one level of references, measured budgets | [Docs](skills/write-skill/README.md) |
 
 ### 🧠 senior-mindset
 
@@ -74,6 +75,26 @@ you    › any idea what's wrong?
 claude › Image saved to ~/Pictures/claude-images/2026-10-12_10-41-07_3_0.png
          The stack trace shows a null `userId` in…
 ```
+
+### ✍️ write-skill
+
+**Skills that fit the standard and stay small.** It writes the skill the way the standard
+intends: a description that triggers, a body with only the procedure, references read on
+demand, scripts for deterministic work, and budgets it measures instead of guessing. It
+reviews existing skills too, and prints `file:line` for every rule that fails.
+
+```text
+you    › create a skill that checks our OpenAPI specs before a release
+claude › Name and folder, description with triggers, body under 100 lines,
+         details in two references. 0 errors, 0 warnings.
+         Here's skills/openapi-guard/: 4 acceptance checks…
+```
+
+| Rule | Target | Hard limit |
+|---|---|---|
+| `description` | 500 chars | 1024 |
+| `SKILL.md` | 100 lines / 800 words | 500 lines / ~5000 tokens |
+| each reference | 150 lines, one topic | no chained references |
 
 ## 🚀 Install in 30 seconds
 
@@ -148,6 +169,7 @@ Skills with hooks (like save-image) need one extra step when installed by hand; 
 /plugin marketplace add MarcosRamirez/SKILLS
 /plugin install senior-mindset@marcosramirez-skills
 /plugin install save-image@marcosramirez-skills
+/plugin install write-skill@marcosramirez-skills
 ```
 
 Update later with `claude plugin marketplace update marcosramirez-skills`, then
@@ -187,7 +209,8 @@ Got a skill that makes Claude better at something? Open a PR.
 - One folder per skill under `skills/<name>/` with a `SKILL.md` and a `README.md`
 - Put the version in `metadata.version` of the `SKILL.md` frontmatter and add an entry with the same
   version in `.claude-plugin/marketplace.json` (no `.claude-plugin/` inside the skill folder)
-- Run `claude plugin validate .` and `python3 .github/scripts/check-versions.py`
+- Run `claude plugin validate .`, `python3 .github/scripts/check-versions.py` and
+  `python3 skills/write-skill/scripts/validate-skill.py skills/<name> --strict`
 - MIT license
 
 ## 👋 Author

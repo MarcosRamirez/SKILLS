@@ -31,6 +31,19 @@
       "homepage": "https://github.com/MarcosRamirez/SKILLS/tree/master/skills/senior-mindset",
       "repository": "https://github.com/MarcosRamirez/SKILLS",
       "license": "MIT"
+    },
+    {
+      "name": "write-skill",
+      "source": "./skills/write-skill",
+      "description": "Agent skills that fit the standard: a description that triggers, a short body, one level of references, budgets checked by a validator",
+      "version": "0.0.1-alpha.1",
+      "author": {
+        "name": "Marcos Ramírez",
+        "url": "https://marcosramirez.info"
+      },
+      "homepage": "https://github.com/MarcosRamirez/SKILLS/tree/master/skills/write-skill",
+      "repository": "https://github.com/MarcosRamirez/SKILLS",
+      "license": "MIT"
     }
   ]
 }

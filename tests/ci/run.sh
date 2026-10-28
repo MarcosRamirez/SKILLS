@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Runs every CI suite of the release scripts and the docs check (SPEC-0029):
+# Runs every CI suite of the release scripts, the docs checks and the skill validator (SPEC-0029,
+# SPEC-0032):
 #   bash tests/ci/run.sh
 # Each suite builds its fixtures in a temp folder and tests the scripts of this checkout.
 # Exit 0 when all pass, 1 when any fails. Suites run one after the other; a failing suite does not
@@ -7,7 +8,7 @@
 set -uo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-suites=(test-close-specs.sh test-tag-skill-releases.sh test-check-docs.sh test-check-versions.sh test-check-catalog.sh)
+suites=(test-close-specs.sh test-tag-skill-releases.sh test-check-docs.sh test-check-versions.sh test-check-catalog.sh test-validate-skill.sh)
 names=()
 results=()
 status=0

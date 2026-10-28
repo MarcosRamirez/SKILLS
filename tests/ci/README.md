@@ -1,7 +1,7 @@
 # CI tests
 
-Tests for the release scripts and the docs check (SPEC-0029). They need only `bash`, `git` and
-`python3`: no network, no model, no credentials.
+Tests for the release scripts, the docs checks and the skill validator (SPEC-0029, SPEC-0032). They
+need only `bash`, `git` and `python3`: no network, no model, no credentials.
 
 ```bash
 bash tests/ci/run.sh          # all suites, with a summary; exit 1 if any fails
@@ -19,6 +19,7 @@ repository; no global git config is needed.
 | `test-check-docs.sh` | `.github/scripts/check-docs.py` and `skills/senior-mindset/templates/docs-check/check-docs.py` | clean tree, broken links, links to superseded ADRs, links inside code fences and spans, the `adr/` folder exemption, files as arguments, `DOCS_CHECK_FILES` (template) |
 | `test-check-catalog.sh` | `.github/scripts/check-catalog.py` | a valid catalog; one case per rule: missing field, wrong type, unknown key, id and date formats, duplicate id, an id both entry and rejected, unpinned ref and version, scope flags in skill and MCP installs, a skill not installed with `npx skills`, a secret-looking string, kind mismatch, invalid JSON; this checkout |
 | `test-check-versions.sh` | `.github/scripts/check-versions.py` | marketplace entry vs `SKILL.md` name and `metadata.version`, non-SemVer and missing versions, CRLF, skill folders without an entry, external entries, this checkout |
+| `test-validate-skill.sh` | `skills/write-skill/scripts/validate-skill.py` | the standard's rules as errors (name and folder, description, SemVer, 500 lines, broken links, nested references) and this repo's budgets as warnings (100 lines, 800 words, 500-char description, 150-line references, unlinked references, TODOs), `--strict`, `--json`, CRLF, usage error, this checkout |
 
 `fakebin/gh` records its arguments in `$GH_CALLS_LOG` and does nothing else. Only the tag suite puts
 it on `PATH`, and only for the real-mode cases.
