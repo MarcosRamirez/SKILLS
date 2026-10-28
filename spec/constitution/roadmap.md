@@ -37,3 +37,4 @@ table format.
 | SPEC-0013 | Portable to other agents and open models | high | Draft | SPEC-0016, SPEC-0021 |
 | SPEC-0015 | Optional sync of specs and tasks to GitHub issues | high | Draft | SPEC-0022, SPEC-0014 |
 | SPEC-0031 | Rules that must always hold live where they are not always read | high | Draft | SPEC-0028 |
+| SPEC-0032 | write-skill: create skills within the standard's budgets | low | Approved | — |
