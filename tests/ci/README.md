@@ -19,6 +19,7 @@ repository; no global git config is needed.
 | `test-check-docs.sh` | `.github/scripts/check-docs.py` and `skills/senior-mindset/templates/docs-check/check-docs.py` | clean tree, broken links, links to superseded ADRs, links inside code fences and spans, the `adr/` folder exemption, files as arguments, `DOCS_CHECK_FILES` (template) |
 | `test-check-catalog.sh` | `.github/scripts/check-catalog.py` | a valid catalog; one case per rule: missing field, wrong type, unknown key, id and date formats, duplicate id, an id both entry and rejected, unpinned ref and version, scope flags in skill and MCP installs, a skill not installed with `npx skills`, a secret-looking string, kind mismatch, invalid JSON; this checkout |
 | `test-check-versions.sh` | `.github/scripts/check-versions.py` | marketplace entry vs `SKILL.md` name and `metadata.version`, non-SemVer and missing versions, CRLF, skill folders without an entry, external entries, this checkout |
+| `test-check-writing.sh` | `skills/better-castilian/scripts/check_writing.py` | the four characters with line and column, code fences (backtick and tilde), inline code, URLs, tilde paths, strikethrough, stdin, usage and missing file, and the SKILL.md rule that the characters appear only in the bad examples |
 
 `fakebin/gh` records its arguments in `$GH_CALLS_LOG` and does nothing else. Only the tag suite puts
 it on `PATH`, and only for the real-mode cases.

@@ -18,6 +18,7 @@ Format: `name — path — purpose — usage`.
 ## Skills (plugins)
 
 - `senior-mindset` — skills/senior-mindset/ — Claude works like a pragmatic senior engineer — `/plugin install senior-mindset@marcosramirez-skills`
+- `better-castilian` — skills/better-castilian/ — writing rules for Castilian Spanish (SPEC-0032) — `/plugin install better-castilian@marcosramirez-skills`
 - `save-image` — skills/save-image/ — saves pasted images to disk — `/plugin install save-image@marcosramirez-skills`
 
 ## senior-mindset references
@@ -75,6 +76,10 @@ Copied into app projects by the skill (`skills/senior-mindset/templates/release-
 - `docs-check/check-docs.py` — skills/senior-mindset/templates/docs-check/check-docs.py — generalised `check-docs.py` copied to `.github/scripts/` in app projects (default documents, `DOCS_CHECK_FILES` override)
 - `docs-check/checks.yml` — skills/senior-mindset/templates/docs-check/checks.yml — pull-request workflow that runs it, copied to `.github/workflows/checks.yml`
 - `tag-release.sh` — tags `v<version>` from package.json / pyproject.toml / Cargo.toml and creates the GitHub Release
+
+## better-castilian files
+
+- `check_writing.py` — skills/better-castilian/scripts/check_writing.py — reports the double tilde, simple tilde, em dash and en dash in a file or stdin (`file:line:column`), skipping code, URLs and tilde paths — `python check_writing.py FILE`; tested by `tests/ci/test-check-writing.sh`
 
 ## Hooks and scripts
 
