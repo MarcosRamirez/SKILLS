@@ -1,8 +1,8 @@
 ---
 name: better-castilian
 description: >
-  Writing rules for Castilian Spanish: no double tilde or simple tilde for "approximately",
-  use the plus-minus sign for approximate amounts, no long dash. Use whenever writing or
+  Writing rules for Castilian Spanish: no tilde for "approximately" (use words), plus-minus
+  only for tolerances, no long dash, angular quotes, numbers and units, capitals, no needless anglicisms. Use whenever writing or
   reviewing ANY text in Spanish (messages, reports, comments, posts, documentation, commit
   and pull request text), and before delivering it. Includes a checker script.
 license: MIT
@@ -21,20 +21,37 @@ Rules for any text written in Castilian Spanish. The list grows: only approved r
 ## Rules
 
 1. **No double tilde and no simple tilde to say "approximately".**
-2. **Approximate amounts use `±`**, attached to the figure: `±30 min`, `±2 h`, `±1.400 filas`.
+2. **Approximate amounts use words**: `unas`, `unos`, `aproximadamente`, `alrededor de`, `cerca de`.
+   `±` only for a tolerance or in compact notation where a word does not fit (tables, estimates
+   such as `30 min ±5`). In running text, "son unas 1.400 filas" carries no symbol.
 3. **No long dash (em dash, U+2014) and no en dash (U+2013) as a substitute.** Use a comma, a
    period, a colon, parentheses, or rewrite the sentence.
+4. **Angular quotes « » to quote**, not English double quotes.
+5. **Avoid needless anglicisms** when a common Spanish term exists (despliegue, tarea o
+   incidencia, revisión). Technical terms with no settled equivalent stay.
+6. **Numbers and units**: thousands separator point (`1.400`), decimal comma (`2,5`), a space
+   between figure and unit (`30 min`), unit symbols without a final period.
+7. **Capitals**: only the first letter in titles and headings, but proper nouns keep their
+   capital (people, places, brands, organisations, products). Months and days of the week are
+   lowercase.
+8. **Acronyms take no plural s**: `las ONG`, `los PDF`.
 
 ## Bad and good
 
 | Bad | Good |
 |---|---|
-| `Tardo ≈ 30 min` | `Tardo ±30 min` |
-| `Son ~2 h de trabajo` | `Son ±2 h de trabajo` |
-| `Unas ≈1.400 filas` | `Unas ±1.400 filas` |
+| `Tardo ≈ 30 min` | `Tardo unos 30 min` |
+| `Son ~2 h de trabajo` | `Son aproximadamente 2 h de trabajo` |
+| `Unas ≈1.400 filas` | `Son unas 1.400 filas` |
 | `El script — que ya existe — falla` | `El script (que ya existe) falla` |
 | `Hecho — falta la revisión` | `Hecho. Falta la revisión.` |
 | `Hay un fallo — la ruta es nula` | `Hay un fallo: la ruta es nula` |
+| `Dijo "no hay prisa"` | `Dijo «no hay prisa»` |
+| `Hicimos el deploy ayer` | `Hicimos el despliegue ayer` |
+| `1400 filas, 2.5 s, 30min` | `1.400 filas, 2,5 s, 30 min` |
+| `El Plan De Trabajo De Marzo` | `El plan de trabajo de marzo` |
+| `Hablé con maría en madrid` | `Hablé con María en Madrid` |
+| `Los PDFs y las ONGs` | `Los PDF y las ONG` |
 
 ## Exceptions the rules do not touch
 

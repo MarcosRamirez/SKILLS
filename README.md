@@ -65,13 +65,13 @@ claude › Before writing code, 4 quick questions (I'll remember the answers):
 
 ### ✍️ better-castilian
 
-**Writing rules for Castilian Spanish.** No double or simple tilde for "approximately", `±` for
-approximate amounts, no long dash. A small checker (`scripts/check_writing.py`) finds the offending
+**Writing rules for Castilian Spanish.** No double or simple tilde for "approximately" (words, with `±` only for
+tolerances), no long dash, angular quotes, numbers and units, capitals, no needless anglicisms. A small checker (`scripts/check_writing.py`) finds the offending
 characters and skips code, URLs and paths. The rules grow only when the owner approves them.
 
 ```text
 you    › resume el informe en castellano
-claude › Tardo ±30 min. El script (que ya existe) falla: la ruta es nula.
+claude › Tardo unos 30 min. El script (que ya existe) falla: la ruta es nula.
 ```
 
 ### 🖼️ save-image

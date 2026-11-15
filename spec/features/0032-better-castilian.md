@@ -15,9 +15,16 @@ place where such rules live, and it must be able to grow.
 **Requirements**
 - R-1 A skill `better-castilian`, loaded when writing or reviewing any Castilian text (messages,
   reports, comments, posts, documentation).
-- R-2 Rule 1: never `≈` or `~` for "approximately". Rule 2: use `±` for approximate amounts
-  (`±30 min`). Rule 3: never the em dash `—`, nor the en dash `–` as a substitute; use comma,
+- R-2 Rule 1: never `≈` or `~` for "approximately". Rule 2: approximate amounts use words
+  (`unas`, `unos`, `aproximadamente`, `alrededor de`, `cerca de`); `±` only for a tolerance or
+  compact notation where a word does not fit (`30 min ±5`). Rule 3: never the em dash `—`, nor the en dash `–` as a substitute; use comma,
   period, colon, parentheses or rewrite.
+- R-2b Rules approved by Marcos on 2026-11-15 (HLAB-581, SKILL-93), rules 4 to 8 of the skill:
+  N1 angular quotes « »; N2 avoid needless anglicisms (technical terms with no settled
+  equivalent stay); N3 numbers and units (`1.400`, `2,5`, `30 min`, unit symbols without a
+  period); N4 only the first letter in titles and headings, but proper nouns keep their capital
+  (people, places, brands, organisations, products), months and days lowercase; N5 acronyms take
+  no plural s. The checker covers rules 1 to 3 only; the rest are for the writer.
 - R-3 A short bad/good list with generic examples.
 - R-4 A checker in `scripts/` that reports `≈`, `~`, `—` and `–` with line and column, with no
   false positives in code blocks, inline code, URLs or paths such as `~/dir`.

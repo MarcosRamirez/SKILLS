@@ -12,8 +12,8 @@ import re
 import sys
 
 FORBIDDEN = {
-    "\u2248": "double tilde (use ± for approximate amounts)",
-    "~": "tilde used as approximately (use ± for approximate amounts)",
+    "\u2248": "double tilde (write unas, aproximadamente, cerca de; ± only for a tolerance)",
+    "~": "tilde used as approximately (write unas, aproximadamente, cerca de; ± only for a tolerance)",
     "\u2014": "em dash (use comma, period, colon, parentheses or rewrite)",
     "\u2013": "en dash (use comma, period, colon, parentheses or rewrite)",
 }

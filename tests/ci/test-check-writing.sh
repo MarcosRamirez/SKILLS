@@ -32,9 +32,9 @@ expect() { # expect <title> <text> <exit> [expected output, exact; omit for any]
   ok "$1"
 }
 
-expect "clean text  => no output, exit 0" 'Tardo ±30 min (más o menos).\n' 0 ""
-expect "double tilde  => line and column" 'uno\ndos ≈ 3\n' 1 't.md:2:5: ≈ double tilde (use ± for approximate amounts)'
-expect "simple tilde  => reported" 'son ~2 h\n' 1 't.md:1:5: ~ tilde used as approximately (use ± for approximate amounts)'
+expect "clean text  => no output, exit 0" 'Tardo unos 30 min ±5 (más o menos).\n' 0 ""
+expect "double tilde  => line and column" 'uno\ndos ≈ 3\n' 1 't.md:2:5: ≈ double tilde (write unas, aproximadamente, cerca de; ± only for a tolerance)'
+expect "simple tilde  => reported" 'son ~2 h\n' 1 't.md:1:5: ~ tilde used as approximately (write unas, aproximadamente, cerca de; ± only for a tolerance)'
 expect "em dash  => reported" 'a — b\n' 1 't.md:1:3: — em dash (use comma, period, colon, parentheses or rewrite)'
 expect "en dash  => reported" 'a – b\n' 1 't.md:1:3: – en dash (use comma, period, colon, parentheses or rewrite)'
 expect "all three in one file  => three lines" 'a ≈ b\nc ~ d\ne — f\n' 1
@@ -43,7 +43,7 @@ expect "URL with a tilde  => no false positive" 'https://ejemplo.org/~usuario/x\
 expect "inline code  => skipped" 'usa `a ≈ b — c ~ d` aquí\n' 0 ""
 expect "backtick fence  => skipped" 'antes\n```\na ≈ b — c ~ d\n```\ndespués\n' 0 ""
 expect "tilde fence  => skipped" '~~~\n≈ — ~\n~~~\n' 0 ""
-expect "text after a closed fence  => checked again" '```\nx\n```\ny ≈ z\n' 1 't.md:4:3: ≈ double tilde (use ± for approximate amounts)'
+expect "text after a closed fence  => checked again" '```\nx\n```\ny ≈ z\n' 1 't.md:4:3: ≈ double tilde (write unas, aproximadamente, cerca de; ± only for a tolerance)'
 expect "strikethrough  => no false positive" 'tachado ~~viejo~~ ok\n' 0 ""
 
 # arguments and stdin

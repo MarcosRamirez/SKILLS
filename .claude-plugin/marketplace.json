@@ -9,7 +9,7 @@
     {
       "name": "better-castilian",
       "source": "./skills/better-castilian",
-      "description": "Writing rules for Castilian Spanish: no tilde for approximately, plus-minus for approximate amounts, no long dash",
+      "description": "Writing rules for Castilian Spanish: no tilde for approximately (words, plus-minus only for tolerances), no long dash, angular quotes, numbers and units, capitals",
       "version": "0.0.1-alpha.1",
       "author": {
         "name": "Marcos Ramírez",
