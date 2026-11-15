@@ -9,7 +9,7 @@ Drop a skill in, and your agent learns a new trick. No config hell.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-skills-D97757?logo=anthropic&logoColor=white)](https://claude.ai/code)
-[![Skills](https://img.shields.io/badge/skills-2-brightgreen)](#-the-skills)
+[![Skills](https://img.shields.io/badge/skills-3-brightgreen)](#-the-skills)
 [![Last commit](https://img.shields.io/github/last-commit/MarcosRamirez/SKILLS/master)](https://github.com/MarcosRamirez/SKILLS/commits/master)
 
 [The skills](#-the-skills) · [Install](#-install-in-30-seconds) · [How skills work](#-how-skills-work) · [Contributing](#-contributing)
@@ -23,6 +23,7 @@ Drop a skill in, and your agent learns a new trick. No config hell.
 | | Skill | What it does | |
 |---|---|---|---|
 | 🧠 | **senior-mindset** | Claude thinks like a human senior engineer before writing a single line | [Docs](skills/senior-mindset/README.md) |
+| ✍️ | **better-castilian** | Writing rules for Castilian Spanish, with a checker script | [Docs](skills/better-castilian/README.md) |
 | 🖼️ | **save-image** | Images you paste into Claude Code are saved to disk automatically | [Docs](skills/save-image/README.md) |
 
 ### 🧠 senior-mindset
@@ -61,6 +62,17 @@ claude › Before writing code, 4 quick questions (I'll remember the answers):
 | "Is there a skill for this?" | A curated catalog of vendor-maintained skills and MCPs, proposed when the task fits, installed only if you pick them |
 | An old project nobody documented | Analysed from its files first: a verified inventory, decisions found in the code, secrets flagged by location, docs mapped without deleting anything |
 | "Which version is in production?" | `0.0.1-alpha.1` → beta → rc → `1.0.0`, numbers computed from commits |
+
+### ✍️ better-castilian
+
+**Writing rules for Castilian Spanish.** No double or simple tilde for "approximately" (words, with `±` only for
+tolerances), no long dash, angular quotes, numbers and units, capitals, no needless anglicisms. A small checker (`scripts/check_writing.py`) finds the offending
+characters and skips code, URLs and paths. The rules grow only when the owner approves them.
+
+```text
+you    › resume el informe en castellano
+claude › Tardo unos 30 min. El script (que ya existe) falla: la ruta es nula.
+```
 
 ### 🖼️ save-image
 

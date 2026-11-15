@@ -7,6 +7,19 @@
   "description": "Agent skills by Marcos Ramírez (Agent Skills standard), also installable as Claude Code plugins",
   "plugins": [
     {
+      "name": "better-castilian",
+      "source": "./skills/better-castilian",
+      "description": "Writing rules for Castilian Spanish: no tilde for approximately (words, plus-minus only for tolerances), no long dash, angular quotes, numbers and units, capitals",
+      "version": "0.0.1-alpha.1",
+      "author": {
+        "name": "Marcos Ramírez",
+        "url": "https://marcosramirez.info"
+      },
+      "homepage": "https://github.com/MarcosRamirez/SKILLS/tree/master/skills/better-castilian",
+      "repository": "https://github.com/MarcosRamirez/SKILLS",
+      "license": "MIT"
+    },
+    {
       "name": "save-image",
       "source": "./skills/save-image",
       "description": "Paste an image in Claude Code and it lands on disk automatically — no filenames, no export dialogs",
